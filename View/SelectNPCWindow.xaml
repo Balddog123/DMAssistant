@@ -1,0 +1,26 @@
+﻿<Window x:Class="DMAssistant.View.SelectNPCWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DMAssistant.View"
+        mc:Ignorable="d"
+        Title="Select NPC" Height="300" Width="300" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListBox x:Name="NPCListBox"
+                 DisplayMemberPath="Name"
+                 SelectedItem="{Binding SelectedNPC}"
+                 ItemsSource="{Binding AvailableNPCs}" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="Cancel" Width="70" Margin="0,0,5,0" Click="Cancel_Click"/>
+            <Button Content="Add" Width="70" Click="Add_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

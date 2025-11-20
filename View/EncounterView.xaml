@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="DMAssistant.View.EncounterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="900">
+
+    <Grid Margin="10">
+
+        <!-- Rows: 
+             0 - Name field (auto sized)
+             1 - Main content (remaining height)
+        -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Encounter Name Field -->
+        <TextBox Text="{Binding Name, Mode=TwoWay}"
+                 FontSize="20"
+                 FontWeight="Bold"
+                 Margin="0 0 0 10" />
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <!-- Left side: Encounter Items -->
+                <ColumnDefinition Width="0.35*" />
+                <!-- Right side: Tracker + Item Details -->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Side Column -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <!-- Encounter Item list takes 50% -->
+                    <RowDefinition Height="20" />
+                    <!-- Spacer at bottom or future buttons (optional) -->
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0">
+                    <Button Grid.Row="0" Width="74" Content="Add Monster" Margin="0,0,1,0" Command="{Binding AddMonsterCommand}"></Button>
+                    <Button Grid.Row="0" Width="63" Content="Add Event" Margin="1,0,0,0" Command="{Binding AddEventCommand}"></Button>
+                    <Button Grid.Row="0" Width="72" Content="Run!" Margin="1,0,0,0" Command="{Binding RunEncounterCommand}"></Button>
+                </DockPanel>
+                
+                <!-- EncounterItems list -->
+                <ListView Grid.Row="1" ItemsSource="{Binding EncounterItems}" SelectedItem="{Binding SelectedItem}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Amount" Width="50" DisplayMemberBinding="{Binding QuantityDisplay}" />
+                            <GridViewColumn Header="Round#" Width="50" DisplayMemberBinding="{Binding RoundNumber}" />
+                            <GridViewColumn Header="Type" Width="50" DisplayMemberBinding="{Binding TypeName}" />
+                            <GridViewColumn Header="" Width="40">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                CommandParameter="{Binding}"
+                                Width="20" Height="20">
+                                            <Image Source="pack://application:,,,/Resources/icon-delete.png"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+
+
+            </Grid>
+
+            <!-- Right Side Column -->
+            <Grid Grid.Column="1" Margin="10 0 0 0">
+                <Grid.RowDefinitions>
+                    <!-- Combat Tracker, top half -->
+                    <RowDefinition Height="*" />
+                    <!-- Item details, bottom half -->
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Combat Tracker control placeholder -->
+                <Border Grid.Row="0" 
+                        BorderBrush="#CCCCCC" BorderThickness="1"
+                        Background="#FAFAFA"
+                        Padding="10">
+                    <ContentControl Content="{Binding CurrentCombat}" />
+                </Border>
+
+                <!-- EncounterItem Details control placeholder -->
+                <Border Grid.Row="1"
+                        BorderBrush="#CCCCCC" BorderThickness="1"
+                        Background="#FFFFFF"
+                        Padding="10"
+                        Margin="0 10 0 0">
+                    <ContentControl Content="{Binding SelectedEncounterItemViewModel}" />
+                </Border>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+
+</UserControl>

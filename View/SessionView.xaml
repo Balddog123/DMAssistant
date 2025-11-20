@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="DMAssistant.View.SessionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:v="clr-namespace:DMAssistant.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- LEFT: Session list -->
+        <StackPanel Grid.Column="0">
+            <Button Content="New Session" Command="{Binding AddSessionCommand}" Margin="5"/>
+            <ListBox ItemsSource="{Binding Sessions}" 
+                     SelectedItem="{Binding SelectedSession}" 
+                     DisplayMemberPath="Name"
+                     Background="#EEE"
+                     Margin="5"/>
+        </StackPanel>
+
+        <!-- RIGHT: Session editor -->
+        <DockPanel Grid.Column="1" Margin="5" LastChildFill="True">
+
+            <!-- Session Name -->
+            <TextBox DockPanel.Dock="Top"
+                     Text="{Binding SelectedSession.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     FontSize="18"
+                     FontWeight="Bold"
+                     Margin="0,0,0,10"
+                     IsEnabled="{Binding SelectedSession, Converter={StaticResource NullToBoolConverter}}"/>
+
+            <!-- TabControl fills remaining space automatically -->
+            <TabControl>
+
+                <TabItem Header="Scenes">
+                    <TextBox Text="{Binding SceneText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" />
+                </TabItem>
+
+                <TabItem Header="Secrets">
+                    <StackPanel>
+
+                        <!-- Add new secret -->
+                        <Button Content="Add Secret"
+                Width="100"
+                Margin="0,0,0,8"
+                Command="{Binding AddSecretCommand}" />
+
+                        <ItemsControl ItemsSource="{Binding Secrets}" AlternationCount="1000">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="0,4">
+                                        <!-- Number prefix -->
+                                        <TextBlock Margin="0,0,4,0">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0}. ">
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=ContentPresenter}"
+                                                                Path="(ItemsControl.AlternationIndex)" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                        <!-- Checkbox -->
+                                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" />
+                                        
+                                        <!-- Editable text -->
+                                        <TextBox Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="6,0,6,0"
+                                                 Width="Auto" MinWidth="250" />
+
+                                        <!-- Delete button -->
+                                        <Button Content="X" 
+                                                Command="{Binding DataContext.RemoveSecretCommand,
+                                                        RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </StackPanel>
+                </TabItem>
+
+
+
+                <TabItem Header="Locations">
+                    <v:LocationPanelView DataContext="{Binding LocationPanel}"/>
+                </TabItem>
+
+                <TabItem Header="NPCs">
+                    <v:NPCPanelView DataContext="{Binding NPCPanel}" />
+                </TabItem>
+
+                <TabItem Header="Items">
+                    <v:ItemPanelView DataContext="{Binding ItemPanel}"/>
+                </TabItem>
+
+                <TabItem Header="Encounters">
+                    <v:EncountersPanelView DataContext="{Binding EncountersPanel}"/>
+                </TabItem>
+
+                <TabItem Header="Notes">
+                    <TextBox Text="{Binding NotesText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" />
+                </TabItem>
+
+            </TabControl>
+
+        </DockPanel>
+
+    </Grid>
+</UserControl>

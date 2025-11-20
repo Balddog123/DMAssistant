@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="DMAssistant.View.NPCPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:v="clr-namespace:DMAssistant.View"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Margin="10">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <!-- left list -->
+            <ColumnDefinition Width="*"/>
+            <!-- right details -->
+        </Grid.ColumnDefinitions>
+
+        <!-- ================= LEFT SIDE ================= -->
+        <StackPanel Grid.Column="0">
+
+            <!-- Add New NPC -->
+            <Button Content="New NPC"
+                    Command="{Binding AddNPCCommand}"
+                    Margin="0,0,0,10"/>
+            <!-- Add Existing NPC -->
+            <Button Content="Add Existing NPC"
+                    Command="{Binding AddExistingNPCCommand}"
+                    Margin="0,0,0,10"/>
+
+            <TextBlock Text="NPCs" FontWeight="Bold" Margin="0,0,0,5"/>
+
+            <ListBox ItemsSource="{Binding NPCList}"
+                     SelectedItem="{Binding SelectedNPC}"
+                     DisplayMemberPath="Name"
+                     Margin="0,5,10,0"/>
+        </StackPanel>
+
+
+        <!-- ================= RIGHT SIDE (NPC Detail View) ================= -->
+        <ContentControl Grid.Column="1"
+                        Content="{Binding SelectedNPCViewModel}" />
+
+    </Grid>
+</UserControl>

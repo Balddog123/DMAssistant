@@ -1,0 +1,120 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\monsters.json" />
+    <None Remove="Data\Music\05_New Messiah [Glass Castle]-edited.mp3" />
+    <None Remove="Data\Music\07_Evil Gods [Boss].mp3" />
+    <None Remove="Data\Music\short.mp3" />
+    <None Remove="Data\Music\Skyrim - Music &amp; Ambience - Night - Everness %28youtube%29.mp3" />
+    <None Remove="Resources\grid2000.png" />
+    <None Remove="Resources\icon-add.png" />
+    <None Remove="Resources\icon-addtoplaylist.png" />
+    <None Remove="Resources\icon-arrow.png" />
+    <None Remove="Resources\icon-close.png" />
+    <None Remove="Resources\icon-delete.png" />
+    <None Remove="Resources\icon-edit.png" />
+    <None Remove="Resources\icon-editfree.png" />
+    <None Remove="Resources\icon-editnote.png" />
+    <None Remove="Resources\icon-editsquare.png" />
+    <None Remove="Resources\icon-erase.png" />
+    <None Remove="Resources\icon-loop.png" />
+    <None Remove="Resources\icon-pause.png" />
+    <None Remove="Resources\icon-play.png" />
+    <None Remove="Resources\icon-refresh.png" />
+    <None Remove="Resources\icon-save.png" />
+    <None Remove="Resources\icon-search.png" />
+    <None Remove="Resources\icon-square.cur" />
+    <None Remove="Resources\icon-square.png" />
+    <None Remove="Resources\icon-stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\monsters.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Music\Skyrim - Music &amp; Ambience - Night - Everness (youtube).mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\grid2000.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-add.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-addtoplaylist.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-arrow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-close.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-delete.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-edit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-editfree.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-editnote.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-editsquare.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-erase.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-loop.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-pause.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-play.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-refresh.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-save.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-search.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-square.cur">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-square.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-stop.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Ambience\" />
+    <Folder Include="Data\SFX\" />
+  </ItemGroup>
+
+</Project>

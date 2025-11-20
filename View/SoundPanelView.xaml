@@ -1,0 +1,256 @@
+﻿<UserControl x:Class="DMAssistant.View.SoundPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DMAssistant.View"
+             xmlns:h="clr-namespace:DMAssistant.Helpers"
+             xmlns:model="clr-namespace:DMAssistant.Model"
+             xmlns:primitives="clr-namespace:System.Windows.Controls.Primitives;assembly=PresentationFramework"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="3" Margin="5">
+            <StackPanel>
+                <Button Content="Library" Command="{Binding ShowLibraryCommand}"/>
+                <Button Content="Playlists" Command="{Binding ShowPlaylistsCommand}"/>
+                <Button Content="Queue" Command="{Binding ShowQueueCommand}"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="3" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!-- Audio Player -->
+                <Border Grid.Row="0" BorderThickness="2" BorderBrush="Black" Background="Gray">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Button Command="{Binding PlayCommand}" Background="Transparent" BorderThickness="0">
+                            <Image Source="pack://application:,,,/Resources/icon-play.png"/>
+                        </Button>
+                        <Button Command="{Binding PauseCommand}" Background="Transparent" BorderThickness="0">
+                            <Image Source="pack://application:,,,/Resources/icon-pause.png"/>
+                        </Button>
+                        <Button Command="{Binding StopCommand}" Background="Transparent" BorderThickness="0">
+                            <Image Source="pack://application:,,,/Resources/icon-stop.png"/>
+                        </Button>
+                        <Button Command="{Binding LoopCommand}" Background="Transparent" BorderBrush="Black" BorderThickness="{Binding LoopThickness}">
+                            <Image Source="pack://application:,,,/Resources/icon-loop.png"/>
+                        </Button>
+
+                        <StackPanel Margin="5,0,5,0" >
+                            <Slider Width="300"
+                                    Minimum="0"
+                                    Maximum="{Binding Duration}"
+                                    Value="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    IsMoveToPointEnabled="True"
+                                    primitives:Thumb.DragStarted="Slider_DragEnter"
+                                    primitives:Thumb.DragCompleted="Slider_DragLeave"/>
+                            <TextBlock Text="{Binding PositionDisplay}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        
+                        <TextBlock Text="{Binding PlayingAudio.File.FileName}"/>
+                        <Slider Margin="50,0,0,0" 
+                                Width="100"
+                                Minimum="0.0"
+                                Maximum="1.0"
+                                Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <!-- Media Element -->
+                        <MediaElement x:Name="Player"
+                                LoadedBehavior="Manual"
+                                UnloadedBehavior="Manual"
+                                MediaOpened="Player_MediaOpened"
+                                MediaEnded="Player_MediaEnded" Visibility="Collapsed" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Library -->
+                <Grid x:Name="Library" Grid.Row="1" Visibility="{Binding LibraryVisibility}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Library" FontWeight="Bold" Grid.Row="0"/>
+
+                    <ToolBar Height="35" Grid.Row="1">
+                        <Button Command="{Binding LoadDirectoryCommand}"  Margin="0,5,0,0">
+                            <Image MinWidth ="20" MinHeight="20" Source="pack://application:,,,/Resources/icon-refresh.png" />
+                        </Button>
+                    </ToolBar>
+
+                    <ListBox Grid.Row="2"
+                             ItemsSource="{Binding AudioFiles}"
+                             SelectedItem="{Binding SelectedAudio}"
+                             MouseDoubleClick="AudioList_DoubleClick">
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Audio File Name -->
+                                    <TextBlock Text="{Binding FileName}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+
+                                    <!-- +Playlist button -->
+                                    <Button Grid.Column="1"
+                                            Height="22"
+                                            Padding="0"
+                                            HorizontalAlignment="Right"
+                                            Margin="0,0,5,0"
+                                            Command="{Binding DataContext.ShowPlaylistPopupCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}}" >
+                                        <Image Source="pack://application:,,,/Resources/icon-addtoplaylist.png"/>
+                                    </Button>
+                                    <!-- +Queue button -->
+                                    <Button Grid.Column="2"
+                                            Height="22"
+                                            Padding="0"
+                                            HorizontalAlignment="Right"
+                                            Command="{Binding DataContext.AddToQueue, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}" >
+                                        <Image Source="pack://application:,,,/Resources/icon-add.png"/>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+
+                    
+                </Grid>
+
+                <!-- Playlists -->
+                <StackPanel x:Name="Playlists" Grid.Row="1" Margin="10,0,0,0" Visibility="{Binding PlaylistsVisibility}">
+
+                    <TextBlock Text="Playlists" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                    <!-- Create Playlist Square Button -->
+                    <Button HorizontalAlignment="Left" Width="80" Height="80" Command="{Binding CreatePlaylistCommand}" Margin="5">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="+" FontSize="28"  HorizontalAlignment="Center"/>
+                            <TextBlock Text="New" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Playlist Buttons Grid -->
+                    <ItemsControl ItemsSource="{Binding Playlists}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Width="80" Height="80" Margin="5"
+                                        Command="{Binding DataContext.PlayPlaylistCommand, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                                        CommandParameter="{Binding}">
+                                    <TextBlock Text="{Binding Name}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               TextWrapping="Wrap"/>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <!-- Queue -->
+                <Grid x:Name="Queue" Grid.Row="1" Visibility="{Binding QueueVisibility}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Queue" FontWeight="Bold" Grid.Row="0"/>
+
+                    <ToolBar Height="35" Grid.Row="1">
+                        <Button Command="{Binding ClearQueueCommand}" BorderThickness="0">
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image MinWidth ="20" MinHeight="20" Source="pack://application:,,,/Resources/icon-delete.png" />
+                                    <TextBlock Text=" Clear " VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            
+                        </Button>
+                        
+                        
+                    </ToolBar>
+
+                    <ListBox Grid.Row="2"
+                             ItemsSource="{Binding AudioQueue}"
+                             SelectedItem="{Binding SelectedAudio}"
+                             MouseDoubleClick="AudioList_DoubleClick">
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Audio File Name -->
+                                    <TextBlock Text="{Binding File.FileName}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+
+                                    <Button Grid.Column="1"
+                                            Height="22"
+                                            Padding="0"
+                                            HorizontalAlignment="Right"
+                                            Margin="0,0,5,0"
+                                            Command="{Binding DataContext.RemoveFromQueueCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding Id}" >
+                                        <Image Source="pack://application:,,,/Resources/icon-close.png"/>
+                                    </Button>
+                                    <Button Grid.Column="2"
+                                            Height="22"
+                                            Padding="0"
+                                            HorizontalAlignment="Right"
+                                            Command="{Binding DataContext.ShowPlaylistPopupCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}}" >
+                                        <Image Source="pack://application:,,,/Resources/icon-addtoplaylist.png"/>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+                </Grid>
+            </Grid>
+
+        </Border>
+
+
+        <!-- Popup -->
+        <Popup x:Name="PlaylistPopup" IsOpen="{Binding IsPlaylistPopupOpen}" StaysOpen="False" Placement="Left" PlacementTarget="{Binding PopupPlacementTarget}">
+
+            <Border Background="White" BorderBrush="Gray" BorderThickness="1" Padding="5">
+                <ListBox ItemsSource="{Binding Playlists}" SelectedItem="{Binding SelectedPlaylist}" HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Name}" Command="{Binding DataContext.AddToPlaylistCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

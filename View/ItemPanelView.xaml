@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="DMAssistant.View.ItemPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DMAssistant.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="10">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <!-- item list -->
+            <ColumnDefinition Width="*"/>
+            <!-- detail view -->
+        </Grid.ColumnDefinitions>
+
+        <!-- LEFT: Item List + Add Button -->
+        <StackPanel Grid.Column="0">
+
+            <Button Content="New Item"
+                    Command="{Binding AddItemCommand}"
+                    Margin="0,0,0,10"/>
+            <Button Content="Add Existing Item"
+                    Command="{Binding AddExistingItemCommand}"
+                    Margin="0,0,0,10"/>
+
+            <TextBlock Text="Items" FontWeight="Bold" Margin="0,0,0,5"/>
+
+            <ListBox ItemsSource="{Binding ItemList}"
+                     SelectedItem="{Binding SelectedItem}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <!-- Remove button -->
+                            <Button Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,0,0,0"
+                                    DockPanel.Dock="Right">
+                                <Image Source="pack://application:,,,/Resources/icon-delete.png"/>
+                            </Button>
+                            <TextBlock Text="{Binding DisplayName}" />
+                        </DockPanel>
+                        
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+        </StackPanel>
+
+        <!-- RIGHT: Item Detail View -->
+        <ContentControl Grid.Column="1"
+                        Content="{Binding SelectedItemViewModel}" />
+
+    </Grid>
+</UserControl>

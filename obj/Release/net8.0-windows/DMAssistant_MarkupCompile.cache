@@ -1,0 +1,20 @@
+﻿DMAssistant
+
+
+winexe
+C#
+.cs
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\obj\Release\net8.0-windows\
+DMAssistant
+none
+false
+TRACE;RELEASE;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\App.xaml
+10821673029
+1591661194
+39279671910
+199674483537
+View\CampaignView.xaml;View\ItemPanelView.xaml;View\ItemView.xaml;View\MainWindow.xaml;View\MonsterPanelView.xaml;View\MonsterView.xaml;View\NPCPanelView.xaml;View\NPCView.xaml;View\SelectNPCWindow.xaml;View\SessionView.xaml;
+
+False
+
