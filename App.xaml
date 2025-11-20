@@ -8,80 +8,102 @@
              StartupUri="View/MainWindow.xaml">
 
     <Application.Resources>
+        <ResourceDictionary>
+            <!-- Merge external styles first -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <!-- NPC DataTemplate -->
-        <DataTemplate DataType="{x:Type vm:NPCViewModel}">
-            <v:NPCView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:NPCPanelViewModel}">
-            <v:NPCPanelView />
-        </DataTemplate>
-        <!-- Items -->
-        <DataTemplate DataType="{x:Type vm:ItemViewModel}">
-            <v:ItemView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:ItemPanelViewModel}">
-            <v:ItemPanelView />
-        </DataTemplate>
-        <!-- Monsters -->
-        <DataTemplate DataType="{x:Type vm:MonsterPanelViewModel}">
-            <v:MonsterPanelView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:MonsterViewModel}">
-            <v:MonsterView />
-        </DataTemplate>
-        <!-- Locations -->
-        <DataTemplate DataType="{x:Type vm:LocationPanelViewModel}">
-            <v:LocationPanelView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:LocationViewModel}">
-            <v:LocationView />
-        </DataTemplate>
-        <!-- Campaign Notes Panel -->
-        <DataTemplate DataType="{x:Type vm:CampaignNotesViewModel}">
-            <v:CampaignNotesView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:WorldMapViewModel}">
-            <v:WorldMapView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:SoundPanelViewModel}">
-            <v:SoundPanelView/>
-        </DataTemplate>        
-        <!-- Lore Panel -->
-        <DataTemplate DataType="{x:Type vm:CampaignLoreViewModel}">
-            <v:CampaignLoreView/>
-        </DataTemplate>
-        <!-- PCs Panel -->
-        <DataTemplate DataType="{x:Type vm:CampaignPCViewModel}">
-            <v:CampaignPCView />
-        </DataTemplate>
-        <!-- Fronts Panel -->
-        <DataTemplate DataType="{x:Type vm:CampaignFrontsViewModel}">
-            <v:CampaignFrontsView />
-        </DataTemplate>
-        <!-- Campaign Panel -->
-        <DataTemplate DataType="{x:Type vm:CampaignViewModel}">
-            <v:CampaignView />
-        </DataTemplate>
-        <!-- Sessions Panel -->
-        <DataTemplate DataType="{x:Type vm:SessionViewModel}">
-            <v:SessionView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:EncountersPanelViewModel}">
-            <v:EncountersPanelView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:EncounterViewModel}">
-            <v:EncounterView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:EncounterItemViewModel}">
-            <v:EncounterItemView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:CombatTrackerViewModel}">
-            <v:CombatTrackerView />
-        </DataTemplate>
+            <!-- NPC DataTemplates -->
+            <DataTemplate DataType="{x:Type vm:NPCViewModel}">
+                <v:NPCView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:NPCPanelViewModel}">
+                <v:NPCPanelView />
+            </DataTemplate>
 
-        <rc:NullToBoolConverter x:Key="NullToBoolConverter"/>
-        <rc:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter" />
+            <!-- Items -->
+            <DataTemplate DataType="{x:Type vm:ItemViewModel}">
+                <v:ItemView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ItemPanelViewModel}">
+                <v:ItemPanelView />
+            </DataTemplate>
 
+            <!-- Monsters -->
+            <DataTemplate DataType="{x:Type vm:MonsterPanelViewModel}">
+                <v:MonsterPanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:MonsterViewModel}">
+                <v:MonsterView />
+            </DataTemplate>
+
+            <!-- Locations -->
+            <DataTemplate DataType="{x:Type vm:LocationPanelViewModel}">
+                <v:LocationPanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:LocationViewModel}">
+                <v:LocationView />
+            </DataTemplate>
+
+            <!-- Campaign Notes Panel -->
+            <DataTemplate DataType="{x:Type vm:CampaignNotesViewModel}">
+                <v:CampaignNotesView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:WorldMapViewModel}">
+                <v:WorldMapView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SoundPanelViewModel}">
+                <v:SoundPanelView/>
+            </DataTemplate>
+
+            <!-- Lore Panel -->
+            <DataTemplate DataType="{x:Type vm:CampaignLoreViewModel}">
+                <v:CampaignLoreView/>
+            </DataTemplate>
+
+            <!-- PCs Panel -->
+            <DataTemplate DataType="{x:Type vm:CampaignPCViewModel}">
+                <v:CampaignPCView />
+            </DataTemplate>
+
+            <!-- Fronts Panel -->
+            <DataTemplate DataType="{x:Type vm:CampaignFrontsViewModel}">
+                <v:CampaignFrontsView />
+            </DataTemplate>
+
+            <!-- Campaign Panel -->
+            <DataTemplate DataType="{x:Type vm:CampaignViewModel}">
+                <v:CampaignView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CampaignDetailsViewModel}">
+                <v:CampaignDetailsView />
+            </DataTemplate>
+
+            <!-- Sessions Panel -->
+            <DataTemplate DataType="{x:Type vm:SessionViewModel}">
+                <v:SessionView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EncountersPanelViewModel}">
+                <v:EncountersPanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EncounterViewModel}">
+                <v:EncounterView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EncounterItemViewModel}">
+                <v:EncounterItemView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CombatTrackerViewModel}">
+                <v:CombatTrackerView />
+            </DataTemplate>
+
+            <!-- Converters -->
+            <rc:NullToBoolConverter x:Key="NullToBoolConverter"/>
+            <rc:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter" />
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

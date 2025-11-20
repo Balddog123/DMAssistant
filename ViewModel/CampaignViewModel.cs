@@ -31,10 +31,10 @@ namespace DMAssistant.ViewModel
         public RelayCommand ShowFrontsCommand { get; }
         public RelayCommand ShowLocationsCommand { get; }
         public RelayCommand ShowWorldMapCommand { get; }
+        public RelayCommand ShowCampaignDetails { get; }
         public CampaignViewModel()
         {
-            AccumulateIds();
-
+            ShowCampaignDetails = new RelayCommand(() => CurrentModuleView = new CampaignDetailsViewModel());
             ShowNPCsCommand = new RelayCommand(() => CurrentModuleView = new NPCPanelViewModel(_npcIds, null));
             ShowItemsCommand = new RelayCommand(() => CurrentModuleView = new ItemPanelViewModel(_itemIds, null));
             ShowMonstersCommand = new RelayCommand(() => CurrentModuleView = new MonsterPanelViewModel(_monsterIds, null));

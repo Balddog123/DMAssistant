@@ -78,3 +78,11 @@ E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\obj\Debug\net8.0-windo
 E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\obj\Debug\net8.0-windows\View\EncounterItemView.baml
 E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\obj\Debug\net8.0-windows\View\CombatTrackerView.g.cs
 E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\obj\Debug\net8.0-windows\View\CombatTrackerView.baml
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\obj\Debug\net8.0-windows\Styles\ButtonStyle.baml
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\bin\Debug\net8.0-windows\ControlzEx.dll
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\bin\Debug\net8.0-windows\MahApps.Metro.dll
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\bin\Debug\net8.0-windows\de\MahApps.Metro.resources.dll
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\obj\Debug\net8.0-windows\DMAssistant.sourcelink.json
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\obj\Debug\net8.0-windows\View\CampaignDetailsView.g.cs
+E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\obj\Debug\net8.0-windows\View\CampaignDetailsView.baml

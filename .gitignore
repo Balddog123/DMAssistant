@@ -42,6 +42,9 @@ obj/x64/
 obj/x86/
 
 #bin/
+[Rr]elease/Data/Music/
+[Rr]elease/Data/Ambience/
+[Rr]elease/Data/SFX/
 
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 E:\David Shurtleff\Documents\apps\DMAssistant\DMAssistant\App.xaml
-271646031622
+291426705616
 2-615210022
-841654649361
-199674483537
-View\CampaignFrontsView.xaml;View\CampaignLoreView.xaml;View\CampaignNotesView.xaml;View\CampaignPCView.xaml;View\CampaignView.xaml;View\CombatTrackerView.xaml;View\EncounterItemView.xaml;View\EncountersPanelView.xaml;View\EncounterView.xaml;View\ItemPanelView.xaml;View\ItemView.xaml;View\LocationPanelView.xaml;View\LocationView.xaml;View\MainWindow.xaml;View\MapWindow.xaml;View\MonsterPanelView.xaml;View\MonsterView.xaml;View\NoteBox.xaml;View\NPCPanelView.xaml;View\NPCView.xaml;View\SelectItemWindow.xaml;View\SelectLocationWindow.xaml;View\SelectMonsterWindow.xaml;View\SelectNPCWindow.xaml;View\SessionView.xaml;View\SoundPanelView.xaml;View\WorldMapView.xaml;
+89-1175187145
+202-639986811
+Styles\ButtonStyle.xaml;View\CampaignDetailsView.xaml;View\CampaignFrontsView.xaml;View\CampaignLoreView.xaml;View\CampaignNotesView.xaml;View\CampaignPCView.xaml;View\CampaignView.xaml;View\CombatTrackerView.xaml;View\EncounterItemView.xaml;View\EncountersPanelView.xaml;View\EncounterView.xaml;View\ItemPanelView.xaml;View\ItemView.xaml;View\LocationPanelView.xaml;View\LocationView.xaml;View\MainWindow.xaml;View\MapWindow.xaml;View\MonsterPanelView.xaml;View\MonsterView.xaml;View\NoteBox.xaml;View\NPCPanelView.xaml;View\NPCView.xaml;View\SelectItemWindow.xaml;View\SelectLocationWindow.xaml;View\SelectMonsterWindow.xaml;View\SelectNPCWindow.xaml;View\SessionView.xaml;View\SoundPanelView.xaml;View\WorldMapView.xaml;
 
 False
 

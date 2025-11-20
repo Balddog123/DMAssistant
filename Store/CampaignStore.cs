@@ -32,13 +32,16 @@ namespace DMAssistant.Services
 
         public CampaignStore()
         {
-            Campaign? loaded = CampaignSerializer.LoadCampaign();
+        }
 
+        public void StoreCampaign(Campaign? campaign = null)
+        {
+            Campaign? loaded = campaign;
             if (loaded == null)
             {
                 loaded = new Campaign();
                 loaded.SetMonsters(new ObservableCollection<Monster>(MonsterRepository.GetAllMonsters()));
-                CampaignSerializer.SaveCampaign(loaded);
+                //CampaignSerializer.SaveCampaign(loaded);
             }
             else
             {
@@ -46,7 +49,7 @@ namespace DMAssistant.Services
                 if (loaded.WorldMap == null) loaded.WorldMap = new Map();
             }
 
-                MonsterIndex = loaded.Monsters.ToDictionary(m => m.ID, m => m);
+            MonsterIndex = loaded.Monsters.ToDictionary(m => m.ID, m => m);
             NPCIndex = loaded.NPCs.ToDictionary(m => m.ID, m => m);
             ItemIndex = loaded.Items.ToDictionary(m => m.ID, m => m);
             LocationIndex = loaded.Locations.ToDictionary(m => m.ID, m => m);

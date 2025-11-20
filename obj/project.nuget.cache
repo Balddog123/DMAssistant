@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "ZdExrFjCoxc=",
+  "dgSpecHash": "SSzutD3C3NI=",
   "success": true,
   "projectFilePath": "E:\\David Shurtleff\\Documents\\apps\\DMAssistant\\DMAssistant\\DMAssistant.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\David Shurtleff\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512"
+    "C:\\Users\\David Shurtleff\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
+    "C:\\Users\\David Shurtleff\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
+    "C:\\Users\\David Shurtleff\\.nuget\\packages\\mahapps.metro\\2.4.11\\mahapps.metro.2.4.11.nupkg.sha512",
+    "C:\\Users\\David Shurtleff\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.19\\microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512",
+    "C:\\Users\\David Shurtleff\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
   ],
   "logs": []
 }

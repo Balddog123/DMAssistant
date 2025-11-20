@@ -10,6 +10,7 @@ namespace DMAssistant.Model
 {
     public class Campaign
     {
+        public string Name { get; set; } = "Campaign-" + Guid.NewGuid().ToString();
         public ObservableCollection<Session> Sessions { get; set; } = new();
         public ObservableCollection<NPC> NPCs { get; set; } = new();
         public ObservableCollection<Item> Items { get; set; } = new();
