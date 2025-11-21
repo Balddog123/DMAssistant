@@ -245,25 +245,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\David Shurtleff\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\R2ATLTOP\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\David Shurtleff\\Documents\\apps\\DMAssistant\\DMAssistant\\DMAssistant.csproj",
+      "projectUniqueName": "C:\\Users\\R2ATLTOP\\Documents\\!DMAssistant\\DMAssistant.csproj",
       "projectName": "DMAssistant",
-      "projectPath": "E:\\David Shurtleff\\Documents\\apps\\DMAssistant\\DMAssistant\\DMAssistant.csproj",
-      "packagesPath": "C:\\Users\\David Shurtleff\\.nuget\\packages\\",
-      "outputPath": "E:\\David Shurtleff\\Documents\\apps\\DMAssistant\\DMAssistant\\obj\\",
+      "projectPath": "C:\\Users\\R2ATLTOP\\Documents\\!DMAssistant\\DMAssistant.csproj",
+      "packagesPath": "C:\\Users\\R2ATLTOP\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\R2ATLTOP\\Documents\\!DMAssistant\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\David Shurtleff\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\R2ATLTOP\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -272,6 +270,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -324,7 +323,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

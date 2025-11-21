@@ -85,6 +85,7 @@ namespace DMAssistant.ViewModel
 
         private void RunEncounter()
         {
+            Encounter.CurrentRound = 0;
             CombatTrackerViewModel newCombat = new CombatTrackerViewModel(Encounter, null);
             CurrentCombat = newCombat;
         }

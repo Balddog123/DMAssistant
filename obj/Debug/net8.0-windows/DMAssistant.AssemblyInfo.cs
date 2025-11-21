@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DMAssistant")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cfe9975d7136c6eb275444baf8fb713d1d2a25a9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9d7714dd40639fe3538e65ae8e4c5c80ddc2701")]
 [assembly: System.Reflection.AssemblyProductAttribute("DMAssistant")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DMAssistant")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

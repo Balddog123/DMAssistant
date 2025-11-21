@@ -34,6 +34,7 @@ namespace DMAssistant.ViewModel
         public RelayCommand ShowCampaignDetails { get; }
         public CampaignViewModel()
         {
+            AccumulateIds();
             ShowCampaignDetails = new RelayCommand(() => CurrentModuleView = new CampaignDetailsViewModel());
             ShowNPCsCommand = new RelayCommand(() => CurrentModuleView = new NPCPanelViewModel(_npcIds, null));
             ShowItemsCommand = new RelayCommand(() => CurrentModuleView = new ItemPanelViewModel(_itemIds, null));

@@ -9,7 +9,5 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/monsters.json")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/music/skyrim%20-%20music%20&%20ambience%20-%20night%20-%20everness%20(youtub" +
-    "e).mp3")]
 
 

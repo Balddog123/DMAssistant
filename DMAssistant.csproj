@@ -38,10 +38,7 @@
 
   <ItemGroup>
     <Content Include="Data\monsters.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Music\Skyrim - Music &amp; Ambience - Night - Everness (youtube).mp3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -115,6 +112,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Ambience\" />
+    <Folder Include="Data\Music\" />
     <Folder Include="Data\SFX\" />
   </ItemGroup>
 

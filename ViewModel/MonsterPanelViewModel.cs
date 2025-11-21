@@ -17,6 +17,8 @@ namespace DMAssistant.ViewModel
         public ICollectionView MonsterView { get; }
         public Session _session { get; private set; }
         public ObservableCollection<Monster> AllMonsters { get; private set; }
+        public ObservableCollection<Monster> AllCreatureTypes { get; private set; }
+        public ObservableCollection<Monster> AllCRs { get; private set; }
 
         // This is the list of IDs stored in the Session
         private readonly ObservableCollection<string> _sessionMonsterIds;
@@ -106,6 +108,7 @@ namespace DMAssistant.ViewModel
 
             MonsterView = CollectionViewSource.GetDefaultView(AllMonsters);
             MonsterView.Filter = FilterMonster;
+            ApplyFilters();
 
             AddNewMonsterCommand = new RelayCommand(AddNewMonster);
             AddExistingMonsterCommand = new RelayCommand(AddExistingMonster);

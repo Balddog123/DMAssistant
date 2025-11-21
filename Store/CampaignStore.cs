@@ -5,6 +5,7 @@ using DMAssistant.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,24 +37,24 @@ namespace DMAssistant.Services
 
         public void StoreCampaign(Campaign? campaign = null)
         {
-            Campaign? loaded = campaign;
-            if (loaded == null)
+            if (campaign == null)
             {
-                loaded = new Campaign();
-                loaded.SetMonsters(new ObservableCollection<Monster>(MonsterRepository.GetAllMonsters()));
-                //CampaignSerializer.SaveCampaign(loaded);
+                campaign = new Campaign();
             }
             else
             {
                 //checks to update old data
-                if (loaded.WorldMap == null) loaded.WorldMap = new Map();
+                if (campaign.WorldMap == null) campaign.WorldMap = new Map();
             }
 
-            MonsterIndex = loaded.Monsters.ToDictionary(m => m.ID, m => m);
-            NPCIndex = loaded.NPCs.ToDictionary(m => m.ID, m => m);
-            ItemIndex = loaded.Items.ToDictionary(m => m.ID, m => m);
-            LocationIndex = loaded.Locations.ToDictionary(m => m.ID, m => m);
-            CurrentCampaign = loaded;
+            if (campaign.Monsters.Count < 100) campaign.SetMonsters(new ObservableCollection<Monster>(MonsterRepository.GetAllMonsters()));
+            Debug.WriteLine(campaign.Monsters.Count);
+
+            MonsterIndex = campaign.Monsters.ToDictionary(m => m.ID, m => m);
+            NPCIndex = campaign.NPCs.ToDictionary(m => m.ID, m => m);
+            ItemIndex = campaign.Items.ToDictionary(m => m.ID, m => m);
+            LocationIndex = campaign.Locations.ToDictionary(m => m.ID, m => m);
+            CurrentCampaign = campaign;
         }
 
         public void DeleteLocation(Location location, Session removeFromSession)

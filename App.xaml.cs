@@ -28,15 +28,20 @@ namespace DMAssistant
 
             CampaignStore = new CampaignStore();
 
-            Campaign? campaign = new Campaign();
             if (SettingsStore.Settings.LastCampaignFilePath != string.Empty)
             {
                 Debug.WriteLine($"Attempting to fetch: {SettingsStore.Settings.LastCampaignFilePath}");
-                campaign = CampaignSerializer.LoadCampaign(SettingsStore.Settings.LastCampaignFilePath + ".json");
+                Campaign? campaign = CampaignSerializer.LoadCampaign(SettingsStore.Settings.LastCampaignFilePath + ".json");
                 Debug.WriteLine($"Fetched: {campaign.Name}");
+               if(campaign != null) CampaignStore.StoreCampaign(campaign);
+               else CampaignStore.StoreCampaign();
+            }
+            else
+            {
+                CampaignStore.StoreCampaign();
             }
 
-            CampaignStore.StoreCampaign(campaign);
+                
 
             Debug.WriteLine($"Campaign Store, current campaign: {CampaignStore.CurrentCampaign.Name}");
 
