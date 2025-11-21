@@ -32,14 +32,14 @@ mono_crash.*
 #[Rr]elease/x64/
 #[Rr]eleases/x64/
 #bin/x64/
-obj/x64/
+obj
 
 [Dd]ebug/x86/
 [Dd]ebugPublic/x86/
 #[Rr]elease/x86/
 #[Rr]eleases/x86/
 #bin/x86/
-obj/x86/
+#obj/x86/
 
 #bin/
 [Rr]elease/Data/Music/
