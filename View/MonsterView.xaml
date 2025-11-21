@@ -32,15 +32,21 @@
 
                 <TextBox Text="{Binding Meta, Mode=TwoWay}" FontStyle="Italic" Margin="0,0,0,10"/>
 
-                <TextBlock Text="Armor Class:" FontWeight="Bold"/>
-                <TextBox Text="{Binding ArmorClass, Mode=TwoWay}" Margin="0,0,0,10"/>
-
-                <TextBlock Text="Hit Points:" FontWeight="Bold"/>
-                <TextBox Text="{Binding HitPoints, Mode=TwoWay}" Margin="0,0,0,10"/>
-
-                <TextBlock Text="Speed:" FontWeight="Bold"/>
-                <TextBox Text="{Binding Speed, Mode=TwoWay}" Margin="0,0,0,10"/>
-
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock Text="Armor Class:" FontWeight="Bold"/>
+                        <TextBox Text="{Binding ArmorClass, Mode=TwoWay}" Margin="0,0,0,10"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Hit Points:" FontWeight="Bold"/>
+                        <TextBox Text="{Binding HitPoints, Mode=TwoWay}" Margin="0,0,0,10"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Speed:" FontWeight="Bold"/>
+                        <TextBox Text="{Binding Speed, Mode=TwoWay}" Margin="0,0,0,10"/>
+                    </StackPanel>
+                </StackPanel>
+                
                 <TextBlock Text="Traits:" FontWeight="Bold"/>
                 <TextBox Text="{Binding TraitsText, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
 

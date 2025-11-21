@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DMAssistant.Model
@@ -14,7 +15,7 @@ namespace DMAssistant.Model
         private ObservableCollection<EncounterItem> _encounterItems = new ObservableCollection<EncounterItem>();
         public ObservableCollection<EncounterItem> EncounterItems { get => _encounterItems; set { SetProperty(ref  _encounterItems, value); } }
         private ObservableCollection<CombatItem> _combatItems = new();
-        public ObservableCollection<CombatItem> CombatItems { get => _combatItems; set { SetProperty(ref _combatItems, value); } }
-        [ObservableProperty] public int currentRound = 0;
+        [JsonIgnore] public ObservableCollection<CombatItem> CombatItems { get => _combatItems; set { SetProperty(ref _combatItems, value); } }
+        [JsonIgnore, ObservableProperty] public int currentRound = 0;
     }
 }
