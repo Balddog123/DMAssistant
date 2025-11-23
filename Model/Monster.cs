@@ -60,7 +60,13 @@ namespace DMAssistant.Model
         public string Senses { get; set; } = "";
         public string Languages { get; set; } = "";
 
-        public string Challenge { get; set; } = "";
+        [JsonPropertyName("Challenge")]
+        private string _challenge = "0";
+        public string Challenge
+        {
+            get => _challenge;
+            set => SetProperty(ref _challenge, value);
+        }
 
         public string Traits { get; set; } = "";
         public string Actions { get; set; } = "";

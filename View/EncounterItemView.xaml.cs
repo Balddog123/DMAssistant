@@ -24,5 +24,6 @@ namespace DMAssistant.View
         {
             InitializeComponent();
         }
+
     }
 }

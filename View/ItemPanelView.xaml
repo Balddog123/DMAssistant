@@ -35,11 +35,9 @@
                             <!-- Remove button -->
                             <Button Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                     CommandParameter="{Binding}"
-                                    Width="20"
-                                    Height="20"
                                     Margin="0,0,0,0"
                                     DockPanel.Dock="Right">
-                                <Image Source="pack://application:,,,/Resources/icon-delete.png"/>
+                                <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
                             </Button>
                             <TextBlock Text="{Binding DisplayName}" />
                         </DockPanel>

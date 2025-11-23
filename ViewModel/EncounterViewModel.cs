@@ -31,6 +31,24 @@ namespace DMAssistant.ViewModel
             set => SetProperty(Encounter.Name, value, Encounter, (e, v) => e.Name = v);
         }
 
+        public int TotalCR
+        {
+            get
+            {
+                int cr = 0;
+                if (Encounter != null)
+                {
+                    foreach(EncounterItem item in Encounter.EncounterItems)
+                    {
+                        if(item is MonsterGroup mg)
+                        {
+                            cr += mg.TotalCR;                          
+                        }                        
+                    }
+                }
+                return cr;
+            }
+        }
         
         public ObservableCollection<EncounterItem> EncounterItems
         {

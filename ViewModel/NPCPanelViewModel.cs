@@ -28,10 +28,7 @@ namespace DMAssistant.ViewModel
             {
                 if (SetProperty(ref _selectedNPC, value))
                 {
-                    SelectedNPCViewModel = new NPCViewModel(_selectedNPC)
-                    {
-                        DeleteCommand = DeleteNPCCommand // parent VM command
-                    };
+                    SelectedNPCViewModel = new NPCViewModel(_selectedNPC);
                 }
             }
         }
@@ -43,22 +40,12 @@ namespace DMAssistant.ViewModel
         }
         public IRelayCommand AddNPCCommand { get; }
         public IRelayCommand AddExistingNPCCommand { get; }
-        public IRelayCommand DeleteNPCCommand => new RelayCommand(async () =>
+        public IRelayCommand DeleteNPC => new RelayCommand<NPC>(npcToDelete =>
         {
-            if (MessageBox.Show($"Delete {SelectedNPC.Name}?",
-                                "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Remove {npcToDelete.Name}?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                var loc = SelectedNPC;
-
-                // Clear the view model so bindings detach
-                SelectedNPCViewModel = null;
-                SelectedNPC = null;
-
-                // Allow UI to update before deletion
-                await Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    App.CampaignStore.DeleteNPC(loc, _session);
-                }, System.Windows.Threading.DispatcherPriority.Background);
+                //NPCList.Remove(npcToDelete);
+                App.CampaignStore.DeleteNPC(npcToDelete, _session);
             }
         });
 

@@ -61,6 +61,7 @@ namespace DMAssistant.ViewModel
             }
         }
 
+        public event Action? MonsterChanged;
         private Monster _monster;
         public Monster Monster
         {
@@ -72,6 +73,7 @@ namespace DMAssistant.ViewModel
                     SetProperty(ref _monster, value);
                     EncounterItemMonsterViewModel = new MonsterViewModel(_monster);
                     mg.monsterId = _monster.ID;
+                    MonsterChanged?.Invoke();
                 }
             }
         }

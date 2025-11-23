@@ -13,7 +13,6 @@ namespace DMAssistant.ViewModel
         {
             "Human", "Elf", "Dwarf", "Half-Orc", "Aarakocra", "Orc", "Halfling", "Tiefling"
         };
-        public IRelayCommand DeleteCommand { get; set; }
 
         public NPCViewModel(NPC npc)
         {

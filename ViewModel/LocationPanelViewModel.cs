@@ -28,10 +28,7 @@ namespace DMAssistant.ViewModel
             {
                 if (SetProperty(ref _selectedLocation, value))
                 {
-                    SelectedLocationViewModel = new LocationViewModel(_selectedLocation, this)
-                    {
-                        DeleteCommand = DeleteLocationCommand // parent VM command
-                    };
+                    SelectedLocationViewModel = new LocationViewModel(_selectedLocation, this);
                 }
             }
         }
@@ -45,22 +42,12 @@ namespace DMAssistant.ViewModel
 
         public IRelayCommand AddLocationCommand { get; }
         public IRelayCommand AddExistingLocationCommand { get; }
-        public IRelayCommand DeleteLocationCommand => new RelayCommand(async () =>
+        public IRelayCommand DeleteLocation => new RelayCommand<Location>(locationToDelete =>
         {
-            if (MessageBox.Show($"Delete {SelectedLocation.Name}?",
+            if (MessageBox.Show($"Delete {locationToDelete.Name}?",
                                 "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                var loc = SelectedLocation;
-
-                // Clear the view model so bindings detach
-                SelectedLocationViewModel = null;
-                SelectedLocation = null;
-
-                // Allow UI to update before deletion
-                await Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    App.CampaignStore.DeleteLocation(loc, _session);
-                }, System.Windows.Threading.DispatcherPriority.Background);
+                App.CampaignStore.DeleteLocation(locationToDelete, _session);
             }
         });
 

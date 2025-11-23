@@ -20,7 +20,6 @@ namespace DMAssistant.ViewModel
     {
         private readonly Location _location;
         private readonly LocationPanelViewModel _panel;
-        public IRelayCommand DeleteCommand { get; set; }
         public RelayCommand SetImageFromFile => new RelayCommand(() =>
         {
             byte[] imageData = FileGetter.LoadImageFromFile();

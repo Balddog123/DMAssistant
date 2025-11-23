@@ -86,7 +86,6 @@ namespace DMAssistant.ViewModel
             }
         }
 
-        public IRelayCommand DeleteCommand { get; set; }
 
         public MonsterViewModel()
         {

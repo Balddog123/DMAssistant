@@ -17,8 +17,21 @@ namespace DMAssistant.Model
         [ObservableProperty] public int roundNumber = 0;
         [ObservableProperty] public string description = string.Empty;
 
-        public string QuantityDisplay => this is MonsterGroup mg ? mg.Quantity.ToString() : "-";
-        public string TypeName
+
+        [JsonIgnore] public string QuantityDisplay => this is MonsterGroup mg ? mg.Quantity.ToString() : "-";
+        [JsonIgnore] public int TotalCR
+        {
+            get
+            {
+                int cr = 0;
+                if (this is MonsterGroup mg && App.CampaignStore.MonsterIndex.TryGetValue(mg.MonsterId, out Monster? m) && int.TryParse(m.Challenge.Split(" ")[0], out int challenge))
+                {
+                    cr += challenge * mg.Quantity;
+                }
+                return cr;
+            }
+        }
+        [JsonIgnore] public string TypeName
         {
             get
             {

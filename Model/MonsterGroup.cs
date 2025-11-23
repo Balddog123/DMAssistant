@@ -12,6 +12,10 @@ namespace DMAssistant.Model
         [ObservableProperty] public int quantity = 1;
         [ObservableProperty] public string monsterId = string.Empty;
 
+        partial void OnMonsterIdChanged(string value)
+        {
+            OnPropertyChanged(nameof(TotalCR));
+        }
         partial void OnQuantityChanged(int oldValue, int newValue)
         {
             OnPropertyChanged(nameof(QuantityDisplay));

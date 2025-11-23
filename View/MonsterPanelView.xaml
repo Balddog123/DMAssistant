@@ -31,11 +31,24 @@
             <ComboBox ItemsSource="{Binding AllCRs}"
                       SelectedItem="{Binding CRFilter}"
                       Margin="0,0,0,10"/>
+            <ListBox    ItemsSource="{Binding MonsterView}"
+                        SelectedItem="{Binding SelectedMonster}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <!-- Remove button -->
+                            <Button Command="{Binding DataContext.DeleteMonster, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}"
+                                    Margin="0,0,0,0"
+                                    DockPanel.Dock="Right">
+                                <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
+                            </Button>
+                            <TextBlock Text="{Binding Name}" />
+                        </DockPanel>
 
-            <ListBox ItemsSource="{Binding MonsterView}"
-                     SelectedItem="{Binding SelectedMonster}"
-                     DisplayMemberPath="Name"
-                     Height="600"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
 
         <!-- RIGHT SIDE -->

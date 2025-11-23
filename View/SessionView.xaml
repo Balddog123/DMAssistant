@@ -25,14 +25,13 @@
         </StackPanel>
 
         <!-- RIGHT: Session editor -->
-        <DockPanel Grid.Column="1" Margin="5" LastChildFill="True">
+        <DockPanel Grid.Column="1" Margin="0,5,0,0" LastChildFill="True">
 
             <!-- Session Name -->
             <TextBox DockPanel.Dock="Top"
                      Text="{Binding SelectedSession.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18"
                      FontWeight="Bold"
-                     Margin="0,0,0,10"
                      IsEnabled="{Binding SelectedSession, Converter={StaticResource NullToBoolConverter}}"/>
 
             <!-- TabControl fills remaining space automatically -->
@@ -84,9 +83,7 @@
 
                     </StackPanel>
                 </TabItem>
-
-
-
+                
                 <TabItem Header="Locations">
                     <v:LocationPanelView DataContext="{Binding LocationPanel}"/>
                 </TabItem>

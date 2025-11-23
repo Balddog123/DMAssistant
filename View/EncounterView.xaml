@@ -6,48 +6,50 @@
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="900">
 
-    <Grid Margin="10">
-
-        <!-- Rows: 
-             0 - Name field (auto sized)
-             1 - Main content (remaining height)
-        -->
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- Encounter Name Field -->
-        <TextBox Text="{Binding Name, Mode=TwoWay}"
+        <TextBox Grid.Row="0"
+                 Text="{Binding Name, Mode=TwoWay}"
                  FontSize="20"
                  FontWeight="Bold"
-                 Margin="0 0 0 10" />
+                 Margin="0 0 0 5" />
 
         <!-- Main Content -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <!-- Left side: Encounter Items -->
-                <ColumnDefinition Width="0.35*" />
+                <ColumnDefinition Width="Auto" />
                 <!-- Right side: Tracker + Item Details -->
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- List of Encounter Items -->
-            <Grid Grid.Column="0" Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding TotalCR}"/>
+                <TextBlock Text="{Binding TotalXPComparison}"/>
+                <TextBlock Text="{Binding TotalDifficultyRating}"/>
+            </StackPanel>
+                <!-- List of Encounter Items -->
+            <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <!-- Encounter Item list takes 50% -->
-                    <RowDefinition Height="30" />
-                    <!-- Spacer at bottom or future buttons (optional) -->
+                    <!-- Buttons -->
+                    <RowDefinition Height="Auto" />
+                    <!-- Encounter Item list -->
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <DockPanel Grid.Row="0">
-                    <Button Grid.Row="0" Width="74" Content="Add Monster" Margin="0,0,1,0" Command="{Binding AddMonsterCommand}"></Button>
-                    <Button Grid.Row="0" Width="63" Content="Add Event" Margin="1,0,0,0" Command="{Binding AddEventCommand}"></Button>
-                    <Button Grid.Row="0" Width="72" Content="Run!" Margin="1,0,0,0" Command="{Binding RunEncounterCommand}"></Button>
+                    <Button Content="Add Monster" Margin="0,0,1,0" Command="{Binding AddMonsterCommand}"></Button>
+                    <Button Content="Add Event" Margin="1,0,0,0" Command="{Binding AddEventCommand}"></Button>
+                    <Button Content="Run!" Margin="1,0,0,0" Command="{Binding RunEncounterCommand}"></Button>
                 </DockPanel>
                 
                 <!-- EncounterItems list -->
@@ -61,10 +63,8 @@
                             <GridViewColumn Header="" Width="40">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                CommandParameter="{Binding}"
-                                Width="20" Height="20">
-                                            <Image Source="pack://application:,,,/Resources/icon-delete.png"/>
+                                        <Button Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
+                                            <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
                                         </Button>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -75,12 +75,12 @@
             </Grid>
 
             <!-- Combat Tracker control placeholder -->
-            <Border Grid.Row="1" Grid.Column="0" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FAFAFA" Padding="10">
+            <Border Grid.Column="0" Grid.Row="2" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FAFAFA">
                 <ContentControl Content="{Binding CurrentCombat}" />
             </Border>
 
             <!-- EncounterItem Details control placeholder -->
-            <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FFFFFF" Padding="10" Margin="0 10 0 0">
+            <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" BorderBrush="#CCCCCC" BorderThickness="1">
                 <ContentControl Content="{Binding SelectedEncounterItemViewModel}" />
             </Border>
 

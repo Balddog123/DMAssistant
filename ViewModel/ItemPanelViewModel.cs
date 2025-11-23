@@ -45,7 +45,8 @@ namespace DMAssistant.ViewModel
             if (MessageBox.Show($"Delete {itemToRemove.Name}?",
                                 "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                RemoveItem(itemToRemove);
+                App.CampaignStore.DeleteItem(itemToRemove, _session);
+                //RemoveItem(itemToRemove);
             }
         });
 

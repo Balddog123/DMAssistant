@@ -18,6 +18,7 @@
     <None Remove="Resources\icon-add.png" />
     <None Remove="Resources\icon-addtoplaylist.png" />
     <None Remove="Resources\icon-arrow.png" />
+    <None Remove="Resources\icon-book.png" />
     <None Remove="Resources\icon-close.png" />
     <None Remove="Resources\icon-delete.png" />
     <None Remove="Resources\icon-edit.png" />
@@ -26,11 +27,14 @@
     <None Remove="Resources\icon-editsquare.png" />
     <None Remove="Resources\icon-erase.png" />
     <None Remove="Resources\icon-loop.png" />
+    <None Remove="Resources\icon-page.png" />
     <None Remove="Resources\icon-pause.png" />
     <None Remove="Resources\icon-play.png" />
     <None Remove="Resources\icon-refresh.png" />
     <None Remove="Resources\icon-save.png" />
+    <None Remove="Resources\icon-scroll.png" />
     <None Remove="Resources\icon-search.png" />
+    <None Remove="Resources\icon-sound.png" />
     <None Remove="Resources\icon-square.cur" />
     <None Remove="Resources\icon-square.png" />
     <None Remove="Resources\icon-stop.png" />
@@ -60,6 +64,9 @@
     <Resource Include="Resources\icon-arrow.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\icon-book.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon-close.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -84,6 +91,9 @@
     <Resource Include="Resources\icon-loop.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\icon-page.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon-pause.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -96,7 +106,13 @@
     <Resource Include="Resources\icon-save.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\icon-scroll.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon-search.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-sound.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-square.cur">
