@@ -32,7 +32,7 @@ namespace DMAssistant
             {
                 Debug.WriteLine($"Attempting to fetch: {SettingsStore.Settings.LastCampaignFilePath}");
                 Campaign? campaign = CampaignSerializer.LoadCampaign(SettingsStore.Settings.LastCampaignFilePath + ".json");
-                Debug.WriteLine($"Fetched: {campaign.Name}");
+                Debug.WriteLine($"Fetched: {campaign?.Name}");
                if(campaign != null) CampaignStore.StoreCampaign(campaign);
                else CampaignStore.StoreCampaign();
             }

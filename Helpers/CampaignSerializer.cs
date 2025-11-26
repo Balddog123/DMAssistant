@@ -1,4 +1,5 @@
-﻿using DMAssistant.Model;
+﻿using DMAssistant.Helpers;
+using DMAssistant.Model;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
@@ -8,10 +9,29 @@ using System.Windows;
 public static class CampaignSerializer
 {
     public static string CampaignsFolderPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Campaigns");
-    private static JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true, NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals };
+    private static JsonSerializerOptions jsonOptions = new JsonSerializerOptions 
+    { 
+        WriteIndented = true, 
+        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals ,
+        PropertyNameCaseInsensitive = true,
+        ReadCommentHandling = JsonCommentHandling.Skip,
+        AllowTrailingCommas = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement,
+        UnmappedMemberHandling = JsonUnmappedMemberHandling.Skip
+    };
+
+    static CampaignSerializer()
+    {
+        jsonOptions.Converters.Add(new SafeEnumConverter<Item.ItemType>());
+        jsonOptions.Converters.Add(new SafeEnumConverter<Item.ItemRank>());
+    }
 
     public static Campaign? LoadCampaign(string filePath)
     {
+        Debug.WriteLine($"----LoadCampaign(string filePath)----");
+        Debug.WriteLine($"Attempting to load file at filepath: {filePath}");
+
         try
         {
             if (!File.Exists(filePath))
@@ -19,6 +39,7 @@ public static class CampaignSerializer
                 Debug.WriteLine($"File for campaign doesn't exist: {filePath}");
                 return null;
             }
+            Debug.WriteLine($"File exists...");
 
             string json = File.ReadAllText(filePath);
             if (string.IsNullOrWhiteSpace(json))
@@ -29,10 +50,10 @@ public static class CampaignSerializer
 
             return JsonSerializer.Deserialize<Campaign>(json, jsonOptions);
         }
-        catch
+        catch (Exception ex)
         {
-            // Corrupt file / bad JSON → treat as no campaign
-            Debug.WriteLine($"Could not load campaign from {filePath}");
+            Debug.WriteLine("=== JSON DESERIALIZATION ERROR ===");
+            Debug.WriteLine(ex.ToString());
             return null;
         }
     }

@@ -24,6 +24,10 @@
 
                 <StackPanel Orientation="Horizontal">
                     <StackPanel>
+                        <TextBlock Text="Challenge:" FontWeight="Bold"/>
+                        <TextBox Text="{Binding Challenge, Mode=TwoWay}" Margin="0,0,0,10"/>
+                    </StackPanel>
+                    <StackPanel>
                         <TextBlock Text="Armor Class:" FontWeight="Bold"/>
                         <TextBox Text="{Binding ArmorClass, Mode=TwoWay}" Margin="0,0,0,10"/>
                     </StackPanel>

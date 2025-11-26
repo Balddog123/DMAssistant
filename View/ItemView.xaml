@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:DMAssistant.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <DockPanel Margin="10">
+
+    <ScrollViewer>
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -15,7 +15,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -25,39 +25,40 @@
 
             <!-- Name -->
             <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Item.Name, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Row="0" Grid.Column="1" Margin="0,5"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+         Grid.Row="0" Grid.Column="1" Margin="0,5"/>
 
             <!-- Rank -->
             <TextBlock Text="Rank:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding AvailableRanks}"
-                      SelectedItem="{Binding Item.Rank, UpdateSourceTrigger=PropertyChanged}"
-                      Grid.Row="1" Grid.Column="1" Margin="0,5"/>
+          SelectedItem="{Binding Rank, UpdateSourceTrigger=PropertyChanged}"
+          Grid.Row="1" Grid.Column="1" Margin="0,5"/>
 
             <!-- Type -->
             <TextBlock Text="Type:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Item.Type, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Row="2" Grid.Column="1" Margin="0,5"/>
+            <ComboBox ItemsSource="{Binding ItemTypes}"
+            SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="2" Grid.Column="1" Margin="0,5"/>
 
             <!-- Function -->
             <TextBlock Text="Function:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top"/>
             <TextBox Text="{Binding Item.Function, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Row="3" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="60" HorizontalScrollBarVisibility="Auto"
-                     VerticalScrollBarVisibility="Auto"/>
+         Grid.Row="3" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="80" TextWrapping="Wrap"
+         VerticalScrollBarVisibility="Auto"/>
 
             <!-- Appearance -->
             <TextBlock Text="Appearance:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top"/>
             <TextBox Text="{Binding Item.Appearance, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Row="4" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="80" HorizontalScrollBarVisibility="Auto"
-                     VerticalScrollBarVisibility="Auto"/>
+         Grid.Row="4" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap"
+         VerticalScrollBarVisibility="Auto"/>
 
             <!-- Origin -->
             <TextBlock Text="Origin:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
             <TextBox Text="{Binding Item.Origin, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Row="5" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="60" HorizontalScrollBarVisibility="Auto"
-                     VerticalScrollBarVisibility="Auto"/>
+         Grid.Row="5" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap"
+         VerticalScrollBarVisibility="Auto"/>
 
         </Grid>
-    </DockPanel>
-    
+    </ScrollViewer>
+
 </UserControl>

@@ -14,11 +14,16 @@ namespace DMAssistant.Model
 
         partial void OnMonsterIdChanged(string value)
         {
-            OnPropertyChanged(nameof(TotalCR));
+            OnPropertyChanged(nameof(CR));
         }
         partial void OnQuantityChanged(int oldValue, int newValue)
         {
             OnPropertyChanged(nameof(QuantityDisplay));
+        }
+
+        public MonsterGroup()
+        {
+            name = "New Monster Group";
         }
     }
 }

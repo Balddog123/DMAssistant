@@ -81,8 +81,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="1" BorderBrush="Gray" Margin="2">
-                                    <Image Width="100" Height="100"
-                                            Source="{Binding ThumbnailData, Converter={StaticResource ByteArrayToImageConverter}}">
+                                    <Image Width="100" Height="100" Source="{Binding ThumbnailData, Converter={StaticResource ByteArrayToImageConverter}}">
                                         <Image.InputBindings>
                                             <MouseBinding MouseAction="LeftClick"
                                                           Command="{Binding DataContext.OpenMapCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"

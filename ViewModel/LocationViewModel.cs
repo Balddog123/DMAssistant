@@ -23,7 +23,7 @@ namespace DMAssistant.ViewModel
         public RelayCommand SetImageFromFile => new RelayCommand(() =>
         {
             byte[] imageData = FileGetter.LoadImageFromFile();
-            if(imageData != null)
+            if (imageData != null)
             {
                 _location.ImageData = imageData;
                 OnPropertyChanged(nameof(LocationImage));
@@ -40,8 +40,9 @@ namespace DMAssistant.ViewModel
         });
         public RelayCommand AddNewMapCommand => new RelayCommand(() =>
         {
-            if(_location.Maps == null) _location.Maps = new ObservableCollection<Map>();
+            if (_location.Maps == null) _location.Maps = new ObservableCollection<Map>();
             _location.Maps.Add(new Map());
+            OnPropertyChanged(nameof(Maps));
         });
         public RelayCommand<Map> OpenMapCommand => new RelayCommand<Map>(map =>
         {
@@ -107,7 +108,18 @@ namespace DMAssistant.ViewModel
             }
         }
 
-        public ObservableCollection<Map> Maps => _location != null ? _location.Maps : new ObservableCollection<Map>();
+        public ObservableCollection<Map> Maps {
+            get => _location != null ? _location.Maps : new ObservableCollection<Map>();
+            set
+            {
+                if(value != Maps)
+                {
+                    Maps = value;
+                    OnPropertyChanged();
+                }
+            }
+            
+    }
         
 
     }

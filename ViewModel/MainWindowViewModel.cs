@@ -37,6 +37,11 @@ public class MainWindowViewModel : ObservableObject
     public ICommand SaveCampaign { get; }
     public ICommand Exit { get; }
 
+    public string CampaignName
+    {
+        get => App.CampaignStore?.CurrentCampaign?.Name ?? string.Empty;
+    }
+
 
     public MainWindowViewModel()
     {
@@ -67,7 +72,7 @@ public class MainWindowViewModel : ObservableObject
         NewCampaign = new RelayCommand(CreateNewCampaign);
         SaveCampaign = new RelayCommand(() =>
         {
-            MessageBox.Show($"Attempting to save {App.CampaignStore.CurrentCampaign.Name}");
+            MessageBox.Show($"Saved {App.CampaignStore.CurrentCampaign.Name}!");
             CampaignSerializer.SaveCampaign(App.CampaignStore.CurrentCampaign);
         });
         Exit = new RelayCommand(Application.Current.Shutdown);
@@ -76,14 +81,15 @@ public class MainWindowViewModel : ObservableObject
 
     private void CreateNewCampaign()
     {
-        Debug.WriteLine("Creating new campaign");
         Campaign newCampaign = new Campaign();
         App.CampaignStore.StoreCampaign();
         CurrentView = null;
+        OnPropertyChanged(nameof(CampaignName));
     }
 
     private void OpenCampaignDialog()
     {
+        Debug.WriteLine("----OpenCampaignDialog----");
         // Create an OpenFileDialog
         OpenFileDialog openFileDialog = new OpenFileDialog
         {
@@ -94,11 +100,12 @@ public class MainWindowViewModel : ObservableObject
 
         // Show dialog
         bool? result = openFileDialog.ShowDialog();
+        Debug.WriteLine($"Result: {result}");
 
         if (result == true)
         {
             string selectedFile = openFileDialog.FileName;
-
+            Debug.WriteLine($"Selected file: {selectedFile}");
             try
             {
                 // Load the campaign from the selected file
@@ -107,6 +114,7 @@ public class MainWindowViewModel : ObservableObject
                 if (campaign != null)
                 {
                     App.CampaignStore.StoreCampaign(campaign);
+                    OnPropertyChanged(nameof(CampaignName));
                 }
                 else
                 {

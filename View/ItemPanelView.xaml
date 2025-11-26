@@ -39,7 +39,7 @@
                                     DockPanel.Dock="Right">
                                 <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
                             </Button>
-                            <TextBlock Text="{Binding DisplayName}" />
+                            <TextBlock Text="{Binding Name}" />
                         </DockPanel>
                         
                     </DataTemplate>
@@ -49,8 +49,7 @@
         </StackPanel>
 
         <!-- RIGHT: Item Detail View -->
-        <ContentControl Grid.Column="1"
-                        Content="{Binding SelectedItemViewModel}" />
+        <ContentControl Grid.Column="1" Content="{Binding SelectedItem}" />
 
     </Grid>
 </UserControl>

@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DMAssistant.View"
         mc:Ignorable="d"
-        Title="Select Monster" Height="300" Width="300" WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize">
+        Title="Select Monster" SizeToContent="WidthAndHeight" MaxHeight ="700" WindowStartupLocation="CenterOwner">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

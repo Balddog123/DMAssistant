@@ -24,6 +24,15 @@ namespace DMAssistant.ViewModel
             }
         }
 
+        public string Challenge
+        {
+            get => Monster != null ? Monster.Challenge : string.Empty;
+            set
+            {
+                if (Monster != null) SetProperty(Monster.Challenge, value, Monster, (m, v) => m.Challenge = v);
+            }
+        }
+
         public string ArmorClass
         {
             get => Monster != null ? Monster.ArmorClass : string.Empty;

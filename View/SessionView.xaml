@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:DMAssistant.View"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.WPF.DragDrop"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -50,8 +51,10 @@
                 Margin="0,0,0,8"
                 Command="{Binding AddSecretCommand}" />
 
-                        <ItemsControl ItemsSource="{Binding Secrets}" AlternationCount="1000">
-                            <ItemsControl.ItemTemplate>
+                        <ListBox ItemsSource="{Binding Secrets}"
+                                 dd:DragDrop.IsDragSource="True"
+                                 dd:DragDrop.IsDropTarget="True">
+                            <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Margin="0,4">
                                         <!-- Number prefix -->
@@ -59,27 +62,27 @@
                                             <TextBlock.Text>
                                                 <MultiBinding StringFormat="{}{0}. ">
                                                     <Binding RelativeSource="{RelativeSource AncestorType=ContentPresenter}"
-                                                                Path="(ItemsControl.AlternationIndex)" />
+                            Path="(ItemsControl.AlternationIndex)" />
                                                 </MultiBinding>
                                             </TextBlock.Text>
                                         </TextBlock>
                                         <!-- Checkbox -->
                                         <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" />
-                                        
+
                                         <!-- Editable text -->
                                         <TextBox Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                 Margin="6,0,6,0"
-                                                 Width="Auto" MinWidth="250" />
+             Margin="6,0,6,0"
+             Width="Auto" MinWidth="250" />
 
                                         <!-- Delete button -->
                                         <Button Content="X" 
-                                                Command="{Binding DataContext.RemoveSecretCommand,
-                                                        RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                CommandParameter="{Binding}" />
+            Command="{Binding DataContext.RemoveSecretCommand,
+                    RelativeSource={RelativeSource AncestorType=UserControl}}"
+            CommandParameter="{Binding}" />
                                     </StackPanel>
                                 </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
                     </StackPanel>
                 </TabItem>

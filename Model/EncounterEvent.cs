@@ -11,6 +11,9 @@ namespace DMAssistant.Model
     {
 
         [ObservableProperty] public int initiative;
-        
+        public EncounterEvent()
+        {
+            name = "New Encounter Event";
+        }
     }
 }
