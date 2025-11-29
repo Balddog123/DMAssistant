@@ -16,6 +16,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -39,23 +40,30 @@
             <ComboBox ItemsSource="{Binding ItemTypes}"
             SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"
             Grid.Row="2" Grid.Column="1" Margin="0,5"/>
-
+            
+            <!-- Attunement -->
+            <TextBlock Text="Requires Attunment:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" SelectedValue="{Binding RequiresAttunement, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Tag">
+                <ComboBoxItem Content="Requires Attunement" Tag="True"/>
+                <ComboBoxItem Content="Does Not Require Attunement" Tag="False"/>
+            </ComboBox>
+            
             <!-- Function -->
-            <TextBlock Text="Function:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top"/>
+            <TextBlock Text="Function:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top"/>
             <TextBox Text="{Binding Item.Function, UpdateSourceTrigger=PropertyChanged}"
-         Grid.Row="3" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="80" TextWrapping="Wrap"
+         Grid.Row="4" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="80" TextWrapping="Wrap"
          VerticalScrollBarVisibility="Auto"/>
 
             <!-- Appearance -->
-            <TextBlock Text="Appearance:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top"/>
+            <TextBlock Text="Appearance:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
             <TextBox Text="{Binding Item.Appearance, UpdateSourceTrigger=PropertyChanged}"
-         Grid.Row="4" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap"
+         Grid.Row="5" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap"
          VerticalScrollBarVisibility="Auto"/>
 
             <!-- Origin -->
-            <TextBlock Text="Origin:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
+            <TextBlock Text="Origin:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Top"/>
             <TextBox Text="{Binding Item.Origin, UpdateSourceTrigger=PropertyChanged}"
-         Grid.Row="5" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap"
+         Grid.Row="6" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap"
          VerticalScrollBarVisibility="Auto"/>
 
         </Grid>

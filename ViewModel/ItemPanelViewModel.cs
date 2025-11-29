@@ -86,7 +86,7 @@ namespace DMAssistant.ViewModel
 
         private void AddItem()
         {
-            var item = new Item("New Item", Item.ItemRank.Common, Item.ItemType.Minor, "", "", "");
+            var item = new Item("New Item", Item.ItemRank.Common, Item.ItemType.Minor, false, "", "", "");
             App.CampaignStore.CurrentCampaign.Items.Add(item);
             App.CampaignStore.ItemIndex[item.ID] = item;
 

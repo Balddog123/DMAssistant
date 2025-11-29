@@ -80,14 +80,27 @@
 
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="1" BorderBrush="Gray" Margin="2">
-                                    <Image Width="100" Height="100" Source="{Binding ThumbnailData, Converter={StaticResource ByteArrayToImageConverter}}">
-                                        <Image.InputBindings>
-                                            <MouseBinding MouseAction="LeftClick"
-                                                          Command="{Binding DataContext.OpenMapCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                                          CommandParameter="{Binding}" />
-                                        </Image.InputBindings>
-                                    </Image>
+                                <Border BorderThickness="1" BorderBrush="Gray">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="30"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="80"/>
+                                            
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Width="100" Height="100" Source="{Binding ThumbnailData, Converter={StaticResource ByteArrayToImageConverter}}">
+                                            <Image.InputBindings>
+                                                <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.OpenMapCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" />
+                                            </Image.InputBindings>
+                                        </Image>
+                                        <Button Grid.Column="1" Grid.Row="0" Command="{Binding DataContext.RemoveMap, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
+                                            <Image Source="/Resources/icon-delete.png" Height="16"/>
+                                        </Button>
+                                    </Grid>
+                                    
 
                                 </Border>
                             </DataTemplate>

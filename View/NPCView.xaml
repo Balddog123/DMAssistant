@@ -20,9 +20,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" MinHeight="60"/>
+                    <RowDefinition Height="Auto" MinHeight="60"/>
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -44,17 +44,17 @@
                 <!-- Description -->
                 <TextBlock Text="Description:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
                 <TextBox Text="{Binding NPC.Description, UpdateSourceTrigger=PropertyChanged}" 
-                 Grid.Row="2" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="80" VerticalScrollBarVisibility="Auto"/>
+                 Grid.Row="2" Grid.Column="1" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
 
                 <!-- Goal -->
                 <TextBlock Text="Goal:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
                 <TextBox Text="{Binding NPC.Goal, UpdateSourceTrigger=PropertyChanged}" 
-                 Grid.Row="3" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="60" VerticalScrollBarVisibility="Auto"/>
+                 Grid.Row="3" Grid.Column="1" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"  Height="Auto" TextWrapping="Wrap"/>
 
                 <!-- Home -->
                 <TextBlock Text="Home:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
                 <TextBox Text="{Binding NPC.Home, UpdateSourceTrigger=PropertyChanged}" 
-                 Grid.Row="4" Grid.Column="1" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                 Grid.Row="4" Grid.Column="1" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"  Height="Auto" TextWrapping="Wrap"/>
             </Grid>
 
         </Grid>

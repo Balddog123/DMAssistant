@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:h="clr-namespace:DMAssistant.Helpers"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="900">
 
@@ -92,10 +93,10 @@
                 <ContentControl Content="{Binding CurrentCombat}" />
             </Border>
 
-            <!-- EncounterItem Details control placeholder -->
-            <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" BorderBrush="#CCCCCC" BorderThickness="1">
+            <!-- Monster View -->
+            <ScrollViewer Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto" h:ScrollViewerUtilities.BubbleMouseWheel="True">
                 <ContentControl Content="{Binding SelectedItem}" />
-            </Border>
+            </ScrollViewer>
 
         </Grid>
 

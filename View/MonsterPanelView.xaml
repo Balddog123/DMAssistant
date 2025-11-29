@@ -52,6 +52,8 @@
         </StackPanel>
 
         <!-- RIGHT SIDE -->
-        <ContentControl Grid.Column="1" Content="{Binding SelectedMonsterViewModel}"/>
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <ContentControl Content="{Binding SelectedMonsterViewModel}" />
+        </ScrollViewer>
     </Grid>
 </UserControl>

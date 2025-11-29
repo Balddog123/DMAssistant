@@ -69,6 +69,8 @@ namespace DMAssistant.Model
                 }
             }
         }
+
+        public bool RequiresAttunement { get; set; }
         public string Function { get; set; }
         public string Appearance { get; set; }
         public string Origin { get; set; }
@@ -86,7 +88,7 @@ namespace DMAssistant.Model
 
         [ObservableProperty] public Visibility expandedVisibility = Visibility.Collapsed;
 
-        public Item(string name, ItemRank rank, ItemType type, string function, string appearance, string origin)
+        public Item(string name, ItemRank rank, ItemType type, bool requiresAttunement, string function, string appearance, string origin)
         {
             Name = name;
             Rank = rank;
@@ -94,6 +96,7 @@ namespace DMAssistant.Model
             Function = function;
             Appearance = appearance;
             Origin = origin;
+            RequiresAttunement = requiresAttunement;
         }
     }
 }

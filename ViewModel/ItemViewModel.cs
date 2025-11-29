@@ -46,7 +46,11 @@ namespace DMAssistant.ViewModel
             set => Item.Type = value;
         }
 
-
+        public bool RequiresAttunement
+        {
+            get => Item.RequiresAttunement;
+            set => Item.RequiresAttunement = value;
+        }
 
         public List<Item.ItemRank> AvailableRanks { get; } = Enum.GetValues(typeof(Item.ItemRank)).Cast<Item.ItemRank>().ToList();
         public List<Item.ItemType> ItemTypes { get; } = Enum.GetValues(typeof(Item.ItemType)).Cast<Item.ItemType>().ToList();
@@ -59,6 +63,7 @@ namespace DMAssistant.ViewModel
             {
                 if (e.PropertyName == nameof(Item.Name)) OnPropertyChanged(nameof(Name));
                 if (e.PropertyName == nameof(Item.Rank)) OnPropertyChanged(nameof(Rank));
+                if (e.PropertyName == nameof(Item.RequiresAttunement)) OnPropertyChanged(nameof(RequiresAttunement));
 
             };
 

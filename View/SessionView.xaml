@@ -44,16 +44,10 @@
 
                 <TabItem Header="Secrets">
                     <StackPanel>
-
-                        <!-- Add new secret -->
-                        <Button Content="Add Secret"
-                Width="100"
-                Margin="0,0,0,8"
-                Command="{Binding AddSecretCommand}" />
-
                         <ListBox ItemsSource="{Binding Secrets}"
                                  dd:DragDrop.IsDragSource="True"
-                                 dd:DragDrop.IsDropTarget="True">
+                                 dd:DragDrop.IsDropTarget="True"
+                                 AlternationCount="999">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Margin="0,4">
@@ -61,8 +55,7 @@
                                         <TextBlock Margin="0,0,4,0">
                                             <TextBlock.Text>
                                                 <MultiBinding StringFormat="{}{0}. ">
-                                                    <Binding RelativeSource="{RelativeSource AncestorType=ContentPresenter}"
-                            Path="(ItemsControl.AlternationIndex)" />
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=ListBoxItem}" Path="(ItemsControl.AlternationIndex)" />
                                                 </MultiBinding>
                                             </TextBlock.Text>
                                         </TextBlock>
@@ -70,20 +63,22 @@
                                         <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" />
 
                                         <!-- Editable text -->
-                                        <TextBox Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-             Margin="6,0,6,0"
-             Width="Auto" MinWidth="250" />
+                                        <TextBox Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="6,0,6,0" Width="Auto" MinWidth="250" />
 
                                         <!-- Delete button -->
-                                        <Button Content="X" 
-            Command="{Binding DataContext.RemoveSecretCommand,
-                    RelativeSource={RelativeSource AncestorType=UserControl}}"
-            CommandParameter="{Binding}" />
+                                        <Button Command="{Binding DataContext.RemoveSecretCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Height="30">
+                                            <Image Source="/Resources/icon-delete.png" Height="16"/>
+                                        </Button>
+                                        
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-
+                        <!-- Add new secret -->
+                        <Button Content="Add Secret"
+                                Width="100"
+                                Margin="0,0,0,8"
+                                Command="{Binding AddSecretCommand}" />
                     </StackPanel>
                 </TabItem>
                 

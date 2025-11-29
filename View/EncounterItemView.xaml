@@ -6,94 +6,40 @@
              mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="300">
 
-    <UserControl.Resources>
-        <Style x:Key="LeftScrollBarScrollViewer" TargetType="ScrollViewer">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ScrollViewer">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <!-- Scrollbar on the LEFT -->
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+    <StackPanel Orientation="Vertical" CanVerticallyScroll="True" Background="Gray">
 
-                            <!-- Vertical ScrollBar (Left Side) -->
-                            <ScrollBar x:Name="PART_VerticalScrollBar"
-                                   Grid.Column="0"
-                                   Grid.Row="0"
-                                   Orientation="Vertical"
-                                   Value="{TemplateBinding VerticalOffset}"
-                                   Maximum="{TemplateBinding ScrollableHeight}"
-                                   ViewportSize="{TemplateBinding ViewportHeight}"
-                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
+        <!-- Editable name -->
+        <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" Margin="0,0,0,5" />
 
-                            <!-- Scroll Content -->
-                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
-                                                Grid.Column="1"
-                                                Grid.Row="0"
-                                                CanContentScroll="{TemplateBinding CanContentScroll}"
-                                                Content="{TemplateBinding Content}"
-                                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                                Margin="{TemplateBinding Padding}" />
-
-                            <!-- Horizontal ScrollBar (Normal bottom position) -->
-                            <ScrollBar x:Name="PART_HorizontalScrollBar"
-                                   Grid.Column="1"
-                                   Grid.Row="1"
-                                   Orientation="Horizontal"
-                                   Value="{TemplateBinding HorizontalOffset}"
-                                   Maximum="{TemplateBinding ScrollableWidth}"
-                                   ViewportSize="{TemplateBinding ViewportWidth}"
-                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
-
-    <ScrollViewer Style="{StaticResource LeftScrollBarScrollViewer}" VerticalScrollBarVisibility="Auto" Background="#d6d6d6" >
-        <StackPanel Orientation="Vertical" CanVerticallyScroll="True">
-
-            <!-- Editable name -->
-            <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" Margin="0,0,0,5" />
-
-            <!-- Round number -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Round: " VerticalAlignment="Center" />
-                    <TextBox Text="{Binding RoundNumber, Mode=TwoWay}" Width="50" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5" >
-                    <TextBlock Text="Quantity: " VerticalAlignment="Center" />
-                    <TextBox Text="{Binding Quantity, Mode=TwoWay}" Width="50" />
-                </StackPanel>
+        <!-- Round number -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Round: " VerticalAlignment="Center" />
+                <TextBox Text="{Binding RoundNumber, Mode=TwoWay}" Width="50" />
             </StackPanel>
-
-            <!-- Monster-specific properties -->
-            <StackPanel Visibility="{Binding MonsterGroupVisibility}">
-                <Button Content="Select Monster" Command="{Binding OpenMonsterWindowCommand}"/>
-                <ContentControl Content="{Binding EncounterItemMonsterViewModel}"/>
-                
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5" >
+                <TextBlock Text="Quantity: " VerticalAlignment="Center" />
+                <TextBox Text="{Binding Quantity, Mode=TwoWay}" Width="50" />
             </StackPanel>
-        
+        </StackPanel>
 
-            <!-- Event-specific properties -->
-            <StackPanel Orientation="Horizontal" Visibility="{Binding EncounterEventVisibility}">
-                <TextBlock Text="Initiative: " VerticalAlignment="Center" />
-                <TextBox Text="{Binding Initiative, Mode=TwoWay}" Width="50" />
-            </StackPanel>
-        
-            <!-- Description -->
-            <TextBox Text="{Binding Description, Mode=TwoWay}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,5" />
+        <!-- Monster-specific properties -->
+        <StackPanel Visibility="{Binding MonsterGroupVisibility}">
+            <Button Content="Select Monster" Command="{Binding OpenMonsterWindowCommand}"/>
+            <ContentControl Content="{Binding EncounterItemMonsterViewModel}"/>
 
         </StackPanel>
-    </ScrollViewer>
+
+
+        <!-- Event-specific properties -->
+        <StackPanel Orientation="Horizontal" Visibility="{Binding EncounterEventVisibility}">
+            <TextBlock Text="Initiative: " VerticalAlignment="Center" />
+            <TextBox Text="{Binding Initiative, Mode=TwoWay}" Width="50" />
+        </StackPanel>
+
+        <!-- Description -->
+        <TextBox Text="{Binding Description, Mode=TwoWay}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,5" />
+
+    </StackPanel>
 
 </UserControl>

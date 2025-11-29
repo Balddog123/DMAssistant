@@ -52,6 +52,15 @@ namespace DMAssistant.ViewModel
             var mapWindow = new MapWindow(map);
             mapWindow.Show();
         });
+        public RelayCommand<Map> RemoveMap => new RelayCommand<Map>(map =>
+        {
+            if (MessageBox.Show($"Delete map?",
+                                "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                _location.Maps.Remove(map);
+                OnPropertyChanged(nameof(Maps));
+            }
+        });
 
         public LocationViewModel(Location location, LocationPanelViewModel panel)
         {

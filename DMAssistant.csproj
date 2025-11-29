@@ -30,6 +30,7 @@
     <None Remove="Resources\icon-page.png" />
     <None Remove="Resources\icon-pause.png" />
     <None Remove="Resources\icon-play.png" />
+    <None Remove="Resources\icon-pointer.png" />
     <None Remove="Resources\icon-refresh.png" />
     <None Remove="Resources\icon-save.png" />
     <None Remove="Resources\icon-scroll.png" />
@@ -101,6 +102,9 @@
     <Resource Include="Resources\icon-play.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\icon-pointer.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon-refresh.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -130,6 +134,7 @@
   <ItemGroup>
     <Folder Include="Data\Ambience\" />
     <Folder Include="Data\Music\" />
+    <Folder Include="Data\Campaigns\" />
     <Folder Include="Data\SFX\" />
   </ItemGroup>
 

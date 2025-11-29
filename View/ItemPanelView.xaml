@@ -9,7 +9,7 @@
     <Grid Margin="10">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="Auto" MaxWidth="500"/>
             <!-- item list -->
             <ColumnDefinition Width="*"/>
             <!-- detail view -->

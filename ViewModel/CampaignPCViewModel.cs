@@ -199,9 +199,6 @@ namespace DMAssistant.ViewModel
             }
         });
 
-
-
-
         public CampaignPCViewModel()
         {
             PlayerCharacters = App.CampaignStore.CurrentCampaign.PCs;
@@ -230,9 +227,11 @@ namespace DMAssistant.ViewModel
             });            
 
             MajorItemsView = CollectionViewSource.GetDefaultView(MajorItems);
+            MajorItemsView.SortDescriptions.Add(new SortDescription(nameof(Item.Rank), ListSortDirection.Ascending));
             MajorItemsView.GroupDescriptions.Add(new PropertyGroupDescription("Item.Rank"));
 
             MinorItemsView = CollectionViewSource.GetDefaultView(MinorItems);
+            MinorItemsView.SortDescriptions.Add(new SortDescription(nameof(Item.Rank), ListSortDirection.Ascending));
             MinorItemsView.GroupDescriptions.Add(new PropertyGroupDescription("Item.Rank"));
 
             foreach (PlayerCharacter player in PlayerCharacters)
@@ -268,12 +267,11 @@ namespace DMAssistant.ViewModel
             if (e.PropertyName == nameof(PlayerCharacter.Level))
             {
                 // Refresh the grouped views so headers update
+                
                 MajorItemsView.Refresh();
                 MinorItemsView.Refresh();
             }
         }
-
-
 
         private void CreateItemViewModel(PlayerCharacter player, Item item)
         {
