@@ -18,7 +18,20 @@ namespace DMAssistant.ViewModel
     {
         private readonly Session _session;
 
-        public ObservableCollection<ItemViewModel> ItemList { get; }
+        private ObservableCollection<ItemViewModel> _itemList;
+        public ObservableCollection<ItemViewModel> ItemList
+        {
+            get => _itemList;
+            set
+            {
+                if (value != null)
+                {
+                    _itemList = new ObservableCollection<ItemViewModel>(value.OrderBy(i => i.Name));
+                    OnPropertyChanged(nameof(ItemList));
+                }
+            }
+        }
+
 
         private ItemViewModel _selectedItem;
         public ItemViewModel SelectedItem
@@ -93,9 +106,27 @@ namespace DMAssistant.ViewModel
             if(_session != null) _session.ItemIDs.Add(item.ID);
 
             var vm = CreateItemViewModel(item);
-            ItemList.Add(vm);
+            InsertSorted(vm);
             SelectedItem = vm;
         }
+        private void InsertSorted(ItemViewModel vm)
+        {
+            if (_itemList.Count == 0)
+            {
+                _itemList.Add(vm);
+                return;
+            }
+
+            // Find the index where the item should go
+            int index = 0;
+            while (index < _itemList.Count && string.Compare(_itemList[index].Name, vm.Name, StringComparison.OrdinalIgnoreCase) < 0)
+            {
+                index++;
+            }
+
+            _itemList.Insert(index, vm);
+        }
+
 
         private void AddExistingItem()
         {
@@ -116,7 +147,7 @@ namespace DMAssistant.ViewModel
                 _session.ItemIDs.Add(item.ID);
 
                 var vm = CreateItemViewModel(item);
-                ItemList.Add(vm);
+                InsertSorted(vm);
                 SelectedItem = vm;
             }
         }

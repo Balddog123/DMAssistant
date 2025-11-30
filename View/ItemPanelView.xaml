@@ -39,7 +39,14 @@
                                     DockPanel.Dock="Right">
                                 <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
                             </Button>
-                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Margin="0,0,4,0">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="Name" />
+                                        <Binding Path="Rank" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </DockPanel>
                         
                     </DataTemplate>
