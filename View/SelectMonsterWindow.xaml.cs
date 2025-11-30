@@ -29,7 +29,6 @@ namespace DMAssistant.View
         {
             InitializeComponent();
             AvailableMonsters = availableMonsters;
-            MonsterListBox.ItemsSource = AvailableMonsters;
 
             _monstersView = CollectionViewSource.GetDefaultView(AvailableMonsters);
             _monstersView.Filter = FilterMonster;

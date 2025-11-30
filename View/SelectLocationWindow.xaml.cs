@@ -1,6 +1,7 @@
 ﻿using DMAssistant.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,33 @@ namespace DMAssistant.View
     {
         public List<Location> AvailableLocations { get; }
         public Location SelectedLocation { get; private set; }
+        private ICollectionView _locationsView;
 
         public SelectLocationWindow(List<Location> availableLocations)
         {
             InitializeComponent();
             AvailableLocations = availableLocations;
-            LocationListBox.ItemsSource = AvailableLocations;
+            _locationsView = CollectionViewSource.GetDefaultView(AvailableLocations);
+            _locationsView.Filter = FilterMonster;
+            LocationListBox.ItemsSource = _locationsView;
+        }
+
+        private bool FilterMonster(object obj)
+        {
+            if (obj is not Location location)
+                return false;
+
+            string search = SearchTextBox.Text?.Trim() ?? "";
+
+            if (string.IsNullOrEmpty(search))
+                return true;
+
+            return location.Name.Contains(search, System.StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void SearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            _locationsView.Refresh();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
