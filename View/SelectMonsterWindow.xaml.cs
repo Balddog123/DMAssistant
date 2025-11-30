@@ -1,6 +1,7 @@
 ﻿using DMAssistant.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,35 @@ namespace DMAssistant.View
     {
         public List<Monster> AvailableMonsters { get; }
         public Monster SelectedMonster { get; private set; }
+        private ICollectionView _monstersView;
 
         public SelectMonsterWindow(List<Monster> availableMonsters)
         {
             InitializeComponent();
             AvailableMonsters = availableMonsters;
             MonsterListBox.ItemsSource = AvailableMonsters;
+
+            _monstersView = CollectionViewSource.GetDefaultView(AvailableMonsters);
+            _monstersView.Filter = FilterMonster;
+            MonsterListBox.ItemsSource = _monstersView;
+        }
+
+        private bool FilterMonster(object obj)
+        {
+            if (obj is not Monster monster)
+                return false;
+
+            string search = SearchTextBox.Text?.Trim() ?? "";
+
+            if (string.IsNullOrEmpty(search))
+                return true;
+
+            return monster.Name.Contains(search, System.StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void SearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            _monstersView.Refresh();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
