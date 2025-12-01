@@ -53,6 +53,11 @@
                     Margin="10 0 0 0">
                 <Image Source="pack://application:,,,/Resources/icon-sound.png"/>
             </Button>
+            <MediaElement x:Name="GlobalMediaPlayer"
+                            LoadedBehavior="Manual"
+                            UnloadedBehavior="Manual"
+                            MediaOpened="Player_MediaOpened"
+                            MediaEnded="Player_MediaEnded" Visibility="Collapsed" />
         </StackPanel>
 
         <!-- ######## MAIN CONTENT AREA ######## -->

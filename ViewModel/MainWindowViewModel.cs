@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using DMAssistant;
 using DMAssistant.Model;
 using DMAssistant.Repository;
+using DMAssistant.Services;
 using DMAssistant.View;
 using DMAssistant.ViewModel;
 using Microsoft.Win32;
@@ -42,13 +43,14 @@ public class MainWindowViewModel : ObservableObject
         get => App.CampaignStore?.CurrentCampaign?.Name ?? string.Empty;
     }
 
+    private AudioPlayerService AudioService { get; }
 
     public MainWindowViewModel()
     {
         // Create viewmodels ONCE
         CampaignVM = new CampaignViewModel();
         SessionVM = new SessionViewModel();
-        SoundPanelVM = new SoundPanelViewModel();
+        SoundPanelVM = new SoundPanelViewModel(MainWindow.AudioPlayer);
 
         ShowCampaignCommand = new RelayCommand(() =>
         {
@@ -77,6 +79,7 @@ public class MainWindowViewModel : ObservableObject
         });
         Exit = new RelayCommand(Application.Current.Shutdown);
         CurrentView = CampaignVM; // default
+
     }
 
     private void CreateNewCampaign()
