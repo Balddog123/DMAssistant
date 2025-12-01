@@ -250,7 +250,7 @@ namespace DMAssistant.ViewModel
         {
             OpenFolderDialog dialog = new OpenFolderDialog()
             {
-                InitialDirectory = App.SettingsStore.Settings.MusicPath,
+                InitialDirectory = App.AudioStore.AudioSettings.MusicPath,
                 Title = "Set Music Folder"
             };
 
@@ -261,8 +261,8 @@ namespace DMAssistant.ViewModel
             {
                 
                 string selectedFolder = dialog.FolderName;
-                Debug.WriteLine(selectedFolder); 
-                App.SettingsStore.Settings.MusicPath = selectedFolder;
+                Debug.WriteLine(selectedFolder);
+                App.AudioStore.AudioSettings.MusicPath = selectedFolder;
                 LoadAudioFiles();
             }
         }
@@ -289,14 +289,20 @@ namespace DMAssistant.ViewModel
         private void LoadAudioFiles()
         {
             AudioFiles.Clear();
-            if (!Directory.Exists(App.SettingsStore.Settings.MusicPath)) 
+            if (!Directory.Exists(App.AudioStore.AudioSettings.MusicPath)) 
             {
                 Debug.WriteLine("MusicPath doesn't exist, sorry bro...");
                 return; 
             } //possibly create directories and move this check to the beginning of the app initialization
 
-            foreach (var file in Directory.GetFiles(App.SettingsStore.Settings.MusicPath, "*.mp3" ))
+            var path = App.AudioStore.AudioSettings.MusicPath;
+
+            var files = Directory.GetFiles(path, "*.mp3")
+                .Concat(Directory.GetFiles(path, "*.wav"));
+
+            foreach (var file in files)
                 AudioFiles.Add(new AudioFile { FilePath = file });
+
         }
 
         private void AddToPlaylist()

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DMAssistant.Model
 {
-    public partial class Settings : ObservableObject
+    public partial class MainSettings : ObservableObject
     {
         [ObservableProperty] public string lastCampaignFilePath = "";
-        [ObservableProperty] public string musicPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Music");
+        
     }
 }

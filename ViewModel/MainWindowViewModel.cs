@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DMAssistant;
+using DMAssistant.Helpers;
 using DMAssistant.Model;
 using DMAssistant.Repository;
 using DMAssistant.Services;
+using DMAssistant.Store;
 using DMAssistant.View;
 using DMAssistant.ViewModel;
 using Microsoft.Win32;
@@ -76,6 +78,8 @@ public class MainWindowViewModel : ObservableObject
         {
             MessageBox.Show($"Saved {App.CampaignStore.CurrentCampaign.Name}!");
             CampaignSerializer.SaveCampaign(App.CampaignStore.CurrentCampaign);
+            SettingsSerializer.SaveSettings(App.SettingsStore.Settings, SettingsSerializer.SettingsType.Main);
+            SettingsSerializer.SaveSettings(App.AudioStore.AudioSettings, SettingsSerializer.SettingsType.Audio);
         });
         Exit = new RelayCommand(Application.Current.Shutdown);
         CurrentView = CampaignVM; // default

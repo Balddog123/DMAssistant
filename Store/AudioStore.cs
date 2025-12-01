@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DMAssistant.Helpers;
+using DMAssistant.Model;
+using System.Diagnostics;
 
 namespace DMAssistant.Store
 {
-    internal class AudioStore
+    public class AudioStore : ObservableObject
     {
+        public AudioSettings AudioSettings { get; set; }
+        public AudioStore()
+        {
+            AudioSettings settings = SettingsSerializer.LoadSettings(SettingsSerializer.SettingsType.Audio) as AudioSettings;
+            Debug.WriteLine($"Found {settings}");
+            if (settings == null) AudioSettings = new AudioSettings();
+            else AudioSettings = settings;
+        }
     }
 }
