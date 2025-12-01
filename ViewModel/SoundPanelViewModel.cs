@@ -2,7 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using DMAssistant.Model;
 using DMAssistant.Services;
+using DMAssistant.Store;
 using DMAssistant.View;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +21,6 @@ namespace DMAssistant.ViewModel
 {
     public partial class SoundPanelViewModel : ObservableObject
     {
-        private static string musicPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Music");
         private static string ambiencePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Ambience");
 
         public ObservableCollection<AudioFile> AudioFiles { get; set; } = new();
@@ -99,6 +100,7 @@ namespace DMAssistant.ViewModel
 
         //library        
         public ICommand LoadDirectoryCommand { get; }
+        public ICommand FindDirectoryCommand { get; }
 
         //playlists
         public ICommand ShowPlaylistPopupCommand { get; }
@@ -135,7 +137,6 @@ namespace DMAssistant.ViewModel
             PlaylistsVisibility = Visibility.Collapsed;
             QueueVisibility = Visibility.Collapsed;
             SelectedPlaylistVisibility = Visibility.Collapsed;
-            
 
             //controls
             PlayCommand = new RelayCommand(PressPlay);
@@ -158,6 +159,7 @@ namespace DMAssistant.ViewModel
 
             //library
             LoadDirectoryCommand = new RelayCommand(LoadAudioFiles);
+            FindDirectoryCommand = new RelayCommand(FindDirectory);
             ShowLibraryCommand = new RelayCommand(() =>
             {
                 LibraryVisibility = Visibility.Visible;
@@ -244,6 +246,27 @@ namespace DMAssistant.ViewModel
             LoadAudioFiles();
         }
 
+        private void FindDirectory()
+        {
+            OpenFolderDialog dialog = new OpenFolderDialog()
+            {
+                InitialDirectory = App.SettingsStore.Settings.MusicPath,
+                Title = "Set Music Folder"
+            };
+
+            // Show dialog
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                
+                string selectedFolder = dialog.FolderName;
+                Debug.WriteLine(selectedFolder); 
+                App.SettingsStore.Settings.MusicPath = selectedFolder;
+                LoadAudioFiles();
+            }
+        }
+
         public void HandleAudioEnded()
         {
             Debug.WriteLine("Handling audio ending at view model...");
@@ -266,9 +289,13 @@ namespace DMAssistant.ViewModel
         private void LoadAudioFiles()
         {
             AudioFiles.Clear();
-            if (!Directory.Exists(musicPath)) return; //possibly create directories and move this check to the beginning of the app initialization
+            if (!Directory.Exists(App.SettingsStore.Settings.MusicPath)) 
+            {
+                Debug.WriteLine("MusicPath doesn't exist, sorry bro...");
+                return; 
+            } //possibly create directories and move this check to the beginning of the app initialization
 
-            foreach (var file in Directory.GetFiles(musicPath, "*.mp3" ))
+            foreach (var file in Directory.GetFiles(App.SettingsStore.Settings.MusicPath, "*.mp3" ))
                 AudioFiles.Add(new AudioFile { FilePath = file });
         }
 

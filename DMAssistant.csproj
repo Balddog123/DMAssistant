@@ -26,12 +26,14 @@
     <None Remove="Resources\icon-editnote.png" />
     <None Remove="Resources\icon-editsquare.png" />
     <None Remove="Resources\icon-erase.png" />
+    <None Remove="Resources\icon-folder.png" />
     <None Remove="Resources\icon-loop.png" />
     <None Remove="Resources\icon-page.png" />
     <None Remove="Resources\icon-pause.png" />
     <None Remove="Resources\icon-play.png" />
     <None Remove="Resources\icon-pointer.png" />
     <None Remove="Resources\icon-refresh.png" />
+    <None Remove="Resources\icon-removefromplaylist.png" />
     <None Remove="Resources\icon-save.png" />
     <None Remove="Resources\icon-scroll.png" />
     <None Remove="Resources\icon-search.png" />
@@ -49,6 +51,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
     <PackageReference Include="gong-wpf-dragdrop" Version="4.0.0" />
     <PackageReference Include="MahApps.Metro" Version="2.4.11" />
   </ItemGroup>
@@ -90,6 +93,9 @@
     <Resource Include="Resources\icon-erase.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\icon-folder.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon-loop.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -106,6 +112,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-refresh.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-removefromplaylist.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-save.png">
