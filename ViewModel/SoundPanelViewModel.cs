@@ -24,13 +24,12 @@ namespace DMAssistant.ViewModel
         private static string ambiencePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Ambience");
 
         public ObservableCollection<AudioFile> AudioFiles { get; set; } = new();
-        private ObservableCollection<Playlist> _playlists = new();
         public ObservableCollection<Playlist> Playlists
         {
-            get => _playlists;
+            get => App.AudioStore.AudioSettings.Playlists;
             set
             {
-                _playlists = value;
+                App.AudioStore.AudioSettings.Playlists = value;
                 OnPropertyChanged();
             }
         }
@@ -168,8 +167,6 @@ namespace DMAssistant.ViewModel
             });
 
             //playlist
-            Playlists.Add(new Playlist() { Name = "Awesome Songs", });
-
             ShowPlaylistPopupCommand = new RelayCommand<UIElement>(element =>
             {
                 if (element is FrameworkElement fe && fe.DataContext is AudioFile audioFile)
