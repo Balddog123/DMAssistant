@@ -51,8 +51,7 @@
 
 
         <!-- ================= RIGHT SIDE (NPC Detail View) ================= -->
-        <ContentControl Grid.Column="1"
-                        Content="{Binding SelectedNPCViewModel}" />
+        <ContentControl Grid.Column="1" Content="{Binding SelectedNPCViewModel}" />
 
     </Grid>
 </UserControl>

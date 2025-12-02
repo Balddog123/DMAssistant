@@ -101,7 +101,19 @@ namespace DMAssistant.ViewModel
 
         private void AddNPC()
         {
-            var newNpc = new NPC("Aric", "Human", "Wanderer", "Find treasure", "Riverfall");
+            var newNpc = new NPC("Aric", "", "Wanderer", "Find treasure");
+            //get location
+            Location location = NPC.GetRandomLocation();
+            if(location != null) newNpc.Home = location;
+            //get religion
+            //get race
+            newNpc.Race = NPC.GetRandomRace();
+            //generate name
+            //create description
+            //create goal
+
+            //first, we'll generate these PURELY random. Later, we will use influences from location, race, and religion to derive some of these values
+
             // NPC belongs to global campaign list
             App.CampaignStore.CurrentCampaign.NPCs.Add(newNpc);
             App.CampaignStore.NPCIndex[newNpc.ID] = newNpc;
@@ -111,5 +123,7 @@ namespace DMAssistant.ViewModel
             NPCList.Add(newNpc);
             SelectedNPC = newNpc;
         }
+
+        
     }
 }
