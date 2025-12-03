@@ -332,7 +332,12 @@ public class NPC : ObservableObject
 
 
 
-    public string Name { get; set; }
+    private string _name;
+    public string Name
+    {
+        get => _name;
+        set => SetProperty(ref _name, value);
+    }
     public string ID { get; set; } = Guid.NewGuid().ToString();
     private string _gender;
     public string Gender
@@ -340,9 +345,24 @@ public class NPC : ObservableObject
         get => _gender;
         set => SetProperty(ref _gender, value);
     }
-    public string Race { get; set; }
-    public string Description { get; set; }
-    public string Goal { get; set; }
+    private string _race;
+    public string Race
+    {
+        get => _race;
+        set => SetProperty(ref _race, value);
+    }
+    private string _description;
+    public string Description
+    {
+        get => _description;
+        set => SetProperty(ref _description, value);
+    }
+    private string _goal;
+    public string Goal
+    {
+        get => _goal;
+        set => SetProperty(ref _goal, value);
+    }
     private Location? _home;
     public Location? Home
     {

@@ -4,6 +4,7 @@ using DMAssistant.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace DMAssistant.ViewModel
 {
@@ -14,12 +15,25 @@ namespace DMAssistant.ViewModel
 
         public List<Location> AvailableLocations { get; } = new List<Location>();
 
+        public ICommand RandomizeNameCommand { get; }
+        public ICommand RandomizeRaceCommand { get; }
+        public ICommand RandomizeDescriptionCommand { get; }
+        public ICommand RandomizeGoalCommand { get; }
+        public ICommand RandomizeHomeCommand { get; }
+
+
         public NPCViewModel(NPC npc)
         {
             AvailableRaces = NPC.AvailableRaces.Keys.ToList();
             AvailableLocations = App.CampaignStore.CurrentCampaign.Locations.ToList();
             AvailableLocations.Insert(0, new Location{ Name = "None" });
             NPC = npc;
+
+            RandomizeNameCommand = new RelayCommand(() => NPC.Name = NPC.GetRandomName(NPC.Gender));
+            RandomizeRaceCommand = new RelayCommand(() => NPC.Race = NPC.GetRandomRace());
+            RandomizeDescriptionCommand = new RelayCommand(() => NPC.Description = NPC.GetRandomDescription());
+            RandomizeGoalCommand = new RelayCommand(() => NPC.Goal = NPC.GetRandomGoal());
+            RandomizeHomeCommand = new RelayCommand(() => NPC.Home = NPC.GetRandomLocation());
         }
     }
 
