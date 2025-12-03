@@ -33,14 +33,14 @@
         </Grid>
 
         <!-- Combatants List -->
-        <ListView Grid.Row="1" ItemsSource="{Binding CombatItems}" SelectedItem="{Binding SelectedCombatItem}">
+        <ListView Grid.Row="1" ItemsSource="{Binding CombatItemsView}" SelectedItem="{Binding SelectedCombatItem}">
             <ListView.View>
                 <GridView>
                     <!-- Initiative (editable) -->
                     <GridViewColumn Header="Init" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Initiative, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Text="{Binding Initiative, Mode=TwoWay}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

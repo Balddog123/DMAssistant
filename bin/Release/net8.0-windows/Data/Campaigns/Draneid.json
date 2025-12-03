@@ -61,6 +61,7 @@
               "Description": ""
             }
           ],
+          "CombatItems": [],
           "Name": "Patrol 1",
           "CurrentRound": 0
         },
@@ -83,6 +84,7 @@
               "Description": ""
             }
           ],
+          "CombatItems": [],
           "Name": "Patrol 2",
           "CurrentRound": 0
         },
@@ -201,6 +203,7 @@
               "Description": ""
             }
           ],
+          "CombatItems": [],
           "Name": "General Oddoc",
           "CurrentRound": 0
         },
@@ -231,6 +234,7 @@
               "Description": ""
             }
           ],
+          "CombatItems": [],
           "Name": "Flying devils",
           "CurrentRound": 0
         },
@@ -253,6 +257,7 @@
               "Description": ""
             }
           ],
+          "CombatItems": [],
           "Name": "Bone",
           "CurrentRound": 0
         }
@@ -390,6 +395,7 @@
               "Description": ""
             }
           ],
+          "CombatItems": [],
           "Name": "Volcano Pit Fight",
           "CurrentRound": 0
         }
