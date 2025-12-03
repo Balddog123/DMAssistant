@@ -72,6 +72,16 @@
 
                     <!-- Armor Class (read-only) -->
                     <GridViewColumn Header="AC" Width="50" DisplayMemberBinding="{Binding ArmorClass}" />
+
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.DeleteCombatItemCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
+                                    <Image Source="/Resources/icon-delete.png" Width="16" Height="16" />
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

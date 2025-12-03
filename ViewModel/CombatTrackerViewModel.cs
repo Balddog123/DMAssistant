@@ -54,6 +54,7 @@ namespace DMAssistant.ViewModel
         }
 
         public ICommand NextRoundCommand { get; }
+        public ICommand DeleteCombatItemCommand { get; }
         public CombatTrackerViewModel(Encounter encounter, ObservableCollection<CombatItem> combatItems)
         {
             Encounter = encounter;
@@ -63,6 +64,13 @@ namespace DMAssistant.ViewModel
             else DisplayOriginalCombatItems(combatItems);
 
             NextRoundCommand = new RelayCommand(MoveToNextRound);
+            DeleteCombatItemCommand = new RelayCommand<CombatItem>(itemToDelete =>
+            {
+                if (itemToDelete == null) return;
+                CombatItems.Remove(itemToDelete);
+                CombatItemsView.Refresh();
+            });
+
             CombatItemsView = CollectionViewSource.GetDefaultView(CombatItems);
             CombatItemsView.SortDescriptions.Add(new SortDescription(nameof(CombatItem.Initiative), ListSortDirection.Descending));
             foreach(var item in CombatItems)
