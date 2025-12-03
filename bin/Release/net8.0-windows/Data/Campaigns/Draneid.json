@@ -156,8 +156,6 @@
               "$type": "monsterGroup",
               "Quantity": 1,
               "MonsterId": "",
-              "QuantityDisplay": "1",
-              "TypeName": "Monster",
               "Name": "New Encounter Item",
               "RoundNumber": 0,
               "Description": ""
@@ -166,8 +164,6 @@
               "$type": "monsterGroup",
               "Quantity": 1,
               "MonsterId": "",
-              "QuantityDisplay": "1",
-              "TypeName": "Monster",
               "Name": "New Encounter Item",
               "RoundNumber": 0,
               "Description": ""
@@ -176,8 +172,6 @@
               "$type": "monsterGroup",
               "Quantity": 1,
               "MonsterId": "",
-              "QuantityDisplay": "1",
-              "TypeName": "Monster",
               "Name": "New Encounter Item",
               "RoundNumber": 0,
               "Description": ""
@@ -186,8 +180,6 @@
               "$type": "monsterGroup",
               "Quantity": 1,
               "MonsterId": "",
-              "QuantityDisplay": "1",
-              "TypeName": "Monster",
               "Name": "New Encounter Item",
               "RoundNumber": 0,
               "Description": ""
@@ -196,8 +188,6 @@
               "$type": "monsterGroup",
               "Quantity": 1,
               "MonsterId": "",
-              "QuantityDisplay": "1",
-              "TypeName": "Monster",
               "Name": "New Encounter Item",
               "RoundNumber": 0,
               "Description": ""
@@ -206,8 +196,6 @@
               "$type": "monsterGroup",
               "Quantity": 1,
               "MonsterId": "",
-              "QuantityDisplay": "1",
-              "TypeName": "Monster",
               "Name": "New Encounter Item",
               "RoundNumber": 0,
               "Description": ""
@@ -344,6 +332,62 @@
               "Name": "Gen Oddoc",
               "RoundNumber": 0,
               "Description": ""
+            },
+            {
+              "$type": "monsterGroup",
+              "Quantity": 3,
+              "MonsterId": "1095adc1-9383-49fa-8985-ea1f2e2970e7",
+              "Name": "Spined",
+              "RoundNumber": 0,
+              "Description": ""
+            },
+            {
+              "$type": "monsterGroup",
+              "Quantity": 3,
+              "MonsterId": "a46b6f5b-a03f-435d-a8d2-4b500a9df041",
+              "Name": "Bone",
+              "RoundNumber": 0,
+              "Description": ""
+            },
+            {
+              "$type": "monsterGroup",
+              "Quantity": 3,
+              "MonsterId": "f6b509ad-8c82-499f-a5de-982bacca6932",
+              "Name": "Horned",
+              "RoundNumber": 0,
+              "Description": ""
+            },
+            {
+              "$type": "monsterGroup",
+              "Quantity": 2,
+              "MonsterId": "5137b012-fe80-493b-a46c-556d02456e59",
+              "Name": "Ice",
+              "RoundNumber": 0,
+              "Description": ""
+            },
+            {
+              "$type": "monsterGroup",
+              "Quantity": 2,
+              "MonsterId": "0dd28522-fb9f-4ca5-83d6-cc32a194f448",
+              "Name": "Chain",
+              "RoundNumber": 0,
+              "Description": ""
+            },
+            {
+              "$type": "monsterGroup",
+              "Quantity": 8,
+              "MonsterId": "21808ed1-bdbc-4457-9a16-04b530623a5c",
+              "Name": "Bearded",
+              "RoundNumber": 0,
+              "Description": ""
+            },
+            {
+              "$type": "monsterGroup",
+              "Quantity": 8,
+              "MonsterId": "d8a3d135-6720-4361-8193-a9b1267f01c7",
+              "Name": "New Monster Group",
+              "RoundNumber": 0,
+              "Description": ""
             }
           ],
           "Name": "Volcano Pit Fight",
@@ -353,7 +397,7 @@
       "LocationIDs": [
         "e1a1cbe5-1f5e-4327-b089-3571cab2e922"
       ],
-      "Scenes": "Necklace of Shared Damage, what does it do?\r\nDice of Frozen Luck\r\n\r\nDON\u0027T be afraid to add color in your descriptions. USE the character\u0027s voices and voice lines.\r\n\r\nStrong Start:\r\nYou\u0027re surrounded by a company of \r\n\r\nYour Potential Scenes go here:\n1. The party battles the devils in the center of the volcano and attempt to take the gem heart.\r\n2. The elves are released from the pillars, which frees Pyrrhos from his bindings.\n3. Pyrrhos joins the players in the fight against the devils.\r\n\r\n(Optional) The players are routed and flee Ash Mount.\r\n(Optional) The players attempt to return to Ash Mount, though the entrances are now more heavily guarded.\r\n(Optional) The players attempt to recruit allies to help them attack Ash Mount.",
+      "Scenes": "Necklace of Shared Damage, what does it do?\r\nDice of Frozen Luck?\r\n\r\nDON\u0027T be afraid to add color in your descriptions. USE the character\u0027s voices and voice lines.\r\n\r\nStrong Start:\r\nYou find yourselves at the center of Ash Mount, the thick lava giving off a fading light up to the vent where the dark ashen sky can be seen.\r\nYou\u0027re surrounded by a formation of flying devils led by their general at the center of this island in the volcano. The general, a large blood-red pit fiend with a long scar running down his face and body, guards a large gem half-buried in the ground.\r\nAnother group of flying devils fights a lone, faceless angel summoned by Ecbert.\r\nYou will remember the 3 obsidian pillars held upright by extended platforms at each opening within this conduit of the volcano. 2 of these pillars have an elf pinned by stakes. A magical tether of blood seemingly connects them to the gem at the center. Each of the platforms can be accessed either by the stairs leading up from the island or from a cave behind the platforms.\r\nSome of you are fighting the devils at the island. Galarand and his mother are stealthily climbing across the conduit wall to get to a platform.\r\nA full round of combat, six seconds, have left some of you gasping for air and badly wounded. We begin at the top of the second round of combat.\r\nThe general sighs saying (deep voice drill instructor), \u0022You have successfully become a nuisance. You interrupted our ritual; good for you. But now, you\u0027re surrounded and you WILL die. That is, of course, unless we make a deal where I let you go and you give me the halfling. He belongs to our master, you see. He has broken an oath with Kendrilix, and I cannot stand by it. Make your choice.\u0022\r\n\r\nYour Potential Scenes go here:\n1. The party battles the devils in the center of the volcano and attempt to take the gem heart.\r\n2. Pyrrhos is freed and joins the players.\r\n3. General Oddoc recognizes Ecbert as the son of the priest who gave him his scar.\r\n4. General Oddoc retreats.\r\n\r\n(Optional) The players are routed and flee Ash Mount.\r\n(Optional) The players attempt to return to Ash Mount, though the entrances are now more heavily guarded.\r\n(Optional) The players attempt to recruit allies to help them attack Ash Mount.",
       "Secrets": [
         {
           "Text": "The Binding - Pyrrhos is bound to Kendrilix by the sacrifices of the elves on the obsidian pillars.",
@@ -392,7 +436,7 @@
       "Name": "General Oddoc",
       "ID": "b6ccde5f-22c0-43eb-868d-ba625b83825b",
       "Race": "Fiend",
-      "Description": "He is one of 3 Loyals, the greatest of Kendrilix\u0027s puppets. He lead the military force that Kendrilix needs to attack Everlife Island.",
+      "Description": "He is one of 3 Loyals, the greatest of Kendrilix\u0027s puppets. He lead the military force that Kendrilix needs to attack Everlife Island.\r\n\r\nHe acts like a drill instructor.\r\nHe has a large scar running down his face and torso.\r\nHe is highly and pristinely decorated in military uniform.",
       "Goal": "Raise the strongest army he can and conquer Everlife Island, according to Kendrilix\u0027s command.",
       "Home": "Avernus"
     },

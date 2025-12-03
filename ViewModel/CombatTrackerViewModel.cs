@@ -110,6 +110,8 @@ namespace DMAssistant.ViewModel
 
         private void CreateEncounterCombatItem(EncounterItem encounterItem)
         {
+            if (encounterItem == null) return;
+
             if (encounterItem is MonsterGroup mg && mg.monsterId != string.Empty)
             {
                 Monster monster = App.CampaignStore.MonsterIndex[mg.monsterId];
@@ -133,6 +135,7 @@ namespace DMAssistant.ViewModel
             else
             {
                 EncounterEvent ev = encounterItem as EncounterEvent;
+
                 CombatItem newItem = new CombatItem(ev.name, ev.Initiative, 0, 0, 0, CombatItem.Type.Event, ev.name);
                 CombatItems.Add(newItem);
             }
