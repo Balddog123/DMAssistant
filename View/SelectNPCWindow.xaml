@@ -5,20 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DMAssistant.View"
         mc:Ignorable="d"
-        Title="Select NPC" Height="300" Width="300" WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize">
+        Title="Select NPC" SizeToContent="WidthAndHeight" MaxHeight ="700" WindowStartupLocation="CenterOwner"
+        xmlns:h="clr-namespace:DMAssistant.Helpers">
     <Grid Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListBox x:Name="NPCListBox"
-                 DisplayMemberPath="Name"
-                 SelectedItem="{Binding SelectedNPC}"
-                 ItemsSource="{Binding AvailableNPCs}" />
+        <TextBox x:Name="SearchTextBox"
+             Grid.Row="0"
+             Margin="0,0,0,10"
+             Width="250"
+             HorizontalAlignment="Left"
+             h:TextBoxHelper.Placeholder="Search..."
+             TextChanged="SearchTextBox_TextChanged" />
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+        <ListBox x:Name="NPCListBox"
+             Grid.Row="1"
+             DisplayMemberPath="Name" />
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button Content="Cancel" Width="70" Margin="0,0,5,0" Click="Cancel_Click"/>
             <Button Content="Add" Width="70" Click="Add_Click"/>
         </StackPanel>

@@ -1,0 +1,10 @@
+﻿Updating properties:
+To update a property, "subscribe" to the Object. Store it as a property. Then, add a Object.PropertyChanged event handler on initialization of ViewModel. 
+So, when the property is changed on the object, we execute the event handler, thereby updating the ui.
+
+
+
+
+
+        
+                                

@@ -5,6 +5,8 @@ using DMAssistant.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,110 +16,159 @@ namespace DMAssistant.ViewModel
 {
     public class ItemPanelViewModel : ObservableObject
     {
-        private readonly ObservableCollection<string> _sessionItemIDs;
-        public Session _session;
-        public ObservableCollection<Item> ItemList { get; }
+        private readonly Session _session;
 
-        private Item _selectedItem;
-        public Item SelectedItem
+        private ObservableCollection<ItemViewModel> _itemList;
+        public ObservableCollection<ItemViewModel> ItemList
         {
-            get => _selectedItem;
+            get => _itemList;
             set
             {
-                if (SetProperty(ref _selectedItem, value))
+                if (value != null)
                 {
-                    SelectedItemViewModel = new ItemViewModel(_selectedItem);
+                    _itemList = new ObservableCollection<ItemViewModel>(value.OrderBy(i => i.Name));
+                    OnPropertyChanged(nameof(ItemList));
                 }
             }
         }
 
-        private ItemViewModel _selectedItemViewModel;
-        public ItemViewModel SelectedItemViewModel
+
+        private ItemViewModel _selectedItem;
+        public ItemViewModel SelectedItem
         {
-            get => _selectedItemViewModel;
-            set => SetProperty(ref _selectedItemViewModel, value);
+            get => _selectedItem;
+            set => SetProperty(ref _selectedItem, value);
         }
 
         public IRelayCommand AddItemCommand { get; }
         public IRelayCommand AddExistingItemCommand { get; }
-        public IRelayCommand DeleteItemCommand => new RelayCommand<Item>(itemToRemove =>
-        {
-            if (MessageBox.Show($"Delete {itemToRemove.Name}?",
-                                "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                RemoveItem(itemToRemove);
-            }
-        });
+        public IRelayCommand<ItemViewModel> DeleteItemCommand { get; }
 
-        public ItemPanelViewModel(ObservableCollection<string> itemIDs, Session session)
+        public ItemPanelViewModel(ObservableCollection<string> ids, Session session)
         {
-            _sessionItemIDs = itemIDs;
-            ItemList = new ObservableCollection<Item>();
+            _session = session;
 
-            // Hydrate real Monster objects
-            foreach (string id in itemIDs)
+            foreach (string id in ids)
             {
                 if (App.CampaignStore.ItemIndex.TryGetValue(id, out var item))
-                    ItemList.Add(item);
+                {
+                    //CreateItemViewModel(item);
+                    Debug.WriteLine("Found item: " + item.Name);
+                }
             }
+            // Convert item IDs → viewmodels
+            ItemList = new ObservableCollection<ItemViewModel>(
+                ids.Select(id =>
+                    CreateItemViewModel(App.CampaignStore.ItemIndex[id]))
+            );
 
-            if (ItemList.Any()) SelectedItem = ItemList[0];
+            if (ItemList.Any())
+                SelectedItem = ItemList[0];
 
             AddItemCommand = new RelayCommand(AddItem);
             AddExistingItemCommand = new RelayCommand(AddExistingItem);
+            DeleteItemCommand = new RelayCommand<ItemViewModel>(DeleteItem);
 
-            _session = session;
-            App.CampaignStore.ItemDeleted += OnItemDeleted;
+            // Watch for per-item changes
+            foreach (ItemViewModel vm in ItemList)
+                HookItemEvents(vm);
         }
 
-        private void RemoveItem(Item? itemToRemove)
+        private ItemViewModel CreateItemViewModel(Item item)
         {
-            if (itemToRemove != null)
+            var vm = new ItemViewModel(item);
+
+            // listen to whenever Name/Rank/etc. changes
+            HookItemEvents(vm);
+
+            return vm;
+        }
+
+        private void HookItemEvents(ItemViewModel vm)
+        {
+            vm.PropertyChanged += (_, args) =>
             {
-                ItemList.Remove(itemToRemove);
-            }
-        }
-
-        private void OnItemDeleted(Item item)
-        {
-            if (ItemList.Contains(item)) ItemList.Remove(item);
-
-            if (SelectedItem == item) SelectedItem = ItemList.FirstOrDefault();
+                // Example: react to name changes
+                if (args.PropertyName == nameof(ItemViewModel.Name))
+                {
+                    // Raise panel-level update (e.g., refresh list)
+                    OnPropertyChanged(nameof(ItemList));
+                }
+            };
         }
 
         private void AddItem()
         {
-            var item = new Item("New Item", Item.ItemRank.Common, "", "", "", "");
-            ItemList.Add(item);
-            SelectedItem = item;
-            // Item belongs to global campaign list
+            var item = new Item("New Item", Item.ItemRank.Common, Item.ItemType.Minor, false, "", "", "");
             App.CampaignStore.CurrentCampaign.Items.Add(item);
             App.CampaignStore.ItemIndex[item.ID] = item;
-            // Add ID to session
-            _sessionItemIDs.Add(item.ID);
+
+            if(_session != null) _session.ItemIDs.Add(item.ID);
+
+            var vm = CreateItemViewModel(item);
+            InsertSorted(vm);
+            SelectedItem = vm;
         }
+        private void InsertSorted(ItemViewModel vm)
+        {
+            if (_itemList.Count == 0)
+            {
+                _itemList.Add(vm);
+                return;
+            }
+
+            // Find the index where the item should go
+            int index = 0;
+            while (index < _itemList.Count && string.Compare(_itemList[index].Name, vm.Name, StringComparison.OrdinalIgnoreCase) < 0)
+            {
+                index++;
+            }
+
+            _itemList.Insert(index, vm);
+        }
+
 
         private void AddExistingItem()
         {
-            // Open a simple selection dialog
-            var availableItems = App.CampaignStore.CurrentCampaign.Items.ToList();
+            if (_session == null) return;
 
-            if (!availableItems.Any())
+            var available = App.CampaignStore.CurrentCampaign.Items;
+
+            if (!available.Any())
             {
                 MessageBox.Show("No Items available!");
                 return;
             }
 
-            var window = new SelectItemWindow(availableItems);
-            var result = window.ShowDialog();
-
-            if (result == true && window.SelectedItem != null)
+            var window = new SelectItemWindow(available.ToList());
+            if (window.ShowDialog() == true && window.SelectedItem != null)
             {
-                _sessionItemIDs.Add(window.SelectedItem.ID);
-                ItemList.Add(window.SelectedItem);
-                SelectedItem = window.SelectedItem;
+                var item = window.SelectedItem;
+                _session.ItemIDs.Add(item.ID);
+
+                var vm = CreateItemViewModel(item);
+                InsertSorted(vm);
+                SelectedItem = vm;
             }
         }
+
+        private void DeleteItem(ItemViewModel itemVM)
+        {
+            if (MessageBox.Show($"Delete {itemVM.Name}?",
+                "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                return;
+
+            // Delete from campaign
+            App.CampaignStore.DeleteItem(itemVM.Item, _session);
+
+            // Delete from UI
+            ItemList.Remove(itemVM);
+
+            // Select something new
+            if (SelectedItem == itemVM)
+                SelectedItem = ItemList.FirstOrDefault();
+        }
     }
+
 
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,25 +49,46 @@ namespace DMAssistant.Model
                 }
             }
         }
-        public string Type { get; set; }
+
+        public enum ItemType
+        {
+            Minor,
+            Major
+        }
+        private ItemType _type;
+        public ItemType Type
+        {
+            get => _type;
+            set
+            {
+                if (_type != value)
+                {
+                    _type = value;
+                    OnPropertyChanged(nameof(Type));
+                    OnPropertyChanged(nameof(DisplayName));
+                }
+            }
+        }
+
+        public bool RequiresAttunement { get; set; }
         public string Function { get; set; }
         public string Appearance { get; set; }
         public string Origin { get; set; }
-
         public string DisplayName => $"{Name}{RankSuffix}";
         public string RankSuffix => Rank switch
         {
             ItemRank.Common => "",
-            ItemRank.Uncommon => " (^)",
-            ItemRank.Rare => " (*)",
-            ItemRank.VeryRare => " (^*)",
-            ItemRank.Legendary => " (***)",
+            ItemRank.Uncommon => " (UC)",
+            ItemRank.Rare => " (R)",
+            ItemRank.VeryRare => " (VR)",
+            ItemRank.Legendary => " (L)",
             _ => ""
         };
 
+
         [ObservableProperty] public Visibility expandedVisibility = Visibility.Collapsed;
 
-        public Item(string name, ItemRank rank, string type, string function, string appearance, string origin)
+        public Item(string name, ItemRank rank, ItemType type, bool requiresAttunement, string function, string appearance, string origin)
         {
             Name = name;
             Rank = rank;
@@ -74,6 +96,7 @@ namespace DMAssistant.Model
             Function = function;
             Appearance = appearance;
             Origin = origin;
+            RequiresAttunement = requiresAttunement;
         }
     }
 }

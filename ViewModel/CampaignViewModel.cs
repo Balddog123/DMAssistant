@@ -37,7 +37,7 @@ namespace DMAssistant.ViewModel
             AccumulateIds();
             ShowCampaignDetails = new RelayCommand(() => CurrentModuleView = new CampaignDetailsViewModel());
             ShowNPCsCommand = new RelayCommand(() => CurrentModuleView = new NPCPanelViewModel(_npcIds, null));
-            ShowItemsCommand = new RelayCommand(() => CurrentModuleView = new ItemPanelViewModel(_itemIds, null));
+            ShowItemsCommand = new RelayCommand(() => CurrentModuleView = new ItemPanelViewModel(new ObservableCollection<string>(App.CampaignStore.CurrentCampaign.Items.Select(i => i.ID)), null));
             ShowMonstersCommand = new RelayCommand(() => CurrentModuleView = new MonsterPanelViewModel(_monsterIds, null));
             ShowLocationsCommand = new RelayCommand(() => CurrentModuleView = new LocationPanelViewModel(_locationIds, null));
 

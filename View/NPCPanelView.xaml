@@ -30,10 +30,23 @@
 
             <TextBlock Text="NPCs" FontWeight="Bold" Margin="0,0,0,5"/>
 
-            <ListBox ItemsSource="{Binding NPCList}"
-                     SelectedItem="{Binding SelectedNPC}"
-                     DisplayMemberPath="Name"
-                     Margin="0,5,10,0"/>
+            <ListBox ItemsSource="{Binding NPCList}" SelectedItem="{Binding SelectedNPC}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <!-- Remove button -->
+                            <Button Command="{Binding DataContext.DeleteNPC, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}"
+                                    Margin="0,0,0,0"
+                                    DockPanel.Dock="Right">
+                                <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
+                            </Button>
+                            <TextBlock Text="{Binding Name}" />
+                        </DockPanel>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
 
 

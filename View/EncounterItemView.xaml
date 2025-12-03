@@ -6,42 +6,40 @@
              mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="300">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="5" Orientation="Vertical" CanVerticallyScroll="True">
+    <StackPanel Orientation="Vertical" CanVerticallyScroll="True" Background="Gray">
 
-            <!-- Editable name -->
-            <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" Margin="0,0,0,5" />
+        <!-- Editable name -->
+        <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" Margin="0,0,0,5" />
 
-            <!-- Round number -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Round: " VerticalAlignment="Center" />
-                    <TextBox Text="{Binding RoundNumber, Mode=TwoWay}" Width="50" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5" >
-                    <TextBlock Text="Quantity: " VerticalAlignment="Center" />
-                    <TextBox Text="{Binding Quantity, Mode=TwoWay}" Width="50" />
-                </StackPanel>
+        <!-- Round number -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Round: " VerticalAlignment="Center" />
+                <TextBox Text="{Binding RoundNumber, Mode=TwoWay}" Width="50" />
             </StackPanel>
-
-            <!-- Monster-specific properties -->
-            <StackPanel Visibility="{Binding MonsterGroupVisibility}">
-                <Button Content="Select Monster" Command="{Binding OpenMonsterWindowCommand}"/>
-                <ContentControl Content="{Binding EncounterItemMonsterViewModel}"/>
-                
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5" >
+                <TextBlock Text="Quantity: " VerticalAlignment="Center" />
+                <TextBox Text="{Binding Quantity, Mode=TwoWay}" Width="50" />
             </StackPanel>
-        
+        </StackPanel>
 
-            <!-- Event-specific properties -->
-            <StackPanel Orientation="Horizontal" Visibility="{Binding EncounterEventVisibility}">
-                <TextBlock Text="Initiative: " VerticalAlignment="Center" />
-                <TextBox Text="{Binding Initiative, Mode=TwoWay}" Width="50" />
-            </StackPanel>
-        
-            <!-- Description -->
-            <TextBox Text="{Binding Description, Mode=TwoWay}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,5" />
+        <!-- Monster-specific properties -->
+        <StackPanel Visibility="{Binding MonsterGroupVisibility}">
+            <Button Content="Select Monster" Command="{Binding OpenMonsterWindowCommand}"/>
+            <ContentControl Content="{Binding EncounterItemMonsterViewModel}"/>
 
         </StackPanel>
-    </ScrollViewer>
+
+
+        <!-- Event-specific properties -->
+        <StackPanel Orientation="Horizontal" Visibility="{Binding EncounterEventVisibility}">
+            <TextBlock Text="Initiative: " VerticalAlignment="Center" />
+            <TextBox Text="{Binding Initiative, Mode=TwoWay}" Width="50" />
+        </StackPanel>
+
+        <!-- Description -->
+        <TextBox Text="{Binding Description, Mode=TwoWay}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,5" />
+
+    </StackPanel>
 
 </UserControl>

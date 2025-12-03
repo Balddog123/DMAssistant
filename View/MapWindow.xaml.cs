@@ -132,6 +132,11 @@ namespace DMAssistant.View
             Ink.EditingMode = InkCanvasEditingMode.EraseByStroke;
             _snapToGrid = false;
         }
+        private void EnablePointer(object sender, RoutedEventArgs e)
+        {
+            Ink.EditingMode = InkCanvasEditingMode.Select;
+            _snapToGrid = false;
+        }
 
 
         private void Ink_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)

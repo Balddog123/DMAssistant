@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:helpers="clr-namespace:DMAssistant.Helpers"
-        Title="Map" Height="800" Width="1200" Topmost="True">
+        Title="Map" Height="800" Width="1200" Topmost="True" ResizeMode="CanResizeWithGrip">
 
     <Window.Resources>
         <ObjectDataProvider x:Key="GridLinesProvider"
@@ -21,6 +21,11 @@
                 <Button Click="SaveCanvas">
                     <Image Source="/Resources/icon-save.png"/>
                 </Button>
+            </ToolBar>
+            <ToolBar Name="EditingTools" >
+                <Button Click="EnablePointer">
+                    <Image Source="/Resources/icon-pointer.png"/>
+                </Button>
                 <Button Click="EnableGridSnapping">
                     <Image Source="/Resources/icon-edit.png"/>
                 </Button>
@@ -30,11 +35,10 @@
                 <Button Click="EnableErasing">
                     <Image Source="/Resources/icon-erase.png"/>
                 </Button>
+            </ToolBar>
+            <ToolBar Name="AddItemTools">
                 <Button Click="DrawNoteButton_Click">
                     <Image Source="/Resources/icon-editnote.png"/>
-                </Button>
-                <Button>
-                    <Image Source="/Resources/icon-editsquare.png"/>
                 </Button>
             </ToolBar>
         </ToolBarTray>

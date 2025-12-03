@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DMAssistant;
 using DMAssistant.Model;
 using DMAssistant.View;
+using DMAssistant.ViewModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,123 +11,235 @@ namespace DMAssistant.ViewModel
 {
     public class EncounterItemViewModel : ObservableObject
     {
-        private EncounterItem _encounterItem;
-        public EncounterItem EncounterItem
+        public EncounterItem EncounterItem { get; }
+
+        // Event raised for ANY change that affects TotalCR
+        public event Action? MonsterChanged;
+
+        public EncounterItemViewModel(EncounterItem item)
         {
-            get => _encounterItem;
-            set
+            EncounterItem = item;
+
+            // Listen to model-level changes
+            EncounterItem.PropertyChanged += (_, e) =>
             {
-                if (SetProperty(ref _encounterItem, value))
+                if (e.PropertyName is nameof(MonsterGroup.Quantity) ||
+                    e.PropertyName is nameof(MonsterGroup.MonsterId) ||
+                    e.PropertyName is nameof(EncounterItem.CR))
                 {
-                    // Notify the UI that derived visibility properties changed
-                    OnPropertyChanged(nameof(MonsterGroupVisibility));
-                    OnPropertyChanged(nameof(EncounterEventVisibility));
+                    MonsterChanged?.Invoke();
                 }
+
+                // Update visibility when changing item type
+                OnPropertyChanged(nameof(MonsterGroupVisibility));
+                OnPropertyChanged(nameof(EncounterEventVisibility));
+                OnPropertyChanged(nameof(TypeName));
+                OnPropertyChanged(nameof(TotalCR));
+                OnPropertyChanged(nameof(CR));
+                OnPropertyChanged(nameof(Quantity));
+            };
+
+            // Initialize MonsterViewModel if needed
+            if (item is MonsterGroup mg && !string.IsNullOrWhiteSpace(mg.MonsterId))
+            {
+                _monster = App.CampaignStore.MonsterIndex[mg.MonsterId];
+                EncounterItemMonsterViewModel = new MonsterViewModel(_monster);
             }
+
+            OpenMonsterWindowCommand = new RelayCommand(OpenMonsterSelector);
         }
 
 
+        // ----------------------------------------------------------------------
+        //  Basic Properties
+        // ----------------------------------------------------------------------
+
         public string Name
         {
-            get => EncounterItem?.Name ?? string.Empty;
-            set => SetProperty(EncounterItem.Name, value, EncounterItem, (e, v) => e.Name = v);
+            get => EncounterItem.Name;
+            set
+            {
+                if (EncounterItem.Name != value)
+                {
+                    EncounterItem.Name = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public int RoundNumber
         {
-            get => EncounterItem?.RoundNumber ?? 0;
+            get => EncounterItem.RoundNumber;
             set
             {
-                SetProperty(EncounterItem.RoundNumber, value, EncounterItem, (e, v) => e.RoundNumber = v);
+                if (EncounterItem.RoundNumber != value)
+                {
+                    EncounterItem.RoundNumber = value;
+                    OnPropertyChanged();
+                }
             }
         }
+
+        public string TypeName => EncounterItem?.TypeName ?? string.Empty;
+
 
         public string Description
         {
-            get => EncounterItem?.Description ?? string.Empty;
-            set => SetProperty(EncounterItem.Description, value, EncounterItem, (e, v) => e.Description = v);
-        }
-
-        // Monster-specific properties
-        public int Quantity
-        {
-            get => EncounterItem is MonsterGroup mg ? mg.Quantity : 0;
-            set 
+            get => EncounterItem.Description;
+            set
             {
-                if (EncounterItem is MonsterGroup mg)
+                if (EncounterItem.Description != value)
                 {
-                    SetProperty(mg.Quantity, value, mg, (e, v) => e.Quantity = v);
-                    
+                    EncounterItem.Description = value;
+                    OnPropertyChanged();
                 }
-                OnPropertyChanged(nameof(EncounterItem.QuantityDisplay));
             }
         }
 
+        // ----------------------------------------------------------------------
+        //  Monster-related properties
+        // ----------------------------------------------------------------------
+
         private Monster _monster;
+
         public Monster Monster
         {
             get => _monster;
-            set 
-            { 
-                if (EncounterItem is MonsterGroup mg)
+            set
+            {
+                if (SetProperty(ref _monster, value))
                 {
-                    SetProperty(ref _monster, value);
-                    EncounterItemMonsterViewModel = new MonsterViewModel(_monster);
-                    mg.monsterId = _monster.ID;
+                    if (EncounterItem is MonsterGroup mg)
+                    {
+                        mg.MonsterId = value.ID;
+                        EncounterItemMonsterViewModel = new MonsterViewModel(value);
+                    }
+
+                    MonsterChanged?.Invoke();
                 }
             }
         }
-        private MonsterViewModel _selectedEncounterItemViewModel;
-        public MonsterViewModel EncounterItemMonsterViewModel
+
+        public int Quantity
         {
-            get => _selectedEncounterItemViewModel;
-            set => SetProperty(ref _selectedEncounterItemViewModel, value);
+            get => EncounterItem is MonsterGroup mg ? mg.Quantity : 0;
+            set
+            {
+                if (EncounterItem is MonsterGroup mg && mg.Quantity != value)
+                {
+                    mg.Quantity = value;
+                    OnPropertyChanged();
+                    MonsterChanged?.Invoke();
+                }
+            }
         }
 
-        // Event-specific properties
+        public string CR
+        {
+            get
+            {
+                if (EncounterItem != null && EncounterItem is MonsterGroup mg)
+                {
+                    return mg.CR;
+                }
+                else
+                {
+                    return "0";
+                }
+            }
+        }
+        public int TotalCR
+        {
+            get
+            {
+                int cr = 0;
+                if (EncounterItem != null && EncounterItem is MonsterGroup mg)
+                {
+                    if(int.TryParse(mg.CR, out int challenge))
+                    {
+                        cr += challenge * mg.Quantity;
+                    }
+                    else
+                    {
+                        if (mg.CR.Contains('/'))
+                        {
+
+                        }
+                    }
+                }
+                return cr;
+            }
+        }
+
+        public int TotalXP
+        {
+            get
+            {
+                int cr = 0;
+                if (EncounterItem != null && EncounterItem is MonsterGroup mg)
+                {
+                    cr += mg.XP * mg.Quantity;
+                }
+                return cr;
+            }
+        }
+
+        private MonsterViewModel _encounterItemMonsterViewModel;
+        public MonsterViewModel EncounterItemMonsterViewModel
+        {
+            get => _encounterItemMonsterViewModel;
+            set => SetProperty(ref _encounterItemMonsterViewModel, value);
+        }
+
+        // ----------------------------------------------------------------------
+        //  Event-specific properties
+        // ----------------------------------------------------------------------
+
         public int Initiative
         {
             get => EncounterItem is EncounterEvent ev ? ev.Initiative : 0;
-            set 
+            set
             {
-                if (EncounterItem is EncounterEvent ev)
+                if (EncounterItem is EncounterEvent ev && ev.Initiative != value)
                 {
-                    SetProperty(ev.Initiative, value, ev, (e, v) => e.Initiative = v);
+                    ev.Initiative = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
+        // ----------------------------------------------------------------------
+        //  UI helpers
+        // ----------------------------------------------------------------------
 
-        public Visibility MonsterGroupVisibility => EncounterItem is MonsterGroup ? Visibility.Visible : Visibility.Collapsed;
-        public Visibility EncounterEventVisibility => EncounterItem is EncounterEvent ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility MonsterGroupVisibility =>
+            EncounterItem is MonsterGroup ? Visibility.Visible : Visibility.Collapsed;
+
+        public Visibility EncounterEventVisibility =>
+            EncounterItem is EncounterEvent ? Visibility.Visible : Visibility.Collapsed;
+
+        // ----------------------------------------------------------------------
+        //  Commands
+        // ----------------------------------------------------------------------
 
         public ICommand OpenMonsterWindowCommand { get; }
-        public EncounterItemViewModel(EncounterItem item)
+
+        private void OpenMonsterSelector()
         {
-            EncounterItem = item;
-            OpenMonsterWindowCommand = new RelayCommand(() =>
+            var available = App.CampaignStore.CurrentCampaign.Monsters.ToList();
+
+            if (!available.Any())
             {
-                var available = App.CampaignStore.CurrentCampaign.Monsters.ToList();
-                
-                if (!available.Any())
-                {
-                    MessageBox.Show("No Monsters available!");
-                    return;
-                }
+                MessageBox.Show("No Monsters available!");
+                return;
+            }
 
-                var window = new SelectMonsterWindow(available);
-                if (window.ShowDialog() == true && window.SelectedMonster != null)
-                {
-                    var monster = window.SelectedMonster;
-
-                    Monster = monster;
-                }
-            });
-
-            if(EncounterItem is MonsterGroup mg && mg.monsterId != string.Empty)
+            var window = new SelectMonsterWindow(available);
+            if (window.ShowDialog() == true && window.SelectedMonster != null)
             {
-                Monster = App.CampaignStore.MonsterIndex[mg.monsterId];
+                Monster = window.SelectedMonster;
             }
         }
     }
+
 }

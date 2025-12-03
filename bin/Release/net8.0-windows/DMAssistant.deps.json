@@ -9,7 +9,8 @@
       "DMAssistant/1.0.0": {
         "dependencies": {
           "CommunityToolkit.Mvvm": "8.4.0",
-          "MahApps.Metro": "2.4.11"
+          "MahApps.Metro": "2.4.11",
+          "gong-wpf-dragdrop": "4.0.0"
         },
         "runtime": {
           "DMAssistant.dll": {}
@@ -32,6 +33,14 @@
           "lib/netcoreapp3.1/ControlzEx.dll": {
             "assemblyVersion": "4.0.0.0",
             "fileVersion": "4.4.0.50"
+          }
+        }
+      },
+      "gong-wpf-dragdrop/4.0.0": {
+        "runtime": {
+          "lib/net8.0-windows7.0/GongSolutions.WPF.DragDrop.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
           }
         }
       },
@@ -81,6 +90,13 @@
       "sha512": "sha512-pZ5z4hYWwE4R13UMCVs6vII//nL7hz+Nwn4oJlnsZJRGqJNy6Z9KnJiTZfly6lKFu0pMc1aWBZpx+VqFTQKP1Q==",
       "path": "controlzex/4.4.0",
       "hashPath": "controlzex.4.4.0.nupkg.sha512"
+    },
+    "gong-wpf-dragdrop/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nDj86v1XHhgmQR8PPo/uDDp/xdLDxcqZdvIwSxWAHQPiRX/GBXK13FYY0C2xQow9RSl6j5FKLk8xoYrdb52vqg==",
+      "path": "gong-wpf-dragdrop/4.0.0",
+      "hashPath": "gong-wpf-dragdrop.4.0.0.nupkg.sha512"
     },
     "MahApps.Metro/2.4.11": {
       "type": "package",

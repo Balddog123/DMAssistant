@@ -9,7 +9,7 @@
     <Grid Margin="10">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="Auto" MaxWidth="500"/>
             <!-- item list -->
             <ColumnDefinition Width="*"/>
             <!-- detail view -->
@@ -35,13 +35,18 @@
                             <!-- Remove button -->
                             <Button Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                     CommandParameter="{Binding}"
-                                    Width="20"
-                                    Height="20"
                                     Margin="0,0,0,0"
                                     DockPanel.Dock="Right">
-                                <Image Source="pack://application:,,,/Resources/icon-delete.png"/>
+                                <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
                             </Button>
-                            <TextBlock Text="{Binding DisplayName}" />
+                            <TextBlock Margin="0,0,4,0">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="Name" />
+                                        <Binding Path="Rank" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </DockPanel>
                         
                     </DataTemplate>
@@ -51,8 +56,7 @@
         </StackPanel>
 
         <!-- RIGHT: Item Detail View -->
-        <ContentControl Grid.Column="1"
-                        Content="{Binding SelectedItemViewModel}" />
+        <ContentControl Grid.Column="1" Content="{Binding SelectedItem}" />
 
     </Grid>
 </UserControl>

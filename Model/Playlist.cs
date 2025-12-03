@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Windows.Media;
+
 
 namespace DMAssistant.Model
 {
@@ -27,7 +30,18 @@ namespace DMAssistant.Model
                     SetProperty(ref _files, value);
                 }
             }
-        } 
+        }
+
+        private Color _color;
+        public Color Color
+        {
+            get=> _color;
+            set
+            {
+                Debug.WriteLine($"Changing color of {Name} to {value}");
+                SetProperty(ref _color, value);
+            }
+        }
     }
 
 }

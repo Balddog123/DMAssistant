@@ -12,6 +12,7 @@ namespace DMAssistant.Model
     {
         [ObservableProperty] public string name = string.Empty;
         [ObservableProperty] public string playerName = string.Empty;
+        [ObservableProperty] public int level = 0;
         [ObservableProperty] public int hp = 0;
         [ObservableProperty] public int armorClass = 0;
         [ObservableProperty] public int passivePerseption = 0;

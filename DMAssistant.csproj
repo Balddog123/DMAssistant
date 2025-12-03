@@ -18,6 +18,7 @@
     <None Remove="Resources\icon-add.png" />
     <None Remove="Resources\icon-addtoplaylist.png" />
     <None Remove="Resources\icon-arrow.png" />
+    <None Remove="Resources\icon-book.png" />
     <None Remove="Resources\icon-close.png" />
     <None Remove="Resources\icon-delete.png" />
     <None Remove="Resources\icon-edit.png" />
@@ -25,12 +26,18 @@
     <None Remove="Resources\icon-editnote.png" />
     <None Remove="Resources\icon-editsquare.png" />
     <None Remove="Resources\icon-erase.png" />
+    <None Remove="Resources\icon-folder.png" />
     <None Remove="Resources\icon-loop.png" />
+    <None Remove="Resources\icon-page.png" />
     <None Remove="Resources\icon-pause.png" />
     <None Remove="Resources\icon-play.png" />
+    <None Remove="Resources\icon-pointer.png" />
     <None Remove="Resources\icon-refresh.png" />
+    <None Remove="Resources\icon-removefromplaylist.png" />
     <None Remove="Resources\icon-save.png" />
+    <None Remove="Resources\icon-scroll.png" />
     <None Remove="Resources\icon-search.png" />
+    <None Remove="Resources\icon-sound.png" />
     <None Remove="Resources\icon-square.cur" />
     <None Remove="Resources\icon-square.png" />
     <None Remove="Resources\icon-stop.png" />
@@ -44,6 +51,8 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+    <PackageReference Include="gong-wpf-dragdrop" Version="4.0.0" />
     <PackageReference Include="MahApps.Metro" Version="2.4.11" />
   </ItemGroup>
 
@@ -58,6 +67,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-arrow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-book.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-close.png">
@@ -81,7 +93,13 @@
     <Resource Include="Resources\icon-erase.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\icon-folder.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon-loop.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-page.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-pause.png">
@@ -90,13 +108,25 @@
     <Resource Include="Resources\icon-play.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\icon-pointer.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon-refresh.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-removefromplaylist.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-save.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\icon-scroll.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon-search.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-sound.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-square.cur">
@@ -113,6 +143,7 @@
   <ItemGroup>
     <Folder Include="Data\Ambience\" />
     <Folder Include="Data\Music\" />
+    <Folder Include="Data\Campaigns\" />
     <Folder Include="Data\SFX\" />
   </ItemGroup>
 

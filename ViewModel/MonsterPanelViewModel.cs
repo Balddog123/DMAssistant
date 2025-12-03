@@ -30,10 +30,7 @@ namespace DMAssistant.ViewModel
             set
             {
                 if (SetProperty(ref _selectedMonster, value))
-                    SelectedMonsterViewModel = new MonsterViewModel(_selectedMonster)
-                    {
-                        DeleteCommand = DeleteMonsterCommand // parent VM command
-                    };
+                    SelectedMonsterViewModel = new MonsterViewModel(_selectedMonster);
             }
         }
 
@@ -74,22 +71,12 @@ namespace DMAssistant.ViewModel
 
         public RelayCommand AddNewMonsterCommand { get; }
         public RelayCommand AddExistingMonsterCommand { get; }
-        public IRelayCommand DeleteMonsterCommand => new RelayCommand(async () =>
+        public IRelayCommand DeleteMonster => new RelayCommand<Monster>(monsterToDelete =>
         {
-            if (MessageBox.Show($"Delete {SelectedMonster.Name}?",
+            if (MessageBox.Show($"Delete {monsterToDelete.Name}?",
                                 "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                var loc = SelectedMonster;
-
-                // Clear the view model so bindings detach
-                SelectedMonsterViewModel = null;
-                SelectedMonster = null;
-
-                // Allow UI to update before deletion
-                await Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    App.CampaignStore.DeleteMonster(loc, _session);
-                }, System.Windows.Threading.DispatcherPriority.Background);
+                App.CampaignStore.DeleteMonster(monsterToDelete, _session);
             }
         });
 

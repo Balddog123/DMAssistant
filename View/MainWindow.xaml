@@ -8,8 +8,12 @@
                     xmlns:vm="clr-namespace:DMAssistant.ViewModel"
                     mc:Ignorable="d"
                     ResizeMode="CanResizeWithGrip"
+                    Title="{Binding CampaignName}"
                     WindowStyle="None">
-
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveCampaign}"/>
+    </Window.InputBindings>
+    
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -26,26 +30,34 @@
         <!-- ######## TOP BAR WITH CIRCLE BUTTONS ######## -->
         <StackPanel DockPanel.Dock="Top"
                     Orientation="Horizontal"
-                    Margin="10"
+                    Margin="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Panel.ZIndex="10">
             <!-- Campaign Button -->
-            <Button Content="Campaign"
-                    Command="{Binding ShowCampaignCommand}"
-                    Width="70" Height="70"/>
+            <Button Command="{Binding ShowCampaignCommand}"
+                    Width="40">
+                <Image Source="pack://application:,,,/Resources/icon-book.png"/>
+            </Button>
 
             <!-- Sessions Button -->
-            <Button Content="Sessions"
-                    Command="{Binding ShowSessionsCommand}"
-                    Width="70" Height="70"
-                    Margin="10 0 0 0"/>
+            <Button Command="{Binding ShowSessionsCommand}"
+                    Width="40"
+                    Margin="10 0 0 0">
+                <Image Source="pack://application:,,,/Resources/icon-page.png"/>
+            </Button>
 
             <!-- SoundPanel Button -->
-            <Button Content="Sounds"
-                    Command="{Binding ShowSoundPanelCommand}"
-                    Width="70" Height="70"
-                    Margin="10 0 0 0"/>
+            <Button Command="{Binding ShowSoundPanelCommand}"
+                    Width="40"
+                    Margin="10 0 0 0">
+                <Image Source="pack://application:,,,/Resources/icon-sound.png"/>
+            </Button>
+            <MediaElement x:Name="GlobalMediaPlayer"
+                            LoadedBehavior="Manual"
+                            UnloadedBehavior="Manual"
+                            MediaOpened="Player_MediaOpened"
+                            MediaEnded="Player_MediaEnded" Visibility="Collapsed" />
         </StackPanel>
 
         <!-- ######## MAIN CONTENT AREA ######## -->

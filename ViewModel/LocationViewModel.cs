@@ -20,11 +20,10 @@ namespace DMAssistant.ViewModel
     {
         private readonly Location _location;
         private readonly LocationPanelViewModel _panel;
-        public IRelayCommand DeleteCommand { get; set; }
         public RelayCommand SetImageFromFile => new RelayCommand(() =>
         {
             byte[] imageData = FileGetter.LoadImageFromFile();
-            if(imageData != null)
+            if (imageData != null)
             {
                 _location.ImageData = imageData;
                 OnPropertyChanged(nameof(LocationImage));
@@ -41,8 +40,9 @@ namespace DMAssistant.ViewModel
         });
         public RelayCommand AddNewMapCommand => new RelayCommand(() =>
         {
-            if(_location.Maps == null) _location.Maps = new ObservableCollection<Map>();
+            if (_location.Maps == null) _location.Maps = new ObservableCollection<Map>();
             _location.Maps.Add(new Map());
+            OnPropertyChanged(nameof(Maps));
         });
         public RelayCommand<Map> OpenMapCommand => new RelayCommand<Map>(map =>
         {
@@ -51,6 +51,15 @@ namespace DMAssistant.ViewModel
 
             var mapWindow = new MapWindow(map);
             mapWindow.Show();
+        });
+        public RelayCommand<Map> RemoveMap => new RelayCommand<Map>(map =>
+        {
+            if (MessageBox.Show($"Delete map?",
+                                "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                _location.Maps.Remove(map);
+                OnPropertyChanged(nameof(Maps));
+            }
         });
 
         public LocationViewModel(Location location, LocationPanelViewModel panel)
@@ -108,7 +117,18 @@ namespace DMAssistant.ViewModel
             }
         }
 
-        public ObservableCollection<Map> Maps => _location != null ? _location.Maps : new ObservableCollection<Map>();
+        public ObservableCollection<Map> Maps {
+            get => _location != null ? _location.Maps : new ObservableCollection<Map>();
+            set
+            {
+                if(value != Maps)
+                {
+                    Maps = value;
+                    OnPropertyChanged();
+                }
+            }
+            
+    }
         
 
     }

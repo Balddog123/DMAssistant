@@ -6,128 +6,212 @@
              xmlns:view="clr-namespace:DMAssistant.View"
              xmlns:h="clr-namespace:DMAssistant.Helpers"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="Root">
     <UserControl.Resources>
+        <h:GroupHeaderWithMaxConverter x:Key="GroupHeaderWithMaxConverter"/>
         <h:RemoveItemConverter x:Key="RemoveItemConverter" />
+        <CollectionViewSource x:Key="GroupedMajorItems" Source="{Binding MajorItems}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Item.Rank" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="GroupedMinorItems" Source="{Binding MinorItems}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Item.Rank" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto"
+    
+        <TabControl>
+            <TabItem Header="Players">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
                   PreviewMouseDown="ScrollViewer_PreviewMouseDown">
-        <StackPanel Margin="10">
+                    <StackPanel>
+                        <!-- Header -->
+                        <TextBlock Text="Player Characters"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,10"/>
 
-            <!-- Header -->
-            <TextBlock Text="Player Characters"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,10"/>
+                        <!-- Player List -->
+                        <ItemsControl ItemsSource="{Binding PlayerCharacters}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- Player Border -->
+                                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="10" Margin="3" Background="LightGray">
+                                        <StackPanel>
+                                            <!-- Player Basic Info -->
+                                            <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" FontWeight="Bold" />
 
-            <!-- Player List -->
-            <ItemsControl ItemsSource="{Binding PlayerCharacters}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <!-- Player Border -->
-                        <Border BorderBrush="Gray"
-                                BorderThickness="1"
-                                CornerRadius="4"
-                                Padding="10"
-                                Margin="3"
-                                Background="LightGray">
-                            <StackPanel>
-                                <!-- Player Basic Info -->
-                                <TextBox Text="{Binding Name, Mode=TwoWay}"
-                                         FontSize="16"
-                                         FontWeight="Bold" />
+                                            <TextBox Text="{Binding PlayerName, Mode=TwoWay}" Margin="0,0,0,5" />
 
-                                <TextBox Text="{Binding PlayerName, Mode=TwoWay}"
-                                         Margin="0,0,0,5" />
-
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="HP: " FontWeight="Bold"/>
-                                    <TextBox Text="{Binding Hp, Mode=TwoWay}"
-                                             Width="50"/>
-
-                                    <TextBlock Text="   AC: " FontWeight="Bold" Margin="10,0,0,0"/>
-                                    <TextBox Text="{Binding ArmorClass, Mode=TwoWay}"
-                                             Width="50"/>
-
-                                    <TextBlock Text="   Passive Perception: " FontWeight="Bold" Margin="10,0,0,0"/>
-                                    <TextBox Text="{Binding PassivePerseption, Mode=TwoWay}"
-                                             Width="50"/>
-                                </StackPanel>
-
-                                <!-- Backstory / Goal etc. -->
-                                <TextBlock Text="Backstory:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                <TextBox Text="{Binding Backstory, Mode=TwoWay}"
-                                         TextWrapping="Wrap"
-                                         AcceptsReturn="True"
-                                         Height="60"/>
-
-                                <TextBlock Text="Goal:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                <TextBox Text="{Binding Goal, Mode=TwoWay}"
-                                         TextWrapping="Wrap"
-                                         AcceptsReturn="True"
-                                         Height="60"/>
-
-                                <TextBlock Text="Alliances:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                <TextBox Text="{Binding Alliances, Mode=TwoWay}"
-                                         TextWrapping="Wrap"
-                                         AcceptsReturn="True"
-                                         Height="60"/>
-
-                                <TextBlock Text="Enemies:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                <TextBox Text="{Binding Enemies, Mode=TwoWay}"
-                                         TextWrapping="Wrap"
-                                         AcceptsReturn="True"
-                                         Height="60"/>
-
-                                <Separator Margin="5"/>
-
-                                <!-- Item List -->
-                                <TextBlock Text="Items:" FontWeight="Bold" Margin="0,5,0,2"/>
-
-                                <ListBox 
-                                        x:Name="PlayerItemListBox" 
-                                        ItemsSource="{Binding Items}"
-                                        SelectedItem="{Binding DataContext.ExpandedItem, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Level: " FontWeight="Bold"/>
+                                                <TextBox Text="{Binding Level, Mode=TwoWay}" Width="50"/>
 
-                                                <TextBox Text="{Binding Name, Mode=TwoWay}" Width="120"/>
+                                                <TextBlock Text="HP: " FontWeight="Bold"/>
+                                                <TextBox Text="{Binding Hp, Mode=TwoWay}" Width="50"/>
 
-                                                <Button Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                                                    <Button.CommandParameter>
-                                                        <MultiBinding Converter="{StaticResource RemoveItemConverter}">
+                                                <TextBlock Text="   AC: " FontWeight="Bold" Margin="10,0,0,0"/>
+                                                <TextBox Text="{Binding ArmorClass, Mode=TwoWay}" Width="50"/>
 
-                                                            <!-- Item -->
-                                                            <Binding />
-
-                                                            <!-- PlayerCharacter: DataContext of the parent ItemsControl -->
-                                                            <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=ItemsControl, AncestorLevel=1}" />
-
-                                                        </MultiBinding>
-                                                    </Button.CommandParameter>
-                                                    <Image Source="pack://application:,,,/Resources/icon-delete.png"/>
-                                                </Button>
-                                                <ContentControl Visibility="{Binding ExpandedVisibility}" Content="{Binding DataContext.ExpandedItemViewModel,RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" />
+                                                <TextBlock Text="   Passive Perception: " FontWeight="Bold" Margin="10,0,0,0"/>
+                                                <TextBox Text="{Binding PassivePerseption, Mode=TwoWay}" Width="50"/>
                                             </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
 
-                                <Button Content="Add Item" Command="{Binding DataContext.AddItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
+                                            <!-- Backstory / Goal etc. -->
+                                            <TextBlock Text="Backstory:" FontWeight="Bold" Margin="0,5,0,0"/>
+                                            <TextBox Text="{Binding Backstory, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
 
+                                            <TextBlock Text="Goal:" FontWeight="Bold" Margin="0,5,0,0"/>
+                                            <TextBox Text="{Binding Goal, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+
+                                            <TextBlock Text="Alliances:" FontWeight="Bold" Margin="0,5,0,0"/>
+                                            <TextBox Text="{Binding Alliances, Mode=TwoWay}"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"
+                                     MinHeight="60"/>
+
+                                            <TextBlock Text="Enemies:" FontWeight="Bold" Margin="0,5,0,0"/>
+                                            <TextBox Text="{Binding Enemies, Mode=TwoWay}"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"
+                                     MinHeight="60"/>
+
+                                            <Separator Margin="5"/>
+
+                                            <!-- Item List -->
+                                            <TextBlock Text="Items:" FontWeight="Bold" Margin="0,5,0,2"/>
+
+                                            <ListBox 
+                                    x:Name="PlayerItemListBox" 
+                                    ItemsSource="{Binding Items}"
+                                    SelectedItem="{Binding DataContext.ExpandedItem, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}">
+                                            <ListBox.Template>
+                                                <ControlTemplate TargetType="ListBox">
+                                                    <!-- No ScrollViewer → just the items presenter -->
+                                                    <ItemsPresenter/>
+                                                </ControlTemplate>
+                                            </ListBox.Template>
+                                            <ListBox.ItemTemplate>                                                    
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+
+                                                        <TextBox Text="{Binding Name, Mode=TwoWay}" Width="120"/>
+
+                                                        <Button Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                                            <Button.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource RemoveItemConverter}">
+
+                                                                    <!-- Item -->
+                                                                    <Binding />
+
+                                                                    <!-- PlayerCharacter: DataContext of the parent ItemsControl -->
+                                                                    <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=ItemsControl, AncestorLevel=1}" />
+
+                                                                </MultiBinding>
+                                                            </Button.CommandParameter>
+                                                            <Image Source="pack://application:,,,/Resources/icon-delete.png"/>
+                                                        </Button>
+                                                        <ContentControl Visibility="{Binding ExpandedVisibility}" Content="{Binding DataContext.ExpandedItemViewModel,RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+
+                                            <Button Content="Add Item" Command="{Binding DataContext.AddItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
+
+                                        </StackPanel>
+                                    </Border>
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button Content="Add New Player" Command="{Binding AddNewPlayerCommand}"/>
+
+
+                    </StackPanel>
+                </ScrollViewer>
+        </TabItem>
+            <TabItem Header="Party Items">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  PreviewMouseDown="ScrollViewer_PreviewMouseDown">
+                    <TabControl>
+                        <TabItem Header="Major Items" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="Major Items" FontSize="24" FontWeight="Bold"/>
+                                <ListView ItemsSource="{Binding MajorItemsView}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                                            <GridViewColumn Header="Owner" Width="Auto" DisplayMemberBinding="{Binding OwnerName}" />
+                                            <GridViewColumn Header="Rarity" Width="Auto" DisplayMemberBinding="{Binding Rank}" />
+                                        </GridView>
+                                    </ListView.View>
+                                    <ListView.GroupStyle>
+                                        <GroupStyle>
+                                            <GroupStyle.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock FontWeight="Bold" FontSize="14" Margin="0 8 0 4">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding Converter="{StaticResource GroupHeaderWithMaxConverter}" ConverterParameter="Major">
+                                                                <Binding Path="Name"/>
+                                                                <!-- group name (rank) -->
+                                                                <Binding Path="ItemCount"/>
+                                                                <!-- number of items in this group -->
+                                                                <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                                                <!-- ViewModel -->
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </GroupStyle.HeaderTemplate>
+                                        </GroupStyle>
+                                    </ListView.GroupStyle>
+                                </ListView>
                             </StackPanel>
-                        </Border>
+                        </TabItem>
+                        <TabItem Header="Minor Items" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="Minor Items"/>
+                            <ListView ItemsSource="{Binding MinorItemsView}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                                        <GridViewColumn Header="Owner" Width="Auto" DisplayMemberBinding="{Binding OwnerName}" />
+                                        <GridViewColumn Header="Rarity" Width="Auto" DisplayMemberBinding="{Binding Rank}" />
+                                    </GridView>
+                                </ListView.View>
+                                <ListView.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock FontWeight="Bold" FontSize="14" Margin="0 8 0 4">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource GroupHeaderWithMaxConverter}" ConverterParameter="Minor">
+                                                            <Binding Path="Name"/>
+                                                            <!-- group name (rank) -->
+                                                            <Binding Path="ItemCount"/>
+                                                            <!-- number of items in this group -->
+                                                            <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                                            <!-- ViewModel -->
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </GroupStyle.HeaderTemplate>
+                                    </GroupStyle>
+                                </ListView.GroupStyle>
+                            </ListView>
+                        </StackPanel>
 
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <Button Content="Add New Player" Command="{Binding AddNewPlayerCommand}"/>
-
-
-        </StackPanel>
-    </ScrollViewer>
-
+                        </TabItem>
+                    </TabControl>
+                </ScrollViewer>
+        </TabItem>
+        </TabControl>
+        
 </UserControl>

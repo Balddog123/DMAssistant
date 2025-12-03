@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="DMAssistant.View.SoundPanelView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DMAssistant.View"
@@ -10,6 +11,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <h:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+    </UserControl.Resources>
+    
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
@@ -63,12 +68,6 @@
                                 Minimum="0.0"
                                 Maximum="1.0"
                                 Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <!-- Media Element -->
-                        <MediaElement x:Name="Player"
-                                LoadedBehavior="Manual"
-                                UnloadedBehavior="Manual"
-                                MediaOpened="Player_MediaOpened"
-                                MediaEnded="Player_MediaEnded" Visibility="Collapsed" />
                     </StackPanel>
                 </Border>
 
@@ -82,9 +81,16 @@
 
                     <TextBlock Text="Library" FontWeight="Bold" Grid.Row="0"/>
 
-                    <ToolBar Height="35" Grid.Row="1">
-                        <Button Command="{Binding LoadDirectoryCommand}"  Margin="0,5,0,0">
-                            <Image MinWidth ="20" MinHeight="20" Source="pack://application:,,,/Resources/icon-refresh.png" />
+                    <ToolBar Height="50" Grid.Row="1">
+                        <Button Command="{Binding FindDirectoryCommand}">
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                                <Image MinWidth ="20" MinHeight="20" Source="/Resources/icon-folder.png" />
+                            </Border>
+                        </Button>
+                        <Button Command="{Binding LoadDirectoryCommand}">
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                                <Image MinWidth ="20" MinHeight="20" Source="pack://application:,,,/Resources/icon-refresh.png" />
+                            </Border>
                         </Button>
                     </ToolBar>
 
@@ -97,9 +103,9 @@
                             <DataTemplate>
                                 <Grid Margin="2">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="30" />
                                     </Grid.ColumnDefinitions>
 
                                     <!-- Audio File Name -->
@@ -133,42 +139,110 @@
                     
                 </Grid>
 
+                
                 <!-- Playlists -->
-                <StackPanel x:Name="Playlists" Grid.Row="1" Margin="10,0,0,0" Visibility="{Binding PlaylistsVisibility}">
+                <Grid x:Name="Playlists" Grid.Row="1" Margin="5"  Visibility="{Binding PlaylistsVisibility}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Playlists" FontSize="32" FontWeight="Bold"/>
+                    <ScrollViewer Grid.Row="1" Grid.RowSpan="2">
+                        <ScrollViewer.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding CloseSelectedPlaylistCommand}" />
+                        </ScrollViewer.InputBindings>
+                        <StackPanel>
+                            
+                            <!-- Create Playlist Square Button -->
+                            <Button HorizontalAlignment="Left" Width="80" Height="80" Command="{Binding CreatePlaylistCommand}" Margin="5">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="+" FontSize="28"  HorizontalAlignment="Center"/>
+                                    <TextBlock Text="New" FontSize="12" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <!-- Playlist Buttons Grid -->
+                            <ItemsControl ItemsSource="{Binding Playlists}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
 
-                    <TextBlock Text="Playlists" FontWeight="Bold" Margin="0,0,0,10"/>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Width="200" Height="200" Margin="5"
+                                                 Command="{Binding DataContext.SelectPlaylistCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                 CommandParameter="{Binding}" Background="{Binding Color, Converter={StaticResource ColorToBrushConverter}}">
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontSize="20"
+                                                        TextAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Center"
+                                                        TextWrapping="Wrap"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
 
-                    <!-- Create Playlist Square Button -->
-                    <Button HorizontalAlignment="Left" Width="80" Height="80" Command="{Binding CreatePlaylistCommand}" Margin="5">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="+" FontSize="28"  HorizontalAlignment="Center"/>
-                            <TextBlock Text="New" FontSize="12" HorizontalAlignment="Center"/>
+                            </ItemsControl>
                         </StackPanel>
-                    </Button>
-
-                    <!-- Playlist Buttons Grid -->
-                    <ItemsControl ItemsSource="{Binding Playlists}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Width="80" Height="80" Margin="5"
-                                        Command="{Binding DataContext.PlayPlaylistCommand, RelativeSource={RelativeSource AncestorType=StackPanel}}"
-                                        CommandParameter="{Binding}">
-                                    <TextBlock Text="{Binding Name}"
-                                               TextAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Center"
-                                               TextWrapping="Wrap"/>
+                    </ScrollViewer>
+                    <Border Grid.Row="2" Background="White" BorderBrush="Gray" BorderThickness="3" Visibility="{Binding SelectedPlaylistVisibility}" >
+                        <StackPanel Margin="5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Text="{Binding SelectedPlaylist.Name, UpdateSourceTrigger=PropertyChanged}" MinWidth="200"/>
+                                <Button Command="{Binding PlaySelectedPlaylistCommand}">
+                                    <Image Height="20" Source="/Resources/icon-play.png"/>
                                 </Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
+
+                                <xctk:ColorPicker SelectedColor="{Binding SelectedPlaylist.Color, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <ScrollViewer>
+                                <ItemsControl ItemsSource="{Binding SelectedPlaylist.Files}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="30" />
+                                                    <ColumnDefinition Width="30" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Audio File Name -->
+                                                <TextBlock Text="{Binding FileName}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+
+                                                <!-- -Playlist button -->
+                                                <Button Grid.Column="1"
+                                                        Height="22"
+                                                        Padding="0"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,0,5,0"
+                                                        Command="{Binding DataContext.RemoveFromSelectedPlaylistCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}" >
+                                                    <Image Source="/Resources/icon-removefromplaylist.png"/>
+                                                </Button>
+                                                <!-- +Queue button -->
+                                                <Button Grid.Column="2"
+                                                        Height="22"
+                                                        Padding="0"
+                                                        HorizontalAlignment="Right"
+                                                        Command="{Binding DataContext.AddToQueue, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}" >
+                                                    <Image Source="pack://application:,,,/Resources/icon-add.png"/>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                            
+                        </StackPanel>
+                    </Border>
+                    
+                    
+                </Grid>
+               
 
                 <!-- Queue -->
                 <Grid x:Name="Queue" Grid.Row="1" Visibility="{Binding QueueVisibility}">
@@ -180,18 +254,15 @@
 
                     <TextBlock Text="Queue" FontWeight="Bold" Grid.Row="0"/>
 
-                    <ToolBar Height="35" Grid.Row="1">
+                    <ToolBar Grid.Row="1">
                         <Button Command="{Binding ClearQueueCommand}" BorderThickness="0">
                             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image MinWidth ="20" MinHeight="20" Source="pack://application:,,,/Resources/icon-delete.png" />
+                                    <Image Source="pack://application:,,,/Resources/icon-delete.png" VerticalAlignment="Center"/>
                                     <TextBlock Text=" Clear " VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
-                            
                         </Button>
-                        
-                        
                     </ToolBar>
 
                     <ListBox Grid.Row="2"
@@ -203,9 +274,9 @@
                             <DataTemplate>
                                 <Grid Margin="2">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="30" />
                                     </Grid.ColumnDefinitions>
 
                                     <!-- Audio File Name -->

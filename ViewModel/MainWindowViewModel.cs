@@ -1,8 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DMAssistant;
+using DMAssistant.Helpers;
 using DMAssistant.Model;
 using DMAssistant.Repository;
+using DMAssistant.Services;
+using DMAssistant.Store;
 using DMAssistant.View;
 using DMAssistant.ViewModel;
 using Microsoft.Win32;
@@ -37,13 +40,19 @@ public class MainWindowViewModel : ObservableObject
     public ICommand SaveCampaign { get; }
     public ICommand Exit { get; }
 
+    public string CampaignName
+    {
+        get => App.CampaignStore?.CurrentCampaign?.Name ?? string.Empty;
+    }
+
+    private AudioPlayerService AudioService { get; }
 
     public MainWindowViewModel()
     {
         // Create viewmodels ONCE
         CampaignVM = new CampaignViewModel();
         SessionVM = new SessionViewModel();
-        SoundPanelVM = new SoundPanelViewModel();
+        SoundPanelVM = new SoundPanelViewModel(MainWindow.AudioPlayer);
 
         ShowCampaignCommand = new RelayCommand(() =>
         {
@@ -67,23 +76,27 @@ public class MainWindowViewModel : ObservableObject
         NewCampaign = new RelayCommand(CreateNewCampaign);
         SaveCampaign = new RelayCommand(() =>
         {
-            MessageBox.Show($"Attempting to save {App.CampaignStore.CurrentCampaign.Name}");
+            MessageBox.Show($"Saved {App.CampaignStore.CurrentCampaign.Name}!");
             CampaignSerializer.SaveCampaign(App.CampaignStore.CurrentCampaign);
+            SettingsSerializer.SaveSettings(App.SettingsStore.Settings, SettingsSerializer.SettingsType.Main);
+            SettingsSerializer.SaveSettings(App.AudioStore.AudioSettings, SettingsSerializer.SettingsType.Audio);
         });
         Exit = new RelayCommand(Application.Current.Shutdown);
         CurrentView = CampaignVM; // default
+
     }
 
     private void CreateNewCampaign()
     {
-        Debug.WriteLine("Creating new campaign");
         Campaign newCampaign = new Campaign();
         App.CampaignStore.StoreCampaign();
         CurrentView = null;
+        OnPropertyChanged(nameof(CampaignName));
     }
 
     private void OpenCampaignDialog()
     {
+        Debug.WriteLine("----OpenCampaignDialog----");
         // Create an OpenFileDialog
         OpenFileDialog openFileDialog = new OpenFileDialog
         {
@@ -94,11 +107,12 @@ public class MainWindowViewModel : ObservableObject
 
         // Show dialog
         bool? result = openFileDialog.ShowDialog();
+        Debug.WriteLine($"Result: {result}");
 
         if (result == true)
         {
             string selectedFile = openFileDialog.FileName;
-
+            Debug.WriteLine($"Selected file: {selectedFile}");
             try
             {
                 // Load the campaign from the selected file
@@ -107,6 +121,7 @@ public class MainWindowViewModel : ObservableObject
                 if (campaign != null)
                 {
                     App.CampaignStore.StoreCampaign(campaign);
+                    OnPropertyChanged(nameof(CampaignName));
                 }
                 else
                 {

@@ -11,9 +11,33 @@ namespace DMAssistant.ViewModel
         public NPC NPC { get; private set; }
         public List<string> AvailableRaces { get; } = new List<string>
         {
-            "Human", "Elf", "Dwarf", "Half-Orc", "Aarakocra", "Orc", "Halfling", "Tiefling"
+            // Normal races (sorted alphabetically)
+            "Aarakocra",
+            "Dwarf",
+            "Elf",
+            "Half-Orc",
+            "Halfling",
+            "Human",
+            "Orc",
+            "Tiefling",
+
+            // Monster Types (5e)
+            "Aberration",
+            "Beast",
+            "Celestial",
+            "Construct",
+            "Dragon",
+            "Elemental",
+            "Fey",
+            "Fiend",
+            "Giant",
+            "Humanoid",
+            "Monstrosity",
+            "Ooze",
+            "Plant",
+            "Undead"
         };
-        public IRelayCommand DeleteCommand { get; set; }
+
 
         public NPCViewModel(NPC npc)
         {

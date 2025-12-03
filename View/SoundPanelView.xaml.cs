@@ -25,7 +25,6 @@ namespace DMAssistant.View
     /// </summary>
     public partial class SoundPanelView : UserControl
     {
-        private DispatcherTimer _timer;
         private bool _userIsDragging = false;
         private bool _isLooping = false;
 
@@ -33,67 +32,21 @@ namespace DMAssistant.View
         {
             InitializeComponent();
 
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromMilliseconds(200);
-            _timer.Tick += UpdatePosition;
-
-            DataContextChanged += SoundPanelView_DataContextChanged;
-        }
-
-        private void SoundPanelView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is SoundPanelViewModel vm)
-            {
-                Debug.WriteLine("ViewModel attached!");
-
-                vm.PlayAudioRequested += file =>
-                {
-                    Debug.WriteLine($"Attempting to play: {file}");
-                    Player.Source = new Uri(file);
-                    Player.Play();
-                };
-
-                vm.PauseRequested += () => Player.Pause();
-                vm.StopRequested += () => Player.Stop();
-                vm.ResumeRequested += () => Player.Play();
-                vm.LoopRequested += () => _isLooping = !_isLooping;
-                vm.VolumeChanged += volume => Player.Volume = volume;
-            }
-        }
-
-        private void Player_MediaOpened(object sender, RoutedEventArgs e)
-        {
-            if (Player.NaturalDuration.HasTimeSpan)
+            MainWindow.AudioTimer.Tick += UpdatePosition;
+            MainWindow.OnMediaOpened += (seconds) =>
             {
                 var vm = (SoundPanelViewModel)DataContext;
-                vm.Duration = Player.NaturalDuration.TimeSpan.TotalSeconds;
-            }
-
-            _timer.Start();
-        }        
-
-        private void Player_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            if (_isLooping)
+                if(vm != null) vm.Duration = seconds;
+            };
+            MainWindow.OnMediaEnded += () =>
             {
-                Player.Position = TimeSpan.FromSeconds(0);
-            }
-            else
-            {
-
-                Player.Stop();
-                var vm = DataContext as SoundPanelViewModel;
-                if (vm != null)
-                {
-                    vm.HandleAudioEnded();
-                }
-            }
+                var vm = (SoundPanelViewModel)DataContext;
+                if (vm != null) vm.HandleAudioEnded();
+            };
         }
 
         private void AudioList_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine($"Double clicked!");
-
             if (sender is ListBox lb && lb.SelectedItem is AudioFile audio)
             {
                 var vm = DataContext as SoundPanelViewModel;
@@ -122,7 +75,7 @@ namespace DMAssistant.View
         {
             if (_userIsDragging) return;
             var vm = (SoundPanelViewModel)DataContext;
-            vm.Position = Player.Position.TotalSeconds;
+            if(vm != null) vm.Position = vm.AudioPlayerService.GetPositionSeconds();
         }
         private void Slider_DragEnter(object sender, DragStartedEventArgs e)
         {
@@ -136,7 +89,7 @@ namespace DMAssistant.View
             Debug.WriteLine("Ended dragging!");
             // Now push the final slider value to the player
             var vm = (SoundPanelViewModel)DataContext;
-            Player.Position = TimeSpan.FromSeconds(vm.Position);
+            vm.AudioPlayerService.Seek(vm.Position);
         }
     }
 
