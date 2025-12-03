@@ -102,6 +102,7 @@ namespace DMAssistant.ViewModel
         private void AddNPC()
         {
             var newNpc = new NPC("Aric", "", "Wanderer", "Find treasure");
+            newNpc.Gender = NPC.GetRandomGender();
             //get location
             Location location = NPC.GetRandomLocation();
             if(location != null) newNpc.Home = location;
@@ -109,8 +110,11 @@ namespace DMAssistant.ViewModel
             //get race
             newNpc.Race = NPC.GetRandomRace();
             //generate name
+            newNpc.Name = NPC.GetRandomName(newNpc.Gender);
             //create description
+            newNpc.Description = NPC.GetRandomDescription();
             //create goal
+            newNpc.Goal = NPC.GetRandomGoal();
 
             //first, we'll generate these PURELY random. Later, we will use influences from location, race, and religion to derive some of these values
 

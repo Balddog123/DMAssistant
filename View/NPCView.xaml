@@ -20,6 +20,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto" MinHeight="60"/>
                     <RowDefinition Height="Auto" MinHeight="60"/>
                     <RowDefinition Height="Auto" />
@@ -35,26 +36,35 @@
                 <TextBox Text="{Binding NPC.Name, UpdateSourceTrigger=PropertyChanged}" 
                  Grid.Row="0" Grid.Column="1" Margin="0,5"/>
 
+                <!-- Gender -->
+                <TextBlock Text="Gender:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <ComboBox SelectedValue="{Binding NPC.Gender, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedValuePath="Content"
+                          Grid.Row="1" Grid.Column="1" Margin="0,5" >
+                    <ComboBoxItem Content="Male"/>
+                    <ComboBoxItem Content="Female"/>
+                </ComboBox>
+
                 <!-- Race -->
-                <TextBlock Text="Race:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Text="Race:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
                 <ComboBox ItemsSource="{Binding AvailableRaces}" 
                   SelectedItem="{Binding NPC.Race, UpdateSourceTrigger=PropertyChanged}" 
-                  Grid.Row="1" Grid.Column="1" Margin="0,5" />
+                  Grid.Row="2" Grid.Column="1" Margin="0,5" />
 
                 <!-- Description -->
-                <TextBlock Text="Description:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+                <TextBlock Text="Description:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
                 <TextBox Text="{Binding NPC.Description, UpdateSourceTrigger=PropertyChanged}" 
-                 Grid.Row="2" Grid.Column="1" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+                 Grid.Row="3" Grid.Column="1" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
 
                 <!-- Goal -->
-                <TextBlock Text="Goal:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+                <TextBlock Text="Goal:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
                 <TextBox Text="{Binding NPC.Goal, UpdateSourceTrigger=PropertyChanged}" 
-                 Grid.Row="3" Grid.Column="1" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"  Height="Auto" TextWrapping="Wrap"/>
+                 Grid.Row="4" Grid.Column="1" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"  Height="Auto" TextWrapping="Wrap"/>
 
                 <!-- Home -->
-                <TextBlock Text="Home:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+                <TextBlock Text="Home:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
                 <ComboBox   ItemsSource="{Binding AvailableLocations}" SelectedValue="{Binding NPC.Home, UpdateSourceTrigger=PropertyChanged}"
-                            SelectedValuePath="" Grid.Row="4" Grid.Column="1" Margin="0,5" >
+                            SelectedValuePath="" Grid.Row="5" Grid.Column="1" Margin="0,5" >
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name, TargetNullValue='(None)'}"/>
