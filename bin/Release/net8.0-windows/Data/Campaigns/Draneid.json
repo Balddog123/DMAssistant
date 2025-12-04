@@ -10907,6 +10907,19 @@
       "Goal": "",
       "Alliances": "Obsidian Covenant",
       "Enemies": ""
+    },
+    {
+      "Name": "Rhikari",
+      "PlayerName": "David",
+      "Level": 15,
+      "Hp": 0,
+      "ArmorClass": 0,
+      "PassivePerseption": 0,
+      "Items": [],
+      "Backstory": "",
+      "Goal": "",
+      "Alliances": "",
+      "Enemies": ""
     }
   ],
   "Notes": "",

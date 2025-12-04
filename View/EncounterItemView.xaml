@@ -6,28 +6,33 @@
              mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="300">
 
-    <StackPanel Orientation="Vertical" CanVerticallyScroll="True" Background="Gray">
+    <StackPanel Orientation="Vertical" CanVerticallyScroll="True">
 
         <!-- Editable name -->
         <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" Margin="0,0,0,5" />
 
         <!-- Round number -->
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-            <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
                 <TextBlock Text="Round: " VerticalAlignment="Center" />
                 <TextBox Text="{Binding RoundNumber, Mode=TwoWay}" Width="50" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,5" >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
                 <TextBlock Text="Quantity: " VerticalAlignment="Center" />
                 <TextBox Text="{Binding Quantity, Mode=TwoWay}" Width="50" />
             </StackPanel>
         </StackPanel>
 
+        <!-- Description -->
+        <TextBlock Text="Encounter Details:"/>
+        <TextBox Text="{Binding Description, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" Margin="5" />
+
+        <Separator Height="30"/>
+
         <!-- Monster-specific properties -->
         <StackPanel Visibility="{Binding MonsterGroupVisibility}">
-            <Button Content="Select Monster" Command="{Binding OpenMonsterWindowCommand}"/>
+            <Button Content="Select Monster" Width="100" Command="{Binding OpenMonsterWindowCommand}"/>
             <ContentControl Content="{Binding EncounterItemMonsterViewModel}"/>
-
         </StackPanel>
 
 
@@ -37,8 +42,7 @@
             <TextBox Text="{Binding Initiative, Mode=TwoWay}" Width="50" />
         </StackPanel>
 
-        <!-- Description -->
-        <TextBox Text="{Binding Description, Mode=TwoWay}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,5" />
+        
 
     </StackPanel>
 

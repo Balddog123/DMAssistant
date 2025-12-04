@@ -80,7 +80,9 @@ namespace DMAssistant.ViewModel
         private void AddExistingNPC()
         {
             // Open a simple selection dialog
+            Debug.WriteLine("available npcs:");
             var availableNPCs = App.CampaignStore.CurrentCampaign.NPCs.ToList();
+            foreach (var npc in availableNPCs) Debug.WriteLine(npc);
 
             if (!availableNPCs.Any())
             {

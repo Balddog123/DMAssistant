@@ -170,7 +170,13 @@ namespace DMAssistant.ViewModel
                 AudioPlayerService.ToggleLoop();
                 LoopThickness = _loopThickness.Left == 0 ? new Thickness(5) : new Thickness(0);
             });
-            volume = 1.0;
+            Volume = soundViewType switch
+            {
+                SoundViewType.Music => App.AudioStore.AudioSettings.musicVolume,
+                SoundViewType.Ambience => App.AudioStore.AudioSettings.ambienceVolume,
+                SoundViewType.Sound => App.AudioStore.AudioSettings.soundVolume,
+
+            };
 
             //library
             LoadDirectoryCommand = new RelayCommand(LoadAudioFiles);

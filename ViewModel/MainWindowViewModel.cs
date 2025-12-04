@@ -45,8 +45,6 @@ public class MainWindowViewModel : ObservableObject
         get => App.CampaignStore?.CurrentCampaign?.Name ?? string.Empty;
     }
 
-    private AudioPlayerService AudioService { get; }
-
     public MainWindowViewModel()
     {
         // Create viewmodels ONCE
@@ -79,6 +77,9 @@ public class MainWindowViewModel : ObservableObject
             MessageBox.Show($"Saved {App.CampaignStore.CurrentCampaign.Name}!");
             CampaignSerializer.SaveCampaign(App.CampaignStore.CurrentCampaign);
             SettingsSerializer.SaveSettings(App.SettingsStore.Settings, SettingsSerializer.SettingsType.Main);
+            App.AudioStore.AudioSettings.musicVolume = MainWindow.MusicPlayer.Player.GetVolume;
+            App.AudioStore.AudioSettings.ambienceVolume = MainWindow.AmbiencePlayer.Player.GetVolume;
+            App.AudioStore.AudioSettings.soundVolume = MainWindow.SoundPlayer.Player.GetVolume;
             SettingsSerializer.SaveSettings(App.AudioStore.AudioSettings, SettingsSerializer.SettingsType.Audio);
         });
         Exit = new RelayCommand(Application.Current.Shutdown);

@@ -15,6 +15,7 @@ namespace DMAssistant.Services
         void Resume();
         void Seek(double seconds);
         void SetVolume(double volume);
+        double GetVolume { get; }
         double GetPositionSeconds();
         void ToggleLoop();
         bool isLooping { get; }
@@ -43,6 +44,13 @@ namespace DMAssistant.Services
         public void Stop() => _player.Stop();
         public void Resume() => _player.Play();
         public void SetVolume(double v) => _player.Volume = v;
+        public double GetVolume
+        {
+            get
+            {
+                return _player.Volume;
+            }
+        }
         public void Seek(double seconds) => _player.Position = TimeSpan.FromSeconds(seconds);
 
         public double GetPositionSeconds() => _player.Position.TotalSeconds;

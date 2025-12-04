@@ -72,6 +72,7 @@ namespace DMAssistant.ViewModel
         private static readonly Dictionary<int, (int Easy, int Medium, int Hard, int Deadly)> LevelThresholds
             = new()
         {
+            { 0,  (15,   25,   50,   75) },
             { 1,  (25,   50,   75,   100) },
             { 2,  (50,   100,  150,  200) },
             { 3,  (75,   150,  225,  400) },
@@ -113,6 +114,7 @@ namespace DMAssistant.ViewModel
         }
         private static Dictionary<int, int> AdventuringDayXP = new Dictionary<int, int>
         {
+            { 0, 150 },
             { 1, 300 },
             { 2, 600 },
             { 3, 1200 },

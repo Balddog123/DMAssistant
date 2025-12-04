@@ -1,6 +1,7 @@
 ﻿using DMAssistant.Model;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Data;
 
@@ -19,13 +20,14 @@ namespace DMAssistant.View
             AvailableNPCs = availableNPCs;
 
             _NPCView = CollectionViewSource.GetDefaultView(AvailableNPCs);
-            _NPCView.Filter = FilterMonster;
+            _NPCView.Filter = FilterNPC;
             NPCListBox.ItemsSource = _NPCView;
+            Debug.WriteLine(NPCListBox.Items.Count);
         }
 
-        private bool FilterMonster(object obj)
+        private bool FilterNPC(object obj)
         {
-            if (obj is not Monster monster)
+            if (obj is not NPC npc)
                 return false;
 
             string search = SearchTextBox.Text?.Trim() ?? "";
@@ -33,7 +35,7 @@ namespace DMAssistant.View
             if (string.IsNullOrEmpty(search))
                 return true;
 
-            return monster.Name.Contains(search, System.StringComparison.OrdinalIgnoreCase);
+            return npc.Name.Contains(search, System.StringComparison.OrdinalIgnoreCase);
         }
 
         private void SearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

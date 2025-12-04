@@ -1,0 +1,3 @@
+﻿ideas
+show all unassigned items
+show players in groups to see all at once

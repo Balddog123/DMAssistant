@@ -16,8 +16,11 @@ namespace DMAssistant.ViewModel
         public SoundPanelViewModel()
         {
             MusicSoundView = new SoundViewModel(MainWindow.MusicPlayer);
+            MainWindow.MusicPlayer.Player.SetVolume(App.AudioStore.AudioSettings.musicVolume);
             AmbienceSoundView = new SoundViewModel(MainWindow.AmbiencePlayer);
+            MainWindow.AmbiencePlayer.Player.SetVolume(App.AudioStore.AudioSettings.ambienceVolume);
             SoundboardSoundView = new SoundViewModel(MainWindow.SoundPlayer);
+            MainWindow.SoundPlayer.Player.SetVolume(App.AudioStore.AudioSettings.soundVolume);
         }
     }
 }

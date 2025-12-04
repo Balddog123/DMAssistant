@@ -46,5 +46,9 @@ namespace DMAssistant.Model
         [ObservableProperty] public string musicPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Music");
         [ObservableProperty] public string ambiencePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Ambience");
         [ObservableProperty] public string soundPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Sound");
+
+        [ObservableProperty] public double musicVolume = 0.5;
+        [ObservableProperty] public double ambienceVolume = 0.5;
+        [ObservableProperty] public double soundVolume = 0.5;
     }
 }
