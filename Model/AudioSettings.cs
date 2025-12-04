@@ -31,8 +31,20 @@ namespace DMAssistant.Model
                 OnPropertyChanged();
             }
         }
+        private ObservableCollection<Playlist> _soundPlaylists = new();
+        public ObservableCollection<Playlist> SoundPlaylists
+        {
+            get => _soundPlaylists;
+            set
+            {
+                _soundPlaylists = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         [ObservableProperty] public string musicPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Music");
         [ObservableProperty] public string ambiencePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Ambience");
+        [ObservableProperty] public string soundPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Sound");
     }
 }

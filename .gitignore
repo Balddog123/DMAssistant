@@ -47,6 +47,8 @@ obj
 [Rr]elease/Data/SFX/*
 bin/Release/net8.0-windows/DMAssistant.exe
 bin/Release/net8.0-windows/DMAssistant.dll
+bin/Release/net8.0-windows/Data/audiosettings.json
+bin/Release/net8.0-windows/Data/settings.json
 
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/

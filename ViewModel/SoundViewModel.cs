@@ -25,7 +25,8 @@ namespace DMAssistant.ViewModel
         public enum SoundViewType
         {
             Music,
-            Ambience
+            Ambience,
+            Sound
         }
         public SoundViewType soundViewType;
 
@@ -35,11 +36,13 @@ namespace DMAssistant.ViewModel
             get 
             {
                 if(soundViewType == SoundViewType.Music) return App.AudioStore.AudioSettings.MusicPlaylists;
+                if (soundViewType == SoundViewType.Sound) return App.AudioStore.AudioSettings.SoundPlaylists;
                 else return App.AudioStore.AudioSettings.AmbiencePlaylists; 
             }
             set
             {
                 if(soundViewType == SoundViewType.Music) App.AudioStore.AudioSettings.MusicPlaylists = value;
+                if (soundViewType == SoundViewType.Sound) App.AudioStore.AudioSettings.SoundPlaylists = value;
                 else App.AudioStore.AudioSettings.AmbiencePlaylists = value;
                 OnPropertyChanged();
             }
@@ -206,7 +209,6 @@ namespace DMAssistant.ViewModel
             RemoveFromSelectedPlaylistCommand = new RelayCommand<AudioFile>(audioToRemove => RemoveFromSelectedPlaylist(audioToRemove));
             SelectPlaylistCommand = new RelayCommand<Playlist>((playlist) =>
             {
-                Debug.WriteLine("Selected playlist " + playlist.Name);
                 SelectedPlaylistVisibility = Visibility.Visible;
                 SelectedPlaylist = playlist;
             });
@@ -254,9 +256,27 @@ namespace DMAssistant.ViewModel
 
         private void FindDirectory()
         {
+            /*
+             * rank switch
+                    {
+                        Item.ItemRank.Common => 6,
+                        Item.ItemRank.Uncommon => 2,
+                        Item.ItemRank.Rare => 1,
+                        Item.ItemRank.VeryRare => 0,
+                        Item.ItemRank.Legendary => 0,
+                        _ => 0
+                    };
+             */
+            string initialPath = soundViewType switch
+            {
+                SoundViewType.Music => App.AudioStore.AudioSettings.MusicPath,
+                SoundViewType.Ambience => App.AudioStore.AudioSettings.AmbiencePath,
+                SoundViewType.Sound => App.AudioStore.AudioSettings.SoundPath,
+
+            };
             OpenFolderDialog dialog = new OpenFolderDialog()
             {
-                InitialDirectory = soundViewType == SoundViewType.Music ? App.AudioStore.AudioSettings.MusicPath : App.AudioStore.AudioSettings.AmbiencePath,
+                InitialDirectory = initialPath,
                 Title = $"Set {soundViewType} Folder"
             };
 
@@ -267,7 +287,8 @@ namespace DMAssistant.ViewModel
             {                
                 string selectedFolder = dialog.FolderName;
                 if(soundViewType == SoundViewType.Music) App.AudioStore.AudioSettings.MusicPath = selectedFolder;
-                else App.AudioStore.AudioSettings.AmbiencePath = selectedFolder;
+                else if (soundViewType == SoundViewType.Ambience) App.AudioStore.AudioSettings.AmbiencePath = selectedFolder;
+                else App.AudioStore.AudioSettings.SoundPath = selectedFolder;
                 LoadAudioFiles();
             }
         }
@@ -295,15 +316,21 @@ namespace DMAssistant.ViewModel
         private void LoadAudioFiles()
         {
             AudioFiles.Clear();
-            var path = soundViewType == SoundViewType.Music ? App.AudioStore.AudioSettings.MusicPath : App.AudioStore.AudioSettings.AmbiencePath;
-            if (!Directory.Exists(path)) 
+            string initialPath = soundViewType switch
+            {
+                SoundViewType.Music => App.AudioStore.AudioSettings.MusicPath,
+                SoundViewType.Ambience => App.AudioStore.AudioSettings.AmbiencePath,
+                SoundViewType.Sound => App.AudioStore.AudioSettings.SoundPath,
+
+            };
+            if (!Directory.Exists(initialPath)) 
             {
                 Debug.WriteLine("Path doesn't exist, sorry bro...");
                 return; 
             }
 
-            var files = Directory.GetFiles(path, "*.mp3")
-                .Concat(Directory.GetFiles(path, "*.wav"));
+            var files = Directory.GetFiles(initialPath, "*.mp3")
+                .Concat(Directory.GetFiles(initialPath, "*.wav"));
 
             foreach (var file in files)
                 AudioFiles.Add(new AudioFile { FilePath = file });

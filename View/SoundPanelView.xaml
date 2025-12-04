@@ -13,6 +13,9 @@
         <TabItem Header="Ambience">
             <local:SoundView DataContext="{Binding AmbienceSoundView}"/>
         </TabItem>
+        <TabItem Header="Sound">
+            <local:SoundView DataContext="{Binding SoundboardSoundView}"/>
+        </TabItem>
     </TabControl>
     
 </UserControl>

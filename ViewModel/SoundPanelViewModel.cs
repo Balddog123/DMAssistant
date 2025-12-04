@@ -12,10 +12,12 @@ namespace DMAssistant.ViewModel
     {
         public SoundViewModel MusicSoundView { get; set; }
         public SoundViewModel AmbienceSoundView { get; set; }
+        public SoundViewModel SoundboardSoundView { get; set; }
         public SoundPanelViewModel()
         {
             MusicSoundView = new SoundViewModel(MainWindow.MusicPlayer);
             AmbienceSoundView = new SoundViewModel(MainWindow.AmbiencePlayer);
+            SoundboardSoundView = new SoundViewModel(MainWindow.SoundPlayer);
         }
     }
 }

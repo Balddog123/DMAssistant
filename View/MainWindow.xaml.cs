@@ -15,6 +15,7 @@ namespace DMAssistant.View
     {
         public static AudioController MusicPlayer { get; private set; }
         public static AudioController AmbiencePlayer { get; private set; }
+        public static AudioController SoundPlayer { get; private set; }
 
         public MainWindow()
         {
@@ -23,6 +24,8 @@ namespace DMAssistant.View
             MusicPlayer.soundViewType = SoundViewModel.SoundViewType.Music;
             AmbiencePlayer = new AudioController(GlobalAmbiencePlayer);
             AmbiencePlayer.soundViewType = SoundViewModel.SoundViewType.Ambience;
+            SoundPlayer = new AudioController(GlobalSoundPlayer);
+            SoundPlayer.soundViewType = SoundViewModel.SoundViewType.Sound;
 
             DataContext = new MainWindowViewModel();
         }
@@ -31,12 +34,14 @@ namespace DMAssistant.View
         {
             if ((MediaElement)sender == GlobalMediaPlayer) MusicPlayer.OnMediaOpenedHandler(sender, e);
             if ((MediaElement)sender == GlobalAmbiencePlayer) AmbiencePlayer.OnMediaOpenedHandler(sender, e);
+            if ((MediaElement)sender == GlobalSoundPlayer) SoundPlayer.OnMediaOpenedHandler(sender, e);
         }
 
         public void Player_MediaEnded(object sender, RoutedEventArgs e)
         {
             if ((MediaElement)sender == GlobalMediaPlayer) MusicPlayer.OnMediaEndedHandler(sender, e);
             if ((MediaElement)sender == GlobalAmbiencePlayer) AmbiencePlayer.OnMediaEndedHandler(sender, e);
+            if ((MediaElement)sender == GlobalSoundPlayer) SoundPlayer.OnMediaEndedHandler(sender, e);
         }
     }
 }
