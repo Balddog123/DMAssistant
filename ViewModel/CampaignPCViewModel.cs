@@ -194,8 +194,14 @@ namespace DMAssistant.ViewModel
                 {
 
                 }
-
-                
+            }
+        });
+        public ICommand DeletePlayerCommand => new RelayCommand<PlayerCharacter>(player =>
+        {
+            if (MessageBox.Show($"Delete {player.Name}?",
+                                "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                PlayerCharacters.Remove(player);
             }
         });
 

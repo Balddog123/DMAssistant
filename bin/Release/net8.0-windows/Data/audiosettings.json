@@ -1,4 +1,8 @@
 {
-  "Playlists": [],
-  "MusicPath": "C:\\Users\\R2ATLTOP\\Documents\\!DMAssistant\\bin\\Release\\net8.0-windows\\Data\\Music"
+  "MusicPlaylists": [],
+  "AmbiencePlaylists": [],
+  "SoundPlaylists": [],
+  "MusicPath": "G:\\!Audio\\D\u0026D\\Music",
+  "AmbiencePath": "G:\\!Audio\\D\u0026D\\Ambience",
+  "SoundPath": "G:\\!Audio\\D\u0026D\\Sounds"
 }

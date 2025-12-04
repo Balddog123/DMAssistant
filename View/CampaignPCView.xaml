@@ -43,6 +43,9 @@
                                     <!-- Player Border -->
                                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="10" Margin="3" Background="LightGray">
                                         <StackPanel>
+                                        <Button HorizontalAlignment="Right" Width="30" Height="30" Command="{Binding DataContext.DeletePlayerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
+                                            <Image Width="16" Height="16" Source="/Resources/icon-delete.png"/>
+                                        </Button>
                                             <!-- Player Basic Info -->
                                             <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" FontWeight="Bold" />
 
