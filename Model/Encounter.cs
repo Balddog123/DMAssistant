@@ -15,7 +15,7 @@ namespace DMAssistant.Model
         private ObservableCollection<EncounterItem> _encounterItems = new ObservableCollection<EncounterItem>();
         public ObservableCollection<EncounterItem> EncounterItems { get => _encounterItems; set { SetProperty(ref  _encounterItems, value); } }
         private ObservableCollection<CombatItem> _combatItems = new();
-        [JsonIgnore] public ObservableCollection<CombatItem> CombatItems { get => _combatItems; set { SetProperty(ref _combatItems, value); } }
-        [JsonIgnore, ObservableProperty] public int currentRound = 0;
+        public ObservableCollection<CombatItem> CombatItems { get => _combatItems; set { SetProperty(ref _combatItems, value); } }
+        [ObservableProperty] public int currentRound = 0;
     }
 }

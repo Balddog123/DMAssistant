@@ -33,14 +33,14 @@
         </Grid>
 
         <!-- Combatants List -->
-        <ListView Grid.Row="1" ItemsSource="{Binding CombatItems}" SelectedItem="{Binding SelectedCombatItem}">
+        <ListView Grid.Row="1" ItemsSource="{Binding CombatItemsView}" SelectedItem="{Binding SelectedCombatItem}">
             <ListView.View>
                 <GridView>
                     <!-- Initiative (editable) -->
                     <GridViewColumn Header="Init" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Initiative, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Text="{Binding Initiative, Mode=TwoWay}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -72,6 +72,16 @@
 
                     <!-- Armor Class (read-only) -->
                     <GridViewColumn Header="AC" Width="50" DisplayMemberBinding="{Binding ArmorClass}" />
+
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.DeleteCombatItemCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
+                                    <Image Source="/Resources/icon-delete.png" Width="16" Height="16" />
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -54,12 +54,12 @@ namespace DMAssistant.Model
         }
         [ObservableProperty] public Type combatItemType;
 
-        public CombatItem(string name, int initiative, int hp, int maxhp, int armorClass, Type combatItemType, string encounterItemName)
+        public CombatItem(string name, int initiative, int currentHP, int maxhp, int armorClass, Type combatItemType, string encounterItemName)
         {
             this.name = name;
             this.initiative = initiative;
-            currentHP = hp;
-            maxHP = maxhp;
+            this.currentHP = currentHP;
+            this.maxHP = maxhp;
             this.combatItemType = combatItemType;
             this.armorClass = armorClass;
             this.encounterItemName = encounterItemName;

@@ -21,6 +21,18 @@ namespace DMAssistant.ViewModel
 
         public int TotalCR => EncounterItems.Sum(vm => vm.TotalCR);
         public int TotalXP => EncounterItems.Sum(vm => vm.TotalXP);
+        public int TotalXPAvailable
+        {
+            get
+            {
+                int total = 0;
+                foreach(PlayerCharacter pc in App.CampaignStore.CurrentCampaign.PCs)
+                {
+                    total += EncounterViewModel.AdventuringDayXP[pc.Level];
+                }
+                return total;
+            }
+        }
         public string Difficulty
         {
             get
@@ -99,6 +111,30 @@ namespace DMAssistant.ViewModel
                 return (easy, medium, hard, deadly);
             }
         }
+        private static Dictionary<int, int> AdventuringDayXP = new Dictionary<int, int>
+        {
+            { 1, 300 },
+            { 2, 600 },
+            { 3, 1200 },
+            { 4, 1700 },
+            { 5, 3500 },
+            { 6, 4000 },
+            { 7, 5000 },
+            { 8, 6000 },
+            { 9, 7500 },
+            { 10, 9000 },
+            { 11, 10500 },
+            { 12, 11500 },
+            { 13, 13500 },
+            { 14, 15000 },
+            { 15, 18000 },
+            { 16, 20000 },
+            { 17, 25000 },
+            { 18, 27000 },
+            { 19, 30000 },
+            { 20, 40000 },
+        };
+
 
 
         public ObservableCollection<EncounterItemViewModel> EncounterItems { get; }

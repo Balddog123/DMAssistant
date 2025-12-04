@@ -5,6 +5,7 @@ using DMAssistant.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace DMAssistant.ViewModel
@@ -42,6 +44,8 @@ namespace DMAssistant.ViewModel
                 Debug.WriteLine($"Setting encounter combatitems to: {Encounter.CombatItems.Count}");
             }
         }
+        public ICollectionView CombatItemsView { get; }
+
         private CombatItem _selectedCombatItem;
         public CombatItem SelectedCombatItem
         {
@@ -50,6 +54,7 @@ namespace DMAssistant.ViewModel
         }
 
         public ICommand NextRoundCommand { get; }
+        public ICommand DeleteCombatItemCommand { get; }
         public CombatTrackerViewModel(Encounter encounter, ObservableCollection<CombatItem> combatItems)
         {
             Encounter = encounter;
@@ -59,7 +64,22 @@ namespace DMAssistant.ViewModel
             else DisplayOriginalCombatItems(combatItems);
 
             NextRoundCommand = new RelayCommand(MoveToNextRound);
-            Debug.WriteLine(encounter.CombatItems.Count);
+            DeleteCombatItemCommand = new RelayCommand<CombatItem>(itemToDelete =>
+            {
+                if (itemToDelete == null) return;
+                CombatItems.Remove(itemToDelete);
+                CombatItemsView.Refresh();
+            });
+
+            CombatItemsView = CollectionViewSource.GetDefaultView(CombatItems);
+            CombatItemsView.SortDescriptions.Add(new SortDescription(nameof(CombatItem.Initiative), ListSortDirection.Descending));
+            foreach(var item in CombatItems)
+            {
+                item.PropertyChanged += (s, e) =>
+                {
+                    if (e.PropertyName == nameof(CombatItem.Initiative)) CombatItemsView.Refresh();
+                };
+            }
         }
 
         private void MoveToNextRound()
@@ -110,6 +130,8 @@ namespace DMAssistant.ViewModel
 
         private void CreateEncounterCombatItem(EncounterItem encounterItem)
         {
+            if (encounterItem == null) return;
+
             if (encounterItem is MonsterGroup mg && mg.monsterId != string.Empty)
             {
                 Monster monster = App.CampaignStore.MonsterIndex[mg.monsterId];
@@ -133,6 +155,7 @@ namespace DMAssistant.ViewModel
             else
             {
                 EncounterEvent ev = encounterItem as EncounterEvent;
+
                 CombatItem newItem = new CombatItem(ev.name, ev.Initiative, 0, 0, 0, CombatItem.Type.Event, ev.name);
                 CombatItems.Add(newItem);
             }
