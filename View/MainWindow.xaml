@@ -58,6 +58,11 @@
                             UnloadedBehavior="Manual"
                             MediaOpened="Player_MediaOpened"
                             MediaEnded="Player_MediaEnded" Visibility="Collapsed" />
+            <MediaElement x:Name="GlobalAmbiencePlayer"
+                LoadedBehavior="Manual"
+                UnloadedBehavior="Manual"
+                MediaOpened="Player_MediaOpened"
+                MediaEnded="Player_MediaEnded" Visibility="Collapsed" />
         </StackPanel>
 
         <!-- ######## MAIN CONTENT AREA ######## -->

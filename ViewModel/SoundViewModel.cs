@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DMAssistant.Helpers;
 using DMAssistant.Model;
 using DMAssistant.Services;
 using DMAssistant.Store;
@@ -19,7 +20,7 @@ using System.Windows.Input;
 
 namespace DMAssistant.ViewModel
 {
-    public partial class SoundPanelViewModel : ObservableObject
+    public partial class SoundViewModel : ObservableObject
     {
         private static string ambiencePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Ambience");
 
@@ -129,7 +130,7 @@ namespace DMAssistant.ViewModel
         public ICommand RemoveFromQueueCommand { get; }
         public ICommand ClearQueueCommand { get; }
 
-        public SoundPanelViewModel(IAudioPlayerService audioService)
+        public SoundViewModel(IAudioPlayerService audioService)
         {
             AudioPlayerService = audioService;
             LibraryVisibility = Visibility.Visible;
@@ -274,6 +275,7 @@ namespace DMAssistant.ViewModel
             {
                 PlayingAudio = null;
             }
+
         }
 
         private void ClearQueue()

@@ -1,6 +1,7 @@
 ﻿using DMAssistant.Model;
 using DMAssistant.Services;
 using DMAssistant.ViewModel;
+using DMAssistant.Helpers;
 using MahApps.Metro.Controls;
 using System.Diagnostics;
 using System.Numerics;
@@ -12,45 +13,30 @@ namespace DMAssistant.View
 {
     public partial class MainWindow : MetroWindow
     {
-        public static IAudioPlayerService AudioPlayer { get; private set; }
-        public static DispatcherTimer AudioTimer { get; private set; }
-        public static Action<double>? OnMediaOpened;
-        public static Action OnMediaEnded;
+        public static AudioController MusicPlayer { get; private set; }
+        public static AudioController AmbiencePlayer { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            AudioPlayer = new AudioPlayerService(GlobalMediaPlayer);
+            MusicPlayer = new AudioController(GlobalMediaPlayer);
+            MusicPlayer.name = "music";
+            AmbiencePlayer = new AudioController(GlobalAmbiencePlayer);
+            AmbiencePlayer.name = "ambience";
 
             DataContext = new MainWindowViewModel();
-
-            AudioTimer = new DispatcherTimer();
-            AudioTimer.Interval = TimeSpan.FromMilliseconds(200);
         }
 
-        private void Player_MediaOpened(object sender, RoutedEventArgs e)
+        public void Player_MediaOpened(object sender, RoutedEventArgs e)
         {
-            if (GlobalMediaPlayer.NaturalDuration.HasTimeSpan)
-            {
-                OnMediaOpened?.Invoke(GlobalMediaPlayer.NaturalDuration.TimeSpan.TotalSeconds);
-            }
-
-            AudioTimer.Start();
+            if ((MediaElement)sender == GlobalMediaPlayer) MusicPlayer.OnMediaOpenedHandler(sender, e);
+            if ((MediaElement)sender == GlobalAmbiencePlayer) AmbiencePlayer.OnMediaOpenedHandler(sender, e);
         }
 
-        private void Player_MediaEnded(object sender, RoutedEventArgs e)
+        public void Player_MediaEnded(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("Media ended");
-            if (AudioPlayer.isLooping)
-            {
-                GlobalMediaPlayer.Position = TimeSpan.FromSeconds(0);
-            }
-            else
-            {
-
-                GlobalMediaPlayer.Stop();
-                OnMediaEnded?.Invoke();
-            }
+            if ((MediaElement)sender == GlobalMediaPlayer) MusicPlayer.OnMediaEndedHandler(sender, e);
+            if ((MediaElement)sender == GlobalAmbiencePlayer) AmbiencePlayer.OnMediaEndedHandler(sender, e);
         }
     }
 }

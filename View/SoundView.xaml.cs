@@ -32,15 +32,27 @@ namespace DMAssistant.View
         {
             InitializeComponent();
 
-            MainWindow.AudioTimer.Tick += UpdatePosition;
-            MainWindow.OnMediaOpened += (seconds) =>
+            MainWindow.MusicPlayer.Timer.Tick += UpdatePosition;
+            MainWindow.MusicPlayer.MediaOpened += (seconds) =>
             {
-                var vm = (SoundPanelViewModel)DataContext;
+                var vm = (SoundViewModel)DataContext;
                 if(vm != null) vm.Duration = seconds;
             };
-            MainWindow.OnMediaEnded += () =>
+            MainWindow.MusicPlayer.MediaEnded += () =>
             {
-                var vm = (SoundPanelViewModel)DataContext;
+                var vm = (SoundViewModel)DataContext;
+                if (vm != null) vm.HandleAudioEnded();
+            };
+
+            MainWindow.AmbiencePlayer.Timer.Tick += UpdatePosition;
+            MainWindow.AmbiencePlayer.MediaOpened += (seconds) =>
+            {
+                var vm = (SoundViewModel)DataContext;
+                if (vm != null) vm.Duration = seconds;
+            };
+            MainWindow.AmbiencePlayer.MediaEnded += () =>
+            {
+                var vm = (SoundViewModel)DataContext;
                 if (vm != null) vm.HandleAudioEnded();
             };
         }
@@ -49,7 +61,7 @@ namespace DMAssistant.View
         {
             if (sender is ListBox lb && lb.SelectedItem is AudioFile audio)
             {
-                var vm = DataContext as SoundPanelViewModel;
+                var vm = DataContext as SoundViewModel;
 
                 if (vm != null)
                 {
@@ -63,7 +75,7 @@ namespace DMAssistant.View
 
         private void PlaylistItemClicked(object sender, MouseButtonEventArgs e)
         {
-            if (DataContext is SoundPanelViewModel vm)
+            if (DataContext is SoundViewModel vm)
             {
                 if (((ListBoxItem)sender).DataContext is Playlist playlist)
                     vm.AddToPlaylistCommand.Execute(playlist);
@@ -74,7 +86,7 @@ namespace DMAssistant.View
         private void UpdatePosition(object? sender, EventArgs e)
         {
             if (_userIsDragging) return;
-            var vm = (SoundPanelViewModel)DataContext;
+            var vm = (SoundViewModel)DataContext;
             if(vm != null) vm.Position = vm.AudioPlayerService.GetPositionSeconds();
         }
         private void Slider_DragEnter(object sender, DragStartedEventArgs e)
@@ -88,7 +100,7 @@ namespace DMAssistant.View
             _userIsDragging = false;
             Debug.WriteLine("Ended dragging!");
             // Now push the final slider value to the player
-            var vm = (SoundPanelViewModel)DataContext;
+            var vm = (SoundViewModel)DataContext;
             vm.AudioPlayerService.Seek(vm.Position);
         }
     }

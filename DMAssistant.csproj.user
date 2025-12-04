@@ -77,7 +77,7 @@
     <Compile Update="View\SessionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\SoundPanelView.xaml.cs">
+    <Compile Update="View\SoundView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\WorldMapView.xaml.cs">
