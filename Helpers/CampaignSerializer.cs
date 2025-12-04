@@ -25,6 +25,7 @@ public static class CampaignSerializer
     {
         jsonOptions.Converters.Add(new SafeEnumConverter<Item.ItemType>());
         jsonOptions.Converters.Add(new SafeEnumConverter<Item.ItemRank>());
+        jsonOptions.Converters.Add(new LocationJsonConverter());
     }
 
     public static Campaign? LoadCampaign(string filePath)
