@@ -1,4 +1,6 @@
 ﻿using DMAssistant.Services;
+using DMAssistant.View;
+using DMAssistant.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace DMAssistant.Helpers
 {
     public class AudioController
     {
-        public string name;
+        public SoundViewModel.SoundViewType soundViewType;
         public IAudioPlayerService Player { get; }
         public DispatcherTimer Timer { get; }
 

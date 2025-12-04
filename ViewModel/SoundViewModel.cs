@@ -22,15 +22,25 @@ namespace DMAssistant.ViewModel
 {
     public partial class SoundViewModel : ObservableObject
     {
-        private static string ambiencePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Ambience");
+        public enum SoundViewType
+        {
+            Music,
+            Ambience
+        }
+        public SoundViewType soundViewType;
 
         public ObservableCollection<AudioFile> AudioFiles { get; set; } = new();
         public ObservableCollection<Playlist> Playlists
         {
-            get => App.AudioStore.AudioSettings.Playlists;
+            get 
+            {
+                if(soundViewType == SoundViewType.Music) return App.AudioStore.AudioSettings.MusicPlaylists;
+                else return App.AudioStore.AudioSettings.AmbiencePlaylists; 
+            }
             set
             {
-                App.AudioStore.AudioSettings.Playlists = value;
+                if(soundViewType == SoundViewType.Music) App.AudioStore.AudioSettings.MusicPlaylists = value;
+                else App.AudioStore.AudioSettings.AmbiencePlaylists = value;
                 OnPropertyChanged();
             }
         }
@@ -130,9 +140,11 @@ namespace DMAssistant.ViewModel
         public ICommand RemoveFromQueueCommand { get; }
         public ICommand ClearQueueCommand { get; }
 
-        public SoundViewModel(IAudioPlayerService audioService)
+        public SoundViewModel(AudioController audioController)
         {
-            AudioPlayerService = audioService;
+            AudioPlayerService = audioController.Player;
+            soundViewType = audioController.soundViewType;
+
             LibraryVisibility = Visibility.Visible;
             PlaylistsVisibility = Visibility.Collapsed;
             QueueVisibility = Visibility.Collapsed;
@@ -188,10 +200,6 @@ namespace DMAssistant.ViewModel
                 if (playlist != null && SelectedAudio != null)
                 {
                     playlist.Files.Add(SelectedAudio);
-                    foreach (AudioFile file in playlist.Files)
-                    {
-                        Debug.WriteLine($"{playlist.Name}: {file.FileName}");
-                    }
                     IsPlaylistPopupOpen = false;
                 }
             });
@@ -248,19 +256,18 @@ namespace DMAssistant.ViewModel
         {
             OpenFolderDialog dialog = new OpenFolderDialog()
             {
-                InitialDirectory = App.AudioStore.AudioSettings.MusicPath,
-                Title = "Set Music Folder"
+                InitialDirectory = soundViewType == SoundViewType.Music ? App.AudioStore.AudioSettings.MusicPath : App.AudioStore.AudioSettings.AmbiencePath,
+                Title = $"Set {soundViewType} Folder"
             };
 
             // Show dialog
             bool? result = dialog.ShowDialog();
 
             if (result == true)
-            {
-                
+            {                
                 string selectedFolder = dialog.FolderName;
-                Debug.WriteLine(selectedFolder);
-                App.AudioStore.AudioSettings.MusicPath = selectedFolder;
+                if(soundViewType == SoundViewType.Music) App.AudioStore.AudioSettings.MusicPath = selectedFolder;
+                else App.AudioStore.AudioSettings.AmbiencePath = selectedFolder;
                 LoadAudioFiles();
             }
         }
@@ -268,7 +275,7 @@ namespace DMAssistant.ViewModel
         public void HandleAudioEnded()
         {
             Debug.WriteLine("Handling audio ending at view model...");
-            AudioQueue.RemoveAt(0);
+            if(AudioQueue.Count > 0) AudioQueue.RemoveAt(0);
 
             if (AudioQueue.Count > 0) Play(AudioQueue[0].File);
             else
@@ -288,13 +295,12 @@ namespace DMAssistant.ViewModel
         private void LoadAudioFiles()
         {
             AudioFiles.Clear();
-            if (!Directory.Exists(App.AudioStore.AudioSettings.MusicPath)) 
+            var path = soundViewType == SoundViewType.Music ? App.AudioStore.AudioSettings.MusicPath : App.AudioStore.AudioSettings.AmbiencePath;
+            if (!Directory.Exists(path)) 
             {
-                Debug.WriteLine("MusicPath doesn't exist, sorry bro...");
+                Debug.WriteLine("Path doesn't exist, sorry bro...");
                 return; 
-            } //possibly create directories and move this check to the beginning of the app initialization
-
-            var path = App.AudioStore.AudioSettings.MusicPath;
+            }
 
             var files = Directory.GetFiles(path, "*.mp3")
                 .Concat(Directory.GetFiles(path, "*.wav"));
@@ -319,7 +325,7 @@ namespace DMAssistant.ViewModel
 
         private void CreatePlaylist()
         {
-            Playlists.Add(new Playlist() { Name = $"Playlist {Playlists.Count + 1}" });
+            Playlists.Add(new Playlist() { Name = $"{soundViewType} Playlist {Playlists.Count + 1}" });
         }
 
         private void PlaySelectedPlaylist()

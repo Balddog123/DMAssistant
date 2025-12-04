@@ -20,9 +20,9 @@ namespace DMAssistant.View
         {
             InitializeComponent();
             MusicPlayer = new AudioController(GlobalMediaPlayer);
-            MusicPlayer.name = "music";
+            MusicPlayer.soundViewType = SoundViewModel.SoundViewType.Music;
             AmbiencePlayer = new AudioController(GlobalAmbiencePlayer);
-            AmbiencePlayer.name = "ambience";
+            AmbiencePlayer.soundViewType = SoundViewModel.SoundViewType.Ambience;
 
             DataContext = new MainWindowViewModel();
         }

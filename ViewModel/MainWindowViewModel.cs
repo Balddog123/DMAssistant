@@ -24,7 +24,7 @@ public class MainWindowViewModel : ObservableObject
 {
     public CampaignViewModel CampaignVM { get; }
     public SessionViewModel SessionVM { get; }
-    public SoundViewModel SoundPanelVM { get; }
+    public SoundPanelViewModel SoundPanelVM { get; }
     public object CurrentView
     {
         get => _currentView;
@@ -52,7 +52,7 @@ public class MainWindowViewModel : ObservableObject
         // Create viewmodels ONCE
         CampaignVM = new CampaignViewModel();
         SessionVM = new SessionViewModel();
-        SoundPanelVM = new SoundViewModel(MainWindow.MusicPlayer.Player);
+        SoundPanelVM = new SoundPanelViewModel();
 
         ShowCampaignCommand = new RelayCommand(() =>
         {

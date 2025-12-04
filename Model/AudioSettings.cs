@@ -11,17 +11,28 @@ namespace DMAssistant.Model
 {
     public partial class AudioSettings : ObservableObject
     {
-        private ObservableCollection<Playlist> _playlists = new();
-        public ObservableCollection<Playlist> Playlists
+        private ObservableCollection<Playlist> _musicPlaylists = new();
+        public ObservableCollection<Playlist> MusicPlaylists
         {
-            get => _playlists;
+            get => _musicPlaylists;
             set
             {
-                _playlists = value;
+                _musicPlaylists = value;
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<Playlist> _ambiencePlaylists = new();
+        public ObservableCollection<Playlist> AmbiencePlaylists
+        {
+            get => _ambiencePlaylists;
+            set
+            {
+                _ambiencePlaylists = value;
                 OnPropertyChanged();
             }
         }
 
         [ObservableProperty] public string musicPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Music");
+        [ObservableProperty] public string ambiencePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Ambience");
     }
 }

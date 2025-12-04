@@ -56,8 +56,11 @@
             <DataTemplate DataType="{x:Type vm:WorldMapViewModel}">
                 <v:WorldMapView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:SoundViewModel}">
+            <DataTemplate DataType="{x:Type vm:SoundPanelViewModel}">
                 <v:SoundPanelView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SoundViewModel}">
+                <v:SoundView/>
             </DataTemplate>
 
             <!-- Lore Panel -->

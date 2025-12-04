@@ -20,15 +20,12 @@ using System.Windows.Threading;
 
 namespace DMAssistant.View
 {
-    /// <summary>
-    /// Interaction logic for SoundPanel.xaml
-    /// </summary>
-    public partial class SoundPanelView : UserControl
+    public partial class SoundView : UserControl
     {
         private bool _userIsDragging = false;
         private bool _isLooping = false;
 
-        public SoundPanelView()
+        public SoundView()
         {
             InitializeComponent();
 
