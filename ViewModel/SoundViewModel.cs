@@ -95,6 +95,22 @@ namespace DMAssistant.ViewModel
         public IRelayCommand PlayCommand { get; }
         public IRelayCommand PauseCommand { get; }
         public IRelayCommand StopCommand { get; }
+        public IRelayCommand NextCommand => new RelayCommand(() =>
+        {
+            AudioPlayerService.Stop();
+            PlayingAudio = null;
+            if (AudioQueue.Count > 0)
+            {
+                AudioQueue.RemoveAt(0);
+                if (AudioQueue.Count > 0)
+                {
+                    AudioPlayerService.Play(AudioQueue[0].File.FilePath);
+                    PlayingAudio = AudioQueue[0];
+                }
+            }
+            Duration = 0.0;
+            Position = 0.0;
+        });
         public IRelayCommand LoopCommand { get; }
         public RelayCommand PlaySelectedAudio { get; }
 

@@ -28,6 +28,7 @@
     <None Remove="Resources\icon-erase.png" />
     <None Remove="Resources\icon-folder.png" />
     <None Remove="Resources\icon-loop.png" />
+    <None Remove="Resources\icon-next.png" />
     <None Remove="Resources\icon-page.png" />
     <None Remove="Resources\icon-pause.png" />
     <None Remove="Resources\icon-play.png" />
@@ -97,6 +98,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-loop.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-next.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-page.png">
