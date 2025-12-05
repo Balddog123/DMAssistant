@@ -439,3 +439,5 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+/bin/Release/net8.0-windows/DMAssistant.dll
+/bin/Release/net8.0-windows/DMAssistant.exe
