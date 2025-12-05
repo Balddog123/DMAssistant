@@ -60,6 +60,145 @@ namespace DMAssistant.ViewModel
             }
         }
 
+        public string STR
+        {
+            get => Monster != null ? Monster.STR : string.Empty;
+            set
+            {
+                if (Monster != null)
+                {
+                    SetProperty(Monster.STR, value, Monster, (m, v) => m.STR = v);
+                    OnPropertyChanged(nameof(STR_Mod));
+                }
+            }
+        }
+        public string STR_Mod
+        {
+            get
+            {
+                if(int.TryParse(Monster.STR, out int str))
+                {
+                    return "+" + ((str - 10) / 2).ToString();
+                }
+                else return string.Empty;
+            }
+        }
+        public string DEX
+        {
+            get => Monster != null ? Monster.DEX : string.Empty;
+            set
+            {
+                if (Monster != null)
+                {
+                    SetProperty(Monster.DEX, value, Monster, (m, v) => m.DEX = v);
+                    OnPropertyChanged(nameof(DEX_Mod));
+                }
+            }
+        }
+        public string DEX_Mod
+        {
+            get
+            {
+                if (int.TryParse(Monster.DEX, out int num))
+                {
+                    return "+" + ((num - 10) / 2).ToString();
+                }
+                else return string.Empty;
+            }
+        }
+        public string CON
+        {
+            get => Monster != null ? Monster.CON : string.Empty;
+            set
+            {
+                if (Monster != null)
+                {
+                    SetProperty(Monster.CON, value, Monster, (m, v) => m.CON = v);
+                    OnPropertyChanged(nameof(CON_Mod));
+                }
+            }
+        }
+        public string CON_Mod
+        {
+            get
+            {
+                if (int.TryParse(Monster.CON, out int num))
+                {
+                    return "+" + ((num - 10) / 2).ToString();
+                }
+                else return string.Empty;
+            }
+        }
+        public string INT
+        {
+            get => Monster != null ? Monster.INT : string.Empty;
+            set
+            {
+                if (Monster != null)
+                {
+                    SetProperty(Monster.INT, value, Monster, (m, v) => m.INT = v);
+                    OnPropertyChanged(nameof(INT_Mod));
+                }
+            }
+        }
+        public string INT_Mod
+        {
+            get
+            {
+                if (int.TryParse(Monster.INT, out int num))
+                {
+                    return "+" + ((num - 10) / 2).ToString();
+                }
+                else return string.Empty;
+            }
+        }
+        public string WIS
+        {
+            get => Monster != null ? Monster.WIS : string.Empty;
+            set
+            {
+                if (Monster != null)
+                {
+                    SetProperty(Monster.WIS, value, Monster, (m, v) => m.WIS = v);
+                    OnPropertyChanged(nameof(WIS_Mod));
+                }
+            }
+        }
+        public string WIS_Mod
+        {
+            get
+            {
+                if (int.TryParse(Monster.WIS, out int num))
+                {
+                    return "+" + ((num - 10) / 2).ToString();
+                }
+                else return string.Empty;
+            }
+        }
+        public string CHA
+        {
+            get => Monster != null ? Monster.CHA : string.Empty;
+            set
+            {
+                if (Monster != null)
+                {
+                    SetProperty(Monster.CHA, value, Monster, (m, v) => m.CHA = v);
+                    OnPropertyChanged(nameof(CHA_Mod));
+                }
+            }
+        }
+        public string CHA_Mod
+        {
+            get
+            {
+                if (int.TryParse(Monster.CHA, out int num))
+                {
+                    return "+" + ((num - 10) / 2).ToString();
+                }
+                else return string.Empty;
+            }
+        }
+
 
         // Editable plain text versions of Traits, Actions, LegendaryActions
         private string _traitsText;
