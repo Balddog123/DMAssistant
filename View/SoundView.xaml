@@ -50,6 +50,9 @@
                         <Button Command="{Binding NextCommand}" Background="Transparent" BorderThickness="0">
                             <Image Source="pack://application:,,,/Resources/icon-next.png"/>
                         </Button>
+                        <Button Command="{Binding ShuffleCommand}" Background="Transparent" BorderBrush="Black" BorderThickness="{Binding ShuffleThickness}">
+                            <Image Source="/Resources/icon-shuffle.png"/>
+                        </Button>
                         <Button Command="{Binding LoopCommand}" Background="Transparent" BorderBrush="Black" BorderThickness="{Binding LoopThickness}">
                             <Image Source="pack://application:,,,/Resources/icon-loop.png"/>
                         </Button>

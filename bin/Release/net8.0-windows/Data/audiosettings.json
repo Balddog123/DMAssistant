@@ -2,7 +2,10 @@
   "MusicPlaylists": [],
   "AmbiencePlaylists": [],
   "SoundPlaylists": [],
-  "MusicPath": "G:\\!Audio\\D\u0026D\\Music",
-  "AmbiencePath": "G:\\!Audio\\D\u0026D\\Ambience",
-  "SoundPath": "G:\\!Audio\\D\u0026D\\Sounds"
+  "MusicPath": "E:\\!Audio\\D\u0026D\\Music",
+  "AmbiencePath": "E:\\!Audio\\D\u0026D\\Ambience",
+  "SoundPath": "G:\\!Audio\\D\u0026D\\Sounds",
+  "MusicVolume": 0.5,
+  "AmbienceVolume": 0.3175757575757543,
+  "SoundVolume": 0.5
 }

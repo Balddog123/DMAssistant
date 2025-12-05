@@ -59,7 +59,11 @@ namespace DMAssistant.ViewModel
         public AudioQueueElement PlayingAudio
         {
             get => _playingAudio;
-            set { _playingAudio = value; OnPropertyChanged(); }
+            set 
+            { 
+                _playingAudio = value;
+                OnPropertyChanged();
+            }
         }
 
         private Playlist _selectedPlaylist;
@@ -95,27 +99,14 @@ namespace DMAssistant.ViewModel
         public IRelayCommand PlayCommand { get; }
         public IRelayCommand PauseCommand { get; }
         public IRelayCommand StopCommand { get; }
-        public IRelayCommand NextCommand => new RelayCommand(() =>
-        {
-            AudioPlayerService.Stop();
-            PlayingAudio = null;
-            if (AudioQueue.Count > 0)
-            {
-                AudioQueue.RemoveAt(0);
-                if (AudioQueue.Count > 0)
-                {
-                    AudioPlayerService.Play(AudioQueue[0].File.FilePath);
-                    PlayingAudio = AudioQueue[0];
-                }
-            }
-            Duration = 0.0;
-            Position = 0.0;
-        });
+        public IRelayCommand NextCommand { get; }
+        public IRelayCommand ShuffleCommand { get; }
         public IRelayCommand LoopCommand { get; }
         public RelayCommand PlaySelectedAudio { get; }
 
         private Thickness _loopThickness = new Thickness(0);
         public Thickness LoopThickness { get => _loopThickness; set => SetProperty( ref _loopThickness, value ); }
+        [ObservableProperty] Thickness shuffleThickness = new Thickness(0);
 
         public readonly IAudioPlayerService AudioPlayerService;
 
@@ -171,8 +162,14 @@ namespace DMAssistant.ViewModel
 
             //controls
             PlayCommand = new RelayCommand(PressPlay);
-            PlaySelectedAudio = new RelayCommand(() => AudioPlayerService.Play(SelectedAudio?.FilePath));
-            PauseCommand = new RelayCommand(() => AudioPlayerService.Pause());
+            PlaySelectedAudio = new RelayCommand(() =>{
+                AudioPlayerService.Play(SelectedAudio?.FilePath);
+                Keyboard.ClearFocus();
+            });
+            PauseCommand = new RelayCommand(() => { 
+                AudioPlayerService.Pause();
+                Keyboard.ClearFocus();
+            });
             StopCommand = new RelayCommand(() =>
             {
                 AudioPlayerService.Stop();
@@ -180,11 +177,34 @@ namespace DMAssistant.ViewModel
                 if(AudioQueue.Count > 0) AudioQueue.RemoveAt(0);
                 Duration = 0.0;
                 Position = 0.0;
+                Keyboard.ClearFocus();
+            });
+            NextCommand = new RelayCommand(() =>
+            {
+                PlayNext();
+                Keyboard.ClearFocus();
+            });
+            ShuffleCommand = new RelayCommand(() =>
+            {
+                AudioPlayerService.IsShuffling = !AudioPlayerService.IsShuffling;
+                ShuffleThickness = AudioPlayerService.IsShuffling ? new Thickness(3) : new Thickness(0);
+                Keyboard.ClearFocus();
             });
             LoopCommand = new RelayCommand(() =>
             {
-                AudioPlayerService.ToggleLoop();
-                LoopThickness = _loopThickness.Left == 0 ? new Thickness(5) : new Thickness(0);
+                AudioPlayerService.LoopMode = AudioPlayerService.LoopMode switch
+                {
+                    LoopMode.None => LoopMode.Single,
+                    LoopMode.Single => LoopMode.All,
+                    LoopMode.All => LoopMode.None,
+                };
+                LoopThickness = AudioPlayerService.LoopMode switch
+                {
+                    LoopMode.None => new Thickness(0),
+                    LoopMode.Single => new Thickness(3),
+                    LoopMode.All => new Thickness(5),
+                };
+                Keyboard.ClearFocus();
             });
             Volume = soundViewType switch
             {
@@ -245,8 +265,9 @@ namespace DMAssistant.ViewModel
             //queue
             AddToQueue = new RelayCommand<AudioFile>(audio =>
             {
-                AudioQueue.Add(new AudioQueueElement(audio));
-                if (AudioQueue.Count == 1) Play(audio);
+                AudioQueueElement element = new AudioQueueElement(audio);
+                AudioQueue.Add(element);
+                if (AudioQueue.Count == 1) Play(element);
             });
             RemoveFromQueueCommand = new RelayCommand<string>(queueId =>
             {
@@ -258,7 +279,7 @@ namespace DMAssistant.ViewModel
                 }
                 // Rebuild the queue without the item to remove
                 AudioQueue = new ObservableCollection<AudioQueueElement>(AudioQueue.Where(q => q.Id != queueId));
-                if (playNext && AudioQueue.Count > 0) Play(AudioQueue[0].File);
+                if (playNext && AudioQueue.Count > 0) Play(AudioQueue[0]);
                 else if(AudioQueue.Count == 0)
                 {
                     PlayingAudio = null;
@@ -278,17 +299,6 @@ namespace DMAssistant.ViewModel
 
         private void FindDirectory()
         {
-            /*
-             * rank switch
-                    {
-                        Item.ItemRank.Common => 6,
-                        Item.ItemRank.Uncommon => 2,
-                        Item.ItemRank.Rare => 1,
-                        Item.ItemRank.VeryRare => 0,
-                        Item.ItemRank.Legendary => 0,
-                        _ => 0
-                    };
-             */
             string initialPath = soundViewType switch
             {
                 SoundViewType.Music => App.AudioStore.AudioSettings.MusicPath,
@@ -296,13 +306,20 @@ namespace DMAssistant.ViewModel
                 SoundViewType.Sound => App.AudioStore.AudioSettings.SoundPath,
 
             };
+            if (!Directory.Exists(initialPath))
+            {
+                initialPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+            }
+
             OpenFolderDialog dialog = new OpenFolderDialog()
             {
                 InitialDirectory = initialPath,
                 Title = $"Set {soundViewType} Folder"
             };
 
-            // Show dialog
+            // Show dialogPathj
+            
+            
             bool? result = dialog.ShowDialog();
 
             if (result == true)
@@ -320,12 +337,54 @@ namespace DMAssistant.ViewModel
             Debug.WriteLine("Handling audio ending at view model...");
             if(AudioQueue.Count > 0) AudioQueue.RemoveAt(0);
 
-            if (AudioQueue.Count > 0) Play(AudioQueue[0].File);
+            if (AudioQueue.Count > 0) Play(AudioQueue[0]);
             else
             {
                 PlayingAudio = null;
             }
 
+        }
+
+        private void PlayNext()
+        {
+            if (AudioQueue.Count == 0) return;
+
+            Position = 0.0;
+            Duration = 0.0;
+
+            if (AudioPlayerService.IsShuffling)
+            {
+                AudioPlayerService.Stop();
+                if(AudioPlayerService.LoopMode == LoopMode.None) AudioQueue.RemoveAt(0);
+
+                if (AudioQueue.Count > 0)
+                {
+                    Random random = new Random();
+                    Play(AudioQueue[random.Next(AudioQueue.Count)]);
+                }
+                
+            }
+            else
+            {
+                if(AudioPlayerService.LoopMode == LoopMode.All)
+                {
+                    if (PlayingAudio == AudioQueue[AudioQueue.Count - 1])
+                    {
+                        Play(AudioQueue[0]);
+                    }
+                    else
+                    {
+                        int currentIndex = AudioQueue.IndexOf(PlayingAudio);
+                        Play(AudioQueue[currentIndex + 1]);
+                    }
+                }
+                else
+                {
+                    AudioPlayerService.Stop();
+                    AudioQueue.RemoveAt(0);
+                    if (AudioQueue.Count > 0) Play(AudioQueue[0]);
+                }
+            }
         }
 
         private void ClearQueue()
@@ -386,7 +445,7 @@ namespace DMAssistant.ViewModel
                 {
                     AudioQueue.Add(new AudioQueueElement(file));
                 }
-                Play(AudioQueue[0].File);
+                Play(AudioQueue[0]);
             }
         }
 
@@ -398,13 +457,14 @@ namespace DMAssistant.ViewModel
             }
             else
             {
-                Play(SelectedAudio);
+                Play(new AudioQueueElement(SelectedAudio));
             }
+            Keyboard.ClearFocus();
         }
 
-        public void Play(AudioFile playingAudio)
+        public void Play(AudioQueueElement newPlayingAudio)
         {
-            PlayingAudio = new AudioQueueElement(playingAudio);
+            PlayingAudio = newPlayingAudio;
             if(PlayingAudio.File != null) AudioPlayerService.Play(PlayingAudio.File.FilePath);
         }
 

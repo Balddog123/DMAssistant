@@ -49,7 +49,7 @@ namespace DMAssistant.Helpers
 
         public void OnMediaEndedHandler(object sender, RoutedEventArgs e)
         {
-            if (Player.isLooping)
+            if (Player.LoopMode == LoopMode.Single)
             {
                 _mediaElement.Position = TimeSpan.Zero;
                 return;

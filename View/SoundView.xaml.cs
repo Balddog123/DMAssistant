@@ -64,8 +64,9 @@ namespace DMAssistant.View
                 {
                     Debug.WriteLine($"Double clicked! {audio.FilePath}");
                     vm.SelectedAudio = audio;
-                    vm.Play(audio);
-                    vm.AudioQueue.Insert(0, new AudioQueueElement(audio));
+                    AudioQueueElement element = new AudioQueueElement(audio);
+                    vm.Play(element);
+                    vm.AudioQueue.Insert(0, element);
                 }
             }
         }

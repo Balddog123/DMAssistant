@@ -38,6 +38,7 @@
     <None Remove="Resources\icon-save.png" />
     <None Remove="Resources\icon-scroll.png" />
     <None Remove="Resources\icon-search.png" />
+    <None Remove="Resources\icon-shuffle.png" />
     <None Remove="Resources\icon-sound.png" />
     <None Remove="Resources\icon-square.cur" />
     <None Remove="Resources\icon-square.png" />
@@ -128,6 +129,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-search.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-shuffle.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-sound.png">

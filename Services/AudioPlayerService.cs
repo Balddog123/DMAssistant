@@ -7,6 +7,12 @@ using System.Windows.Controls;
 
 namespace DMAssistant.Services
 {
+    public enum LoopMode
+    {
+        None,
+        Single,
+        All
+    }
     public interface IAudioPlayerService
     {
         void Play(string path);
@@ -17,8 +23,9 @@ namespace DMAssistant.Services
         void SetVolume(double volume);
         double GetVolume { get; }
         double GetPositionSeconds();
-        void ToggleLoop();
-        bool isLooping { get; }
+        LoopMode LoopMode { get; set; }
+        bool IsShuffling { get; set; }
+
     }
 
     public class AudioPlayerService : IAudioPlayerService
@@ -32,7 +39,8 @@ namespace DMAssistant.Services
         }
 
         public event Action? OnEnded;
-        public bool isLooping { get; private set; }
+        public bool IsShuffling { get; set; }
+        public LoopMode LoopMode { get; set; }
 
         public void Play(string path)
         {
@@ -54,10 +62,6 @@ namespace DMAssistant.Services
         public void Seek(double seconds) => _player.Position = TimeSpan.FromSeconds(seconds);
 
         public double GetPositionSeconds() => _player.Position.TotalSeconds;
-        public void ToggleLoop()
-        {
-            isLooping = !isLooping;
-        }
     }
 
 
