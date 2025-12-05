@@ -127,6 +127,7 @@ namespace DMAssistant.ViewModel
         public ICommand AddToPlaylistCommand { get; }
         public ICommand CreatePlaylistCommand { get; }
         public ICommand PlaySelectedPlaylistCommand { get; }
+        public ICommand DeleteSelectedPlaylistCommand { get; }
         public ICommand RemoveFromSelectedPlaylistCommand { get; }
         public ICommand SelectPlaylistCommand { get; }
         public ICommand CloseSelectedPlaylistCommand { get; }
@@ -261,6 +262,15 @@ namespace DMAssistant.ViewModel
             });
             CreatePlaylistCommand = new RelayCommand(CreatePlaylist);
             PlaySelectedPlaylistCommand = new RelayCommand(PlaySelectedPlaylist);
+            DeleteSelectedPlaylistCommand = new RelayCommand(() =>
+            {
+                if(SelectedPlaylist != null && MessageBox.Show($"Are you sure you want to delete {SelectedPlaylist.Name}?",
+                                "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    Playlists.Remove(SelectedPlaylist);
+                    SelectedPlaylist = null;
+                }
+            });
 
             //queue
             AddToQueue = new RelayCommand<AudioFile>(audio =>

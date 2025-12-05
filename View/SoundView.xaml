@@ -203,11 +203,13 @@
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0"  Orientation="Horizontal">
                                 <TextBox Text="{Binding SelectedPlaylist.Name, UpdateSourceTrigger=PropertyChanged}" MinWidth="200"/>
+                                <xctk:ColorPicker SelectedColor="{Binding SelectedPlaylist.Color, Mode=TwoWay}"/>
                                 <Button Command="{Binding PlaySelectedPlaylistCommand}">
                                     <Image Height="20" Source="/Resources/icon-play.png"/>
                                 </Button>
-
-                                <xctk:ColorPicker SelectedColor="{Binding SelectedPlaylist.Color, Mode=TwoWay}"/>
+                                <Button Command="{Binding DeleteSelectedPlaylistCommand}">
+                                    <Image Height="20" Source="/Resources/icon-delete.png"/>
+                                </Button>
                             </StackPanel>
 
                             <ListBox Grid.Row="1"
