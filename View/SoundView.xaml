@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DMAssistant.View"
              xmlns:h="clr-namespace:DMAssistant.Helpers"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.WPF.DragDrop"
              xmlns:model="clr-namespace:DMAssistant.Model"
              xmlns:primitives="clr-namespace:System.Windows.Controls.Primitives;assembly=PresentationFramework"
              mc:Ignorable="d" 
@@ -193,9 +194,14 @@
                             </ItemsControl>
                         </StackPanel>
                     </ScrollViewer>
+                    <!-- Playlist details -->
                     <Border Grid.Row="2" Background="White" BorderBrush="Gray" BorderThickness="3" Visibility="{Binding SelectedPlaylistVisibility}" >
-                        <StackPanel Margin="5">
-                            <StackPanel Orientation="Horizontal">
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0"  Orientation="Horizontal">
                                 <TextBox Text="{Binding SelectedPlaylist.Name, UpdateSourceTrigger=PropertyChanged}" MinWidth="200"/>
                                 <Button Command="{Binding PlaySelectedPlaylistCommand}">
                                     <Image Height="20" Source="/Resources/icon-play.png"/>
@@ -203,47 +209,60 @@
 
                                 <xctk:ColorPicker SelectedColor="{Binding SelectedPlaylist.Color, Mode=TwoWay}"/>
                             </StackPanel>
-                            
-                            <ScrollViewer>
-                                <ItemsControl ItemsSource="{Binding SelectedPlaylist.Files}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="2">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="30" />
-                                                    <ColumnDefinition Width="30" />
-                                                </Grid.ColumnDefinitions>
 
-                                                <!-- Audio File Name -->
-                                                <TextBlock Text="{Binding FileName}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <ListBox Grid.Row="1"
+         ItemsSource="{Binding SelectedPlaylist.Files}"
+         dd:DragDrop.IsDragSource="True"
+         dd:DragDrop.IsDropTarget="True"
+         BorderThickness="0"
+         ScrollViewer.VerticalScrollBarVisibility="Auto">
 
-                                                <!-- -Playlist button -->
-                                                <Button Grid.Column="1"
-                                                        Height="22"
-                                                        Padding="0"
-                                                        HorizontalAlignment="Right"
-                                                        Margin="0,0,5,0"
-                                                        Command="{Binding DataContext.RemoveFromSelectedPlaylistCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}" >
-                                                    <Image Source="/Resources/icon-removefromplaylist.png"/>
-                                                </Button>
-                                                <!-- +Queue button -->
-                                                <Button Grid.Column="2"
-                                                        Height="22"
-                                                        Padding="0"
-                                                        HorizontalAlignment="Right"
-                                                        Command="{Binding DataContext.AddToQueue, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}" >
-                                                    <Image Source="pack://application:,,,/Resources/icon-add.png"/>
-                                                </Button>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                            
-                        </StackPanel>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="30" />
+                                                <ColumnDefinition Width="30" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Audio File Name -->
+                                            <TextBlock Text="{Binding FileName}" VerticalAlignment="Center"  Margin="0,0,5,0"/>
+
+                                            <!-- -Playlist button -->
+                                            <Button Grid.Column="1"
+                            Height="22"
+                            Padding="0"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,5,0"
+                            Command="{Binding DataContext.RemoveFromSelectedPlaylistCommand,
+                                              RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}">
+                                                <Image Source="/Resources/icon-removefromplaylist.png"/>
+                                            </Button>
+
+                                            <!-- +Queue button -->
+                                            <Button Grid.Column="2"
+Height="22"
+Padding="0"
+HorizontalAlignment="Right"
+Command="{Binding DataContext.AddToQueue,
+                  RelativeSource={RelativeSource AncestorType=UserControl}}"
+CommandParameter="{Binding}">
+                                                <Image Source="pack://application:,,,/Resources/icon-add.png"/>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                            </ListBox>
+                        </Grid>
                     </Border>
                     
                     
@@ -319,8 +338,8 @@
         <!-- Popup -->
         <Popup x:Name="PlaylistPopup" IsOpen="{Binding IsPlaylistPopupOpen}" StaysOpen="False" Placement="Left" PlacementTarget="{Binding PopupPlacementTarget}">
 
-            <Border Background="White" BorderBrush="Gray" BorderThickness="1" Padding="5">
-                <ListBox ItemsSource="{Binding Playlists}" SelectedItem="{Binding SelectedPlaylist}" HorizontalContentAlignment="Stretch">
+            <Border Background="White" BorderBrush="Gray" BorderThickness="1" Padding="5" MaxHeight="300">
+                <ListBox ItemsSource="{Binding Playlists}" SelectedItem="{Binding SelectedPlaylist}" HorizontalContentAlignment="Stretch" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Button Content="{Binding Name}" Command="{Binding DataContext.AddToPlaylistCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
