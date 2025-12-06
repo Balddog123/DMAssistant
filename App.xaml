@@ -49,6 +49,14 @@
                 <v:LocationView />
             </DataTemplate>
 
+            <!-- Spells -->
+            <DataTemplate DataType="{x:Type vm:SpellsPanelViewModel}">
+                <v:SpellsPanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SpellViewModel}">
+                <v:SpellView />
+            </DataTemplate>
+
             <!-- Campaign Notes Panel -->
             <DataTemplate DataType="{x:Type vm:CampaignNotesViewModel}">
                 <v:CampaignNotesView />

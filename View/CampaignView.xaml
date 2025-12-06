@@ -21,6 +21,7 @@
             <Button Content="Fronts" Command="{Binding ShowFrontsCommand}"/>
             <Button Content="Locations" Command="{Binding ShowLocationsCommand}"/>
             <Button Content="Items" Command="{Binding ShowItemsCommand}"/>
+            <Button Content="Spells" Command="{Binding ShowSpellsCommand}"/>
             <Button Content="Lore" Command="{Binding ShowLoreCommand}"/>
             <Button Content="Monsters" Command="{Binding ShowMonstersCommand}"/>
             <Button Content="Notes" Command="{Binding ShowNotesCommand}"/>

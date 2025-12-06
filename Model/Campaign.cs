@@ -17,6 +17,7 @@ namespace DMAssistant.Model
         public ObservableCollection<Location> Locations { get; set; } = new();
         public ObservableCollection<Monster> Monsters { get; set; } = new();
         public ObservableCollection<PlayerCharacter> PCs { get; set; } = new();
+        public ObservableCollection<Spell> Spells { get; set; } = new();
 
         public string Notes { get; set; } = "";
         public string Fronts { get; set; } = "";

@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="DMAssistant.View.SpellsPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Margin="10">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MaxWidth="500" MinWidth="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- LEFT: Spell List + Add Button -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <TextBox Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="0,0,0,10"/>
+            <!-- New Spell -->
+            <Button Content="New Spell"
+                    Grid.Row="1"
+                    Command="{Binding AddSpellCommand}"
+                    Margin="0,0,0,10"/>
+
+            <TextBlock Text="Spells"
+                       Grid.Row="2"
+                       FontWeight="Bold"
+                       Margin="0,0,0,5"/>
+
+            <ListBox ItemsSource="{Binding SpellsView}"
+                     Grid.Row="3"
+                    SelectedItem="{Binding SelectedSpell}">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+
+                            <!-- Remove button -->
+                            <Button Command="{Binding DataContext.DeleteSpellCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                        CommandParameter="{Binding}"
+                        Margin="0"
+                        DockPanel.Dock="Right">
+                                <Image Width="16" Height="16"
+                           Source="pack://application:,,,/Resources/icon-delete.png"/>
+                            </Button>
+
+                            <!-- Spell name + level -->
+                            <TextBlock Margin="0,0,4,0">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} (Level {1})">
+                                        <Binding Path="Name"/>
+                                        <Binding Path="Level"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+        </Grid>
+
+        <!-- RIGHT: Spell Detail View -->
+        <ContentControl Grid.Column="1" Content="{Binding SelectedSpell}" />
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="DMAssistant.View.SpellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:behaviors="clr-namespace:DMAssistant.View.Behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+
+    <ScrollViewer>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="50" Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- NAME -->
+            <TextBox Text="{Binding Spell.Name, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5"/>
+
+            <!-- CASTING TIME -->
+            <TextBlock Text="Casting Time:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding CastingTimes}" 
+                      SelectedItem="{Binding Spell.CastingTime, UpdateSourceTrigger=PropertyChanged}"
+                      Grid.Row="1" Grid.Column="1" Margin="0,5"/>
+
+            <!-- SCHOOL OF MAGIC -->
+            <TextBlock Text="School:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding SchoolsOfMagic}"
+                      SelectedItem="{Binding Spell.School, UpdateSourceTrigger=PropertyChanged}"
+                      Grid.Row="2" Grid.Column="1" Margin="0,5"/>
+
+            <!-- RANGE -->
+            <TextBlock Text="Range:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Spell.Range, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="3" Grid.Column="1" Margin="0,5"/>
+
+            <!-- LEVEL -->
+            <TextBlock Text="Level:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Spell.Level, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="4" Grid.Column="1" Margin="0,5"/>
+
+            <!-- COMPONENTS -->
+            <TextBlock Text="Components:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+
+            <StackPanel Grid.Row="5" Grid.Column="1" Margin="0,5">
+                <StackPanel Orientation="Horizontal" Margin="0,2">
+                    <CheckBox Content="Verbal (V)" 
+                              IsChecked="{Binding Spell.Components.Verbal, UpdateSourceTrigger=PropertyChanged}" 
+                              Margin="0,0,10,0"/>
+                    <CheckBox Content="Somatic (S)" 
+                              IsChecked="{Binding Spell.Components.Somatic, UpdateSourceTrigger=PropertyChanged}" 
+                              Margin="0,0,10,0"/>
+                    <CheckBox Content="Material (M)"
+                              IsChecked="{Binding Spell.Components.Material, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- DURATION -->
+            <TextBlock Text="Duration:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Spell.Duration, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="6" Grid.Column="1" Margin="0,5"/>
+
+            <!-- RITUAL -->
+            <TextBlock Text="Ritual:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="{Binding Spell.Ritual, UpdateSourceTrigger=PropertyChanged}"
+                      Grid.Row="7" Grid.Column="1" Margin="0,5"/>
+
+            <!-- CLASSES MULTI SELECT -->
+            <TextBlock Text="Classes:" Grid.Row="8" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+
+            <ListBox Grid.Row="8" Grid.Column="1" Margin="0,5"
+                     ItemsSource="{Binding AvailableClasses}"
+                     SelectionMode="Multiple"
+                     behaviors:ListBoxSelectionBehavior.SelectedItems="{Binding Spell.Classes, Mode=TwoWay}" />
+
+            <!-- DESCRIPTION -->
+            <TextBlock Text="Description:" Grid.Row="9" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+            <TextBox Text="{Binding Spell.Description, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="9" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="200" TextWrapping="Wrap"/>
+
+        </Grid>
+    </ScrollViewer>
+
+</UserControl>

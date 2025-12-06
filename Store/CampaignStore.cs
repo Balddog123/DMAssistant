@@ -47,8 +47,8 @@ namespace DMAssistant.Services
                 if (campaign.WorldMap == null) campaign.WorldMap = new Map();
             }
 
-            if (campaign.Monsters.Count < 100) campaign.SetMonsters(new ObservableCollection<Monster>(MonsterRepository.GetAllMonsters()));
-            Debug.WriteLine(campaign.Monsters.Count);
+            if (campaign.Monsters.Count == 0) campaign.SetMonsters(new ObservableCollection<Monster>(DataRepository.GetAllMonsters()));
+            if(campaign.Spells.Count == 0) campaign.Spells = new ObservableCollection<Spell>(DataRepository.GetAllSpells());
 
             MonsterIndex = campaign.Monsters.ToDictionary(m => m.ID, m => m);
             NPCIndex = campaign.NPCs.ToDictionary(m => m.ID, m => m);
