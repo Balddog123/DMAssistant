@@ -14,6 +14,7 @@
     <None Remove="Data\Music\07_Evil Gods [Boss].mp3" />
     <None Remove="Data\Music\short.mp3" />
     <None Remove="Data\Music\Skyrim - Music &amp; Ambience - Night - Everness %28youtube%29.mp3" />
+    <None Remove="Data\spells.json" />
     <None Remove="Resources\grid2000.png" />
     <None Remove="Resources\icon-add.png" />
     <None Remove="Resources\icon-addtoplaylist.png" />
@@ -47,7 +48,10 @@
 
   <ItemGroup>
     <Content Include="Data\monsters.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\spells.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
