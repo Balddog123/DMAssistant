@@ -20,7 +20,7 @@ namespace DMAssistant.Model
         public ObservableCollection<Spell> Spells { get; set; } = new();
 
         public string Notes { get; set; } = "";
-        public string Fronts { get; set; } = "";
+        public ObservableCollection<string> Fronts { get; set; } = new();
         public string Lore { get; set; } = "";
 
         public Map WorldMap { get; set; } = new Map();
