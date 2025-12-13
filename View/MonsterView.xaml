@@ -30,7 +30,7 @@
                 <TextBox Text="{Binding Speed, Mode=TwoWay}" Margin="0,0,0,10"/>
             </StackPanel>
         </StackPanel>
-        <Separator/>
+        <Separator Margin="10" Width="500"/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -76,7 +76,7 @@
         <TextBox Text="{Binding Monster.SavingThrows, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
         <TextBlock Text="Skills:" FontWeight="Bold"/>
         <TextBox Text="{Binding Monster.Skills, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
-        <Separator/>
+        <Separator Margin="10" Width="500"/>
 
         <TextBlock Text="Damage Resistances:" FontWeight="Bold"/>
         <TextBox Text="{Binding Monster.DamageResistances, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
@@ -85,7 +85,7 @@
         <TextBlock Text="Condition Immunities:" FontWeight="Bold"/>
         <TextBox Text="{Binding Monster.ConditionImmunities, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
 
-        <Separator/>
+        <Separator Margin="10" Width="500"/>
         <TextBlock Text="Traits:" FontWeight="Bold"/>
         <TextBox Text="{Binding TraitsText, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
 

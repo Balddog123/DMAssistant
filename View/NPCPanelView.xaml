@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Margin="10">
+    <Grid Margin="5">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
@@ -22,11 +22,11 @@
             <!-- Add New NPC -->
             <Button Content="New NPC"
                     Command="{Binding AddNPCCommand}"
-                    Margin="0,0,0,10"/>
+                    Margin="5"/>
             <!-- Add Existing NPC -->
             <Button Content="Add Existing NPC"
                     Command="{Binding AddExistingNPCCommand}"
-                    Margin="0,0,0,10"/>
+                    Margin="5"/>
 
             <TextBlock Text="NPCs" FontWeight="Bold" Margin="0,0,0,5"/>
 

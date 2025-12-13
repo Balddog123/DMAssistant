@@ -35,8 +35,8 @@
             </Grid.RowDefinitions>
 
             <!-- Encounter Details -->
-            <Border>
-                <StackPanel Orientation="Horizontal">
+            <Border Grid.Column="0" Grid.Row="0" BorderThickness="1" Background="#EFE3C7">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Total CR:" FontWeight="Bold" />
                         <TextBlock Text="{Binding TotalCR}" />
@@ -75,7 +75,7 @@
                             <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
                             <GridViewColumn Header="#" Width="50" DisplayMemberBinding="{Binding Quantity}" />
                             <GridViewColumn Header="CR" Width="50" DisplayMemberBinding="{Binding CR}" />
-                            <GridViewColumn Header="Round#" Width="50" DisplayMemberBinding="{Binding RoundNumber}" />
+                            <GridViewColumn Header="Round#" Width="60" DisplayMemberBinding="{Binding RoundNumber}" />
                             <GridViewColumn Header="Type" Width="50" DisplayMemberBinding="{Binding TypeName}" />
                             <GridViewColumn Header="" Width="40">
                                 <GridViewColumn.CellTemplate>
@@ -97,7 +97,7 @@
             </Border>
 
             <!-- Monster View -->
-            <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="2, 0, 0, 0">
+            <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="2, 0, 0, 0" BorderThickness="2">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" h:ScrollViewerUtilities.BubbleMouseWheel="True">
                     <ContentControl Content="{Binding SelectedItem}" />
                 </ScrollViewer>

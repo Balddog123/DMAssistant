@@ -21,14 +21,14 @@
         <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
     </Style>
     <Style TargetType="ListBox">
-        <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
     <Style TargetType="ListBoxItem">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
         <Setter Property="Padding" Value="4"/>
         <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
-
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
@@ -39,8 +39,14 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-
+    <Style TargetType="TabItem">
+        <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style TargetType="TabControl">
+        <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
+    </Style>
     <Style TargetType="ComboBox">
         <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
         <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>

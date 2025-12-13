@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid>
+    <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <!-- Left side: encounter list -->
             <ColumnDefinition Width="175" />
@@ -16,18 +16,11 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left panel -->
-        <DockPanel Grid.Column="0" Background="#EEE">
-            <!-- Header -->
-            <TextBlock Text="Encounters"
-                       FontWeight="Bold"
-                       FontSize="16"
-                       Margin="10"
-                       DockPanel.Dock="Top" />
+        <DockPanel Grid.Column="0">
             <!-- Add encounter button -->
             <Button Content="Add Encounter"
                     Command="{Binding AddEncounterCommand}"
-                    Margin="10"
-                    Height="20"
+                    Margin="5"
                     DockPanel.Dock="Top" />
 
             <!-- List of encounters -->
@@ -54,7 +47,7 @@
         </DockPanel>
 
         <!-- Right panel: Encounter view gets injected here -->
-        <Border Grid.Column="1" Background="White"  BorderBrush="Gray"  BorderThickness="2" Padding="10" CornerRadius="4" Margin="2">
+        <Border Grid.Column="1">
             <ContentControl Content="{Binding SelectedEncounterViewModel}" />
         </Border>
 
