@@ -3,57 +3,76 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DMAssistant.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- LEFT SIDE -->
-        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+        <!-- ROWS FOR LEFT COLUMN -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <TextBox Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
-                     Margin="0,0,0,10"/>
-            <Button Content="Add New Monster"
-                    Command="{Binding AddNewMonsterCommand}"
-                    Margin="0,0,0,10"/>
-            <Button Content="Add Existing Monster"
-                    Command="{Binding AddExistingMonsterCommand}"
-                    Margin="0,0,0,10"/>
+        <!-- LEFT COLUMN CONTROLS -->
+        <TextBox Grid.Column="0" Grid.Row="0"
+                 Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="0,0,10,10"/>
 
-            <ComboBox ItemsSource="{Binding AllCreatureTypes}"
-                      SelectedItem="{Binding TypeFilter}"
-                      Margin="0,0,0,10"/>
+        <Button Grid.Column="0" Grid.Row="1"
+                Content="Add New Monster"
+                Command="{Binding AddNewMonsterCommand}"
+                Margin="0,0,10,10"/>
 
-            <ComboBox ItemsSource="{Binding AllCRs}"
-                      SelectedItem="{Binding CRFilter}"
-                      Margin="0,0,0,10"/>
-            <ListBox    ItemsSource="{Binding MonsterView}"
-                        SelectedItem="{Binding SelectedMonster}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel>
-                            <!-- Remove button -->
-                            <Button Command="{Binding DataContext.DeleteMonster, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                    CommandParameter="{Binding}"
-                                    Margin="0,0,0,0"
-                                    DockPanel.Dock="Right">
-                                <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
-                            </Button>
-                            <TextBlock Text="{Binding Name}" />
-                        </DockPanel>
+        <Button Grid.Column="0" Grid.Row="2"
+                Content="Add Existing Monster"
+                Command="{Binding AddExistingMonsterCommand}"
+                Margin="0,0,10,10"/>
 
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
+        <ComboBox Grid.Column="0" Grid.Row="3"
+                  ItemsSource="{Binding AllCreatureTypes}"
+                  SelectedItem="{Binding TypeFilter}"
+                  Margin="0,0,10,10"/>
+
+        <ComboBox Grid.Column="0" Grid.Row="4"
+                  ItemsSource="{Binding AllCRs}"
+                  SelectedItem="{Binding CRFilter}"
+                  Margin="0,0,10,10"/>
+
+        <ListBox Grid.Column="0" Grid.Row="5"
+                 ItemsSource="{Binding MonsterView}"
+                 SelectedItem="{Binding SelectedMonster}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <Button Command="{Binding DataContext.DeleteMonster, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                CommandParameter="{Binding}"
+                                DockPanel.Dock="Right">
+                            <Image Width="16"
+                                   Height="16"
+                                   Source="pack://application:,,,/Resources/icon-delete.png"/>
+                        </Button>
+
+                        <TextBlock Text="{Binding Name}" />
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <!-- RIGHT SIDE -->
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="1" Grid.Row="0" Grid.RowSpan="6"
+                      VerticalScrollBarVisibility="Auto">
             <ContentControl Content="{Binding SelectedMonsterViewModel}" />
         </ScrollViewer>
+
     </Grid>
 </UserControl>

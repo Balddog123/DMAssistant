@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DMAssistant.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="800">
     <StackPanel Margin="10">
 
         <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="26" FontWeight="Bold"/>
@@ -30,6 +30,7 @@
                 <TextBox Text="{Binding Speed, Mode=TwoWay}" Margin="0,0,0,10"/>
             </StackPanel>
         </StackPanel>
+        <Separator/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -71,7 +72,20 @@
             <TextBox Grid.Row="1" Grid.Column="7" Margin="3" Text="{Binding CHA, Mode=TwoWay}" />
             <TextBlock Grid.Row="1" Grid.Column="8" Margin="3" Text="{Binding CHA_Mod}" TextAlignment="Center" VerticalAlignment="Center" Background="LightGray"/>
         </Grid>
+        <TextBlock Text="Saving Throws:" FontWeight="Bold"/>
+        <TextBox Text="{Binding Monster.SavingThrows, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <TextBlock Text="Skills:" FontWeight="Bold"/>
+        <TextBox Text="{Binding Monster.Skills, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <Separator/>
 
+        <TextBlock Text="Damage Resistances:" FontWeight="Bold"/>
+        <TextBox Text="{Binding Monster.DamageResistances, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <TextBlock Text="Damage Immunities:" FontWeight="Bold"/>
+        <TextBox Text="{Binding Monster.DamageImmunities, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <TextBlock Text="Condition Immunities:" FontWeight="Bold"/>
+        <TextBox Text="{Binding Monster.ConditionImmunities, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+
+        <Separator/>
         <TextBlock Text="Traits:" FontWeight="Bold"/>
         <TextBox Text="{Binding TraitsText, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
 

@@ -3,60 +3,71 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DMAssistant.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="10">
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
 
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MaxWidth="500"/>
-            <!-- item list -->
             <ColumnDefinition Width="*"/>
-            <!-- detail view -->
         </Grid.ColumnDefinitions>
 
-        <!-- LEFT: Item List + Add Button -->
-        <StackPanel Grid.Column="0">
+        <!-- ROWS FOR LEFT COLUMN -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <Button Content="New Item"
-                    Command="{Binding AddItemCommand}"
-                    Margin="0,0,0,10"/>
-            <Button Content="Add Existing Item"
-                    Command="{Binding AddExistingItemCommand}"
-                    Margin="0,0,0,10"/>
+        <!-- LEFT COLUMN CONTROLS -->
+        <Button Grid.Column="0" Grid.Row="0"
+                Content="New Item"
+                Command="{Binding AddItemCommand}"
+                Margin="0,0,10,10"/>
 
-            <TextBlock Text="Items" FontWeight="Bold" Margin="0,0,0,5"/>
+        <Button Grid.Column="0" Grid.Row="1"
+                Content="Add Existing Item"
+                Command="{Binding AddExistingItemCommand}"
+                Margin="0,0,10,10"/>
 
-            <ListBox ItemsSource="{Binding ItemList}"
-                     SelectedItem="{Binding SelectedItem}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel>
-                            <!-- Remove button -->
-                            <Button Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                    CommandParameter="{Binding}"
-                                    Margin="0,0,0,0"
-                                    DockPanel.Dock="Right">
-                                <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
-                            </Button>
-                            <TextBlock Margin="0,0,4,0">
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="Name" />
-                                        <Binding Path="Rank" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </DockPanel>
-                        
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        <TextBlock Grid.Column="0" Grid.Row="2"
+                   Text="Items"
+                   FontWeight="Bold"
+                   Margin="0,0,10,5"/>
 
-        </StackPanel>
+        <ListBox Grid.Column="0" Grid.Row="3"
+                 ItemsSource="{Binding ItemList}"
+                 SelectedItem="{Binding SelectedItem}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <Button Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                CommandParameter="{Binding}"
+                                DockPanel.Dock="Right">
+                            <Image Width="16"
+                                   Height="16"
+                                   Source="pack://application:,,,/Resources/icon-delete.png"/>
+                        </Button>
 
-        <!-- RIGHT: Item Detail View -->
-        <ContentControl Grid.Column="1" Content="{Binding SelectedItem}" />
+                        <TextBlock Margin="0,0,4,0">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="Rank"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
+        <!-- RIGHT SIDE -->
+        <ContentControl Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Content="{Binding SelectedItem}" />
     </Grid>
 </UserControl>
