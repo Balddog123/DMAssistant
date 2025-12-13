@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DMAssistant.Helpers;
 using DMAssistant.Model;
+using System.Diagnostics;
 
 namespace DMAssistant.ViewModel
 {
@@ -92,6 +93,7 @@ namespace DMAssistant.ViewModel
                 {
                     SetProperty(Monster.DEX, value, Monster, (m, v) => m.DEX = v);
                     OnPropertyChanged(nameof(DEX_Mod));
+                    Debug.WriteLine("Changed DEX...");
                 }
             }
         }
@@ -101,7 +103,7 @@ namespace DMAssistant.ViewModel
             {
                 if (int.TryParse(Monster.DEX, out int num))
                 {
-                    return "+" + ((num - 10) / 2).ToString();
+                    return Monster.GetMod(num).ToString();
                 }
                 else return string.Empty;
             }

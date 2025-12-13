@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json.Serialization;
-using CommunityToolkit.Mvvm.ComponentModel;
+using System.Threading.Tasks;
 
 namespace DMAssistant.Model
 {
@@ -80,6 +81,11 @@ namespace DMAssistant.Model
 
         [JsonPropertyName("img_url")]
         public string ImageUrl { get; set; } = "";
+
+        public static int GetMod(int stat)
+        {
+            return (stat - 10) / 2;
+        }
     }
 }
 

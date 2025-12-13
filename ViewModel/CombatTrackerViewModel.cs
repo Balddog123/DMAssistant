@@ -134,7 +134,8 @@ namespace DMAssistant.ViewModel
 
             if (encounterItem is MonsterGroup mg && mg.monsterId != string.Empty)
             {
-                Monster monster = App.CampaignStore.MonsterIndex[mg.monsterId];
+                //App.CampaignStore.MonsterIndex[mg.monsterId]
+                Monster monster = App.CampaignStore.CurrentCampaign.Monsters.FirstOrDefault(monster => monster.ID == mg.monsterId);
                 for (int i = 0; i < mg.quantity; i++)
                 {
                     int hp = 0;
@@ -148,7 +149,9 @@ namespace DMAssistant.ViewModel
                     {
                         ac = parsed;
                     }
-                    CombatItem newItem = new CombatItem(monster.Name, new Random().Next(1, 21), hp, hp, ac, CombatItem.Type.Monster, mg.name);
+                    int.TryParse(monster.DEX, out int dex);
+                    int roll = new Random().Next(1, 21);
+                    CombatItem newItem = new CombatItem(monster.Name, roll + Monster.GetMod(dex), hp, hp, ac, CombatItem.Type.Monster, mg.name);
                     CombatItems.Add(newItem);
                 }
             }

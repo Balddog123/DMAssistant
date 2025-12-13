@@ -53,7 +53,7 @@
             <TextBlock  Grid.Row="0" Grid.Column="2" Margin="3" Text="{Binding STR_Mod}" TextAlignment="Center" VerticalAlignment="Center" Background="LightGray"/>
 
             <TextBlock  Grid.Row="0" Grid.Column="3" Margin="3" Text="DEX:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox  Grid.Row="0" Grid.Column="4" Margin="3" Text="{Binding DEX, Mode=TwoWay}" MinWidth="30"/>
+            <TextBox  Grid.Row="0" Grid.Column="4" Margin="3" Text="{Binding DEX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="30"/>
             <TextBlock  Grid.Row="0" Grid.Column="5" Margin="3" Text="{Binding DEX_Mod}" TextAlignment="Center" VerticalAlignment="Center" Background="LightGray"/>
 
             <TextBlock  Grid.Row="0" Grid.Column="6" Margin="3" Text="CON:" FontWeight="Bold" VerticalAlignment="Center"/>
