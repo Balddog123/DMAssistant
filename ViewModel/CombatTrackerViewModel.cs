@@ -155,10 +155,8 @@ namespace DMAssistant.ViewModel
                     CombatItems.Add(newItem);
                 }
             }
-            else
+            else if(encounterItem is EncounterEvent ev)
             {
-                EncounterEvent ev = encounterItem as EncounterEvent;
-
                 CombatItem newItem = new CombatItem(ev.name, ev.Initiative, 0, 0, 0, CombatItem.Type.Event, ev.name);
                 CombatItems.Add(newItem);
             }

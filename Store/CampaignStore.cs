@@ -233,12 +233,15 @@ namespace DMAssistant.Services
                         if(encounterItem is MonsterGroup mg)
                         {
                             //get name of old data
-                            Monster monster = MonsterIndex[mg.monsterId];
+                            MonsterIndex.TryGetValue(mg.monsterId, out Monster monster);
                             //compare with new
-                            nameMonsterPairs.TryGetValue(monster.Name, out Monster matchingMonster);
-                            if (matchingMonster != null)
+                            if (monster != null)
                             {
-                                mg.MonsterId = matchingMonster.ID;
+                                nameMonsterPairs.TryGetValue(monster.Name, out Monster matchingMonster);
+                                if (matchingMonster != null)
+                                {
+                                    mg.MonsterId = matchingMonster.ID;
+                                }
                             }
                         }
                     }
