@@ -25,5 +25,7 @@ namespace DMAssistant.Model
         {
             name = "New Monster Group";
         }
+
+        
     }
 }

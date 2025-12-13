@@ -213,6 +213,41 @@ namespace DMAssistant.Services
 
             MonsterDeleted?.Invoke(monster);
         }
+
+        public void ResetMonsters()
+        {
+            Dictionary<string, Monster> nameMonsterPairs = new Dictionary<string, Monster>();            
+
+            ObservableCollection<Monster> newMonsters = new ObservableCollection<Monster>(DataRepository.GetAllMonsters());
+            foreach (Monster monster in newMonsters)
+            {
+                nameMonsterPairs[monster.Name] = monster;
+            }
+
+            foreach (Session session in CurrentCampaign.Sessions)
+            {
+                foreach(Encounter encounter in session.Encounters)
+                {
+                    foreach(EncounterItem encounterItem in encounter.EncounterItems)
+                    {
+                        if(encounterItem is MonsterGroup mg)
+                        {
+                            //get name of old data
+                            Monster monster = MonsterIndex[mg.monsterId];
+                            //compare with new
+                            nameMonsterPairs.TryGetValue(monster.Name, out Monster matchingMonster);
+                            if (matchingMonster != null)
+                            {
+                                mg.MonsterId = matchingMonster.ID;
+                            }
+                        }
+                    }
+                }
+            }
+
+            CurrentCampaign.SetMonsters(newMonsters);
+            MonsterIndex = CurrentCampaign.Monsters.ToDictionary(m => m.ID, m => m);
+        }
     }
 
 }

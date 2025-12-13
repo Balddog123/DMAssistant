@@ -23,6 +23,9 @@
                 <Separator/>
                 <MenuItem Header="_Exit" Command="{Binding Exit}"/>
             </MenuItem>
+            <MenuItem Header="_Settings">
+                <MenuItem Header="_Reset Monsters" Command="{Binding ResetMonsters}"/>
+            </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About (Placeholder)" />
             </MenuItem>

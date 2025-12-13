@@ -52,13 +52,18 @@ namespace DMAssistant.Model
 
         public string CHA { get; set; } = "";
         public string CHA_mod { get; set; } = "";
-
-        [JsonPropertyName("Saving Throws")]
-        public string SavingThrows { get; set; } = "";
+        
 
         public string Skills { get; set; } = "";
+
+
+        [JsonPropertyName("Saving Throws")] public string SavingThrows { get; set; } = "";
+        [JsonPropertyName("Damage Resistances")] public string DamageResistances { get; set; } = "";
+        [JsonPropertyName("Damage Immunities")] public string DamageImmunities { get; set; } = "";
+        [JsonPropertyName("Condition Immunities")] public string ConditionImmunities { get; set; } = "";
         public string Senses { get; set; } = "";
         public string Languages { get; set; } = "";
+        public string Traits { get; set; } = "";
 
         [JsonPropertyName("Challenge")]
         private string _challenge = "0";
@@ -68,7 +73,6 @@ namespace DMAssistant.Model
             set => SetProperty(ref _challenge, value);
         }
 
-        public string Traits { get; set; } = "";
         public string Actions { get; set; } = "";
 
         [JsonPropertyName("Legendary Actions")]

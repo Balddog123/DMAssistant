@@ -40,6 +40,10 @@ public class MainWindowViewModel : ObservableObject
     public ICommand SaveCampaign { get; }
     public ICommand Exit { get; }
 
+    //
+
+    public ICommand ResetMonsters { get; }
+
     public string CampaignName
     {
         get => App.CampaignStore?.CurrentCampaign?.Name ?? string.Empty;
@@ -84,6 +88,17 @@ public class MainWindowViewModel : ObservableObject
         });
         Exit = new RelayCommand(Application.Current.Shutdown);
         CurrentView = CampaignVM; // default
+
+        //
+
+        ResetMonsters = new RelayCommand(() =>
+        {
+            if (MessageBox.Show($"Are you sure you want to reset all monster data?\nThere will be an attempt to reconnect monsters in your sessions, but if there is a failure to reconnect,\n those monsters will be removed from the session data.",
+                                "Reset", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                App.CampaignStore.ResetMonsters();
+            }
+        });
 
     }
 
