@@ -35,19 +35,19 @@
             </Grid.RowDefinitions>
 
             <!-- Encounter Details -->
-            <Border BorderBrush="Black" BorderThickness="2">
+            <Border>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Total CR:" FontWeight="Bold" Background="LightGray"/>
+                        <TextBlock Text="Total CR:" FontWeight="Bold" />
                         <TextBlock Text="{Binding TotalCR}" />
                     </StackPanel>
-                    <StackPanel Margin="5,0,0,0" Orientation="Horizontal" Background="LightGray">
+                    <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
                         <TextBlock Text="Total XP:" FontWeight="Bold"/>
                         <TextBlock Text="{Binding TotalXP}"/>
                         <TextBlock Text=" / "/>
                         <TextBlock Text="{Binding TotalXPAvailable}"/>
                     </StackPanel>
-                    <StackPanel Margin="5,0,0,0" Orientation="Horizontal" Background="LightGray">
+                    <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
                         <TextBlock Text="Difficulty:" FontWeight="Bold"/>
                         <TextBlock Text="{Binding Difficulty}"/>
                     </StackPanel>
@@ -73,7 +73,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Amount" Width="50" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="#" Width="50" DisplayMemberBinding="{Binding Quantity}" />
                             <GridViewColumn Header="CR" Width="50" DisplayMemberBinding="{Binding CR}" />
                             <GridViewColumn Header="Round#" Width="50" DisplayMemberBinding="{Binding RoundNumber}" />
                             <GridViewColumn Header="Type" Width="50" DisplayMemberBinding="{Binding TypeName}" />
@@ -92,12 +92,12 @@
             </Grid>
 
             <!-- Combat Tracker control placeholder -->
-            <Border Grid.Column="0" Grid.Row="2" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FAFAFA">
+            <Border Grid.Column="0" Grid.Row="2">
                 <ContentControl Content="{Binding CurrentCombat}" />
             </Border>
 
             <!-- Monster View -->
-            <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="5, 0, 0, 0" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FAFAFA">
+            <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="2, 0, 0, 0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" h:ScrollViewerUtilities.BubbleMouseWheel="True">
                     <ContentControl Content="{Binding SelectedItem}" />
                 </ScrollViewer>

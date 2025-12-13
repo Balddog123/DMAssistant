@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left menu buttons -->
-        <StackPanel Background="#EEE" Grid.Column="0">
+        <StackPanel Grid.Column="0">
             <Button Content="Campaign Details" Command="{Binding ShowCampaignDetails}"/>
             <Button Content="Player Characters" Command="{Binding ShowPCsCommand}"/>
             <Button Content="NPCs" Command="{Binding ShowNPCsCommand}"/>

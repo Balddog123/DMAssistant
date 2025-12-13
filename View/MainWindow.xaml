@@ -8,13 +8,12 @@
                     xmlns:vm="clr-namespace:DMAssistant.ViewModel"
                     mc:Ignorable="d"
                     ResizeMode="CanResizeWithGrip"
-                    Title="{Binding CampaignName}"
-                    WindowStyle="None">
+                    Title="{Binding CampaignName}">
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveCampaign}"/>
     </Window.InputBindings>
-    
-    <DockPanel>
+
+    <DockPanel Background="#F4ECDC">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Command="{Binding NewCampaign}"/>

@@ -10,7 +10,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <!-- Left side: encounter list -->
-            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="175" />
             <!-- Right side: encounter details -->
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -54,13 +54,7 @@
         </DockPanel>
 
         <!-- Right panel: Encounter view gets injected here -->
-        <Border Grid.Column="1" 
-                Background="White" 
-                BorderBrush="#CCC" 
-                BorderThickness="1"
-                Padding="10">
-
-            <!-- Whatever ViewModel's SelectedEncounter produces goes here -->
+        <Border Grid.Column="1" Background="White"  BorderBrush="Gray"  BorderThickness="2" Padding="10" CornerRadius="4" Margin="2">
             <ContentControl Content="{Binding SelectedEncounterViewModel}" />
         </Border>
 

@@ -9,7 +9,7 @@
     <Grid Margin="10">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MaxWidth="500" MinWidth="200"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -45,13 +45,13 @@
                             <Button Command="{Binding DataContext.DeleteSpellCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                         CommandParameter="{Binding}"
                         Margin="0"
-                        DockPanel.Dock="Right">
+                        DockPanel.Dock="Left">
                                 <Image Width="16" Height="16"
                            Source="pack://application:,,,/Resources/icon-delete.png"/>
                             </Button>
 
                             <!-- Spell name + level -->
-                            <TextBlock Margin="0,0,4,0">
+                            <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5">
                                 <TextBlock.Text>
                                     <MultiBinding StringFormat="{}{0} (Level {1})">
                                         <Binding Path="Name"/>
@@ -68,7 +68,10 @@
         </Grid>
 
         <!-- RIGHT: Spell Detail View -->
-        <ContentControl Grid.Column="1" Content="{Binding SelectedSpell}" />
+        <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="2" CornerRadius="5">
+            <ContentControl Content="{Binding SelectedSpell}" />
+        </Border>
+        
 
     </Grid>
 </UserControl>

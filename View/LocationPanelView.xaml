@@ -45,22 +45,22 @@
                     <DockPanel>
                         <Button Command="{Binding DataContext.DeleteLocation, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                 CommandParameter="{Binding}"
-                                DockPanel.Dock="Right">
+                                DockPanel.Dock="Left">
                             <Image Width="16"
                                    Height="16"
                                    Source="pack://application:,,,/Resources/icon-delete.png"/>
                         </Button>
 
-                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Name}"  DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
                     </DockPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
         <!-- RIGHT SIDE -->
-        <ContentControl Grid.Column="1"
-                        Grid.Row="0"
-                        Grid.RowSpan="4"
-                        Content="{Binding SelectedLocationViewModel}" />
+        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" BorderThickness="1" Margin="2">
+            <ContentControl Content="{Binding SelectedLocationViewModel}" />
+        </Border>
+        
     </Grid>
 </UserControl>
