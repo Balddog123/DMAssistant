@@ -83,22 +83,22 @@
 
                                             <StackPanel Grid.Row="2">
                                                 <TextBlock Text="Backstory:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                                <TextBox Text="{Binding Backstory, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+                                                <TextBox Text="{Binding Backstory, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" MaxHeight="200" VerticalScrollBarVisibility="Auto"/>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="1" Grid.Row="2">
                                                 <TextBlock Text="Goal:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                                <TextBox Text="{Binding Goal, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+                                                <TextBox Text="{Binding Goal, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" MaxHeight="200" VerticalScrollBarVisibility="Auto"/>
                                             </StackPanel>
                                             
                                             <StackPanel Grid.Row="3">
                                                 <TextBlock Text="Alliances:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                                <TextBox Text="{Binding Alliances, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+                                                <TextBox Text="{Binding Alliances, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" MaxHeight="200" VerticalScrollBarVisibility="Auto"/>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="1" Grid.Row="3">
                                                 <TextBlock Text="Enemies:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                                <TextBox Text="{Binding Enemies, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+                                                <TextBox Text="{Binding Enemies, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" MaxHeight="200" VerticalScrollBarVisibility="Auto"/>
                                             </StackPanel>
                                         </Grid>
                                         
@@ -122,7 +122,7 @@
                                                         </Grid.ColumnDefinitions>
                                                         <TextBox Text="{Binding Name, Mode=TwoWay}" MinWidth="120" VerticalAlignment="Center"/>
 
-                                                        <Button Grid.Column="1" Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" Height="24" Width="24">
+                                                        <Button Grid.Column="1" Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" Height="24" Width="24" VerticalAlignment="Center">
                                                             <Button.CommandParameter>
                                                                 <MultiBinding Converter="{StaticResource RemoveItemConverter}">
                                                                     <!-- Item -->
@@ -131,7 +131,7 @@
                                                                     <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=ItemsControl, AncestorLevel=1}" />
                                                                 </MultiBinding>
                                                             </Button.CommandParameter>
-                                                            <Image Source="pack://application:,,,/Resources/icon-delete.png"/>
+                                                            <Image Source="pack://application:,,,/Resources/icon-delete.png" />
                                                         </Button>
                                                         <ContentControl Grid.Column="2" Visibility="{Binding ExpandedVisibility}" Content="{Binding DataContext.SelectedItemViewModel,RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" />
                                                     </Grid>
@@ -151,12 +151,12 @@
         </TabItem>
         <TabItem Header="Party Items">
             <ScrollViewer VerticalScrollBarVisibility="Auto" PreviewMouseDown="ScrollViewer_PreviewMouseDown">
-                <StackPanel>
+                <StackPanel Margin="5">
                     <!-- Header -->
                     <TextBlock Text="Party Items" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                     <TabControl>
                         <TabItem Header="Major Items" BorderThickness="1">
-                            <StackPanel>
+                            <StackPanel Margin="5">
                                 <TextBlock Text="Major Items" FontSize="24" FontWeight="Bold"/>
                                 <ListView ItemsSource="{Binding MajorItemsView}">
                                     <ListView.View>
@@ -190,8 +190,8 @@
                             </StackPanel>
                         </TabItem>
                         <TabItem Header="Minor Items" BorderThickness="1">
-                            <StackPanel>
-                                <TextBlock Text="Minor Items"/>
+                            <StackPanel Margin="5">
+                                <TextBlock Text="Minor Items" FontSize="24" FontWeight="Bold"/>
                                 <ListView ItemsSource="{Binding MinorItemsView}">
                                     <ListView.View>
                                         <GridView>

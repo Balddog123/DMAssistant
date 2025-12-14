@@ -14,36 +14,29 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Grid.Row="0" 
-               Text="Fronts" 
-               FontWeight="Bold" 
-               FontSize="16" 
-               Margin="0,5,0,5" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Text="Fronts" FontWeight="Bold" FontSize="24" Margin="0,5,0,5" HorizontalAlignment="Center"/>
 
         <Button Grid.Row="1" Margin="5" HorizontalAlignment="Left" Content="Add New" Command="{Binding AddNewFrontCommand}"/>
 
-        <ListBox ItemsSource="{Binding Fronts}" Grid.Row="2"
-         ScrollViewer.CanContentScroll="False">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
+        <ListBox ItemsSource="{Binding Fronts}" Grid.Row="2" Margin="5" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel Margin="2">
-                        <Button DockPanel.Dock="Right" Width="30" Height="30"
-                        Command="{Binding DataContext.RemoveFrontCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                        CommandParameter="{Binding}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Width="30" Height="30" Margin="0, 0, 5, 0"
+                            Command="{Binding DataContext.RemoveFrontCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                            CommandParameter="{Binding}">
                             <Image Source="/Resources/icon-delete.png"/>
                         </Button>
-                        <TextBox Text="{Binding ., Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         TextWrapping="Wrap"
-                         AcceptsReturn="True"
-                         VerticalAlignment="Top"
-                         MinHeight="60"
-                         VerticalScrollBarVisibility="Auto"/>
-                    </DockPanel>
+                        <TextBox Grid.Column="1" Text="{Binding ., Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             MinHeight="60"
+                             VerticalScrollBarVisibility="Auto"/>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

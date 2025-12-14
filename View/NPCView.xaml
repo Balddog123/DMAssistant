@@ -28,8 +28,7 @@
             <Button Grid.Row="0" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeNameCommand}">
                 <Image Source="/Resources/icon-refresh.png"/>
             </Button>
-            <TextBox Text="{Binding NPC.Name, UpdateSourceTrigger=PropertyChanged}" 
-Grid.Row="0" Grid.Column="2" Margin="0,5"/>
+            <TextBox Text="{Binding NPC.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="2" Margin="0,5"/>
 
             <!-- Gender -->
             <TextBlock Text="Gender:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
@@ -50,7 +49,7 @@ Grid.Row="0" Grid.Column="2" Margin="0,5"/>
  Grid.Row="2" Grid.Column="2" Margin="0,5" />
 
             <!-- Description -->
-            <TextBlock Text="Description:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+            <TextBlock Text="Description:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
             <Button Grid.Row="3" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeDescriptionCommand}">
                 <Image Source="/Resources/icon-refresh.png"/>
             </Button>
@@ -58,7 +57,7 @@ Grid.Row="0" Grid.Column="2" Margin="0,5"/>
 Grid.Row="3" Grid.Column="2" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
 
             <!-- Goal -->
-            <TextBlock Text="Goal:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+            <TextBlock Text="Goal:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
             <Button Grid.Row="4" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeGoalCommand}">
                 <Image Source="/Resources/icon-refresh.png"/>
             </Button>
@@ -66,7 +65,7 @@ Grid.Row="3" Grid.Column="2" Margin="0,5" AcceptsReturn="True" VerticalScrollBar
 Grid.Row="4" Grid.Column="2" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"  Height="Auto" TextWrapping="Wrap"/>
 
             <!-- Home -->
-            <TextBlock Text="Home:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+            <TextBlock Text="Home:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
             <Button Grid.Row="5" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeHomeCommand}">
                 <Image Source="/Resources/icon-refresh.png"/>
             </Button>
