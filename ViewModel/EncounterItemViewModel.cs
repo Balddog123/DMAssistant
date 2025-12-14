@@ -4,6 +4,7 @@ using DMAssistant;
 using DMAssistant.Model;
 using DMAssistant.View;
 using DMAssistant.ViewModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -42,8 +43,12 @@ namespace DMAssistant.ViewModel
             // Initialize MonsterViewModel if needed
             if (item is MonsterGroup mg && !string.IsNullOrWhiteSpace(mg.MonsterId))
             {
-                _monster = App.CampaignStore.MonsterIndex[mg.MonsterId];
-                EncounterItemMonsterViewModel = new MonsterViewModel(_monster);
+                App.CampaignStore.MonsterIndex.TryGetValue(mg.MonsterId, out _monster);
+                if(_monster != null) EncounterItemMonsterViewModel = new MonsterViewModel(_monster);
+                else
+                {
+                    Debug.WriteLine($"!!!could not find monster with ID: {mg.MonsterId}. MonsterGroup: {mg.Name}");
+                }
             }
 
             OpenMonsterWindowCommand = new RelayCommand(OpenMonsterSelector);
