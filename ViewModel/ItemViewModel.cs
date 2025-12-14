@@ -18,7 +18,7 @@ namespace DMAssistant.ViewModel
 
         public string Name
         {
-            get => Item.Name;
+            get => Item != null ? Item.Name : string.Empty;
             set
             {
                 if (Item.Name != value)
@@ -37,18 +37,18 @@ namespace DMAssistant.ViewModel
         }
         public Item.ItemRank Rank
         {
-            get => Item.Rank;
+            get => Item != null ? Item.Rank : Item.ItemRank.Common;
             set => Item.Rank = value;
         }
         public Item.ItemType Type
         {
-            get => Item.Type;
+            get => Item != null ? Item.Type : Item.ItemType.Minor;
             set => Item.Type = value;
         }
 
         public bool RequiresAttunement
         {
-            get => Item.RequiresAttunement;
+            get => Item != null ? Item.RequiresAttunement : false;
             set => Item.RequiresAttunement = value;
         }
 
@@ -59,13 +59,17 @@ namespace DMAssistant.ViewModel
         {
             Item = item;
 
-            Item.PropertyChanged += (_, e) =>
+            if(Item != null)
             {
-                if (e.PropertyName == nameof(Item.Name)) OnPropertyChanged(nameof(Name));
-                if (e.PropertyName == nameof(Item.Rank)) OnPropertyChanged(nameof(Rank));
-                if (e.PropertyName == nameof(Item.RequiresAttunement)) OnPropertyChanged(nameof(RequiresAttunement));
+                Item.PropertyChanged += (_, e) =>
+                {
+                    if (e.PropertyName == nameof(Item.Name)) OnPropertyChanged(nameof(Name));
+                    if (e.PropertyName == nameof(Item.Rank)) OnPropertyChanged(nameof(Rank));
+                    if (e.PropertyName == nameof(Item.RequiresAttunement)) OnPropertyChanged(nameof(RequiresAttunement));
 
-            };
+                };
+            }
+            
 
             if (owner != null)
             {

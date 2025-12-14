@@ -33,7 +33,7 @@ namespace DMAssistant.ViewModel
         }
 
         private Item _selectedItem;
-        public Item ExpandedItem
+        public Item SelectedItem
         {
             get => _selectedItem;
             set
@@ -41,14 +41,15 @@ namespace DMAssistant.ViewModel
                 if(_selectedItem != null) _selectedItem.ExpandedVisibility = Visibility.Collapsed;
 
                 if (SetProperty(ref _selectedItem, value))
-                {
-                    ExpandedItemViewModel = new ItemViewModel(_selectedItem);
+                {                    
                     if (_selectedItem != null) _selectedItem.ExpandedVisibility = Visibility.Visible;
+                    SelectedItemViewModel = new ItemViewModel(_selectedItem);
                 }
+
             }
         }
         private ItemViewModel _selectedItemViewModel;
-        public ItemViewModel ExpandedItemViewModel
+        public ItemViewModel SelectedItemViewModel
         {
             get => _selectedItemViewModel;
             set => SetProperty(ref _selectedItemViewModel, value);
@@ -317,7 +318,7 @@ namespace DMAssistant.ViewModel
             {
                 foreach (var item in pc.Items)
                 {
-                    item.ExpandedVisibility = (item == ExpandedItem) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+                    item.ExpandedVisibility = (item == SelectedItem) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
                 }
             }
         }

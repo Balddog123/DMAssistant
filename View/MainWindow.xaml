@@ -75,7 +75,7 @@
         <!-- ######## MAIN CONTENT AREA ######## -->
         <Grid DockPanel.Dock="Left">    
             <!-- CampaignView user control goes here!-->
-            <ContentControl x:Name="MainContent" Content="{Binding CurrentView}"/>
+            <ContentControl x:Name="MainContent" Content="{Binding CurrentView}" Margin="2"/>
         </Grid>
 
     </DockPanel>

@@ -14,23 +14,21 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left menu buttons -->
-        <StackPanel Grid.Column="0">
+        <StackPanel Grid.Column="0" Margin="0, 5, 0, 0">
             <Button Content="Campaign Details" Command="{Binding ShowCampaignDetails}"/>
-            <Button Content="Player Characters" Command="{Binding ShowPCsCommand}"/>
-            <Button Content="NPCs" Command="{Binding ShowNPCsCommand}"/>
-            <Button Content="Fronts" Command="{Binding ShowFrontsCommand}"/>
-            <Button Content="Locations" Command="{Binding ShowLocationsCommand}"/>
-            <Button Content="Items" Command="{Binding ShowItemsCommand}"/>
-            <Button Content="Spells" Command="{Binding ShowSpellsCommand}"/>
-            <Button Content="Lore" Command="{Binding ShowLoreCommand}"/>
-            <Button Content="Monsters" Command="{Binding ShowMonstersCommand}"/>
-            <Button Content="Notes" Command="{Binding ShowNotesCommand}"/>
-            <Button Content="World Map" Command="{Binding ShowWorldMapCommand}"/>
+            <Button Content="Player Characters" Command="{Binding ShowPCsCommand}" Margin="0, 10, 0, 0"/>
+            <Button Content="NPCs" Command="{Binding ShowNPCsCommand}" Margin="0, 10, 0, 0"/>
+            <Button Content="Fronts" Command="{Binding ShowFrontsCommand}" Margin="0, 10, 0, 0"/>
+            <Button Content="Locations" Command="{Binding ShowLocationsCommand}" Margin="0, 10, 0, 0"/>
+            <Button Content="Items" Command="{Binding ShowItemsCommand}" Margin="0, 10, 0, 0"/>
+            <Button Content="Spells" Command="{Binding ShowSpellsCommand}" Margin="0, 10, 0, 0"/>
+            <Button Content="Lore" Command="{Binding ShowLoreCommand}" Margin="0, 10, 0, 0"/>
+            <Button Content="Monsters" Command="{Binding ShowMonstersCommand}" Margin="0, 10, 0, 0"/>
+            <Button Content="Notes" Command="{Binding ShowNotesCommand}" Margin="0, 10, 0, 0"/>
+            <Button Content="World Map" Command="{Binding ShowWorldMapCommand}" Margin="0, 10, 0, 0"/>
         </StackPanel>
 
         <!-- Content area for campaign modules -->
-        <ContentControl Content="{Binding CurrentModuleView }"
-                    Grid.Column="1"
-                    Background="White"/>
+        <ContentControl Content="{Binding CurrentModuleView }" Grid.Column="1" Background="White" Margin="5"/>
     </Grid>
 </UserControl>

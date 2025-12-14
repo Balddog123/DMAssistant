@@ -23,18 +23,17 @@
         </CollectionViewSource>
     </UserControl.Resources>
 
-    
-        <TabControl>
-            <TabItem Header="Players">
-                <ScrollViewer VerticalScrollBarVisibility="Auto"
-                  PreviewMouseDown="ScrollViewer_PreviewMouseDown">
-                    <StackPanel>
-                        <!-- Header -->
-                        <TextBlock Text="Player Characters"
-                                   FontSize="20"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,0,0,10"/>
+
+    <TabControl>
+        <TabItem Header="Players">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" PreviewMouseDown="ScrollViewer_PreviewMouseDown">
+                <StackPanel>
+                    <!-- Header -->
+                    <TextBlock Text="Player Characters"
+                                FontSize="24"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                Margin="0,0,0,10"/>
 
                     <Button Content="Add New Player" Command="{Binding AddNewPlayerCommand}" HorizontalAlignment="Center" />
                     <!-- Player List -->
@@ -42,74 +41,88 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!-- Player Border -->
-                                <Border BorderThickness="1" Padding="10" Margin="2">
+                                <Border BorderThickness="1" Padding="5" Margin="5">
                                     <StackPanel>
+                                        
                                         <Button HorizontalAlignment="Right" Width="30" Height="30" Command="{Binding DataContext.DeletePlayerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
                                             <Image Width="16" Height="16" Source="/Resources/icon-delete.png"/>
                                         </Button>
-                                        <!-- Player Basic Info -->
-                                        <TextBlock Text="Character Name: " FontWeight="Bold"/>
-                                        <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" FontWeight="Bold" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Column="0" Margin="5">
+                                                <TextBlock Text="Character Name: " FontWeight="Bold"/>
+                                                <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" FontWeight="Bold" />
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1" Margin="5">
+                                                <TextBlock Text="Player Name: " FontWeight="Bold"/>
+                                                <TextBox Text="{Binding PlayerName, Mode=TwoWay}" FontSize="16" Margin="0,0,0,5" />
+                                            </StackPanel>
 
-                                        <TextBlock Text="Player Name: " FontWeight="Bold"/>
-                                        <TextBox Text="{Binding PlayerName, Mode=TwoWay}" Margin="0,0,0,5" />
+                                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                                <TextBlock Text="Level: " FontWeight="Bold"/>
+                                                <TextBox Text="{Binding Level, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
 
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Level: " FontWeight="Bold"/>
-                                            <TextBox Text="{Binding Level, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
+                                                <TextBlock Text="HP: " FontWeight="Bold"/>
+                                                <TextBox Text="{Binding Hp, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
 
-                                            <TextBlock Text="HP: " FontWeight="Bold"/>
-                                            <TextBox Text="{Binding Hp, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
+                                                <TextBlock Text="AC: " FontWeight="Bold" />
+                                                <TextBox Text="{Binding ArmorClass, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
 
-                                            <TextBlock Text="AC: " FontWeight="Bold" />
-                                            <TextBox Text="{Binding ArmorClass, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
+                                                <TextBlock Text="Passive Perception: " FontWeight="Bold" />
+                                                <TextBox Text="{Binding PassivePerseption, Mode=TwoWay}" Width="50"/>
+                                            </StackPanel>
 
-                                            <TextBlock Text="Passive Perception: " FontWeight="Bold" />
-                                            <TextBox Text="{Binding PassivePerseption, Mode=TwoWay}" Width="50"/>
-                                        </StackPanel>
+                                            <StackPanel Grid.Row="2">
+                                                <TextBlock Text="Backstory:" FontWeight="Bold" Margin="0,5,0,0"/>
+                                                <TextBox Text="{Binding Backstory, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+                                            </StackPanel>
 
-                                        <!-- Backstory / Goal etc. -->
-                                        <TextBlock Text="Backstory:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                        <TextBox Text="{Binding Backstory, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+                                            <StackPanel Grid.Column="1" Grid.Row="2">
+                                                <TextBlock Text="Goal:" FontWeight="Bold" Margin="0,5,0,0"/>
+                                                <TextBox Text="{Binding Goal, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+                                            </StackPanel>
+                                            
+                                            <StackPanel Grid.Row="3">
+                                                <TextBlock Text="Alliances:" FontWeight="Bold" Margin="0,5,0,0"/>
+                                                <TextBox Text="{Binding Alliances, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+                                            </StackPanel>
 
-                                        <TextBlock Text="Goal:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                        <TextBox Text="{Binding Goal, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
-
-                                        <TextBlock Text="Alliances:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                        <TextBox Text="{Binding Alliances, Mode=TwoWay}"
-                                    TextWrapping="Wrap"
-                                    AcceptsReturn="True"
-                                    MinHeight="60"/>
-
-                                        <TextBlock Text="Enemies:" FontWeight="Bold" Margin="0,5,0,0"/>
-                                        <TextBox Text="{Binding Enemies, Mode=TwoWay}"
-                                    TextWrapping="Wrap"
-                                    AcceptsReturn="True"
-                                    MinHeight="60"/>
-
-                                        <Separator Margin="5"/>
-
+                                            <StackPanel Grid.Column="1" Grid.Row="3">
+                                                <TextBlock Text="Enemies:" FontWeight="Bold" Margin="0,5,0,0"/>
+                                                <TextBox Text="{Binding Enemies, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
+                                            </StackPanel>
+                                        </Grid>
+                                        
                                         <!-- Item List -->
-                                        <TextBlock Text="Items:" FontWeight="Bold" Margin="0,5,0,2"/>
+                                        <TextBlock Text="Items:" FontWeight="Bold" Margin="0,5,0,5"/>
                                         <Button Content="Add Item" Command="{Binding DataContext.AddItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
 
-                                        <ListBox 
-                                            x:Name="PlayerItemListBox" 
-                                            ItemsSource="{Binding Items}"
-                                            SelectedItem="{Binding DataContext.ExpandedItem, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}">
+                                        <ListBox  x:Name="PlayerItemListBox"  ItemsSource="{Binding Items}" SelectedItem="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}">
                                             <ListBox.Template>
                                                 <ControlTemplate TargetType="ListBox">
-                                                    <!-- No ScrollViewer → just the items presenter -->
                                                     <ItemsPresenter/>
                                                 </ControlTemplate>
                                             </ListBox.Template>
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="30">
-
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="150"/>
+                                                            <ColumnDefinition Width="30"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
                                                         <TextBox Text="{Binding Name, Mode=TwoWay}" MinWidth="120" VerticalAlignment="Center"/>
 
-                                                        <Button Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" Height="24" Width="24">
+                                                        <Button Grid.Column="1" Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" Height="24" Width="24">
                                                             <Button.CommandParameter>
                                                                 <MultiBinding Converter="{StaticResource RemoveItemConverter}">
                                                                     <!-- Item -->
@@ -120,8 +133,8 @@
                                                             </Button.CommandParameter>
                                                             <Image Source="pack://application:,,,/Resources/icon-delete.png"/>
                                                         </Button>
-                                                        <ContentControl Visibility="{Binding ExpandedVisibility}" Content="{Binding DataContext.ExpandedItemViewModel,RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" />
-                                                    </StackPanel>
+                                                        <ContentControl Grid.Column="2" Visibility="{Binding ExpandedVisibility}" Content="{Binding DataContext.SelectedItemViewModel,RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" />
+                                                    </Grid>
                                                 </DataTemplate>
                                             </ListBox.ItemTemplate>
                                         </ListBox>
@@ -134,11 +147,13 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </StackPanel>
-                </ScrollViewer>
+            </ScrollViewer>
         </TabItem>
-            <TabItem Header="Party Items">
-                <ScrollViewer VerticalScrollBarVisibility="Auto"
-                  PreviewMouseDown="ScrollViewer_PreviewMouseDown">
+        <TabItem Header="Party Items">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" PreviewMouseDown="ScrollViewer_PreviewMouseDown">
+                <StackPanel>
+                    <!-- Header -->
+                    <TextBlock Text="Party Items" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                     <TabControl>
                         <TabItem Header="Major Items" BorderThickness="1">
                             <StackPanel>
@@ -177,41 +192,42 @@
                         <TabItem Header="Minor Items" BorderThickness="1">
                             <StackPanel>
                                 <TextBlock Text="Minor Items"/>
-                            <ListView ItemsSource="{Binding MinorItemsView}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
-                                        <GridViewColumn Header="Owner" Width="Auto" DisplayMemberBinding="{Binding OwnerName}" />
-                                        <GridViewColumn Header="Rarity" Width="Auto" DisplayMemberBinding="{Binding Rank}" />
-                                    </GridView>
-                                </ListView.View>
-                                <ListView.GroupStyle>
-                                    <GroupStyle>
-                                        <GroupStyle.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="Bold" FontSize="14" Margin="0 8 0 4">
-                                                    <TextBlock.Text>
-                                                        <MultiBinding Converter="{StaticResource GroupHeaderWithMaxConverter}" ConverterParameter="Minor">
-                                                            <Binding Path="Name"/>
-                                                            <!-- group name (rank) -->
-                                                            <Binding Path="ItemCount"/>
-                                                            <!-- number of items in this group -->
-                                                            <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
-                                                            <!-- ViewModel -->
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                            </DataTemplate>
-                                        </GroupStyle.HeaderTemplate>
-                                    </GroupStyle>
-                                </ListView.GroupStyle>
-                            </ListView>
-                        </StackPanel>
-
+                                <ListView ItemsSource="{Binding MinorItemsView}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                                            <GridViewColumn Header="Owner" Width="Auto" DisplayMemberBinding="{Binding OwnerName}" />
+                                            <GridViewColumn Header="Rarity" Width="Auto" DisplayMemberBinding="{Binding Rank}" />
+                                        </GridView>
+                                    </ListView.View>
+                                    <ListView.GroupStyle>
+                                        <GroupStyle>
+                                            <GroupStyle.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock FontWeight="Bold" FontSize="14" Margin="0 8 0 4">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding Converter="{StaticResource GroupHeaderWithMaxConverter}" ConverterParameter="Minor">
+                                                                <Binding Path="Name"/>
+                                                                <!-- group name (rank) -->
+                                                                <Binding Path="ItemCount"/>
+                                                                <!-- number of items in this group -->
+                                                                <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                                                <!-- ViewModel -->
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </GroupStyle.HeaderTemplate>
+                                        </GroupStyle>
+                                    </ListView.GroupStyle>
+                                </ListView>
+                            </StackPanel>
                         </TabItem>
                     </TabControl>
-                </ScrollViewer>
+                </StackPanel>
+                
+            </ScrollViewer>
         </TabItem>
-        </TabControl>
-        
+    </TabControl>
+
 </UserControl>

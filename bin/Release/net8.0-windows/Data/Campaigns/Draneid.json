@@ -4,11 +4,137 @@
     {
       "Name": "To Ash Mount",
       "NPCIDs": [],
-      "ItemIDs": [],
-      "Encounters": [],
+      "ItemIDs": [
+        "763af86a-8c85-4f77-95ef-d2f99c043641",
+        "eb73ebbf-5524-448f-bb52-5d2d8d4b4dc8",
+        "97814860-794f-4972-ad86-e12fb8530d47",
+        "bf420b30-24cf-45ba-b9da-2c2bd3539680",
+        "de9611b1-d1ab-4be3-876f-427e1413a102"
+      ],
+      "Encounters": [
+        {
+          "EncounterItems": [
+            {
+              "$type": "monsterGroup",
+              "Quantity": 1,
+              "MonsterId": "d13c0f76-cfe4-492e-ae8b-96755eb15876",
+              "Name": "New Monster Group",
+              "RoundNumber": 0,
+              "Description": ""
+            }
+          ],
+          "CombatItems": [
+            {
+              "Conditions": [],
+              "Name": "Aboleth",
+              "Initiative": 19,
+              "CurrentHP": 135,
+              "MaxHP": 135,
+              "ArmorClass": 17,
+              "EncounterItemName": "New Monster Group",
+              "CombatItemType": 1
+            },
+            {
+              "Conditions": [],
+              "Name": "Ecbert",
+              "Initiative": 0,
+              "CurrentHP": 0,
+              "MaxHP": 0,
+              "ArmorClass": 25,
+              "EncounterItemName": "Kurt",
+              "CombatItemType": 0
+            },
+            {
+              "Conditions": [],
+              "Name": "Galarand/Flit",
+              "Initiative": 0,
+              "CurrentHP": 0,
+              "MaxHP": 0,
+              "ArmorClass": 16,
+              "EncounterItemName": "Barron",
+              "CombatItemType": 0
+            },
+            {
+              "Conditions": [],
+              "Name": "Bragg",
+              "Initiative": 0,
+              "CurrentHP": 0,
+              "MaxHP": 0,
+              "ArmorClass": 19,
+              "EncounterItemName": "Quinn",
+              "CombatItemType": 0
+            },
+            {
+              "Conditions": [],
+              "Name": "Zendrith",
+              "Initiative": 0,
+              "CurrentHP": 0,
+              "MaxHP": 0,
+              "ArmorClass": 0,
+              "EncounterItemName": "Jared",
+              "CombatItemType": 0
+            },
+            {
+              "Conditions": [],
+              "Name": "Tongashin",
+              "Initiative": 0,
+              "CurrentHP": 0,
+              "MaxHP": 0,
+              "ArmorClass": 18,
+              "EncounterItemName": "Neil",
+              "CombatItemType": 0
+            },
+            {
+              "Conditions": [],
+              "Name": "Rhikari",
+              "Initiative": 0,
+              "CurrentHP": 0,
+              "MaxHP": 0,
+              "ArmorClass": 0,
+              "EncounterItemName": "David",
+              "CombatItemType": 0
+            }
+          ],
+          "Name": "New Encounter",
+          "CurrentRound": 0
+        }
+      ],
       "LocationIDs": [],
       "Scenes": "Your Potential Scenes go here:\n1. First\n2. Second",
-      "Secrets": [],
+      "Secrets": [
+        {
+          "Text": "",
+          "IsChecked": false
+        },
+        {
+          "Text": "",
+          "IsChecked": false
+        },
+        {
+          "Text": "",
+          "IsChecked": false
+        },
+        {
+          "Text": "",
+          "IsChecked": false
+        },
+        {
+          "Text": "",
+          "IsChecked": false
+        },
+        {
+          "Text": "",
+          "IsChecked": false
+        },
+        {
+          "Text": "",
+          "IsChecked": false
+        },
+        {
+          "Text": "",
+          "IsChecked": false
+        }
+      ],
       "Notes": ""
     },
     {
@@ -986,6 +1112,71 @@
       "Origin": "",
       "DisplayName": "Sending Stone from Pyrrhos (UC)",
       "RankSuffix": " (UC)",
+      "ExpandedVisibility": 2
+    },
+    {
+      "ID": "763af86a-8c85-4f77-95ef-d2f99c043641",
+      "Name": "New Item",
+      "Rank": "Common",
+      "Type": "Minor",
+      "RequiresAttunement": false,
+      "Function": "",
+      "Appearance": "",
+      "Origin": "",
+      "DisplayName": "New Item",
+      "RankSuffix": "",
+      "ExpandedVisibility": 2
+    },
+    {
+      "ID": "eb73ebbf-5524-448f-bb52-5d2d8d4b4dc8",
+      "Name": "New Item",
+      "Rank": "Common",
+      "Type": "Minor",
+      "RequiresAttunement": false,
+      "Function": "",
+      "Appearance": "",
+      "Origin": "",
+      "DisplayName": "New Item",
+      "RankSuffix": "",
+      "ExpandedVisibility": 2
+    },
+    {
+      "ID": "97814860-794f-4972-ad86-e12fb8530d47",
+      "Name": "New Item",
+      "Rank": "Common",
+      "Type": "Minor",
+      "RequiresAttunement": false,
+      "Function": "",
+      "Appearance": "",
+      "Origin": "",
+      "DisplayName": "New Item",
+      "RankSuffix": "",
+      "ExpandedVisibility": 2
+    },
+    {
+      "ID": "bf420b30-24cf-45ba-b9da-2c2bd3539680",
+      "Name": "New Item",
+      "Rank": "Common",
+      "Type": "Minor",
+      "RequiresAttunement": true,
+      "Function": "",
+      "Appearance": "",
+      "Origin": "",
+      "DisplayName": "New Item",
+      "RankSuffix": "",
+      "ExpandedVisibility": 2
+    },
+    {
+      "ID": "de9611b1-d1ab-4be3-876f-427e1413a102",
+      "Name": "New Item",
+      "Rank": "Common",
+      "Type": "Minor",
+      "RequiresAttunement": false,
+      "Function": "",
+      "Appearance": "",
+      "Origin": "",
+      "DisplayName": "New Item",
+      "RankSuffix": "",
       "ExpandedVisibility": 2
     }
   ],

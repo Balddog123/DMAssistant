@@ -1,4 +1,6 @@
-﻿using DMAssistant.ViewModel;
+﻿using DMAssistant.Model;
+using DMAssistant.ViewModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,11 +23,24 @@ namespace DMAssistant.View
             var clickedElement = e.OriginalSource as DependencyObject;
             if (clickedElement == null) return;
 
+            CampaignPCViewModel vm = null;
+            if (DataContext is CampaignPCViewModel)
+            {
+                vm = DataContext as CampaignPCViewModel;
+            }
+
             // Check if the click was inside a ListBoxItem
             var listBoxItem = clickedElement.FindAncestor<ListBoxItem>();
             if (listBoxItem != null)
             {
                 // Clicked inside an item, do nothing
+                Item clickedItem = listBoxItem.DataContext as Item;
+                if (vm != null && vm.SelectedItem == clickedItem)
+                {
+                    vm.SelectedItem = null;
+                    e.Handled = true;
+                    Debug.WriteLine("Expanded clicked by itself!");
+                }
                 return;
             }
 
@@ -39,9 +54,9 @@ namespace DMAssistant.View
             }
 
             // Clicked outside the items; collapse expanded item
-            if (DataContext is CampaignPCViewModel vm)
+            if (vm != null)
             {
-                vm.ExpandedItem = null;
+                vm.SelectedItem = null;
             }
         }
     }
