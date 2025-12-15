@@ -86,6 +86,47 @@ namespace DMAssistant.Model
         {
             return (stat - 10) / 2;
         }
+
+        public Monster()
+        {
+
+        }
+        public Monster(Monster other)
+        {
+            ID = Guid.NewGuid().ToString();
+            Name = "Copy of " + other.Name;
+            Meta = other.Meta;
+            ArmorClass = other.ArmorClass;
+            HitPoints = other.HitPoints;
+            Speed = other.Speed;
+
+            STR = other.STR;
+            STR_mod = other.STR_mod;
+            DEX = other.DEX;
+            DEX_mod = other.DEX_mod;
+            CON = other.CON;
+            CON_mod = other.CON_mod;
+            INT = other.INT;
+            INT_mod = other.INT_mod;
+            WIS = other.WIS;
+            WIS_mod = other.WIS_mod;
+            CHA = other.CHA;
+            CHA_mod = other.CHA_mod;
+
+            Skills = other.Skills;
+            SavingThrows = other.SavingThrows;
+            DamageResistances = other.DamageResistances;
+            DamageImmunities = other.DamageImmunities;
+            ConditionImmunities = other.ConditionImmunities;
+            Senses = other.Senses;
+            Languages = other.Languages;
+            Traits = other.Traits;
+            Challenge = other.Challenge;
+            Actions = other.Actions;
+            LegendaryActions = other.LegendaryActions;
+            ImageUrl = other.ImageUrl;
+        }
+
     }
 }
 

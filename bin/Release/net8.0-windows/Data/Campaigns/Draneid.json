@@ -640,6 +640,36 @@
         }
       ],
       "Notes": "---air---\r\n40 imps\r\n10 spined\r\n6 bone\r\n8 horned\r\n---ground---\r\n5 ice\r\n5 chain\r\n16 bearded\r\n16 barbed\r\n\r\nFighting the PLAYERS:\r\n---air---\r\nGeneral Oddoc\r\n3 spined\r\n3 bone\r\n4 horned\r\n---ground---\r\n2 ice\r\n2 chain\r\n8 bearded\r\n8 barbed\r\n\r\nAttacking the ANGEL:\r\n---air---\r\n20 imps\r\n3 spined\r\n3 bone\r\n4 horned\r\n\r\nDISAPPEARED into caves:\r\n---ground---\r\n2 ice\r\n2 chain\r\n8 bearded\r\n8 barbed\r\n\r\n\r\nlightning bolt on a bunch of spiked\r\n\r\n17dmg\r\n\r\nWhat is the boon that Pyrrhos gives to Chip?"
+    },
+    {
+      "Name": "Tempestra\u0027s Battle",
+      "NPCIDs": [
+        "b6ccde5f-22c0-43eb-868d-ba625b83825b"
+      ],
+      "ItemIDs": [
+        "fabb9a2e-7962-4cad-b12b-17e199750cc4"
+      ],
+      "Encounters": [
+        {
+          "EncounterItems": [
+            {
+              "$type": "monsterGroup",
+              "Quantity": 1,
+              "MonsterId": "dffa441d-dbec-47c9-bc3c-5810ca30ecb0",
+              "Name": "New Monster Group",
+              "RoundNumber": 0,
+              "Description": ""
+            }
+          ],
+          "CombatItems": [],
+          "Name": "New Encounter",
+          "CurrentRound": 0
+        }
+      ],
+      "LocationIDs": [],
+      "Scenes": "Necklace of Shared Damage, what does it do?\r\nDice of Frozen Luck?\r\n\r\nStrong Start:\r\nThe exhaustion slowly fades as the volcano collapses behind you, covering itself in a tremendous plume of ash and spouts of fire. To the northeast, you see 2 regiments of fiendish ground troops traveling over the plains and around 500 or more flying devils in the ashen sky. It seems it will take them about 3 days to arrive at Everlife Island. What will you do with this time?\r\n\r\n1. The party attempts to persuade the Vaelos Talons to aid them.\r\n2. The party attempts to persuade the nobles of Arengard to aid them. Sylee returns to her elves to recruit them to the fight.\r\n3. The party attempts to persuade the people of Alemoor to aid them.\r\n4. The party attempts to persuade the followers of Helm to aid them.\r\n5. The fiendish army creates ice bridges and flies to attack Tempestra and stop the storm raging around Everlife Island.",
+      "Secrets": [],
+      "Notes": ""
     }
   ],
   "NPCs": [
@@ -651,7 +681,7 @@
       "Goal": "Raise the strongest army he can and conquer Everlife Island, according to Kendrilix\u0027s command."
     },
     {
-      "Name": "Syllee Ethria",
+      "Name": "Sylee Ethria",
       "ID": "46df29dd-888b-4183-b2ab-5cf68de0690f",
       "Race": "Elf",
       "Description": "Mother to Flit and former lover of King Wraithlock the Third. She is also a member of the Duskwatchers, a ancient secret group of spies focused on uncovering servants of the devils and demons.",
@@ -1090,15 +1120,15 @@
     },
     {
       "ID": "fabb9a2e-7962-4cad-b12b-17e199750cc4",
-      "Name": "New Item",
-      "Rank": "Common",
+      "Name": "Exploding Arrows",
+      "Rank": "Rare",
       "Type": "Minor",
       "RequiresAttunement": false,
-      "Function": "",
+      "Function": "When this arrow deals damage, it explodes, dealing X damage and some other effects. Cool? Cool.",
       "Appearance": "",
       "Origin": "",
-      "DisplayName": "New Item",
-      "RankSuffix": "",
+      "DisplayName": "Exploding Arrows (R)",
+      "RankSuffix": " (R)",
       "ExpandedVisibility": 2
     },
     {
@@ -21809,7 +21839,9 @@
     }
   ],
   "Notes": "",
-  "Fronts": [],
+  "Fronts": [
+    "New Front:"
+  ],
   "Lore": "",
   "WorldMap": {
     "NoteBoxes": [],

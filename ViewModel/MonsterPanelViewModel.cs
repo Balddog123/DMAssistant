@@ -79,6 +79,7 @@ namespace DMAssistant.ViewModel
                 App.CampaignStore.DeleteMonster(monsterToDelete, _session);
             }
         });
+        public RelayCommand<Monster> DuplicateMonster { get; }
 
         public MonsterPanelViewModel(ObservableCollection<string> monsterIds, Session session)
         {
@@ -97,8 +98,12 @@ namespace DMAssistant.ViewModel
             MonsterView.Filter = FilterMonster;
             ApplyFilters();
 
-            AddNewMonsterCommand = new RelayCommand(AddNewMonster);
+            AddNewMonsterCommand = new RelayCommand(() => AddNewMonster());
             AddExistingMonsterCommand = new RelayCommand(AddExistingMonster);
+            DuplicateMonster = new RelayCommand<Monster>(monsterToDup =>
+            {
+                AddNewMonster(monsterToDup);
+            });
 
             App.CampaignStore.MonsterDeleted += OnMonsterDeleted;
             _session = session;
@@ -135,19 +140,25 @@ namespace DMAssistant.ViewModel
             }
         }
 
-        private void AddNewMonster()
+        private void AddNewMonster(Monster monsterToCopy = null)
         {
-            var newMonster = new Monster();
+            Monster newMonster;
+
+            if (monsterToCopy == null) newMonster = new Monster();
+            else newMonster = new Monster(monsterToCopy);
 
             // Monster belongs to global campaign list
-            App.CampaignStore.CurrentCampaign.Monsters.Add(newMonster);
+            //App.CampaignStore.CurrentCampaign.Monsters.Add(newMonster);
+            int index = App.CampaignStore.CurrentCampaign.Monsters.IndexOf(monsterToCopy);
+            App.CampaignStore.CurrentCampaign.Monsters.Insert(index + 1, newMonster);
             App.CampaignStore.MonsterIndex[newMonster.ID] = newMonster;
 
             // Add ID to session
             _sessionMonsterIds.Add(newMonster.ID);
 
             // Add live object to panel
-            AllMonsters.Add(newMonster);
+            //AllMonsters.Add(newMonster);
+            AllMonsters.Insert(index + 1, newMonster);
 
             SelectedMonster = newMonster;
         }

@@ -21,6 +21,7 @@
     <None Remove="Resources\icon-arrow.png" />
     <None Remove="Resources\icon-book.png" />
     <None Remove="Resources\icon-close.png" />
+    <None Remove="Resources\icon-copy.png" />
     <None Remove="Resources\icon-delete.png" />
     <None Remove="Resources\icon-edit.png" />
     <None Remove="Resources\icon-editfree.png" />
@@ -79,6 +80,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-close.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-copy.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-delete.png">

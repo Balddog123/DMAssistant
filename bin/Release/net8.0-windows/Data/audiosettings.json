@@ -1,11 +1,52 @@
 {
-  "MusicPlaylists": [],
+  "MusicPlaylists": [
+    {
+      "Name": "Combat",
+      "Files": [
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Ancient Evil Awakens _ D\u0026D_TTRPG Music _ 1 Hour 4.mp3",
+          "FileName": "Ancient Evil Awakens _ D\u0026D_TTRPG Music _ 1 Hour 4.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\The Bridge of Khazad Dum 4.mp3",
+          "FileName": "The Bridge of Khazad Dum 4.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\A Knife in the Dark 4.mp3",
+          "FileName": "A Knife in the Dark 4.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\The Black Rider-edited.mp3",
+          "FileName": "The Black Rider-edited.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Fiend Fight _ D\u0026D_TTRPG Battle_Combat_Fight Music _ 1 Hour 4.mp3",
+          "FileName": "Fiend Fight _ D\u0026D_TTRPG Battle_Combat_Fight Music _ 1 Hour 4.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\DanielHComposer-OFFENSIVE-DarkActionTrack.wav",
+          "FileName": "DanielHComposer-OFFENSIVE-DarkActionTrack.wav"
+        }
+      ],
+      "Color": {
+        "ColorContext": null,
+        "A": 255,
+        "R": 178,
+        "G": 34,
+        "B": 34,
+        "ScA": 1,
+        "ScR": 0.44520122,
+        "ScG": 0.015996294,
+        "ScB": 0.015996294
+      }
+    }
+  ],
   "AmbiencePlaylists": [],
   "SoundPlaylists": [],
-  "MusicPath": "E:\\!Audio\\D\u0026D\\Music",
+  "MusicPath": "G:\\!Audio\\D\u0026D\\Music",
   "AmbiencePath": "E:\\!Audio\\D\u0026D\\Ambience",
   "SoundPath": "G:\\!Audio\\D\u0026D\\Sounds",
-  "MusicVolume": 0.5,
+  "MusicVolume": 0.7500000000000011,
   "AmbienceVolume": 0.3175757575757543,
   "SoundVolume": 0.5
 }
