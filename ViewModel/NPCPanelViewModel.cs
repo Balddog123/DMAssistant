@@ -49,6 +49,8 @@ namespace DMAssistant.ViewModel
             }
         });
 
+        public IRelayCommand DuplicateNPC { get; }
+
         public NPCPanelViewModel(ObservableCollection<string> npcIds, Session session)
         {
             _sessionNPCIds = npcIds;
@@ -62,8 +64,9 @@ namespace DMAssistant.ViewModel
             }
 
             if (NPCList.Any()) SelectedNPC = NPCList[0]; // default selection
-            AddNPCCommand = new RelayCommand(AddNPC);
+            AddNPCCommand = new RelayCommand(() => AddNPC());
             AddExistingNPCCommand = new RelayCommand(AddExistingNPC);
+            DuplicateNPC = new RelayCommand<NPC>(npc => AddNPC(npc));
 
             App.CampaignStore.NPCDeleted += OnNPCDeleted;
             _session = session;
@@ -101,32 +104,39 @@ namespace DMAssistant.ViewModel
             }
         }
 
-        private void AddNPC()
+        private void AddNPC(NPC npcToCopy = null)
         {
-            var newNpc = new NPC("Aric", "", "Wanderer", "Find treasure");
-            newNpc.Gender = NPC.GetRandomGender();
-            //get location
-            Location location = NPC.GetRandomLocation();
-            if(location != null) newNpc.Home = location;
-            //get religion
-            //get race
-            newNpc.Race = NPC.GetRandomRace();
-            //generate name
-            newNpc.Name = NPC.GetRandomName(newNpc.Gender);
-            //create description
-            newNpc.Description = NPC.GetRandomDescription();
-            //create goal
-            newNpc.Goal = NPC.GetRandomGoal();
+            NPC newNpc;
+            if (npcToCopy == null) { 
+                newNpc = new NPC("Aric", "", "Wanderer", "Find treasure");
+                newNpc.Gender = NPC.GetRandomGender();
+                //get location
+                Location location = NPC.GetRandomLocation();
+                if (location != null) newNpc.Home = location;
+                //get religion
+                //get race
+                newNpc.Race = NPC.GetRandomRace();
+                //generate name
+                newNpc.Name = NPC.GetRandomName(newNpc.Gender);
+                //create description
+                newNpc.Description = NPC.GetRandomDescription();
+                //create goal
+                newNpc.Goal = NPC.GetRandomGoal();
+            }
+            else newNpc = new NPC(npcToCopy);
+            
+            
 
             //first, we'll generate these PURELY random. Later, we will use influences from location, race, and religion to derive some of these values
 
             // NPC belongs to global campaign list
-            App.CampaignStore.CurrentCampaign.NPCs.Add(newNpc);
+            int index = App.CampaignStore.CurrentCampaign.NPCs.IndexOf(npcToCopy) + 1;
+            App.CampaignStore.CurrentCampaign.NPCs.Insert(index, newNpc);
             App.CampaignStore.NPCIndex[newNpc.ID] = newNpc;
             // Add ID to session
             _sessionNPCIds.Add(newNpc.ID);
             //live object to panel
-            NPCList.Add(newNpc);
+            NPCList.Insert(NPCList.IndexOf(npcToCopy) + 1, newNpc);
             SelectedNPC = newNpc;
         }
 

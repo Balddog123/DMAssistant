@@ -158,7 +158,7 @@ namespace DMAssistant.ViewModel
 
             // Add live object to panel
             //AllMonsters.Add(newMonster);
-            AllMonsters.Insert(index + 1, newMonster);
+            AllMonsters.Insert(AllMonsters.IndexOf(monsterToCopy) + 1, newMonster);
 
             SelectedMonster = newMonster;
         }

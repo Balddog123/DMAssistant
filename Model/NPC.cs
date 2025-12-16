@@ -369,13 +369,21 @@ public class NPC : ObservableObject
         get => _home;
         set => SetProperty(ref _home, value);
     }
-
+    public NPC() { }
     public NPC(string name, string race, string description, string goal)
     {
         Name = name;
         Race = race;
         Description = description;
         Goal = goal;
+    }
+    public NPC(NPC npcToCopy)
+    {
+        Name = "Copy of " + npcToCopy.Name;
+        Race = npcToCopy.Race;
+        Description = npcToCopy.Description;
+        Goal = npcToCopy.Goal;
+        Home = npcToCopy.Home;
     }
 
     public static string GetRandomName(string gender)

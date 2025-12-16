@@ -40,9 +40,11 @@ namespace DMAssistant.Model
             string accumulated = "";
             for(int i = 0; i < Sessions.Count; i++)
             {
-                accumulated += $"--------{i + 1} : {Sessions[i].Name}--------\n";
-                accumulated += Sessions[i].Notes;
-                accumulated += "\n\n\n";
+                string sessionText = $"--------{i + 1} : {Sessions[i].Name}--------\n";
+                sessionText += Sessions[i].Notes;
+                sessionText += "\n\n\n";
+
+                accumulated = sessionText + accumulated;
             }
             return accumulated;
         }

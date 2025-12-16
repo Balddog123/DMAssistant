@@ -15,7 +15,9 @@
                      TextWrapping="Wrap"/>
             </TabItem>
             <TabItem Header="Session Notes">
-                <TextBlock Text="{Binding SessionNotes}"/>
+                <ScrollViewer>
+                    <TextBlock Text="{Binding SessionNotes}"/>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
     </Grid>

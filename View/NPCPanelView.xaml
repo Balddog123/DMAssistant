@@ -41,7 +41,12 @@
                                     DockPanel.Dock="Left">
                                 <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
                             </Button>
-                            
+                            <Button Command="{Binding DataContext.DuplicateNPC, RelativeSource={RelativeSource AncestorType=ListBox}}"
+        CommandParameter="{Binding}"
+        DockPanel.Dock="Left">
+                                <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-copy.png"/>
+                            </Button>
+
                         </DockPanel>
 
                     </DataTemplate>
