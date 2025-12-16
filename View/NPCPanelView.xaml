@@ -15,48 +15,50 @@
             <ColumnDefinition Width="*"/>
             <!-- right details -->
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <!-- ================= LEFT SIDE ================= -->
-        <StackPanel Grid.Column="0">
+        <!-- Add New NPC -->
+        <Button Grid.Row="0" Content="New NPC"
+            Command="{Binding AddNPCCommand}"
+            Margin="5"/>
+        <!-- Add Existing NPC -->
+        <Button Grid.Row="1" Content="Add Existing NPC"
+            Command="{Binding AddExistingNPCCommand}"
+            Margin="5"/>
 
-            <!-- Add New NPC -->
-            <Button Content="New NPC"
-                    Command="{Binding AddNPCCommand}"
-                    Margin="5"/>
-            <!-- Add Existing NPC -->
-            <Button Content="Add Existing NPC"
-                    Command="{Binding AddExistingNPCCommand}"
-                    Margin="5"/>
+        <TextBlock Grid.Row="2" Text="NPCs" FontWeight="Bold" Margin="0,0,0,5"/>
 
-            <TextBlock Text="NPCs" FontWeight="Bold" Margin="0,0,0,5"/>
+        <ListBox Grid.Row="3" ItemsSource="{Binding NPCList}" SelectedItem="{Binding SelectedNPC}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Width="Auto">
+                        <!-- Remove button -->
+                        <TextBlock Text="{Binding Name}" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
+                        <Button Command="{Binding DataContext.DeleteNPC, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                            CommandParameter="{Binding}"
+                            DockPanel.Dock="Left">
+                            <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
+                        </Button>
+                        <Button Command="{Binding DataContext.DuplicateNPC, RelativeSource={RelativeSource AncestorType=ListBox}}"
+CommandParameter="{Binding}"
+DockPanel.Dock="Left">
+                            <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-copy.png"/>
+                        </Button>
 
-            <ListBox ItemsSource="{Binding NPCList}" SelectedItem="{Binding SelectedNPC}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel Width="Auto">
-                            <!-- Remove button -->
-                            <TextBlock Text="{Binding Name}" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
-                            <Button Command="{Binding DataContext.DeleteNPC, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                    CommandParameter="{Binding}"
-                                    DockPanel.Dock="Left">
-                                <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
-                            </Button>
-                            <Button Command="{Binding DataContext.DuplicateNPC, RelativeSource={RelativeSource AncestorType=ListBox}}"
-        CommandParameter="{Binding}"
-        DockPanel.Dock="Left">
-                                <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-copy.png"/>
-                            </Button>
+                    </DockPanel>
 
-                        </DockPanel>
-
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
 
         <!-- ================= RIGHT SIDE (NPC Detail View) ================= -->
-        <ContentControl Grid.Column="1" Content="{Binding SelectedNPCViewModel}" />
+        <ContentControl Grid.Column="1" Grid.RowSpan="4" Content="{Binding SelectedNPCViewModel}" />
 
     </Grid>
 </UserControl>

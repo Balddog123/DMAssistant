@@ -35,6 +35,7 @@ public class NPC : ObservableObject
         { "Fey", _monsterTypeRate },
         { "Fiend", _monsterTypeRate },
         { "Giant", _monsterTypeRate },
+        { "Goblinoid", _monsterTypeRate },
         { "Humanoid", _monsterTypeRate },
         { "Monstrosity", _monsterTypeRate },
         { "Ooze", _monsterTypeRate },
