@@ -57,10 +57,7 @@ namespace DMAssistant.ViewModel
                 }
             }
             // Convert item IDs → viewmodels
-            ItemList = new ObservableCollection<ItemViewModel>(
-                ids.Select(id =>
-                    CreateItemViewModel(App.CampaignStore.ItemIndex[id]))
-            );
+            ItemList = new ObservableCollection<ItemViewModel>(ids.Select(id => CreateItemViewModel(App.CampaignStore.ItemIndex[id])));
 
             if (ItemList.Any())
                 SelectedItem = ItemList[0];

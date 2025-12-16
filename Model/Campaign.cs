@@ -21,7 +21,7 @@ namespace DMAssistant.Model
 
         public string Notes { get; set; } = "";
         public ObservableCollection<string> Fronts { get; set; } = new();
-        public string Lore { get; set; } = "";
+        public ObservableCollection<Lore> Lore { get; set; } = new();
 
         public Map WorldMap { get; set; } = new Map();
 
