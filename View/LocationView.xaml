@@ -8,70 +8,71 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
-    <ScrollViewer>
-        <DockPanel Margin="5">
-            <!-- Top: Name + Delete button -->
-            <Grid DockPanel.Dock="Top" Margin="0,0,0,15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <!-- Name TextBox -->
-                <TextBox Grid.Column="0"
-                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     FontSize="22" 
-                     FontWeight="Bold"
-                     VerticalAlignment="Center"/>
-            </Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox
+                Grid.Row="0"
+                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                FontSize="22" 
+                FontWeight="Bold"
+                MinWidth="100"
+                HorizontalAlignment="Center"
+                TextAlignment="Center"/>
 
             <!-- Main content: Image + Description side by side -->
-            <Grid DockPanel.Dock="Top">
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.75*"/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="0.25*" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Height="Auto">
-                    <Grid HorizontalAlignment="Center">
+                <StackPanel Grid.Column="0">
+                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Button Content="Set Image From File" Grid.Column="0" Margin="2" Command="{Binding SetImageFromFile}"/>
-                        <Button Content="Paste Image" Grid.Column="1" Margin="2" Command="{Binding SetImageFromClipboard}"/>
+                        <Button Grid.Column="0" Margin="2" Command="{Binding SetImageFromFile}">
+                            <Image Source="/Resources/icon-folder.png"/>
+                        </Button>
+                        <Button Grid.Column="1" Margin="2" Command="{Binding SetImageFromClipboard}">
+                            <Image Source="/Resources/icon-paste.png"/>
+                        </Button>
                     </Grid>
 
                     <Border MinHeight="400"
-                    Background="LightGray"
-                    Margin="0,0,0,0"
-                    VerticalAlignment="Center"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
-                    CornerRadius="5">
+                            MinWidth="400"
+                            MaxHeight="800"
+                            MaxWidth="800"
+                            HorizontalAlignment="Left"
+                            BorderThickness="1">
                         <Image Source="{Binding LocationImage}" Stretch="Uniform"/>
                     </Border>
                 </StackPanel>
-
-
-                <!-- Description Stack -->
-                <StackPanel Grid.Column="2">
+                <StackPanel Grid.Column="2" Margin="10, 10, 0, 0">
                     <TextBlock Text="Description" 
                            FontWeight="Bold" 
-                           Margin="0,0,0,5"/>
-                    <TextBox Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         AcceptsReturn="True"
-                         TextWrapping="Wrap"
-                         VerticalScrollBarVisibility="Auto"
-                         MinHeight="400"/>
+                           Margin="5"/>
+                    <TextBox
+                        Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto"
+                        MinHeight="600"/>
                 </StackPanel>
             </Grid>
 
             <!-- Map Section -->
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Height="150" Margin="0, 20, 0, 0">
-                <StackPanel>
-                    <Button Content="Add New Map" Width="100" HorizontalAlignment="Left" Command="{Binding AddNewMapCommand}"/>
-                    <ListBox ItemsSource="{Binding Maps}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0, 20, 0, 0">
+                <StackPanel >
+                    <Button HorizontalAlignment="Left" Command="{Binding AddNewMapCommand}">
+                        <Image Source="/Resources/icon-add.png"/>
+                    </Button>
+                    <ListBox Height="125" ItemsSource="{Binding Maps}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
@@ -80,29 +81,25 @@
 
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="1" BorderBrush="Gray">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="80"/>
-                                            <ColumnDefinition Width="30"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="80"/>
-                                            
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Width="100" Height="100" Source="{Binding ThumbnailData, Converter={StaticResource ByteArrayToImageConverter}}">
-                                            <Image.InputBindings>
-                                                <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.OpenMapCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" />
-                                            </Image.InputBindings>
-                                        </Image>
-                                        <Button Grid.Column="1" Grid.Row="0" Command="{Binding DataContext.RemoveMap, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
-                                            <Image Source="/Resources/icon-delete.png" Height="16"/>
-                                        </Button>
-                                    </Grid>
-                                    
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="80"/>
 
-                                </Border>
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Width="110" Height="110" Source="{Binding ThumbnailData, Converter={StaticResource ByteArrayToImageConverter}}">
+                                        <Image.InputBindings>
+                                            <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.OpenMapCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" />
+                                        </Image.InputBindings>
+                                    </Image>
+                                    <Button Grid.Column="1" Grid.Row="0" Command="{Binding DataContext.RemoveMap, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
+                                        <Image Source="/Resources/icon-delete.png" Height="16"/>
+                                    </Button>
+                                </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -112,6 +109,6 @@
 
 
 
-        </DockPanel>
+        </Grid>
     </ScrollViewer>
 </UserControl>

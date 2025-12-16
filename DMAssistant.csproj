@@ -32,6 +32,7 @@
     <None Remove="Resources\icon-loop.png" />
     <None Remove="Resources\icon-next.png" />
     <None Remove="Resources\icon-page.png" />
+    <None Remove="Resources\icon-paste.png" />
     <None Remove="Resources\icon-pause.png" />
     <None Remove="Resources\icon-play.png" />
     <None Remove="Resources\icon-pointer.png" />
@@ -114,6 +115,9 @@
     </Resource>
     <Resource Include="Resources\icon-page.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-paste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-pause.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
