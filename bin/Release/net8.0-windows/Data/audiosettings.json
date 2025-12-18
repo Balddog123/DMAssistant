@@ -39,6 +39,62 @@
         "ScG": 0.015996294,
         "ScB": 0.015996294
       }
+    },
+    {
+      "Name": "Cities",
+      "Files": [
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Cloud City _ D\u0026D_TTRPG Music _ 1 Hour.mp3",
+          "FileName": "Cloud City _ D\u0026D_TTRPG Music _ 1 Hour.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Large City _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3",
+          "FileName": "Large City _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Peaceful Village _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3",
+          "FileName": "Peaceful Village _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3"
+        }
+      ],
+      "Color": {
+        "ColorContext": null,
+        "A": 255,
+        "R": 240,
+        "G": 248,
+        "B": 255,
+        "ScA": 1,
+        "ScR": 0.8713671,
+        "ScG": 0.9386857,
+        "ScB": 1
+      }
+    },
+    {
+      "Name": "Battle For Tempestra",
+      "Files": [
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\DanielHComposer-OFFENSIVE-DarkActionTrack.wav",
+          "FileName": "DanielHComposer-OFFENSIVE-DarkActionTrack.wav"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Ship Combat _ D\u0026D_TTRPG Battle_Combat_Fight Music _ 1 Hour 0.mp3",
+          "FileName": "Ship Combat _ D\u0026D_TTRPG Battle_Combat_Fight Music _ 1 Hour 0.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\The Last Fight _ D\u0026D_TTRPG Battle_Combat_Fight Music _ 1 Hour 0.mp3",
+          "FileName": "The Last Fight _ D\u0026D_TTRPG Battle_Combat_Fight Music _ 1 Hour 0.mp3"
+        }
+      ],
+      "Color": {
+        "ColorContext": null,
+        "A": 255,
+        "R": 0,
+        "G": 255,
+        "B": 255,
+        "ScA": 1,
+        "ScR": 0,
+        "ScG": 1,
+        "ScB": 1
+      }
     }
   ],
   "AmbiencePlaylists": [],
@@ -46,7 +102,7 @@
   "MusicPath": "G:\\!Audio\\D\u0026D\\Music",
   "AmbiencePath": "E:\\!Audio\\D\u0026D\\Ambience",
   "SoundPath": "G:\\!Audio\\D\u0026D\\Sounds",
-  "MusicVolume": 0.7500000000000011,
+  "MusicVolume": 0.10887351778655864,
   "AmbienceVolume": 0.3175757575757543,
   "SoundVolume": 0.5
 }

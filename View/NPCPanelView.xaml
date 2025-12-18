@@ -10,7 +10,7 @@
     <Grid Margin="5">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="Auto" MaxWidth="500" MinWidth="220"/>
             <!-- left list -->
             <ColumnDefinition Width="*"/>
             <!-- right details -->
@@ -38,7 +38,11 @@
                 <DataTemplate>
                     <DockPanel Width="Auto">
                         <!-- Remove button -->
+                        <TextBlock Text="{Binding Home.Name}" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="-" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="2"/>
+
                         <TextBlock Text="{Binding Name}" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
+                        
                         <Button Command="{Binding DataContext.DeleteNPC, RelativeSource={RelativeSource AncestorType=ListBox}}"
                             CommandParameter="{Binding}"
                             DockPanel.Dock="Left">
