@@ -33,32 +33,53 @@
 
         <TextBlock Grid.Row="2" Text="NPCs" FontWeight="Bold" Margin="0,0,0,5"/>
 
-        <ListBox Grid.Row="3" ItemsSource="{Binding NPCList}" SelectedItem="{Binding SelectedNPC}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel Width="Auto">
-                        <!-- Remove button -->
-                        <TextBlock Text="{Binding Home.Name}" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="-" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="2"/>
+        <ListView Grid.Row="3"
+          ItemsSource="{Binding NPCList}"
+          SelectedItem="{Binding SelectedNPC}"
+          Name="NPCListView"
+          PreviewMouseDown="NPCListView_PreviewMouseDown">
 
-                        <TextBlock Text="{Binding Name}" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
-                        
-                        <Button Command="{Binding DataContext.DeleteNPC, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                            CommandParameter="{Binding}"
-                            DockPanel.Dock="Left">
-                            <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
-                        </Button>
-                        <Button Command="{Binding DataContext.DuplicateNPC, RelativeSource={RelativeSource AncestorType=ListBox}}"
-CommandParameter="{Binding}"
-DockPanel.Dock="Left">
-                            <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-copy.png"/>
-                        </Button>
+            <ListView.View>
+                <GridView AllowsColumnReorder="True">
 
-                    </DockPanel>
+                    <!-- Buttons column -->
+                    <GridViewColumn Header="Actions" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Command="{Binding DataContext.DeleteNPC,
+                                              RelativeSource={RelativeSource AncestorType=ListView}}"
+                                    CommandParameter="{Binding}"
+                                    Margin="2">
+                                        <Image Width="16" Height="16"
+                                       Source="pack://application:,,,/Resources/icon-delete.png"/>
+                                    </Button>
 
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                                    <Button Command="{Binding DataContext.DuplicateNPC,
+                                              RelativeSource={RelativeSource AncestorType=ListView}}"
+                                    CommandParameter="{Binding}"
+                                    Margin="2">
+                                        <Image Width="16" Height="16"
+                                       Source="pack://application:,,,/Resources/icon-copy.png"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <!-- Name column -->
+                    <GridViewColumn Header="Name"
+                            DisplayMemberBinding="{Binding Name}"
+                            Width="Auto"/>
+
+                    <!-- Home.Name column -->
+                    <GridViewColumn Header="Home"
+                            DisplayMemberBinding="{Binding Home.Name}"/>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
 
 
         <!-- ================= RIGHT SIDE (NPC Detail View) ================= -->
