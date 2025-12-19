@@ -26,7 +26,7 @@
         <!-- Description -->
         <TextBlock Text="Encounter Details:"/>
         <TextBox Text="{Binding Description, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" Margin="5" />
-
+        <ToggleButton Content="Is Ally" IsChecked="{Binding IsAlly, Mode=TwoWay}" Width="Auto" HorizontalAlignment="Left" Margin="5"/>
         <Separator Height="30"/>
 
         <!-- Monster-specific properties -->

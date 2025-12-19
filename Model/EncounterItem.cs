@@ -17,7 +17,7 @@ namespace DMAssistant.Model
         [ObservableProperty] public string name = "";
         [ObservableProperty] public int roundNumber = 0;
         [ObservableProperty] public string description = string.Empty;
-
+        [ObservableProperty] public bool isAlly = false;
 
         [JsonIgnore] public string QuantityDisplay => this is MonsterGroup mg ? mg.Quantity.ToString() : "-";
         [JsonIgnore] public string CR

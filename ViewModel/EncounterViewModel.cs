@@ -19,8 +19,8 @@ namespace DMAssistant.ViewModel
             set => SetProperty(_encounter.Name, value, _encounter, (e, v) => e.Name = v);
         }
 
-        public int TotalCR => EncounterItems.Sum(vm => vm.TotalCR);
-        public int TotalXP => EncounterItems.Sum(vm => vm.TotalXP);
+        public int TotalCR => EncounterItems.Where(i => !i.EncounterItem.IsAlly).Sum(vm => vm.TotalCR);
+        public int TotalXP => EncounterItems.Where(i => !i.EncounterItem.IsAlly).Sum(vm => vm.TotalXP);
         public int TotalXPAvailable
         {
             get
@@ -55,7 +55,7 @@ namespace DMAssistant.ViewModel
             get
             {
                 int count = EncounterItems
-                    .Where(i => i.EncounterItem is MonsterGroup mg)
+                    .Where(i => i.EncounterItem is MonsterGroup mg && !i.EncounterItem.IsAlly)
                     .Sum(i => ((MonsterGroup)i.EncounterItem).Quantity);
 
                 return count switch
@@ -163,6 +163,8 @@ namespace DMAssistant.ViewModel
 
         public EncounterViewModel(Encounter encounter)
         {
+            if (encounter == null) return;
+
             _encounter = encounter;
 
             // ---- Convert raw model items → ViewModels ----
@@ -192,7 +194,7 @@ namespace DMAssistant.ViewModel
         private EncounterItemViewModel CreateItemViewModel(EncounterItem item)
         {
             var vm = new EncounterItemViewModel(item);
-            vm.MonsterChanged += OnChildItemChanged;
+            vm.EncounterItemChanged += OnChildItemChanged;
             return vm;
         }
 
@@ -218,7 +220,7 @@ namespace DMAssistant.ViewModel
             {
                 foreach (EncounterItemViewModel vm in e.NewItems)
                 {
-                    vm.MonsterChanged += OnChildItemChanged;
+                    vm.EncounterItemChanged += OnChildItemChanged;
                     _encounter.EncounterItems.Add(vm.EncounterItem);
                 }
             }
@@ -228,7 +230,7 @@ namespace DMAssistant.ViewModel
             {
                 foreach (EncounterItemViewModel vm in e.OldItems)
                 {
-                    vm.MonsterChanged -= OnChildItemChanged;
+                    vm.EncounterItemChanged -= OnChildItemChanged;
                     _encounter.EncounterItems.Remove(vm.EncounterItem);
                 }
             }

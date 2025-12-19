@@ -15,7 +15,7 @@ namespace DMAssistant.ViewModel
         public EncounterItem EncounterItem { get; }
 
         // Event raised for ANY change that affects TotalCR
-        public event Action? MonsterChanged;
+        public event Action? EncounterItemChanged;
 
         public EncounterItemViewModel(EncounterItem item)
         {
@@ -26,9 +26,10 @@ namespace DMAssistant.ViewModel
             {
                 if (e.PropertyName is nameof(MonsterGroup.Quantity) ||
                     e.PropertyName is nameof(MonsterGroup.MonsterId) ||
-                    e.PropertyName is nameof(EncounterItem.CR))
+                    e.PropertyName is nameof(EncounterItem.CR) ||
+                    e.PropertyName is nameof(EncounterItem.IsAlly))
                 {
-                    MonsterChanged?.Invoke();
+                    EncounterItemChanged?.Invoke();
                 }
 
                 // Update visibility when changing item type
@@ -87,7 +88,20 @@ namespace DMAssistant.ViewModel
 
         public string TypeName => EncounterItem?.TypeName ?? string.Empty;
 
-
+        public bool IsAlly
+        {
+            get => EncounterItem?.IsAlly ?? false;
+            set
+            {
+                if (EncounterItem.IsAlly != value)
+                {
+                    EncounterItem.IsAlly = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(TotalXP));
+                    OnPropertyChanged(nameof(TotalCR));
+                }
+            }
+        }
         public string Description
         {
             get => EncounterItem.Description;
@@ -120,7 +134,7 @@ namespace DMAssistant.ViewModel
                         EncounterItemMonsterViewModel = new MonsterViewModel(value);
                     }
 
-                    MonsterChanged?.Invoke();
+                    EncounterItemChanged?.Invoke();
                 }
             }
         }
@@ -134,7 +148,7 @@ namespace DMAssistant.ViewModel
                 {
                     mg.Quantity = value;
                     OnPropertyChanged();
-                    MonsterChanged?.Invoke();
+                    EncounterItemChanged?.Invoke();
                 }
             }
         }
