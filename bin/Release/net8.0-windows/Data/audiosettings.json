@@ -95,14 +95,90 @@
         "ScG": 1,
         "ScB": 1
       }
+    },
+    {
+      "Name": "General-Calm",
+      "Files": [
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Long Rest _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3",
+          "FileName": "Long Rest _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Baldur\u0027s Gate 3 OST - Endless Spring (Remastered).mp3",
+          "FileName": "Baldur\u0027s Gate 3 OST - Endless Spring (Remastered).mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Baldur\u0027s Gate 3 OST - Ale Of Balduran.mp3",
+          "FileName": "Baldur\u0027s Gate 3 OST - Ale Of Balduran.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Baldur\u0027s Gate 3 OST - Last Light (Tavern version) 4.mp3",
+          "FileName": "Baldur\u0027s Gate 3 OST - Last Light (Tavern version) 4.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\40 Baldur\u0027s Gate 3 Original Soundtrack - I Want To Live (Classical version) 4.mp3",
+          "FileName": "40 Baldur\u0027s Gate 3 Original Soundtrack - I Want To Live (Classical version) 4.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\29 Baldur\u0027s Gate 3 Original Soundtrack - Bard Dance 4.mp3",
+          "FileName": "29 Baldur\u0027s Gate 3 Original Soundtrack - Bard Dance 4.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\25 Baldur\u0027s Gate 3 Original Soundtrack - Last Shelter 4.mp3",
+          "FileName": "25 Baldur\u0027s Gate 3 Original Soundtrack - Last Shelter 4.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\16 Baldur\u0027s Gate 3 Original Soundtrack - Last Light 4.mp3",
+          "FileName": "16 Baldur\u0027s Gate 3 Original Soundtrack - Last Light 4.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Secunda_(getmp3.pro).mp3",
+          "FileName": "Secunda_(getmp3.pro).mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\The Elder Scrolls IV Oblivion OST Wings of Kynareth.mp3",
+          "FileName": "The Elder Scrolls IV Oblivion OST Wings of Kynareth.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\The Elder Scrolls IV Oblivion OST King And Country.mp3",
+          "FileName": "The Elder Scrolls IV Oblivion OST King And Country.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\The Elder Scrolls IV Oblivion OST Harvest Dawn.mp3",
+          "FileName": "The Elder Scrolls IV Oblivion OST Harvest Dawn.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\The Elder Scrolls IV Oblivion OST Through The Valleys.mp3",
+          "FileName": "The Elder Scrolls IV Oblivion OST Through The Valleys.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Small City _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3",
+          "FileName": "Small City _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3"
+        },
+        {
+          "FilePath": "G:\\!Audio\\D\u0026D\\Music\\Seaside Town _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3",
+          "FileName": "Seaside Town _ D\u0026D_TTRPG Music _ 1 Hour 0.mp3"
+        }
+      ],
+      "Color": {
+        "ColorContext": null,
+        "A": 255,
+        "R": 245,
+        "G": 245,
+        "B": 220,
+        "ScA": 1,
+        "ScR": 0.91309863,
+        "ScG": 0.91309863,
+        "ScB": 0.71569353
+      }
     }
   ],
   "AmbiencePlaylists": [],
   "SoundPlaylists": [],
   "MusicPath": "G:\\!Audio\\D\u0026D\\Music",
-  "AmbiencePath": "E:\\!Audio\\D\u0026D\\Ambience",
+  "AmbiencePath": "G:\\!Audio\\D\u0026D\\Ambience",
   "SoundPath": "G:\\!Audio\\D\u0026D\\Sounds",
-  "MusicVolume": 0.10887351778655864,
-  "AmbienceVolume": 0.3175757575757543,
+  "MusicVolume": 0.05318511198945593,
+  "AmbienceVolume": 0.5756126482213406,
   "SoundVolume": 0.5
 }
