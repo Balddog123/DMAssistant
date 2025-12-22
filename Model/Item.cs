@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,7 +16,10 @@ namespace DMAssistant.Model
         public string ID { get; set; } = Guid.NewGuid().ToString();
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string name)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            Debug.WriteLine($"Changed property of Item: {Name}.\nProperty changed: {name}");
+        }
 
         private string _name;
         public string Name

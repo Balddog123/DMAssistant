@@ -23,6 +23,8 @@ namespace DMAssistant.View
             var clickedElement = e.OriginalSource as DependencyObject;
             if (clickedElement == null) return;
 
+            FrameworkElement frameworkElement = clickedElement as FrameworkElement;
+
             CampaignPCViewModel vm = null;
             if (DataContext is CampaignPCViewModel)
             {
@@ -31,7 +33,9 @@ namespace DMAssistant.View
 
             // Check if the click was inside a ListBoxItem
             var listBoxItem = clickedElement.FindAncestor<ListBoxItem>();
-            if (listBoxItem != null)
+            Debug.WriteLine($"Clicked element: {clickedElement.GetType()}");
+
+            if (frameworkElement.Name == "ItemViewControl" && listBoxItem != null)
             {
                 // Clicked inside an item, do nothing
                 Item clickedItem = listBoxItem.DataContext as Item;
@@ -39,7 +43,6 @@ namespace DMAssistant.View
                 {
                     vm.SelectedItem = null;
                     e.Handled = true;
-                    Debug.WriteLine("Expanded clicked by itself!");
                 }
                 return;
             }

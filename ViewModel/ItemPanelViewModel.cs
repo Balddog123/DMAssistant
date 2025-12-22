@@ -14,23 +14,11 @@ using System.Windows;
 
 namespace DMAssistant.ViewModel
 {
-    public class ItemPanelViewModel : ObservableObject
+    public partial class ItemPanelViewModel : ObservableObject
     {
         private readonly Session _session;
 
-        private ObservableCollection<ItemViewModel> _itemList;
-        public ObservableCollection<ItemViewModel> ItemList
-        {
-            get => _itemList;
-            set
-            {
-                if (value != null)
-                {
-                    _itemList = new ObservableCollection<ItemViewModel>(value.OrderBy(i => i.Name));
-                    OnPropertyChanged(nameof(ItemList));
-                }
-            }
-        }
+        [ObservableProperty] public ObservableCollection<ItemViewModel> itemList;
 
 
         private ItemViewModel _selectedItem;
@@ -108,20 +96,20 @@ namespace DMAssistant.ViewModel
         }
         private void InsertSorted(ItemViewModel vm)
         {
-            if (_itemList.Count == 0)
+            if (ItemList.Count == 0)
             {
-                _itemList.Add(vm);
+                ItemList.Add(vm);
                 return;
             }
 
             // Find the index where the item should go
             int index = 0;
-            while (index < _itemList.Count && string.Compare(_itemList[index].Name, vm.Name, StringComparison.OrdinalIgnoreCase) < 0)
+            while (index < ItemList.Count && string.Compare(ItemList[index].Name, vm.Name, StringComparison.OrdinalIgnoreCase) < 0)
             {
                 index++;
             }
 
-            _itemList.Insert(index, vm);
+            ItemList.Insert(index, vm);
         }
 
 

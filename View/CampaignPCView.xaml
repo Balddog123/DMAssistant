@@ -133,7 +133,7 @@
                                                             </Button.CommandParameter>
                                                             <Image Source="pack://application:,,,/Resources/icon-delete.png" />
                                                         </Button>
-                                                        <ContentControl Grid.Column="2" Visibility="{Binding ExpandedVisibility}" Content="{Binding DataContext.SelectedItemViewModel,RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" />
+                                                        <ContentControl Grid.Column="2" Visibility="{Binding ExpandedVisibility}" Content="{Binding DataContext.SelectedItemViewModel,RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" Tag="ItemViewControl"/>
                                                     </Grid>
                                                 </DataTemplate>
                                             </ListBox.ItemTemplate>
