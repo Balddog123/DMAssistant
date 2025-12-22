@@ -29,22 +29,24 @@ namespace DMAssistant.ViewModel
 
         public ICommand AddEncounterCommand { get; }
         public ICommand RemoveEncounterCommand { get; }
+        public RelayCommand<Encounter> DuplicateEncounter { get; }
 
         public EncountersPanelViewModel(Session session)
         {
-            AddEncounterCommand = new RelayCommand(AddEncounter);
+            AddEncounterCommand = new RelayCommand(() => AddEncounter());
             RemoveEncounterCommand = new RelayCommand<Encounter>(RemoveEncounter);
+            DuplicateEncounter = new RelayCommand<Encounter>(encounter => { AddEncounter(encounter); });
             this.session = session;
 
             Encounters = session.Encounters;
         }
 
-        private void AddEncounter()
+        private void AddEncounter(Encounter encounterToCopy = null)
         {
-            Encounter newEncounter = new Encounter();
+            Encounter newEncounter = encounterToCopy != null ? new Encounter(encounterToCopy) : new Encounter();
             var encounterVM = new EncounterViewModel(newEncounter);
 
-            Encounters.Add(newEncounter);
+            Encounters.Insert(Encounters.IndexOf(encounterToCopy) + 1, newEncounter);
             SelectedEncounter = newEncounter;
         }
 

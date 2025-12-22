@@ -50,6 +50,9 @@
                                    Height="16"
                                    Source="pack://application:,,,/Resources/icon-delete.png"/>
                         </Button>
+                        <Button Command="{Binding DataContext.DuplicateLocation, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" DockPanel.Dock="Left">
+                            <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-copy.png"/>
+                        </Button>
 
                         <TextBlock Text="{Binding Name}"  DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
                     </DockPanel>

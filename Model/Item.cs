@@ -92,15 +92,19 @@ namespace DMAssistant.Model
 
         [ObservableProperty] public Visibility expandedVisibility = Visibility.Collapsed;
 
-        public Item(string name, ItemRank rank, ItemType type, bool requiresAttunement, string function, string appearance, string origin)
+        public Item()
         {
-            Name = name;
-            Rank = rank;
-            Type = type;
-            Function = function;
-            Appearance = appearance;
-            Origin = origin;
-            RequiresAttunement = requiresAttunement;
+            
+        }
+        public Item(Item itemToCopy)
+        {
+            Name = "Copy of " + itemToCopy.Name;
+            Rank = itemToCopy.Rank;
+            Type = itemToCopy.Type;
+            RequiresAttunement = itemToCopy.RequiresAttunement;
+            Function = itemToCopy.Function;
+            Appearance = itemToCopy.Appearance;
+            Origin = itemToCopy.Origin;
         }
     }
 }

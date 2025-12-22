@@ -17,5 +17,17 @@ namespace DMAssistant.Model
         private ObservableCollection<CombatItem> _combatItems = new();
         public ObservableCollection<CombatItem> CombatItems { get => _combatItems; set { SetProperty(ref _combatItems, value); } }
         [ObservableProperty] public int currentRound = 0;
+
+        public Encounter()
+        {
+
+        }
+        public Encounter(Encounter encounterToCopy)
+        {
+            Name = "Copy of " + encounterToCopy.Name;
+            EncounterItems = encounterToCopy.EncounterItems;
+            CombatItems = encounterToCopy.CombatItems;
+            CurrentRound = encounterToCopy.CurrentRound;
+        }
     }
 }

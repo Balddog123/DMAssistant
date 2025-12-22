@@ -6,7 +6,9 @@ using DMAssistant.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -50,6 +52,7 @@ namespace DMAssistant.ViewModel
                 App.CampaignStore.DeleteLocation(locationToDelete, _session);
             }
         });
+        public RelayCommand<Location> DuplicateLocation { get; }
 
         public LocationPanelViewModel(ObservableCollection<string> locationIDs, Session session)
         {
@@ -64,8 +67,12 @@ namespace DMAssistant.ViewModel
 
             if (LocationList.Any()) SelectedLocation = LocationList[0];
 
-            AddLocationCommand = new RelayCommand(AddLocation);
+            AddLocationCommand = new RelayCommand(() => AddLocation());
             AddExistingLocationCommand = new RelayCommand(AddExistingLocation);
+            DuplicateLocation = new RelayCommand<Location>(location =>
+            {
+                AddLocation(location);
+            });
 
             App.CampaignStore.LocationDeleted += OnLocationDeleted;
             _session = session;
@@ -80,14 +87,19 @@ namespace DMAssistant.ViewModel
                 SelectedLocation = LocationList.FirstOrDefault();
         }
 
-        private void AddLocation()
+        private void AddLocation(Location locationToCopy = null)
         {
-            var location = new Location();
-            LocationList.Add(location);
+            
+            var location = locationToCopy != null ? new Location(locationToCopy) : new Location();
+            int index = App.CampaignStore.CurrentCampaign.Locations.IndexOf(locationToCopy) + 1;
+
+            Debug.WriteLine(locationToCopy);
+            LocationList.Insert(LocationList.IndexOf(locationToCopy) + 1, location);
             SelectedLocation = location;
-            // Item belongs to global campaign list
-            App.CampaignStore.CurrentCampaign.Locations.Add(location);
+
+            App.CampaignStore.CurrentCampaign.Locations.Insert(index, location);
             App.CampaignStore.LocationIndex[location.ID] = location;
+
             // Add ID to session
             _sessionLocationIDs.Add(location.ID);
         }

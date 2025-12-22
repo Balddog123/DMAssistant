@@ -31,6 +31,7 @@ namespace DMAssistant.ViewModel
         public IRelayCommand AddItemCommand { get; }
         public IRelayCommand AddExistingItemCommand { get; }
         public IRelayCommand<ItemViewModel> DeleteItemCommand { get; }
+        public RelayCommand<ItemViewModel> DuplicateItem { get; }
 
         public ItemPanelViewModel(ObservableCollection<string> ids, Session session)
         {
@@ -47,12 +48,12 @@ namespace DMAssistant.ViewModel
             // Convert item IDs → viewmodels
             ItemList = new ObservableCollection<ItemViewModel>(ids.Select(id => CreateItemViewModel(App.CampaignStore.ItemIndex[id])));
 
-            if (ItemList.Any())
-                SelectedItem = ItemList[0];
+            if (ItemList.Any()) SelectedItem = ItemList[0];
 
-            AddItemCommand = new RelayCommand(AddItem);
+            AddItemCommand = new RelayCommand(() => AddItem());
             AddExistingItemCommand = new RelayCommand(AddExistingItem);
             DeleteItemCommand = new RelayCommand<ItemViewModel>(DeleteItem);
+            DuplicateItem = new RelayCommand<ItemViewModel>(itemVM => { AddItem(itemVM.Item); });
 
             // Watch for per-item changes
             foreach (ItemViewModel vm in ItemList)
@@ -82,10 +83,12 @@ namespace DMAssistant.ViewModel
             };
         }
 
-        private void AddItem()
+        private void AddItem(Item itemToCopy = null)
         {
-            var item = new Item("New Item", Item.ItemRank.Common, Item.ItemType.Minor, false, "", "", "");
-            App.CampaignStore.CurrentCampaign.Items.Add(item);
+            var item = itemToCopy != null ? new Item(itemToCopy) : new Item();
+            int index = App.CampaignStore.CurrentCampaign.Items.IndexOf(itemToCopy) + 1;
+            
+            App.CampaignStore.CurrentCampaign.Items.Insert(index, item);
             App.CampaignStore.ItemIndex[item.ID] = item;
 
             if(_session != null) _session.ItemIDs.Add(item.ID);

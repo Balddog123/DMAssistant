@@ -35,5 +35,13 @@ namespace DMAssistant.Model
         {
 
         }
+
+        public Location(Location locationToCopy)
+        {
+            Name = "Copy of " + locationToCopy.Name;
+            Description = locationToCopy.Description;
+            ImageData = locationToCopy.ImageData;
+            Maps = locationToCopy.Maps;
+        }
     }
 }
