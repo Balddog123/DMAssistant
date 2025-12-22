@@ -36,7 +36,7 @@
                      IsEnabled="{Binding SelectedSession, Converter={StaticResource NullToBoolConverter}}"/>
 
             <!-- TabControl fills remaining space automatically -->
-            <TabControl>
+            <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
 
                 <TabItem Header="Scenes">
                     <TextBox Text="{Binding SceneText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" />

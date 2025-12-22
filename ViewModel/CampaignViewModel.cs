@@ -15,6 +15,17 @@ namespace DMAssistant.ViewModel
         private readonly ObservableCollection<string> _monsterIds = new();
         private readonly ObservableCollection<string> _locationIds = new();
         
+        private CampaignDetailsViewModel _campaignDetailsViewModel;
+        private NPCPanelViewModel _npcPanelViewModel;
+        private ItemPanelViewModel _itemPanelViewModel;
+        private MonsterPanelViewModel _monsterPanelViewModel;
+        private LocationPanelViewModel _locationPanelViewModel;
+        private SpellsPanelViewModel _spellPanelViewModel;
+        private CampaignNotesViewModel _campaignNotesViewModel;
+        private CampaignLoreViewModel _campaignLoreViewModel;
+        private CampaignPCViewModel _campaignPCViewModel;
+        private CampaignFrontsViewModel _campaignFrontsViewModel;
+        private WorldMapViewModel _worldMapViewModel;
         private object _currentModuleView;
         public object CurrentModuleView
         {
@@ -36,22 +47,58 @@ namespace DMAssistant.ViewModel
         public CampaignViewModel()
         {
             AccumulateIds();
-            ShowCampaignDetails = new RelayCommand(() => CurrentModuleView = new CampaignDetailsViewModel());
-            ShowNPCsCommand = new RelayCommand(() => CurrentModuleView = new NPCPanelViewModel(_npcIds, null));
-            ShowItemsCommand = new RelayCommand(() => CurrentModuleView = new ItemPanelViewModel(new ObservableCollection<string>(App.CampaignStore.CurrentCampaign.Items.Select(i => i.ID)), null));
-            ShowMonstersCommand = new RelayCommand(() => CurrentModuleView = new MonsterPanelViewModel(_monsterIds, null));
-            ShowLocationsCommand = new RelayCommand(() => CurrentModuleView = new LocationPanelViewModel(_locationIds, null));
-            ShowSpellsCommand = new RelayCommand(() => CurrentModuleView = new SpellsPanelViewModel());
+            ShowCampaignDetails = new RelayCommand(() =>
+        ShowModule(ref _campaignDetailsViewModel,
+            () => new CampaignDetailsViewModel()));
 
-            ShowNotesCommand = new RelayCommand(() => CurrentModuleView = new CampaignNotesViewModel());
-            
-            ShowLoreCommand = new RelayCommand(() => CurrentModuleView = new CampaignLoreViewModel());
-            ShowPCsCommand = new RelayCommand(() => CurrentModuleView = new CampaignPCViewModel());
-            ShowFrontsCommand = new RelayCommand(() => CurrentModuleView = new CampaignFrontsViewModel());
+            ShowNPCsCommand = new RelayCommand(() =>
+                ShowModule(ref _npcPanelViewModel,
+                    () => new NPCPanelViewModel(_npcIds, null)));
 
-            ShowWorldMapCommand = new RelayCommand(() => CurrentModuleView = new WorldMapViewModel());
-            // Default module
-            //CurrentModuleView = new NPCPanelViewModel(_npcIds);
+            ShowItemsCommand = new RelayCommand(() =>
+                ShowModule(ref _itemPanelViewModel,
+                    () => new ItemPanelViewModel(
+                        new ObservableCollection<string>(
+                            App.CampaignStore.CurrentCampaign.Items.Select(i => i.ID)),
+                        null)));
+
+            ShowMonstersCommand = new RelayCommand(() =>
+                ShowModule(ref _monsterPanelViewModel,
+                    () => new MonsterPanelViewModel(_monsterIds, null)));
+
+            ShowLocationsCommand = new RelayCommand(() =>
+                ShowModule(ref _locationPanelViewModel,
+                    () => new LocationPanelViewModel(_locationIds, null)));
+
+            ShowSpellsCommand = new RelayCommand(() =>
+                ShowModule(ref _spellPanelViewModel,
+                    () => new SpellsPanelViewModel()));
+
+            ShowNotesCommand = new RelayCommand(() =>
+                ShowModule(ref _campaignNotesViewModel,
+                    () => new CampaignNotesViewModel()));
+
+            ShowLoreCommand = new RelayCommand(() =>
+                ShowModule(ref _campaignLoreViewModel,
+                    () => new CampaignLoreViewModel()));
+
+            ShowPCsCommand = new RelayCommand(() =>
+                ShowModule(ref _campaignPCViewModel,
+                    () => new CampaignPCViewModel()));
+
+            ShowFrontsCommand = new RelayCommand(() =>
+                ShowModule(ref _campaignFrontsViewModel,
+                    () => new CampaignFrontsViewModel()));
+
+            ShowWorldMapCommand = new RelayCommand(() =>
+                ShowModule(ref _worldMapViewModel,
+                    () => new WorldMapViewModel()));
+        }
+
+        private void ShowModule<T>(ref T module, Func<T> factory) where T : class
+        {
+            module ??= factory();
+            CurrentModuleView = module;
         }
 
         public void ResetView()

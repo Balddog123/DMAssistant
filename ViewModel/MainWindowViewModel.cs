@@ -62,7 +62,7 @@ public class MainWindowViewModel : ObservableObject
             {
                 CampaignVM.AccumulateIds();
                 CurrentView = CampaignVM;
-                CampaignVM.ResetView();
+                //CampaignVM.ResetView();
             }            
         });
         ShowSessionsCommand = new RelayCommand(() =>

@@ -8,7 +8,7 @@ using DMAssistant.Model;
 
 namespace DMAssistant.ViewModel
 {
-    public class SessionViewModel : ObservableObject
+    public partial class SessionViewModel : ObservableObject
     {
         public ObservableCollection<Session> Sessions
             => App.CampaignStore.CurrentCampaign.Sessions;
@@ -24,10 +24,17 @@ namespace DMAssistant.ViewModel
                     // When a session is selected, load its NPCs
                     if (_selectedSession != null)
                     {
-                        NPCPanel = new NPCPanelViewModel(_selectedSession.NPCIDs, _selectedSession);
-                        ItemPanel = new ItemPanelViewModel(_selectedSession.ItemIDs, _selectedSession);
-                        EncountersPanel = new EncountersPanelViewModel(_selectedSession);
-                        LocationPanel = new LocationPanelViewModel(_selectedSession.LocationIDs, _selectedSession);
+                        if (_selectedSession.NPCPanelViewModel == null) _selectedSession.NPCPanelViewModel = new NPCPanelViewModel(_selectedSession.NPCIDs, _selectedSession);
+                        NPCPanel = _selectedSession.NPCPanelViewModel;
+
+                        if (_selectedSession.ItemPanelViewModel == null) _selectedSession.ItemPanelViewModel = new ItemPanelViewModel(_selectedSession.ItemIDs, _selectedSession);
+                        ItemPanel = _selectedSession.ItemPanelViewModel;
+
+                        if (_selectedSession.EncountersPanelViewModel == null) _selectedSession.EncountersPanelViewModel = new EncountersPanelViewModel(_selectedSession);
+                        EncountersPanel = _selectedSession.EncountersPanelViewModel;
+
+                        if (_selectedSession.LocationPanelViewModel == null) _selectedSession.LocationPanelViewModel = new LocationPanelViewModel(_selectedSession.LocationIDs, _selectedSession);
+                        LocationPanel = _selectedSession.LocationPanelViewModel;
                     }
                     else
                     {
@@ -42,6 +49,17 @@ namespace DMAssistant.ViewModel
                     OnPropertyChanged(nameof(Secrets));
                     OnPropertyChanged(nameof(NotesText));
                 }
+            }
+        }
+
+        private int selectedTabIndex;
+        public int SelectedTabIndex
+        {
+            get => selectedTabIndex;
+            set
+            {
+                SetProperty(ref selectedTabIndex, value);
+                Debug.WriteLine(selectedTabIndex);
             }
         }
 
