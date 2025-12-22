@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -78,8 +79,8 @@ namespace DMAssistant.Model
         public string Function { get; set; }
         public string Appearance { get; set; }
         public string Origin { get; set; }
-        public string DisplayName => $"{Name}{RankSuffix}";
-        public string RankSuffix => Rank switch
+        [JsonIgnore] public string DisplayName => $"{Name}{RankSuffix}";
+        [JsonIgnore] public string RankSuffix => Rank switch
         {
             ItemRank.Common => "",
             ItemRank.Uncommon => " (UC)",
@@ -90,7 +91,7 @@ namespace DMAssistant.Model
         };
 
 
-        [ObservableProperty] public Visibility expandedVisibility = Visibility.Collapsed;
+        [JsonIgnore, ObservableProperty] public Visibility expandedVisibility = Visibility.Collapsed;
 
         public Item()
         {

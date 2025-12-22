@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -250,6 +251,25 @@ namespace DMAssistant.Services
 
             CurrentCampaign.SetMonsters(newMonsters);
             MonsterIndex = CurrentCampaign.Monsters.ToDictionary(m => m.ID, m => m);
+        }
+        public void AddSRDItems()
+        {
+            ObservableCollection<Item> srdItems = new ObservableCollection<Item>(DataRepository.GetSRDItems());
+            Dictionary<string, Item> myItemsNames = ItemIndex.Values.ToDictionary(i => i.Name, i => i);
+
+            for (int i = 0; i < srdItems.Count;)
+            {
+                if (myItemsNames.TryGetValue(srdItems[i].Name, out Item matchedItem))
+                {
+                    srdItems.Remove(srdItems[i]);
+                }
+                else
+                {
+                    CurrentCampaign.Items.Add(srdItems[i]);
+                    ItemIndex[srdItems[i].ID] = srdItems[i];
+                    i++;
+                }
+            }
         }
     }
 

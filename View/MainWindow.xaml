@@ -24,6 +24,7 @@
             </MenuItem>
             <MenuItem Header="_Settings">
                 <MenuItem Header="_Reset Monsters" Command="{Binding ResetMonsters}"/>
+                <MenuItem Header="_Add SRD Items" Command="{Binding AddSRDItemsCommand}"/>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About (Placeholder)" />

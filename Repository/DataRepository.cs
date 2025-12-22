@@ -9,6 +9,7 @@ namespace DMAssistant.Repository
     {
         private static List<Monster>? _monsterCache;
         private static List<Spell>? _spellsCache;
+        private static List<Item>? _srdItemsCache;
 
         public static IReadOnlyList<Monster> GetAllMonsters()
         {
@@ -53,6 +54,20 @@ namespace DMAssistant.Repository
             _spellsCache = JsonSerializer.Deserialize<List<Spell>>(json, options) ?? new List<Spell>();
 
             return _spellsCache;
+        }
+
+        public static IReadOnlyList<Item> GetSRDItems()
+        {
+            if (_srdItemsCache != null) return _srdItemsCache;
+
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "srd_items.json");
+
+            if (!File.Exists(path)) throw new FileNotFoundException("SRD Items JSON not found:", path);
+
+            var json = File.ReadAllText(path);
+            _srdItemsCache = JsonSerializer.Deserialize<List<Item>>(json, CampaignSerializer.JsonOptions) ?? new List<Item>();
+
+            return _srdItemsCache;
         }
     }
 }

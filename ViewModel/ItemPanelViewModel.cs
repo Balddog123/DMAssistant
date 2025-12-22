@@ -87,7 +87,7 @@ namespace DMAssistant.ViewModel
         {
             var item = itemToCopy != null ? new Item(itemToCopy) : new Item();
             int index = App.CampaignStore.CurrentCampaign.Items.IndexOf(itemToCopy) + 1;
-            
+
             App.CampaignStore.CurrentCampaign.Items.Insert(index, item);
             App.CampaignStore.ItemIndex[item.ID] = item;
 

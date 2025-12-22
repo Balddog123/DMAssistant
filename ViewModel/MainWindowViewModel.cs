@@ -43,6 +43,7 @@ public class MainWindowViewModel : ObservableObject
     //
 
     public ICommand ResetMonsters { get; }
+    public ICommand AddSRDItemsCommand { get; }
 
     public string CampaignName
     {
@@ -99,6 +100,7 @@ public class MainWindowViewModel : ObservableObject
                 App.CampaignStore.ResetMonsters();
             }
         });
+        AddSRDItemsCommand = new RelayCommand(App.CampaignStore.AddSRDItems);
 
     }
 

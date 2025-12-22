@@ -9,7 +9,7 @@ using System.Windows;
 public static class CampaignSerializer
 {
     public static string CampaignsFolderPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Campaigns");
-    private static JsonSerializerOptions jsonOptions = new JsonSerializerOptions 
+    public static JsonSerializerOptions JsonOptions = new JsonSerializerOptions 
     { 
         WriteIndented = true, 
         NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals ,
@@ -23,9 +23,9 @@ public static class CampaignSerializer
 
     static CampaignSerializer()
     {
-        jsonOptions.Converters.Add(new SafeEnumConverter<Item.ItemType>());
-        jsonOptions.Converters.Add(new SafeEnumConverter<Item.ItemRank>());
-        jsonOptions.Converters.Add(new LocationJsonConverter());
+        JsonOptions.Converters.Add(new SafeEnumConverter<Item.ItemType>());
+        JsonOptions.Converters.Add(new SafeEnumConverter<Item.ItemRank>());
+        JsonOptions.Converters.Add(new LocationJsonConverter());
     }
 
     public static Campaign? LoadCampaign(string filePath)
@@ -49,7 +49,7 @@ public static class CampaignSerializer
                 return null;
             }
 
-            return JsonSerializer.Deserialize<Campaign>(json, jsonOptions);
+            return JsonSerializer.Deserialize<Campaign>(json, JsonOptions);
         }
         catch (Exception ex)
         {
@@ -70,7 +70,7 @@ public static class CampaignSerializer
         Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
 
         // Serialize and write
-        string json = JsonSerializer.Serialize(campaign, jsonOptions);
+        string json = JsonSerializer.Serialize(campaign, JsonOptions);
         File.WriteAllText(filePath, json);
     }
 }
