@@ -55,6 +55,7 @@ namespace DMAssistant.ViewModel
 
         public ICommand NextRoundCommand { get; }
         public ICommand DeleteCombatItemCommand { get; }
+        public ICommand CommitHPComand { get; }
         public CombatTrackerViewModel(Encounter encounter, ObservableCollection<CombatItem> combatItems)
         {
             Encounter = encounter;

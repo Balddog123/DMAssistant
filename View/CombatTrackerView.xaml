@@ -62,7 +62,7 @@
                     <GridViewColumn Header="HP" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding CurrentHP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Text="{Binding CurrentHPInput, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" AcceptsReturn="False"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
