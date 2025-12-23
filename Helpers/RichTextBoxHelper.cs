@@ -97,7 +97,6 @@ namespace DMAssistant.Helpers
             {
                 SetIsUpdating(rtb, false);
             }
-
             Debug.WriteLine("Changed");
         }
         private static void DetectTokenAtCaret(FlowDocument document)
