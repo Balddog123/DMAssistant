@@ -51,30 +51,15 @@
             
             <!-- Function -->
             <TextBlock Text="Function:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top"/>
-            <StackPanel  Grid.Row="4" Grid.Column="1" Margin="0,5" >
-                <ToolBarTray IsLocked="True">
-                    <ToolBar>
-                        <ToggleButton Command="EditingCommands.ToggleBold" Content="B" FontSize="8" BorderBrush="SaddleBrown"/>
-                        <ToggleButton Command="EditingCommands.ToggleItalic" Content="I" FontSize="8" BorderBrush="SaddleBrown"/>
-                        <ToggleButton Command="EditingCommands.ToggleUnderline" Content="U" FontSize="8" BorderBrush="SaddleBrown"/>
-                    </ToolBar>                    
-                </ToolBarTray>
-                <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Function, Mode=TwoWay}" AcceptsReturn="True" Height="Auto" MinHeight="80" VerticalScrollBarVisibility="Auto" UndoLimit="50" SelectionOpacity="-7"/>
-
-            </StackPanel>
-            
+            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Function, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="80" VerticalScrollBarVisibility="Auto" UndoLimit="50" SelectionOpacity="-7"/>
 
             <!-- Appearance -->
             <TextBlock Text="Appearance:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Item.Appearance, UpdateSourceTrigger=PropertyChanged}"
-         Grid.Row="5" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap"
-         VerticalScrollBarVisibility="Auto"/>
+            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Appearance, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" VerticalScrollBarVisibility="Auto"/>
 
             <!-- Origin -->
             <TextBlock Text="Origin:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding Item.Origin, UpdateSourceTrigger=PropertyChanged}"
-         Grid.Row="6" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap"
-         VerticalScrollBarVisibility="Auto"/>
+            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Origin, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" VerticalScrollBarVisibility="Auto"/>
 
         </Grid>
     </ScrollViewer>

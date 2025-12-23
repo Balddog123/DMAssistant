@@ -4,6 +4,7 @@ using DMAssistant.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace DMAssistant.ViewModel
@@ -31,8 +32,16 @@ namespace DMAssistant.ViewModel
 
             RandomizeNameCommand = new RelayCommand(() => NPC.Name = NPC.GetRandomName(NPC.Gender));
             RandomizeRaceCommand = new RelayCommand(() => NPC.Race = NPC.GetRandomRace());
-            RandomizeDescriptionCommand = new RelayCommand(() => NPC.Description = NPC.GetRandomDescription());
-            RandomizeGoalCommand = new RelayCommand(() => NPC.Goal = NPC.GetRandomGoal());
+            RandomizeDescriptionCommand = new RelayCommand(() =>
+            {
+                NPC.Description = new FlowDocument();
+                NPC.Description.Blocks.Add(new Paragraph(new Run(NPC.GetRandomDescription())));
+            });
+            RandomizeGoalCommand = new RelayCommand(() =>
+            {
+                NPC.Goal = new FlowDocument();
+                NPC.Goal.Blocks.Add(new Paragraph(new Run(NPC.GetRandomGoal())));
+            });
             RandomizeHomeCommand = new RelayCommand(() => NPC.Home = NPC.GetRandomLocation());
         }
     }

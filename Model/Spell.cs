@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DMAssistant.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace DMAssistant.Model
 {
@@ -20,7 +23,13 @@ namespace DMAssistant.Model
         [ObservableProperty] public CastingTime castingTime;
         public ObservableCollection<string> Classes { get; set; } = new ObservableCollection<string>();
         [ObservableProperty] public Components components;
-        [ObservableProperty] public string description;
+        private FlowDocument description = new FlowDocument();
+        [JsonConverter(typeof(FlowDocumentJsonConverter))]
+        public FlowDocument Description
+        {
+            get => description;
+            set => SetProperty(ref description, value);
+        }
         [ObservableProperty] public string duration;
         [ObservableProperty] public string level;
         [ObservableProperty] public string name;
@@ -40,19 +49,6 @@ namespace DMAssistant.Model
         [ObservableProperty] public SchoolOfMagic school;
 
         public Spell() { }
-        //public Spell(CastingTime castingTime, ObservableCollection<string> classes, Components components, string description, string duration, string level, string name, string range, bool ritual, SchoolOfMagic school)
-        //{
-        //    this.castingTime = castingTime;
-        //    Classes = classes;
-        //    this.components = components;
-        //    this.description = description;
-        //    this.duration = duration;
-        //    this.level = level;
-        //    this.name = name;
-        //    this.range = range;
-        //    this.ritual = ritual;
-        //    this.school = school;
-        //}
     }
 
     public partial class Components : ObservableObject

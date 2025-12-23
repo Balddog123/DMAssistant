@@ -79,8 +79,8 @@ namespace DMAssistant.Model
 
         public bool RequiresAttunement { get; set; }
         [JsonConverter(typeof(FlowDocumentJsonConverter))] public FlowDocument Function { get; set; } = new FlowDocument();
-        public string Appearance { get; set; }
-        public string Origin { get; set; }
+        [JsonConverter(typeof(FlowDocumentJsonConverter))] public FlowDocument Appearance { get; set; } = new FlowDocument();
+        [JsonConverter(typeof(FlowDocumentJsonConverter))] public FlowDocument Origin { get; set; } = new FlowDocument();
         [JsonIgnore] public string DisplayName => $"{Name}{RankSuffix}";
         [JsonIgnore] public string RankSuffix => Rank switch
         {

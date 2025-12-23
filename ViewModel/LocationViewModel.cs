@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 
 namespace DMAssistant.ViewModel
@@ -83,9 +84,9 @@ namespace DMAssistant.ViewModel
         }
 
         // Bindable Description
-        public string Description
+        public FlowDocument Description
         {
-            get => _location != null ? _location.Description : string.Empty;
+            get => _location != null ? _location.Description : new FlowDocument();
             set
             {
                 if (_location.Description != value)

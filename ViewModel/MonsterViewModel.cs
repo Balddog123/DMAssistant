@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using DMAssistant.Helpers;
 using DMAssistant.Model;
 using System.Diagnostics;
+using System.Windows.Documents;
 
 namespace DMAssistant.ViewModel
 {
@@ -203,36 +204,39 @@ namespace DMAssistant.ViewModel
 
 
         // Editable plain text versions of Traits, Actions, LegendaryActions
-        private string _traitsText;
-        public string TraitsText
+        public FlowDocument TraitsText
         {
-            get => _traitsText;
+            get => Monster.Traits;
             set
             {
-                if (SetProperty(ref _traitsText, value))
-                    Monster.Traits = value; // update the underlying Monster
+                if (Monster.Traits != value)
+                {
+                    Monster.Traits = value;
+                    OnPropertyChanged();
+                }
             }
         }
-
-        private string _actionsText;
-        public string ActionsText
+        public FlowDocument ActionsText
         {
-            get => _actionsText;
+            get => Monster.Actions;
             set
             {
-                if (SetProperty(ref _actionsText, value))
+                if (Monster.Actions != value){
                     Monster.Actions = value;
+                    OnPropertyChanged();
+                }
             }
         }
-
-        private string _legendaryText;
-        public string LegendaryText
+        public FlowDocument LegendaryText
         {
-            get => _legendaryText;
+            get => Monster.LegendaryActions;
             set
             {
-                if (SetProperty(ref _legendaryText, value))
+                if (Monster.LegendaryActions != value)
+                {
                     Monster.LegendaryActions = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -247,9 +251,7 @@ namespace DMAssistant.ViewModel
             Monster = monster;
 
             // Convert initial HTML to plain text
-            _traitsText = HtmlParser.HtmlToPlainText(monster.Traits);
-            _actionsText = HtmlParser.HtmlToPlainText(monster.Actions);
-            _legendaryText = HtmlParser.HtmlToPlainText(monster.LegendaryActions);
+            
         }
     }
 }

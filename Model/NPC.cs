@@ -1,13 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using ControlzEx.Standard;
 using DMAssistant;
+using DMAssistant.Helpers;
 using DMAssistant.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using static DMAssistant.Model.NameRow;
 
 public class NPC : ObservableObject
@@ -352,14 +355,16 @@ public class NPC : ObservableObject
         get => _race;
         set => SetProperty(ref _race, value);
     }
-    private string _description;
-    public string Description
+    private FlowDocument _description = new FlowDocument();
+    [JsonConverter(typeof(FlowDocumentJsonConverter))] 
+    public FlowDocument Description
     {
         get => _description;
         set => SetProperty(ref _description, value);
     }
-    private string _goal;
-    public string Goal
+    private FlowDocument _goal = new FlowDocument();
+    [JsonConverter(typeof(FlowDocumentJsonConverter))]
+    public FlowDocument Goal
     {
         get => _goal;
         set => SetProperty(ref _goal, value);
@@ -371,13 +376,6 @@ public class NPC : ObservableObject
         set => SetProperty(ref _home, value);
     }
     public NPC() { }
-    public NPC(string name, string race, string description, string goal)
-    {
-        Name = name;
-        Race = race;
-        Description = description;
-        Goal = goal;
-    }
     public NPC(NPC npcToCopy)
     {
         Name = "Copy of " + npcToCopy.Name;

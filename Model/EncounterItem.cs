@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DMAssistant.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace DMAssistant.Model
 {
@@ -16,7 +18,7 @@ namespace DMAssistant.Model
     {
         [ObservableProperty] public string name = "";
         [ObservableProperty] public int roundNumber = 0;
-        [ObservableProperty] public string description = string.Empty;
+        [ObservableProperty, JsonConverter(typeof(FlowDocumentJsonConverter))] public FlowDocument description = new FlowDocument();
         [ObservableProperty] public bool isAlly = false;
 
         [JsonIgnore] public string QuantityDisplay => this is MonsterGroup mg ? mg.Quantity.ToString() : "-";

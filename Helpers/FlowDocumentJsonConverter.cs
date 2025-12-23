@@ -19,14 +19,13 @@ namespace DMAssistant.Helpers
 
             string value = reader.GetString();
 
-            if (string.IsNullOrWhiteSpace(value))
-                return new FlowDocument();
+            if (string.IsNullOrWhiteSpace(value)) return new FlowDocument();
 
             // Case 1: Old version → plain text
             if (!value.TrimStart().StartsWith("<FlowDocument", StringComparison.Ordinal))
             {
-                var doc = new FlowDocument();
-                doc.Blocks.Add(new Paragraph(new Run(value)));
+                var doc = HtmlParser.HtmlToFlowDocument(value);
+                //doc.Blocks.Add(new Paragraph(new Run(value)));
                 return doc;
             }
 

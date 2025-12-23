@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DMAssistant.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace DMAssistant.Model
 {
@@ -18,8 +21,9 @@ namespace DMAssistant.Model
             set => SetProperty(ref _name, value);
         }
 
-        private string _description = "Description of New Location";
-        public string Description
+        private FlowDocument _description = new FlowDocument();
+        [JsonConverter(typeof(FlowDocumentJsonConverter))]
+        public FlowDocument Description
         {
             get => _description;
             set => SetProperty(ref _description, value);

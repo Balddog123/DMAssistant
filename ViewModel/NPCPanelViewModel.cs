@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace DMAssistant.ViewModel
 {
@@ -108,7 +109,7 @@ namespace DMAssistant.ViewModel
         {
             NPC newNpc;
             if (npcToCopy == null) { 
-                newNpc = new NPC("Aric", "", "Wanderer", "Find treasure");
+                newNpc = new NPC();
                 newNpc.Gender = NPC.GetRandomGender();
                 //get location
                 Location location = NPC.GetRandomLocation();
@@ -119,9 +120,11 @@ namespace DMAssistant.ViewModel
                 //generate name
                 newNpc.Name = NPC.GetRandomName(newNpc.Gender);
                 //create description
-                newNpc.Description = NPC.GetRandomDescription();
+                newNpc.Description = new FlowDocument();
+                newNpc.Description.Blocks.Add(new Paragraph(new Run(NPC.GetRandomDescription())));
                 //create goal
-                newNpc.Goal = NPC.GetRandomGoal();
+                newNpc.Goal = new FlowDocument();
+                newNpc.Goal.Blocks.Add(new Paragraph(new Run(NPC.GetRandomGoal())));
             }
             else newNpc = new NPC(npcToCopy);
             

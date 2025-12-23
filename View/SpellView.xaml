@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:behaviors="clr-namespace:DMAssistant.View.Behaviors"
+             xmlns:h="clr-namespace:DMAssistant.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
 
@@ -89,8 +90,7 @@
 
             <!-- DESCRIPTION -->
             <TextBlock Text="Description:" Grid.Row="9" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
-            <TextBox Text="{Binding Spell.Description, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Row="9" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="200" TextWrapping="Wrap"/>
+            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Spell.Description, Mode=TwoWay}" Grid.Row="9" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="200"/>
 
         </Grid>
     </ScrollViewer>

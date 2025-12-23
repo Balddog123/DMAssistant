@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:h="clr-namespace:DMAssistant.Helpers"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -53,16 +54,14 @@
             <Button Grid.Row="3" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeDescriptionCommand}">
                 <Image Source="/Resources/icon-refresh.png"/>
             </Button>
-            <TextBox Text="{Binding NPC.Description, UpdateSourceTrigger=PropertyChanged}" 
-Grid.Row="3" Grid.Column="2" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding NPC.Description, Mode=TwoWay}" Grid.Row="3" Grid.Column="2" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
 
             <!-- Goal -->
             <TextBlock Text="Goal:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
             <Button Grid.Row="4" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeGoalCommand}">
                 <Image Source="/Resources/icon-refresh.png"/>
             </Button>
-            <TextBox Text="{Binding NPC.Goal, UpdateSourceTrigger=PropertyChanged}" 
-Grid.Row="4" Grid.Column="2" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"  Height="Auto" TextWrapping="Wrap"/>
+            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding NPC.Goal, Mode=TwoWay}" Grid.Row="4" Grid.Column="2" Margin="0,5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"  Height="Auto"/>
 
             <!-- Home -->
             <TextBlock Text="Home:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>

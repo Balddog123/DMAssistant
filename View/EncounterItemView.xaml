@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:h="clr-namespace:DMAssistant.Helpers"
              mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="300">
 
@@ -25,7 +26,7 @@
 
         <!-- Description -->
         <TextBlock Text="Encounter Details:"/>
-        <TextBox Text="{Binding Description, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" Margin="5" />
+        <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Description, Mode=TwoWay}" AcceptsReturn="True" Margin="5" />
         <ToggleButton Content="Is Ally" IsChecked="{Binding IsAlly, Mode=TwoWay}" Width="Auto" HorizontalAlignment="Left" Margin="5"/>
         <Separator Height="30"/>
 

@@ -6,6 +6,7 @@ using DMAssistant.View;
 using DMAssistant.ViewModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace DMAssistant.ViewModel
@@ -102,7 +103,7 @@ namespace DMAssistant.ViewModel
                 }
             }
         }
-        public string Description
+        public FlowDocument Description
         {
             get => EncounterItem.Description;
             set

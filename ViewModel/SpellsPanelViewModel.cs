@@ -101,7 +101,7 @@ namespace DMAssistant.ViewModel
                 Level = "1",
                 Range = "",
                 Duration = "",
-                Description = "",
+                Description = new System.Windows.Documents.FlowDocument(),
                 Ritual = false,
                 Classes = new ObservableCollection<string>(),
                 Components = new Components()

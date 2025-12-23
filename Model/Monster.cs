@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DMAssistant.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace DMAssistant.Model
 {
@@ -64,7 +66,7 @@ namespace DMAssistant.Model
         [JsonPropertyName("Condition Immunities")] public string ConditionImmunities { get; set; } = "";
         public string Senses { get; set; } = "";
         public string Languages { get; set; } = "";
-        public string Traits { get; set; } = "";
+        [JsonConverter(typeof(FlowDocumentJsonConverter))] public FlowDocument Traits { get; set; } = new FlowDocument();
 
         [JsonPropertyName("Challenge")]
         private string _challenge = "0";
@@ -74,10 +76,9 @@ namespace DMAssistant.Model
             set => SetProperty(ref _challenge, value);
         }
 
-        public string Actions { get; set; } = "";
+        [JsonConverter(typeof(FlowDocumentJsonConverter))] public FlowDocument Actions { get; set; } = new FlowDocument();
 
-        [JsonPropertyName("Legendary Actions")]
-        public string LegendaryActions { get; set; } = "";
+        [JsonPropertyName("Legendary Actions"), JsonConverter(typeof(FlowDocumentJsonConverter))] public FlowDocument LegendaryActions { get; set; } = new FlowDocument();
 
         [JsonPropertyName("img_url")]
         public string ImageUrl { get; set; } = "";

@@ -1,5 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using HtmlAgilityPack;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Windows.Documents;
+using System.Xml;
 
 namespace DMAssistant.Helpers
 {
@@ -35,5 +38,73 @@ namespace DMAssistant.Helpers
 
             return text.Trim();
         }
+
+        public static FlowDocument HtmlToFlowDocument(string html)
+        {
+            var doc = new FlowDocument();
+
+            if (string.IsNullOrWhiteSpace(html))
+                return doc;
+
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(html);
+
+            foreach (var node in htmlDoc.DocumentNode.ChildNodes)
+            {
+                if (node.Name == "p")
+                {
+                    var paragraph = new Paragraph();
+                    AddInlines(paragraph.Inlines, node);
+                    doc.Blocks.Add(paragraph);
+                }
+            }
+
+            return doc;
+        }
+        private static void AddInlines(InlineCollection inlines, HtmlNode node)
+        {
+            foreach (var child in node.ChildNodes)
+            {
+                switch (child.Name)
+                {
+                    case "#text":
+                        inlines.Add(new Run(child.InnerText));
+                        break;
+
+                    case "b":
+                    case "strong":
+                        var bold = new Bold();
+                        AddInlines(bold.Inlines, child);
+                        inlines.Add(bold);
+                        break;
+
+                    case "i":
+                    case "em":
+                        var italic = new Italic();
+                        AddInlines(italic.Inlines, child);
+                        inlines.Add(italic);
+                        break;
+
+                    case "br":
+                        inlines.Add(new LineBreak());
+                        break;
+                    case "a":
+                        var link = new Hyperlink
+                        {
+                            NavigateUri = new Uri(child.GetAttributeValue("href", "#"))
+                        };
+                        AddInlines(link.Inlines, child);
+                        inlines.Add(link);
+                        break;
+
+
+                    default:
+                        AddInlines(inlines, child);
+                        break;
+                }
+            }
+        }
+
+
     }
 }

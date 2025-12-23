@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DMAssistant.View"
+             xmlns:h="clr-namespace:DMAssistant.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
     <StackPanel Margin="10">
@@ -87,12 +88,12 @@
 
         <Separator Margin="10" Width="500"/>
         <TextBlock Text="Traits:" FontWeight="Bold"/>
-        <TextBox Text="{Binding TraitsText, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding TraitsText, Mode=TwoWay}" AcceptsReturn="True"/>
 
         <TextBlock Text="Actions:" FontWeight="Bold"/>
-        <TextBox Text="{Binding ActionsText, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding ActionsText, Mode=TwoWay}" AcceptsReturn="True"/>
 
         <TextBlock Text="Legendary Actions:" FontWeight="Bold"/>
-        <TextBox Text="{Binding LegendaryText, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding LegendaryText, Mode=TwoWay}" AcceptsReturn="True"/>
     </StackPanel>
 </UserControl>

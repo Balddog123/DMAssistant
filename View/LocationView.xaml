@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DMAssistant.View"
-             xmlns:rc="clr-namespace:DMAssistant.Helpers"
+             xmlns:h="clr-namespace:DMAssistant.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
@@ -57,10 +57,9 @@
                     <TextBlock Text="Description" 
                            FontWeight="Bold" 
                            Margin="5"/>
-                    <TextBox
-                        Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <RichTextBox
+                        h:RichTextBoxHelper.BoundDocument="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         AcceptsReturn="True"
-                        TextWrapping="Wrap"
                         VerticalScrollBarVisibility="Auto"
                         MinHeight="600"/>
                 </StackPanel>
