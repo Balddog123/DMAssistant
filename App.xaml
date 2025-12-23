@@ -112,6 +112,10 @@
                 <v:CombatTrackerView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:PopupContextWindowViewModel}">
+                <v:PopupContextWindow />
+            </DataTemplate>
+
             <!-- Converters -->
             <rc:NullToBoolConverter x:Key="NullToBoolConverter"/>
             <rc:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter" />

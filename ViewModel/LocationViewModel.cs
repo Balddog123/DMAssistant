@@ -62,7 +62,7 @@ namespace DMAssistant.ViewModel
             }
         });
 
-        public LocationViewModel(Location location, LocationPanelViewModel panel)
+        public LocationViewModel(Location location, LocationPanelViewModel panel = null)
         {
             _location = location;
             _panel = panel;

@@ -62,6 +62,9 @@
     <Compile Update="View\NPCView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopupContextWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\SelectItemWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

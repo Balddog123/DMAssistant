@@ -1,0 +1,1415 @@
+[
+  {
+    "Name": "Adamantine Armor",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Any nonmagical armor made of adamantine is considered magical for overcoming resistance and immunity to nonmagical attacks.",
+    "Appearance": "Shining dark gray armor with a metallic gleam."
+  },
+  {
+    "Name": "Animated Shield",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can animate the shield to float around you, providing AC bonus without holding it.",
+    "Appearance": "A shield that moves independently when activated."
+  },
+  {
+    "Name": "Armor +1",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Adds +1 bonus to AC.",
+    "Appearance": "Standard armor with faint magical glow."
+  },
+  {
+    "Name": "Armor +2",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Adds +2 bonus to AC.",
+    "Appearance": "Standard armor with bright magical glow."
+  },
+  {
+    "Name": "Armor +3",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Adds +3 bonus to AC.",
+    "Appearance": "Standard armor with intense magical radiance."
+  },
+  {
+    "Name": "Armor of Invulnerability",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants resistance to nonmagical damage; can become immune for a short time.",
+    "Appearance": "Heavy, gleaming armor with arcane etchings."
+  },
+  {
+    "Name": "Armor of Resistance",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants resistance to a specific damage type.",
+    "Appearance": "Armor etched with runes indicating elemental protection."
+  },
+  {
+    "Name": "Armor of Vulnerability",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants vulnerability to a damage type of your choice.",
+    "Appearance": "Armor marked with strange sigils warning of weakness."
+  },
+  {
+    "Name": "Arrow-Catching Shield",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows you to catch and redirect arrows fired at you.",
+    "Appearance": "Large shield with intricate metallic grooves."
+  },
+  {
+    "Name": "Demon Armor",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants immense defensive and offensive bonuses at a cost of potential corruption.",
+    "Appearance": "Blackened armor with demonic motifs."
+  },
+  {
+    "Name": "Dragon Scale Mail",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Provides resistance to the damage type associated with the dragon scales used.",
+    "Appearance": "Scales of a dragon sewn into armor."
+  },
+  {
+    "Name": "Elven Chain",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Chainmail that allows unhindered movement and stealth.",
+    "Appearance": "Lightweight chain with subtle elven patterns."
+  },
+  {
+    "Name": "Glamoured Studded Leather",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can appear as any clothing or armor you choose while providing AC bonus.",
+    "Appearance": "Studded leather with arcane shimmer."
+  },
+  {
+    "Name": "Mithral Armor",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Light and flexible armor that doesn’t impose strength restrictions or disadvantage on Stealth.",
+    "Appearance": "Shiny silvery metal, extremely light."
+  },
+  {
+    "Name": "Plate Armor of Etherealness",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows wearer to step into the Ethereal Plane at will.",
+    "Appearance": "Heavy plate with ghostly aura."
+  },
+  {
+    "Name": "Dwarven Plate",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Strong and magically reinforced plate armor favored by dwarves.",
+    "Appearance": "Thick, rune-engraved plate."
+  },
+  {
+    "Name": "Shield +1",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Adds +1 to AC.",
+    "Appearance": "Standard shield with faint magical glow."
+  },
+  {
+    "Name": "Shield +2",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Adds +2 to AC.",
+    "Appearance": "Standard shield with bright magical glow."
+  },
+  {
+    "Name": "Shield +3",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Adds +3 to AC.",
+    "Appearance": "Standard shield with intense magical radiance."
+  },
+  {
+    "Name": "Shield of Missile Attraction",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Attracts missiles to the shield, reducing damage to wearer but potentially harming the shield bearer.",
+    "Appearance": "Large shield engraved with mystical runes."
+  },
+  {
+    "Name": "Dragon Slayer",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "A sword especially effective against dragons, dealing extra damage.",
+    "Appearance": "A finely crafted longsword with draconic engravings."
+  },
+  {
+    "Name": "Ammunition +1",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Arrows or bolts that provide a +1 bonus to attack and damage rolls.",
+    "Appearance": "Shimmering arrows with faint magical runes."
+  },
+  {
+    "Name": "Ammunition +2",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Arrows or bolts that provide a +2 bonus to attack and damage rolls.",
+    "Appearance": "Glowing arrows with strong magical runes."
+  },
+  {
+    "Name": "Ammunition +3",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Arrows or bolts that provide a +3 bonus to attack and damage rolls.",
+    "Appearance": "Intensely glowing arrows with powerful runes."
+  },
+  {
+    "Name": "Arrow of Slaying",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Designed to slay a specific type of creature when it hits.",
+    "Appearance": "Arrow with a dark, ominous tip."
+  },
+  {
+    "Name": "Berserker Axe",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants bonus to attack and damage but can cause frenzy.",
+    "Appearance": "A battle axe with runic carvings and bloodstains."
+  },
+  {
+    "Name": "Dagger of Venom",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can be coated with poison to deal extra damage over time.",
+    "Appearance": "A slim dagger with a greenish blade."
+  },
+  {
+    "Name": "Dancing Sword",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can animate and attack on its own for a limited time.",
+    "Appearance": "A longsword that floats when activated."
+  },
+  {
+    "Name": "Defender",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wielder to increase AC or attack bonus at will.",
+    "Appearance": "Longsword with intricate hilt designs."
+  },
+  {
+    "Name": "Dwarven Thrower",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "A warhammer that returns to the thrower and deals extra damage to giants.",
+    "Appearance": "A heavy, dwarven-crafted warhammer."
+  },
+  {
+    "Name": "Flame Tongue",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Ignites to deal extra fire damage on hit.",
+    "Appearance": "Longsword with a fiery blade when activated."
+  },
+  {
+    "Name": "Frost Brand",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Deals extra cold damage and can extinguish flames.",
+    "Appearance": "A blade with a chilling blue aura."
+  },
+  {
+    "Name": "Giant Slayer",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Deals extra damage to giants.",
+    "Appearance": "A weapon engraved with giant-slaying runes."
+  },
+  {
+    "Name": "Hammer of Thunderbolts",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Massive hammer that deals extra damage to giants and can stun foes.",
+    "Appearance": "Large warhammer with thunder motifs."
+  },
+  {
+    "Name": "Holy Avenger",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Paladin weapon dealing radiant damage, grants bonuses against fiends and undead.",
+    "Appearance": "A radiant longsword glowing with holy light."
+  },
+  {
+    "Name": "Javelin of Lightning",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can be thrown to transform into a bolt of lightning.",
+    "Appearance": "Javelin with glowing electric runes."
+  },
+  {
+    "Name": "Luck Blade",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants bonuses to attack rolls and saving throws, may have wishes.",
+    "Appearance": "A small, elegant blade with faint magical aura."
+  },
+  {
+    "Name": "Mace of Disruption",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Deals extra damage to undead and fiends, can frighten them.",
+    "Appearance": "A mace glowing with radiant energy."
+  },
+  {
+    "Name": "Mace of Smiting",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Deals extra damage to constructs and giants.",
+    "Appearance": "Heavy mace with runes etched into the head."
+  },
+  {
+    "Name": "Amulet of Health",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Sets the wearer's Constitution score to 19 while worn.",
+    "Appearance": "A finely wrought amulet with a prominent gem."
+  },
+  {
+    "Name": "Amulet of Proof against Detection and Location",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Prevents detection of the wearer by divination magic.",
+    "Appearance": "A silver amulet with intricate protective runes."
+  },
+  {
+    "Name": "Amulet of the Planes",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wearer to plane shift to another location.",
+    "Appearance": "A glowing amulet with shifting arcane symbols."
+  },
+  {
+    "Name": "Apparatus of the Crab",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Mechanical device that can move and operate like a crab.",
+    "Appearance": "A bronze contraption with mechanical limbs."
+  },
+  {
+    "Name": "Bag of Beans",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Minor",
+    "RequiresAttunement": false,
+    "Function": "Contains magical beans that produce random magical effects when planted.",
+    "Appearance": "A small cloth bag filled with multicolored beans."
+  },
+  {
+    "Name": "Bag of Devouring",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "An extradimensional bag that devours items and can attack creatures.",
+    "Appearance": "Black, gaping bag with jagged teeth around its mouth."
+  },
+  {
+    "Name": "Bag of Holding",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Contains an extradimensional space for storage, can hold far more than its size suggests.",
+    "Appearance": "A simple bag with arcane markings."
+  },
+  {
+    "Name": "Bag of Tricks",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Produces small animals to aid the user.",
+    "Appearance": "A small fur bag with faint magical aura."
+  },
+  {
+    "Name": "Bead of Force",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Minor",
+    "RequiresAttunement": false,
+    "Function": "Explodes in a sphere of force when thrown.",
+    "Appearance": "A small black bead with latent energy."
+  },
+  {
+    "Name": "Belt of Dwarvenkind",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants the wearer bonuses to Constitution and advantage on certain checks.",
+    "Appearance": "A wide belt with dwarven engravings."
+  },
+  {
+    "Name": "Belt of Giant Strength",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Sets the wearer's Strength score to a very high value.",
+    "Appearance": "A thick belt with mystical runes."
+  },
+  {
+    "Name": "Boots of Elvenkind",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Wearer moves silently, granting advantage on Stealth checks.",
+    "Appearance": "Light, supple boots with leaf motifs."
+  },
+  {
+    "Name": "Boots of Levitation",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wearer to levitate at will.",
+    "Appearance": "Boots with faint hovering glow."
+  },
+  {
+    "Name": "Boots of Speed",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Double movement speed and grants other combat advantages for limited duration.",
+    "Appearance": "Shiny boots with magical streaks."
+  },
+  {
+    "Name": "Boots of Striding and Springing",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Increases walking speed, jump distance, and height.",
+    "Appearance": "Well-crafted boots with flexible soles."
+  },
+  {
+    "Name": "Boots of the Winterlands",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants resistance to cold and allows effortless travel on snow and ice.",
+    "Appearance": "Fur-lined boots with icy designs."
+  },
+  {
+    "Name": "Bowl of Commanding Water Elementals",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the user to summon and command water elementals.",
+    "Appearance": "A large, ornate bowl with watery engravings."
+  },
+  {
+    "Name": "Bracers of Archery",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Provides bonus to damage rolls with ranged weapons.",
+    "Appearance": "Leather bracers with carved symbols of bows and arrows."
+  },
+  {
+    "Name": "Bracers of Defense",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants AC bonus when not wearing armor or shield.",
+    "Appearance": "Polished metal bracers with arcane etchings."
+  },
+  {
+    "Name": "Efficient Quiver",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Holds more ammunition than its size and automatically produces items placed inside.",
+    "Appearance": "A finely crafted quiver with arcane markings."
+  },
+  {
+    "Name": "Efreeti Bottle",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Contains an efreeti that can be summoned once per day.",
+    "Appearance": "A brass bottle etched with fiery symbols."
+  },
+  {
+    "Name": "Elemental Gem",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Can summon an elemental of the gem's type when crushed.",
+    "Appearance": "A gemstone glowing faintly with elemental energy."
+  },
+  {
+    "Name": "Eversmoking Bottle",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Produces a thick cloud of smoke when opened.",
+    "Appearance": "A dark bottle with faint swirling mist inside."
+  },
+  {
+    "Name": "Eyes of Charming",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wearer to cast Charm Person at will.",
+    "Appearance": "Spectacles with lenses that glimmer faintly."
+  },
+  {
+    "Name": "Eyes of Minute Seeing",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Magnify the wearer's vision, granting microscopic detail.",
+    "Appearance": "Small eyeglasses with lenses that shimmer."
+  },
+  {
+    "Name": "Eyes of the Eagle",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants advantage on Perception checks relying on sight.",
+    "Appearance": "Glasses with thin silver frames and crystal lenses."
+  },
+  {
+    "Name": "Feather Token",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Minor",
+    "RequiresAttunement": false,
+    "Function": "Single-use magical item producing effects such as tree, boat, or anchor.",
+    "Appearance": "Small carved wooden token shaped like a feather."
+  },
+  {
+    "Name": "Figurine of Wondrous Power",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Transforms into a magical creature under the user's command.",
+    "Appearance": "A small, detailed statue of an animal or creature."
+  },
+  {
+    "Name": "Folding Boat",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Can fold into a small box and unfold into a full boat.",
+    "Appearance": "Compact box that magically expands into a boat."
+  },
+  {
+    "Name": "Gauntlets of Ogre Power",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Sets the wearer's Strength score to 19.",
+    "Appearance": "Large iron gauntlets engraved with ogre motifs."
+  },
+  {
+    "Name": "Gem of Brightness",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Emits dazzling light to blind foes or illuminate an area.",
+    "Appearance": "A crystal gemstone that glows when activated."
+  },
+  {
+    "Name": "Gem of Seeing",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the user to see invisible creatures or objects.",
+    "Appearance": "A crystal orb that glimmers mysteriously."
+  },
+  {
+    "Name": "Gloves of Missile Snaring",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows wearer to reduce damage from ranged weapon attacks.",
+    "Appearance": "Leather gloves with metallic thread."
+  },
+  {
+    "Name": "Gloves of Swimming and Climbing",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Grants swimming speed and climbing ability.",
+    "Appearance": "Leather gloves with grip enhancements."
+  },
+  {
+    "Name": "Goggles of Night",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Grants darkvision up to 60 feet.",
+    "Appearance": "Goggles with dark tinted lenses."
+  },
+  {
+    "Name": "Handy Haversack",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Contains extra-dimensional space for easy storage of items.",
+    "Appearance": "Small backpack with multiple compartments magically connected."
+  },
+  {
+    "Name": "Hat of Disguise",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Allows wearer to cast Disguise Self at will.",
+    "Appearance": "A stylish hat that changes appearance magically."
+  },
+  {
+    "Name": "Headband of Intellect",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Sets the wearer's Intelligence score to 19.",
+    "Appearance": "A jeweled headband with intricate engravings."
+  },
+  {
+    "Name": "Helm of Brilliance",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants fire-based magical attacks and defensive abilities.",
+    "Appearance": "A golden helm studded with gemstones."
+  },
+  {
+    "Name": "Lantern of Revealing",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Reveals invisible creatures and objects within its light.",
+    "Appearance": "A brass lantern with a radiant glow."
+  },
+  {
+    "Name": "Mantle of Spell Resistance",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants advantage on saving throws against spells.",
+    "Appearance": "A cloak with shimmering protective runes."
+  },
+  {
+    "Name": "Manual of Bodily Health",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Reading the book increases the reader's Constitution score.",
+    "Appearance": "A leather-bound tome with anatomical illustrations."
+  },
+  {
+    "Name": "Manual of Gainful Exercise",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Reading the book increases the reader's Strength score.",
+    "Appearance": "A sturdy tome depicting physical training techniques."
+  },
+  {
+    "Name": "Manual of Golems",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Instructions to create powerful golems.",
+    "Appearance": "A heavy tome with arcane diagrams of constructs."
+  },
+  {
+    "Name": "Manual of Quickness of Action",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Reading the book increases the reader's Dexterity score.",
+    "Appearance": "A leather-bound book showing exercises for agility."
+  },
+  {
+    "Name": "Marvelous Pigments",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Special pigments that create magical effects when painted.",
+    "Appearance": "Small containers of glowing, colorful powders."
+  },
+  {
+    "Name": "Medallion of Thoughts",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wearer to read thoughts.",
+    "Appearance": "A medallion etched with intricate psychic runes."
+  },
+  {
+    "Name": "Mirror of Life Trapping",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Traps creatures inside mirror cells when activated.",
+    "Appearance": "A large, polished mirror with faint magical glow."
+  },
+  {
+    "Name": "Necklace of Adaptation",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Allows wearer to breathe normally in any environment and grants advantage on saving throws against harmful gases.",
+    "Appearance": "A simple chain with a small, glowing pendant."
+  },
+  {
+    "Name": "Necklace of Fireballs",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Holds beads that can be thrown to cast Fireball spells.",
+    "Appearance": "A necklace with several red-orange beads."
+  },
+  {
+    "Name": "Necklace of Prayer Beads",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants various spellcasting effects depending on bead used.",
+    "Appearance": "A string of beads with different colors and magical aura."
+  },
+  {
+    "Name": "Pearl of Power",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Regain one expended spell slot of up to 3rd level.",
+    "Appearance": "A luminous pearl that pulses faintly."
+  },
+  {
+    "Name": "Periapt of Health",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Wearer is immune to disease.",
+    "Appearance": "A silver pendant engraved with protective symbols."
+  },
+  {
+    "Name": "Periapt of Proof against Poison",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants immunity to poison and poison damage.",
+    "Appearance": "A small amulet with a green gem."
+  },
+  {
+    "Name": "Periapt of Wound Closure",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Stabilizes wearer automatically when dying.",
+    "Appearance": "A round amulet with intricate engravings."
+  },
+  {
+    "Name": "Pipes of Haunting",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Plays a tune that can frighten creatures nearby.",
+    "Appearance": "A set of wooden pipes with runes carved on them."
+  },
+  {
+    "Name": "Pipes of the Sewers",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Plays a tune to summon and control rats.",
+    "Appearance": "A set of pipes with small rat motifs."
+  },
+  {
+    "Name": "Portable Hole",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Creates an extradimensional hole for storage.",
+    "Appearance": "A black cloth disc with mystical symbols."
+  },
+  {
+    "Name": "Ring of Animal Influence",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants the ability to influence and command animals.",
+    "Appearance": "A gold ring with engraved animal motifs."
+  },
+  {
+    "Name": "Ring of Djinni Summoning",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wearer to summon a Djinni once per day.",
+    "Appearance": "A silver ring with swirling blue gemstone."
+  },
+  {
+    "Name": "Ring of Elemental Command",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants control over a chosen type of elemental.",
+    "Appearance": "Ring with elemental-themed gemstone and engravings."
+  },
+  {
+    "Name": "Ring of Evasion",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows wearer to dodge area effects and take no damage on successful Dexterity saves.",
+    "Appearance": "A sleek silver ring with small reflective facets."
+  },
+  {
+    "Name": "Ring of Feather Falling",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Wearer falls slowly, reducing falling damage.",
+    "Appearance": "A thin ring engraved with feather symbols."
+  },
+  {
+    "Name": "Ring of Free Action",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants immunity to movement-restricting effects.",
+    "Appearance": "A smooth ring with a flowing design."
+  },
+  {
+    "Name": "Ring of Invisibility",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants invisibility to the wearer at will.",
+    "Appearance": "A platinum ring with faint shimmer."
+  },
+  {
+    "Name": "Ring of Jumping",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Wearer’s jump distance and height are greatly increased.",
+    "Appearance": "A gold ring with a spring motif."
+  },
+  {
+    "Name": "Ring of Mind Shielding",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Wearer’s thoughts are hidden; immune to mind-reading.",
+    "Appearance": "A silver ring with a small dark gem."
+  },
+  {
+    "Name": "Ring of Protection",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants bonus to AC and saving throws.",
+    "Appearance": "A simple platinum ring with a subtle glow."
+  },
+  {
+    "Name": "Ring of Regeneration",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Wearer regenerates hit points over time.",
+    "Appearance": "A silver ring with a faint red glow."
+  },
+  {
+    "Name": "Ring of Resistance",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants resistance to one type of damage.",
+    "Appearance": "A band with an embedded colored gem indicating the damage type."
+  },
+  {
+    "Name": "Ring of Shooting Stars",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can cast fireball-like effects and produce luminous projectiles.",
+    "Appearance": "A ring with tiny star-shaped engravings."
+  },
+  {
+    "Name": "Ring of Spell Storing",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can store up to 5 levels of spells to cast later.",
+    "Appearance": "A silver ring with arcane inscriptions."
+  },
+  {
+    "Name": "Ring of Spell Turning",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants advantage against spell attacks and can reflect spells.",
+    "Appearance": "A thick ring with reflective surface."
+  },
+  {
+    "Name": "Ring of Swimming",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Wearer can swim at a fast speed and breathe underwater.",
+    "Appearance": "A ring engraved with wave motifs."
+  },
+  {
+    "Name": "Ring of Telekinesis",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wearer to move objects with telekinesis.",
+    "Appearance": "A ring with a floating crystal in its center."
+  },
+  {
+    "Name": "Ring of the Ram",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can unleash a forceful ram attack at a target.",
+    "Appearance": "A thick ring with a ram’s head engraved."
+  },
+  {
+    "Name": "Ring of Three Wishes",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants the wearer three wishes.",
+    "Appearance": "A golden ring with an intricate gem."
+  },
+  {
+    "Name": "Ring of Warmth",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Keeps wearer warm in extreme cold.",
+    "Appearance": "A simple gold band with a subtle red glow."
+  },
+  {
+    "Name": "Ring of Water Walking",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": false,
+    "Function": "Allows wearer to walk on the surface of water.",
+    "Appearance": "A silver ring with wave-like engravings."
+  },
+  {
+    "Name": "Ring of X-ray Vision",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Wearer can see through solid objects.",
+    "Appearance": "A ring with a clear crystal that seems to look through matter."
+  },
+  {
+    "Name": "Immovable Rod",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can be fixed in space and remain stationary even against strong forces.",
+    "Appearance": "A steel rod with a button on its side."
+  },
+  {
+    "Name": "Rod of Absorption",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Absorbs incoming spells and stores their energy for the wielder to cast.",
+    "Appearance": "A dark rod with a crystal tip that glows when absorbing magic."
+  },
+  {
+    "Name": "Rod of Alertness",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants bonuses to initiative, perception, and defense.",
+    "Appearance": "A golden rod with a small gem at the top."
+  },
+  {
+    "Name": "Rod of Lordly Might",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Versatile rod with multiple magical weapon functions and utility effects.",
+    "Appearance": "A metallic rod with several moving sections and runes."
+  },
+  {
+    "Name": "Rod of Rulership",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wielder to command creatures magically.",
+    "Appearance": "A rod with an intricate crown motif at the tip."
+  },
+  {
+    "Name": "Rod of Security",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Creates a safe extradimensional space for the wielder and companions.",
+    "Appearance": "A silver rod etched with protective runes."
+  },
+  {
+    "Name": "Staff of Charming",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants the ability to cast charm-related spells.",
+    "Appearance": "A wooden staff with a polished gem at the top."
+  },
+  {
+    "Name": "Staff of Fire",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wielder to cast fire spells and produce flames.",
+    "Appearance": "A red staff with flame engravings."
+  },
+  {
+    "Name": "Staff of Frost",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wielder to cast cold-based spells and create ice effects.",
+    "Appearance": "A light blue staff with frost patterns."
+  },
+  {
+    "Name": "Staff of Healing",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wielder to cast healing spells.",
+    "Appearance": "A polished wooden staff with green gem at the top."
+  },
+  {
+    "Name": "Staff of Power",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants multiple powerful spellcasting abilities and boosts defense.",
+    "Appearance": "A black staff with a multifaceted crystal on top."
+  },
+  {
+    "Name": "Staff of Striking",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Enhances attack and damage rolls and can deal extra force damage.",
+    "Appearance": "A sturdy staff with metal inlays and arcane runes."
+  },
+  {
+    "Name": "Staff of Swarming Insects",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can summon swarms of insects to attack enemies.",
+    "Appearance": "A wooden staff wrapped with carved insect patterns."
+  },
+  {
+    "Name": "Staff of the Magi",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants immense magical power and numerous spellcasting options.",
+    "Appearance": "A black staff with golden inlays and a crystal orb at the top."
+  },
+  {
+    "Name": "Staff of the Python",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Transforms into a giant constrictor snake and can control it.",
+    "Appearance": "A green-banded staff resembling a coiled serpent."
+  },
+  {
+    "Name": "Staff of the Woodlands",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants spellcasting and control over plants and woodland creatures.",
+    "Appearance": "A wooden staff with vines and leaf motifs."
+  },
+  {
+    "Name": "Staff of Thunder and Lightning",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can cast thunder and lightning spells.",
+    "Appearance": "A dark staff with storm-like engravings and a crystal at the top."
+  },
+  {
+    "Name": "Staff of Withering",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Deals necrotic damage and weakens enemies.",
+    "Appearance": "A dark staff with twisted vine patterns and black crystal."
+  },
+  {
+    "Name": "Wand of Binding",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants the ability to bind creatures magically.",
+    "Appearance": "A wooden wand with carved runes resembling chains."
+  },
+  {
+    "Name": "Wand of Enemy Detection",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows the wielder to detect hostile creatures nearby.",
+    "Appearance": "A slender wand with an eye-shaped tip."
+  },
+  {
+    "Name": "Wand of Fear",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Casts fear-inducing effects on targets.",
+    "Appearance": "A dark wand with jagged carvings."
+  },
+  {
+    "Name": "Wand of Fireballs",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can cast Fireball spells multiple times per day.",
+    "Appearance": "A red-tinged wand with flame motifs."
+  },
+  {
+    "Name": "Wand of Lightning Bolts",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Casts Lightning Bolt spells.",
+    "Appearance": "A slender wand with silver lightning engravings."
+  },
+  {
+    "Name": "Wand of Magic Detection",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Allows detection of magic within an area.",
+    "Appearance": "A simple wand with a crystal tip."
+  },
+  {
+    "Name": "Wand of Magic Missiles",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Casts Magic Missile spell multiple times per day.",
+    "Appearance": "A small wand with a glowing tip."
+  },
+  {
+    "Name": "Wand of Paralysis",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Can paralyze creatures with magical strikes.",
+    "Appearance": "A dark wand with intricate runes."
+  },
+  {
+    "Name": "Wand of Polymorph",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Casts the Polymorph spell.",
+    "Appearance": "A smooth wand with a shape-shifting design."
+  },
+  {
+    "Name": "Wand of Secrets",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Reveals hidden doors or compartments nearby.",
+    "Appearance": "A dark wooden wand with a hidden compartment."
+  },
+  {
+    "Name": "Wand of the War Mage +1",
+    "Cost": "",
+    "Rank": "Uncommon",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Adds +1 to spell attack rolls and ignores some cover.",
+    "Appearance": "A sleek wand with magical engravings."
+  },
+  {
+    "Name": "Wand of the War Mage +2",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Adds +2 to spell attack rolls and ignores some cover.",
+    "Appearance": "A sleek wand with magical engravings."
+  },
+  {
+    "Name": "Wand of the War Mage +3",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Adds +3 to spell attack rolls and ignores some cover.",
+    "Appearance": "A sleek wand with magical engravings."
+  },
+  {
+    "Name": "Wand of Web",
+    "Cost": "",
+    "Rank": "Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Casts Web spells to ensnare creatures.",
+    "Appearance": "A dark wand with web-like carvings."
+  },
+  {
+    "Name": "Wand of Wonder",
+    "Cost": "",
+    "Rank": "Very Rare",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Produces a random magical effect when used.",
+    "Appearance": "A colorful wand with unpredictable patterns."
+  },
+  {
+    "Name": "Orb of Dragonkind",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "Grants control over dragons and powerful magical abilities.",
+    "Appearance": "A crystalline orb with dragon motifs inside."
+  },
+  {
+    "Name": "Axe of the Dwarvish Lords",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "A powerful battleaxe that grants bonuses and special abilities to dwarves.",
+    "Appearance": "A finely crafted dwarven axe with ornate engravings."
+  },
+  {
+    "Name": "Book of Exalted Deeds",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "A holy tome that grants powerful divine benefits and guidance to good-aligned characters.",
+    "Appearance": "A large, gleaming tome with radiant symbols."
+  },
+  {
+    "Name": "Book of Vile Darkness",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "A dark tome that grants powerful abilities to evil-aligned characters, but carries great risk.",
+    "Appearance": "A black, foreboding tome with twisted engravings."
+  },
+  {
+    "Name": "Wand of Orcus",
+    "Cost": "",
+    "Rank": "Legendary",
+    "Type": "Major",
+    "RequiresAttunement": true,
+    "Function": "A mighty wand that allows the wielder to command undead and deliver devastating necrotic attacks.",
+    "Appearance": "A skull-tipped black wand emanating a dark aura."
+  }
+]

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DMAssistant.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace DMAssistant.Model
 {
@@ -76,7 +78,7 @@ namespace DMAssistant.Model
         }
 
         public bool RequiresAttunement { get; set; }
-        public string Function { get; set; }
+        [JsonConverter(typeof(FlowDocumentJsonConverter))] public FlowDocument Function { get; set; } = new FlowDocument();
         public string Appearance { get; set; }
         public string Origin { get; set; }
         [JsonIgnore] public string DisplayName => $"{Name}{RankSuffix}";
