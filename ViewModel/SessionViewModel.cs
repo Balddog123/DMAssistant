@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using DMAssistant.Model;
+using System.Windows.Documents;
 
 namespace DMAssistant.ViewModel
 {
@@ -45,9 +46,9 @@ namespace DMAssistant.ViewModel
                     }
 
                     // Notify UI that scene/secret/notes values changed
-                    OnPropertyChanged(nameof(SceneText));
+                    OnPropertyChanged(nameof(Scenes));
                     OnPropertyChanged(nameof(Secrets));
-                    OnPropertyChanged(nameof(NotesText));
+                    OnPropertyChanged(nameof(Notes));
                 }
             }
         }
@@ -88,9 +89,9 @@ namespace DMAssistant.ViewModel
             get => _locationPanel;
             set => SetProperty(ref _locationPanel, value);
         }
-        public string SceneText
+        public FlowDocument Scenes
         {
-            get => _selectedSession?.Scenes ?? "";
+            get => _selectedSession?.Scenes ?? new FlowDocument();
             set
             {
                 if (_selectedSession != null && _selectedSession.Scenes != value)
@@ -132,9 +133,9 @@ namespace DMAssistant.ViewModel
             OnPropertyChanged(nameof(Secrets));
         });
 
-        public string NotesText
+        public FlowDocument Notes
         {
-            get => _selectedSession?.Notes ?? "";
+            get => _selectedSession?.Notes ?? new FlowDocument();
             set
             {
                 if (_selectedSession != null && _selectedSession.Notes != value)
@@ -157,8 +158,6 @@ namespace DMAssistant.ViewModel
 
                 // Automatically select it
                 SelectedSession = newSession;
-
-                Debug.WriteLine("New session added!");
             });
         }
     }

@@ -416,7 +416,6 @@ namespace DMAssistant.ViewModel
             };
             if (!Directory.Exists(initialPath)) 
             {
-                Debug.WriteLine("Path doesn't exist, sorry bro...");
                 return; 
             }
 

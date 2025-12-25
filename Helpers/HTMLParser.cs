@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using System.Diagnostics;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Documents;
@@ -46,23 +47,36 @@ namespace DMAssistant.Helpers
             if (string.IsNullOrWhiteSpace(html))
                 return doc;
 
+            // Plain text fallback
+            if (!html.Contains("<"))
+            {
+                foreach (var line in html.Split('\n')) doc.Blocks.Add(new Paragraph(new Run(line)));
+
+                return doc;
+            }
+
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
             foreach (var node in htmlDoc.DocumentNode.ChildNodes)
             {
-                if (node.Name == "p")
-                {
-                    var paragraph = new Paragraph();
-                    AddInlines(paragraph.Inlines, node);
+                var paragraph = new Paragraph();
+                AddInlines(paragraph.Inlines, node);
+                if (paragraph.Inlines.Count > 0)
                     doc.Blocks.Add(paragraph);
-                }
             }
 
             return doc;
         }
+
         private static void AddInlines(InlineCollection inlines, HtmlNode node)
         {
+            if (node.Name == "#text")
+            {
+                inlines.Add(new Run(node.InnerText));
+                return;
+            }
+
             foreach (var child in node.ChildNodes)
             {
                 switch (child.Name)
@@ -88,6 +102,7 @@ namespace DMAssistant.Helpers
                     case "br":
                         inlines.Add(new LineBreak());
                         break;
+
                     case "a":
                         var link = new Hyperlink
                         {
@@ -97,13 +112,13 @@ namespace DMAssistant.Helpers
                         inlines.Add(link);
                         break;
 
-
                     default:
                         AddInlines(inlines, child);
                         break;
                 }
             }
         }
+
 
 
     }

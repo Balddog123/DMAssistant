@@ -18,6 +18,7 @@ namespace DMAssistant.Model
     {
         [ObservableProperty] public string name = "";
         [ObservableProperty] public int roundNumber = 0;
+
         private FlowDocument description = new FlowDocument();
         [JsonConverter(typeof(FlowDocumentJsonConverter))]
         public FlowDocument Description
@@ -25,6 +26,7 @@ namespace DMAssistant.Model
             get => description;
             set => SetProperty(ref description, value);
         }
+
         [ObservableProperty] public bool isAlly = false;
 
         [JsonIgnore] public string QuantityDisplay => this is MonsterGroup mg ? mg.Quantity.ToString() : "-";

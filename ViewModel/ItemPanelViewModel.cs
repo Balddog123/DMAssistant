@@ -37,14 +37,6 @@ namespace DMAssistant.ViewModel
         {
             _session = session;
 
-            foreach (string id in ids)
-            {
-                if (App.CampaignStore.ItemIndex.TryGetValue(id, out var item))
-                {
-                    //CreateItemViewModel(item);
-                    Debug.WriteLine("Found item: " + item.Name);
-                }
-            }
             // Convert item IDs → viewmodels
             ItemList = new ObservableCollection<ItemViewModel>(ids.Select(id => CreateItemViewModel(App.CampaignStore.ItemIndex[id])));
 

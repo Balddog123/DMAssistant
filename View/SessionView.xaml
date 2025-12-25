@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:DMAssistant.View"
+             xmlns:h="clr-namespace:DMAssistant.Helpers"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.WPF.DragDrop"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -39,7 +40,7 @@
             <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
 
                 <TabItem Header="Scenes">
-                    <TextBox Text="{Binding SceneText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" />
+                    <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Scenes, Mode=TwoWay}" AcceptsReturn="True"/>
                 </TabItem>
 
                 <TabItem Header="Secrets">
@@ -102,7 +103,7 @@
                 </TabItem>
 
                 <TabItem Header="Notes">
-                    <TextBox Text="{Binding NotesText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" />
+                    <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Notes, Mode=TwoWay}" AcceptsReturn="True"/>
                 </TabItem>
 
             </TabControl>

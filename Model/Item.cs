@@ -21,7 +21,7 @@ namespace DMAssistant.Model
         private void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-            Debug.WriteLine($"Changed property of Item: {Name}.\nProperty changed: {name}");
+            //Debug.WriteLine($"Changed property of Item: {Name}.\nProperty changed: {name}");
         }
 
         private string _name;

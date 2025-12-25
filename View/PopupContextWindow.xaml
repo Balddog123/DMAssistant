@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DMAssistant.View"
         mc:Ignorable="d"
-        Title="PopupContextWindow" Height="Auto" Width="Auto">
-    <Grid>
+        Title="" Height="Auto" Width="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <ContentControl Content="{Binding ContentView}"/>
-    </Grid>
+    </ScrollViewer>
 </Window>

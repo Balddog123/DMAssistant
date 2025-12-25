@@ -72,8 +72,6 @@ namespace DMAssistant.Helpers
             {
                 rtb.Document = new FlowDocument();
             }
-
-            Debug.WriteLine(e.NewValue);
         }
 
         private static void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -97,7 +95,6 @@ namespace DMAssistant.Helpers
             {
                 SetIsUpdating(rtb, false);
             }
-            Debug.WriteLine("Changed");
         }
         private static void DetectTokenAtCaret(FlowDocument document)
         {
