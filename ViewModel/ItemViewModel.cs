@@ -53,6 +53,48 @@ namespace DMAssistant.ViewModel
             get => Item != null ? Item.RequiresAttunement : false;
             set => Item.RequiresAttunement = value;
         }
+        public string OriginText
+        {
+            get
+            {
+                if (Item?.Origin == null)
+                    return string.Empty;
+
+                return new TextRange(
+                    Item.Origin.ContentStart,
+                    Item.Origin.ContentEnd
+                ).Text.Trim();
+            }
+        }
+
+        public string AppearanceText
+        {
+            get
+            {
+                if (Item?.Appearance == null)
+                    return string.Empty;
+
+                return new TextRange(
+                    Item.Appearance.ContentStart,
+                    Item.Appearance.ContentEnd
+                ).Text.Trim();
+            }
+        }
+        public string FunctionText
+        {
+            get
+            {
+                if (Item?.Function == null)
+                    return string.Empty;
+
+                return new TextRange(
+                    Item.Function.ContentStart,
+                    Item.Function.ContentEnd
+                ).Text.Trim();
+            }
+        }
+
+
 
         public List<Item.ItemRank> AvailableRanks { get; } = Enum.GetValues(typeof(Item.ItemRank)).Cast<Item.ItemRank>().ToList();
         public List<Item.ItemType> ItemTypes { get; } = Enum.GetValues(typeof(Item.ItemType)).Cast<Item.ItemType>().ToList();

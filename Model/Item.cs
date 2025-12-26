@@ -281,9 +281,7 @@ namespace DMAssistant.Model
             }
         }
 
-        public string ItemTypeName { get; set; }
-        public string ItemOriginName { get; set; }
-
+        public string Cost { get; set; }
         public bool RequiresAttunement { get; set; }
 
         private FlowDocument _function = new FlowDocument();

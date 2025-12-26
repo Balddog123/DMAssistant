@@ -5,12 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DMAssistant.View"
              xmlns:h="clr-namespace:DMAssistant.Helpers"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
 
     <ScrollViewer>
         <Grid Margin="10">
+
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -26,52 +29,66 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Name -->
             <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-            <Button Grid.Row="0" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeNameCommand}">
+            <Button Grid.Row="0" Grid.Column="1" Margin="5" Height="30" Width="30"
+                    Command="{Binding RandomizeNameCommand}">
                 <Image Source="/Resources/icon-refresh.png"/>
             </Button>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="2" Margin="0,5"/>
+            <TextBox Grid.Row="0" Grid.Column="2" Margin="0,5" MinWidth="200" HorizontalAlignment="Left"
+                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <!-- Rank -->
-            <TextBlock Text="Rank:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding AvailableRanks}"
-          SelectedItem="{Binding Rank, UpdateSourceTrigger=PropertyChanged}"
-          Grid.Row="1" Grid.Column="2" Margin="0,5"/>
+            <TextBlock Text="Cost:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="2" Margin="0,5" MinWidth="80" HorizontalAlignment="Left"
+                     Text="{Binding Item.Cost, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <!-- Type -->
-            <TextBlock Text="Type:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding ItemTypes}"
-            SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"
-            Grid.Row="2" Grid.Column="2" Margin="0,5"/>
-            
-            <!-- Attunement -->
-            <TextBlock Text="Requires Attunment:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-            <ComboBox Grid.Row="3" Grid.Column="2" SelectedValue="{Binding RequiresAttunement, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Tag">
+            <TextBlock Text="Rank:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="2" Grid.Column="2" Margin="0,5" Width="200" HorizontalAlignment="Left"
+                      ItemsSource="{Binding AvailableRanks}"
+                      SelectedItem="{Binding Rank, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Text="Type:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="3" Grid.Column="2" Margin="0,5" Width="200" HorizontalAlignment="Left"
+                      ItemsSource="{Binding ItemTypes}"
+                      SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Text="Requires Attunment:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="4" Grid.Column="2" Width="100" HorizontalAlignment="Left"
+                      SelectedValue="{Binding RequiresAttunement, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="Tag">
                 <ComboBoxItem Content="Requires Attunement" Tag="True"/>
                 <ComboBoxItem Content="Does Not Require Attunement" Tag="False"/>
             </ComboBox>
-            
-            <!-- Function -->
-            <TextBlock Text="Function:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top"/>
-            <Button Grid.Row="4" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeFunctionCommand}">
-                <Image Source="/Resources/icon-refresh.png"/>
-            </Button>
-            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Function, Mode=TwoWay}" Grid.Row="4" Grid.Column="2" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="80" VerticalScrollBarVisibility="Auto" UndoLimit="50"/>
 
-            <!-- Appearance -->
-            <TextBlock Text="Appearance:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
-            <Button Grid.Row="5" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeAppearanceCommand}">
+            <TextBlock Text="Function:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
+            <Button Grid.Row="5" Grid.Column="1" Margin="5" Height="30" Width="30"
+                    Command="{Binding RandomizeFunctionCommand}">
                 <Image Source="/Resources/icon-refresh.png"/>
             </Button>
-            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Appearance, Mode=TwoWay}" Grid.Row="5" Grid.Column="2" Margin="0,5" AcceptsReturn="True" Height="Auto" VerticalScrollBarVisibility="Auto"/>
-                
-            <!-- Origin -->
-            <TextBlock Text="Origin:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Top"/>
-            <Button Grid.Row="6" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeOriginCommand}">
+            <RichTextBox Grid.Row="5" Grid.Column="2" Margin="0,5"
+                         h:RichTextBoxHelper.BoundDocument="{Binding Item.Function, Mode=TwoWay}"
+                         AcceptsReturn="True"
+                         MinHeight="80"
+                         VerticalScrollBarVisibility="Auto"/>
+
+            <TextBlock Text="Appearance:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Top"/>
+            <Button Grid.Row="6" Grid.Column="1" Margin="5" Height="30" Width="30"
+                    Command="{Binding RandomizeAppearanceCommand}">
                 <Image Source="/Resources/icon-refresh.png"/>
             </Button>
-            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Origin, Mode=TwoWay}" Grid.Row="6" Grid.Column="2" Margin="0,5" AcceptsReturn="True" Height="Auto" VerticalScrollBarVisibility="Auto"/>
+            <RichTextBox Grid.Row="6" Grid.Column="2" Margin="0,5"
+                         h:RichTextBoxHelper.BoundDocument="{Binding Item.Appearance, Mode=TwoWay}"
+                         AcceptsReturn="True"
+                         VerticalScrollBarVisibility="Auto"/>
+
+            <TextBlock Text="Origin:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Top"/>
+            <Button Grid.Row="7" Grid.Column="1" Margin="5" Height="30" Width="30"
+                    Command="{Binding RandomizeOriginCommand}">
+                <Image Source="/Resources/icon-refresh.png"/>
+            </Button>
+            <RichTextBox Grid.Row="7" Grid.Column="2" Margin="0,5"
+                         h:RichTextBoxHelper.BoundDocument="{Binding Item.Origin, Mode=TwoWay}"
+                         AcceptsReturn="True"
+                         VerticalScrollBarVisibility="Auto"/>
 
         </Grid>
     </ScrollViewer>

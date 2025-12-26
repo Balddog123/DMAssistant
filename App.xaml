@@ -116,6 +116,10 @@
                 <v:PopupContextWindow />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:ShopViewModel}">
+                <v:ShopView />
+            </DataTemplate>
+
             <!-- Converters -->
             <rc:NullToBoolConverter x:Key="NullToBoolConverter"/>
             <rc:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter" />

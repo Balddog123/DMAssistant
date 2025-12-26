@@ -50,8 +50,9 @@ namespace DMAssistant.Helpers
 
         private static void OnBoundDocumentChanged( DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not RichTextBox rtb)
+            if (d is not RichTextBox rtb || GetIsUpdating(rtb))
                 return;
+
 
             rtb.TextChanged -= RichTextBox_TextChanged;
 
