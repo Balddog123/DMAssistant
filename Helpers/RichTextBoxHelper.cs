@@ -48,31 +48,35 @@ namespace DMAssistant.Helpers
         private static void SetIsUpdating(DependencyObject obj, bool value)
             => obj.SetValue(IsUpdatingProperty, value);
 
-        private static void OnBoundDocumentChanged(
-            DependencyObject d,
-            DependencyPropertyChangedEventArgs e)
+        private static void OnBoundDocumentChanged( DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not RichTextBox rtb || GetIsUpdating(rtb))
+            if (d is not RichTextBox rtb)
                 return;
 
-            // Detach old handler
             rtb.TextChanged -= RichTextBox_TextChanged;
 
-            if (e.NewValue is FlowDocument newDoc)
+            try
             {
-                // Assign document
-                rtb.Document = CloneDocument(newDoc);
+                SetIsUpdating(rtb, true);
 
-                // Attach handler
-                rtb.TextChanged += RichTextBox_TextChanged;
-                rtb.PreviewMouseLeftButtonDown += RichTextBox_PreviewMouseLeftButtonDown;
-
+                if (e.NewValue is FlowDocument newDoc)
+                {
+                    rtb.Document = CloneDocument(newDoc);
+                }
+                else
+                {
+                    rtb.Document = new FlowDocument();
+                }
             }
-            else
+            finally
             {
-                rtb.Document = new FlowDocument();
+                SetIsUpdating(rtb, false);
             }
+
+            rtb.TextChanged += RichTextBox_TextChanged;
+            rtb.PreviewMouseLeftButtonDown += RichTextBox_PreviewMouseLeftButtonDown;
         }
+
 
         private static void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

@@ -22,44 +22,56 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Name -->
             <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-         Grid.Row="0" Grid.Column="1" Margin="0,5"/>
+            <Button Grid.Row="0" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeNameCommand}">
+                <Image Source="/Resources/icon-refresh.png"/>
+            </Button>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="2" Margin="0,5"/>
 
             <!-- Rank -->
             <TextBlock Text="Rank:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding AvailableRanks}"
           SelectedItem="{Binding Rank, UpdateSourceTrigger=PropertyChanged}"
-          Grid.Row="1" Grid.Column="1" Margin="0,5"/>
+          Grid.Row="1" Grid.Column="2" Margin="0,5"/>
 
             <!-- Type -->
             <TextBlock Text="Type:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding ItemTypes}"
             SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"
-            Grid.Row="2" Grid.Column="1" Margin="0,5"/>
+            Grid.Row="2" Grid.Column="2" Margin="0,5"/>
             
             <!-- Attunement -->
             <TextBlock Text="Requires Attunment:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-            <ComboBox Grid.Row="3" Grid.Column="1" SelectedValue="{Binding RequiresAttunement, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Tag">
+            <ComboBox Grid.Row="3" Grid.Column="2" SelectedValue="{Binding RequiresAttunement, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Tag">
                 <ComboBoxItem Content="Requires Attunement" Tag="True"/>
                 <ComboBoxItem Content="Does Not Require Attunement" Tag="False"/>
             </ComboBox>
             
             <!-- Function -->
             <TextBlock Text="Function:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top"/>
-            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Function, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="80" VerticalScrollBarVisibility="Auto" UndoLimit="50"/>
+            <Button Grid.Row="4" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeFunctionCommand}">
+                <Image Source="/Resources/icon-refresh.png"/>
+            </Button>
+            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Function, Mode=TwoWay}" Grid.Row="4" Grid.Column="2" Margin="0,5" AcceptsReturn="True" Height="Auto" MinHeight="80" VerticalScrollBarVisibility="Auto" UndoLimit="50"/>
 
             <!-- Appearance -->
             <TextBlock Text="Appearance:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
-            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Appearance, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" VerticalScrollBarVisibility="Auto"/>
+            <Button Grid.Row="5" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeAppearanceCommand}">
+                <Image Source="/Resources/icon-refresh.png"/>
+            </Button>
+            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Appearance, Mode=TwoWay}" Grid.Row="5" Grid.Column="2" Margin="0,5" AcceptsReturn="True" Height="Auto" VerticalScrollBarVisibility="Auto"/>
                 
             <!-- Origin -->
             <TextBlock Text="Origin:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Top"/>
-            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Origin, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="0,5" AcceptsReturn="True" Height="Auto" VerticalScrollBarVisibility="Auto"/>
+            <Button Grid.Row="6" Grid.Column="1" Margin="5" Height="30" Width="30" Command="{Binding RandomizeOriginCommand}">
+                <Image Source="/Resources/icon-refresh.png"/>
+            </Button>
+            <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Item.Origin, Mode=TwoWay}" Grid.Row="6" Grid.Column="2" Margin="0,5" AcceptsReturn="True" Height="Auto" VerticalScrollBarVisibility="Auto"/>
 
         </Grid>
     </ScrollViewer>

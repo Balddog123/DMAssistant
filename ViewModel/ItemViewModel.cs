@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace DMAssistant.ViewModel
@@ -55,6 +57,11 @@ namespace DMAssistant.ViewModel
         public List<Item.ItemRank> AvailableRanks { get; } = Enum.GetValues(typeof(Item.ItemRank)).Cast<Item.ItemRank>().ToList();
         public List<Item.ItemType> ItemTypes { get; } = Enum.GetValues(typeof(Item.ItemType)).Cast<Item.ItemType>().ToList();
 
+        public ICommand RandomizeNameCommand { get; }
+        public ICommand RandomizeFunctionCommand { get; }
+        public ICommand RandomizeOriginCommand { get; }
+        public ICommand RandomizeAppearanceCommand { get; }
+
         public ItemViewModel(Item item, PlayerCharacter owner = null)
         {
             Item = item;
@@ -70,7 +77,7 @@ namespace DMAssistant.ViewModel
                 };
             }
             
-
+            //used only on PC viewer
             if (owner != null)
             {
                 Owner = owner;
@@ -80,6 +87,25 @@ namespace DMAssistant.ViewModel
                     if (e.PropertyName == nameof(Owner.Name)) OwnerName = Owner.Name;
                 };
             }
+            RandomizeNameCommand = new RelayCommand(() => Item.Name = Item.GetRandomName());
+            RandomizeFunctionCommand = new RelayCommand(() =>
+            {
+                FlowDocument flowDoc = new FlowDocument();
+                flowDoc.Blocks.Add(new Paragraph(new Run(Item.GetRandomFunction())));
+                Item.Function = flowDoc;
+            });
+            RandomizeOriginCommand = new RelayCommand(() =>
+            {
+                FlowDocument flowDoc = new FlowDocument();
+                flowDoc.Blocks.Add(new Paragraph(new Run(Item.GetRandomItemOrigin())));
+                Item.Origin = flowDoc;
+            });
+            RandomizeAppearanceCommand = new RelayCommand(() =>
+            {
+                FlowDocument flowDoc = new FlowDocument();
+                flowDoc.Blocks.Add(new Paragraph(new Run(Item.GetRandomAppearance())));
+                Item.Appearance = flowDoc;
+            });
         }
     }
 

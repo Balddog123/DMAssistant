@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace DMAssistant.ViewModel
 {
@@ -55,7 +56,7 @@ namespace DMAssistant.ViewModel
         private ItemViewModel CreateItemViewModel(Item item)
         {
             var vm = new ItemViewModel(item);
-
+            
             // listen to whenever Name/Rank/etc. changes
             HookItemEvents(vm);
 
@@ -84,6 +85,17 @@ namespace DMAssistant.ViewModel
             App.CampaignStore.ItemIndex[item.ID] = item;
 
             if(_session != null) _session.ItemIDs.Add(item.ID);
+
+            if (itemToCopy == null)
+            {
+                item.Name = Item.GetRandomName();
+                item.Origin = new FlowDocument();
+                item.Origin.Blocks.Add(new Paragraph(new Run(Item.GetRandomItemOrigin())));
+                item.Function = new FlowDocument();
+                item.Function.Blocks.Add(new Paragraph(new Run(Item.GetRandomFunction())));
+                item.Appearance = new FlowDocument();
+                item.Appearance.Blocks.Add(new Paragraph(new Run(Item.GetRandomAppearance())));
+            }
 
             var vm = CreateItemViewModel(item);
             InsertSorted(vm);
