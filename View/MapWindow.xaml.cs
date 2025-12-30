@@ -118,6 +118,7 @@ namespace DMAssistant.View
         {
             Color color = layer != null && _activeInkCanvas != null ? _activeInkCanvas.DefaultDrawingAttributes.Color : Colors.Black;
             double size = layer != null && _activeInkCanvas != null ? _activeInkCanvas.DefaultDrawingAttributes.Height : 10;
+            InkCanvasEditingMode mode = layer != null && _activeInkCanvas != null ? _activeInkCanvas.EditingMode : InkCanvasEditingMode.None;
 
             _activeLayer = layer;
 
@@ -126,6 +127,9 @@ namespace DMAssistant.View
                 _activeInkCanvas.DefaultDrawingAttributes.Color = color;
                 _activeInkCanvas.DefaultDrawingAttributes.Height = size;
                 _activeInkCanvas.DefaultDrawingAttributes.Width = size;
+                _activeInkCanvas.EraserShape = new RectangleStylusShape(size, size);
+                _activeInkCanvas.EditingMode = mode;
+
                 UpdateActiveLayerCanvas();
                 UpdateLayerSelectionUI();
             }
@@ -596,7 +600,6 @@ namespace DMAssistant.View
         {
             if (_activeInkCanvas == null) return;
             _activeInkCanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
-            Debug.WriteLine(_activeInkCanvas.EditingMode);
         }
 
         private void EnableGridSnapping_Click(object sender, RoutedEventArgs e)
@@ -623,12 +626,19 @@ namespace DMAssistant.View
             if (_activeInkCanvas == null) return;
             _activeInkCanvas.DefaultDrawingAttributes.Height++;
             _activeInkCanvas.DefaultDrawingAttributes.Width++;
+            _activeInkCanvas.EraserShape = new RectangleStylusShape(_activeInkCanvas.DefaultDrawingAttributes.Height, _activeInkCanvas.DefaultDrawingAttributes.Height);
+            if (_activeInkCanvas.EditingMode == InkCanvasEditingMode.EraseByPoint)
+            {
+                _activeInkCanvas.EditingMode = InkCanvasEditingMode.None;
+                _activeInkCanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
+            }
         }
         private void DecreaseStrokeSize_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (_activeInkCanvas == null) return;
             _activeInkCanvas.DefaultDrawingAttributes.Height--;
             _activeInkCanvas.DefaultDrawingAttributes.Width--;
+            _activeInkCanvas.EraserShape = new RectangleStylusShape(_activeInkCanvas.DefaultDrawingAttributes.Height, _activeInkCanvas.DefaultDrawingAttributes.Height);
         }
         private void DrawNoteButton_Click(object sender, RoutedEventArgs e)
         {
