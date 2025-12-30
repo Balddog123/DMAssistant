@@ -26,6 +26,18 @@ namespace DMAssistant.ViewModel
             }
         }
 
+        private double _zoomLevel = 1.0;
+        public double ZoomLevel
+        {
+            get => _zoomLevel;
+            set
+            {
+                _zoomLevel = Math.Clamp(value, 0.2, 5.0);
+                OnPropertyChanged();
+            }
+        }
+
+
         public RelayCommand OpenMapCommand => new RelayCommand(() =>
         {
             Debug.WriteLine(_map == null ? "MAP IS NULL" : "MAP LOADED");

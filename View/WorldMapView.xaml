@@ -6,13 +6,22 @@
              xmlns:local="clr-namespace:DMAssistant.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto"  PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
         <Border BorderThickness="1" BorderBrush="Gray" Margin="2">
-            <Button Command="{Binding OpenMapCommand}" Width="2000" Height="2000">
-                <Image Source="{Binding Map.FullThumbnailData, Converter={StaticResource ByteArrayToImageConverter}}" Stretch="UniformToFill"/>
-            </Button>
+
+            <Grid>
+                <Grid.LayoutTransform>
+                    <ScaleTransform
+                    ScaleX="{Binding ZoomLevel}"
+                    ScaleY="{Binding ZoomLevel}" />
+                </Grid.LayoutTransform>
+
+                <Button Command="{Binding OpenMapCommand}">
+                    <Image Source="{Binding Map.FullThumbnailData,Converter={StaticResource ByteArrayToImageConverter}}" Stretch="Uniform" />
+                </Button>
+            </Grid>
 
         </Border>
-
     </ScrollViewer>
+
 </UserControl>

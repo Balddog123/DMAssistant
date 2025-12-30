@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DMAssistant.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,18 @@ namespace DMAssistant.View
         {
             InitializeComponent();
         }
+
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl))
+                return;
+
+            if (DataContext is not WorldMapViewModel vm)
+                return;
+
+            vm.ZoomLevel += e.Delta > 0 ? 0.1 : -0.1;
+            e.Handled = true;
+        }
+
     }
 }
