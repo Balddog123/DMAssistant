@@ -30,6 +30,7 @@
     <None Remove="Resources\icon-editsquare.png" />
     <None Remove="Resources\icon-erase.png" />
     <None Remove="Resources\icon-folder.png" />
+    <None Remove="Resources\icon-layers.png" />
     <None Remove="Resources\icon-loop.png" />
     <None Remove="Resources\icon-next.png" />
     <None Remove="Resources\icon-page.png" />
@@ -59,6 +60,9 @@
     <Content Include="Data\srd_items.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\icon-layers.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
