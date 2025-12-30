@@ -482,14 +482,31 @@ namespace DMAssistant.View
             if (!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl))
                 return;
 
+            var sv = (ScrollViewer)sender;
+            var content = sv.Content as UIElement;
+            if (content == null) return;
+
+            Point mousePos = e.GetPosition(content);
+
+            double oldZoom = _zoom;
             _zoom += e.Delta > 0 ? ZoomStep : -ZoomStep;
             _zoom = Math.Clamp(_zoom, MinZoom, MaxZoom);
 
+            // Keep mouse position stable
+            double abX = mousePos.X * _zoom / oldZoom - mousePos.X;
+            double abY = mousePos.Y * _zoom / oldZoom - mousePos.Y;
+
+            sv.ScrollToHorizontalOffset(sv.HorizontalOffset + abX);
+            sv.ScrollToVerticalOffset(sv.VerticalOffset + abY);
+
+            ZoomTransform.CenterX = mousePos.X;
+            ZoomTransform.CenterY = mousePos.Y;
             ZoomTransform.ScaleX = _zoom;
             ZoomTransform.ScaleY = _zoom;
 
             e.Handled = true;
         }
+
 
         #endregion
 
@@ -659,8 +676,13 @@ namespace DMAssistant.View
         private void IncreaseStrokeSize_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (_activeInkCanvas == null) return;
-            _activeInkCanvas.DefaultDrawingAttributes.Height++;
-            _activeInkCanvas.DefaultDrawingAttributes.Width++;
+
+            bool isShift = (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
+            double scale = isShift ? 5.0 : 1.0;
+
+            _activeInkCanvas.DefaultDrawingAttributes.Height += scale;
+            _activeInkCanvas.DefaultDrawingAttributes.Width += scale;
+
             _activeInkCanvas.EraserShape = new RectangleStylusShape(_activeInkCanvas.DefaultDrawingAttributes.Height, _activeInkCanvas.DefaultDrawingAttributes.Height);
             if (_activeInkCanvas.EditingMode == InkCanvasEditingMode.EraseByPoint)
             {
@@ -671,8 +693,13 @@ namespace DMAssistant.View
         private void DecreaseStrokeSize_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (_activeInkCanvas == null) return;
-            _activeInkCanvas.DefaultDrawingAttributes.Height = Math.Max(_activeInkCanvas.DefaultDrawingAttributes.Height - 1, 1);
-            _activeInkCanvas.DefaultDrawingAttributes.Width = Math.Max(_activeInkCanvas.DefaultDrawingAttributes.Height - 1, 1);
+
+            bool isShift = (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
+            double scale = isShift ? 5.0 : 1.0;
+
+            _activeInkCanvas.DefaultDrawingAttributes.Height = Math.Max(_activeInkCanvas.DefaultDrawingAttributes.Height - scale, 1);
+            _activeInkCanvas.DefaultDrawingAttributes.Width = Math.Max(_activeInkCanvas.DefaultDrawingAttributes.Height - scale, 1);
+
             _activeInkCanvas.EraserShape = new RectangleStylusShape(_activeInkCanvas.DefaultDrawingAttributes.Height, _activeInkCanvas.DefaultDrawingAttributes.Height);
         }
         private void DrawNoteButton_Click(object sender, RoutedEventArgs e)

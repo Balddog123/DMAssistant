@@ -27,7 +27,9 @@
     </Window.CommandBindings>
 
     <Window.InputBindings>
+        <KeyBinding Key="OemOpenBrackets" Modifiers="Shift" Command="{x:Static local:MapWindow.DecreaseStrokeSizeCommand}" />
         <KeyBinding Key="OemOpenBrackets" Command="{x:Static local:MapWindow.DecreaseStrokeSizeCommand}" />
+        <KeyBinding Key="OemCloseBrackets" Modifiers="Shift" Command="{x:Static local:MapWindow.IncreaseStrokeSizeCommand}" />
         <KeyBinding Key="OemCloseBrackets" Command="{x:Static local:MapWindow.IncreaseStrokeSizeCommand}" />
     </Window.InputBindings>
 
