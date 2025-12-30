@@ -63,9 +63,10 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <DockPanel Grid.Row="0">
-                    <Button Content="Add Monster" Margin="0,0,1,0" Command="{Binding AddMonsterCommand}"></Button>
-                    <Button Content="Add Event" Margin="1,0,0,0" Command="{Binding AddEventCommand}"></Button>
-                    <Button Content="Run!" Margin="1,0,0,0" Command="{Binding RunEncounterCommand}"></Button>
+                    <Button DockPanel.Dock="Left" Content="Add Monster" Margin="0,0,1,0" Command="{Binding AddMonsterCommand}"></Button>
+                    <Button DockPanel.Dock="Left" Content="Add Event" Margin="1,0,0,0" Command="{Binding AddEventCommand}"></Button>
+                    <Button DockPanel.Dock="Right" Content="Roll Initiative!" Command="{Binding RunEncounterCommand}" Width="100" HorizontalAlignment="Right" FontWeight="Bold" ></Button>
+                    <Button DockPanel.Dock="Right" Content="Update Combat" Command="{Binding UpdateEncounterCommand}" Width="100" HorizontalAlignment="Right" ></Button>
                 </DockPanel>
                 
                 <!-- EncounterItems list -->

@@ -1,13 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using DMAssistant.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
 
 namespace DMAssistant.Model
 {
@@ -36,22 +30,31 @@ namespace DMAssistant.Model
         [ObservableProperty] public string name;
         [ObservableProperty] public int initiative;
         [ObservableProperty] public int currentHP;
-        [JsonIgnore, ObservableProperty] public string currentHPInput;
+        [ObservableProperty] public int amount;
+        [JsonIgnore, ObservableProperty] public int currentAmount;
+
+        [JsonIgnore, ObservableProperty] private string currentHPInput;
+        private bool _suppressHpInputProcessing;
+        
         partial void OnCurrentHPInputChanged(string value)
         {
-            if (string.IsNullOrWhiteSpace(value) || _suppressHpInputProcessing) return;
-            _suppressHpInputProcessing = true;
-            if(TryParseHP(value, out int newHP))
-            {
-                CurrentHP = newHP;
-                CurrentHPInput = newHP.ToString();
-            }
-            _suppressHpInputProcessing = false;
+            if (_suppressHpInputProcessing)
+                return;
+
+            if (string.IsNullOrWhiteSpace(value))
+                return;
+
+            if (!TryParseHP(value, out int newHP))
+                return;
+
+            SetCurrentHP(newHP);
         }
-        private bool _suppressHpInputProcessing;
+
+        [JsonIgnore, ObservableProperty] public string amountDisplay;
         [ObservableProperty] public int maxHP;
         [ObservableProperty] public int armorClass;
         [ObservableProperty] public string encounterItemName;
+        [ObservableProperty] public string encounterItemId;
         private ObservableCollection<Condition> _conditions = new();
         public ObservableCollection<Condition> Conditions
         {
@@ -69,16 +72,21 @@ namespace DMAssistant.Model
         }
         [ObservableProperty] public Type combatItemType;
 
-        public CombatItem(string name, int initiative, int currentHP, int maxhp, int armorClass, Type combatItemType, string encounterItemName)
+        public CombatItem(string name, int initiative, int currentHP, int maxhp, int armorClass, int amount, Type combatItemType, string encounterItemName, string encounterItemId)
         {
             this.name = name;
             this.initiative = initiative;
             this.currentHP = currentHP;
-            currentHPInput = CurrentHP.ToString();
+            CurrentHPInput = CurrentHP.ToString();
             this.maxHP = maxhp;
             this.combatItemType = combatItemType;
             this.armorClass = armorClass;
             this.encounterItemName = encounterItemName;
+            this.amount = amount;
+            CurrentAmount = amount;
+
+            AmountDisplay = Amount + "/" + Amount;
+            this.encounterItemId = encounterItemId;
         }
 
         private bool TryParseHP(string input, out int result)
@@ -130,7 +138,47 @@ namespace DMAssistant.Model
             return int.TryParse(input, out result);
         }
 
-        
+        public void SetCurrentHP(int newHP)
+        {
+            CurrentHP = Math.Max(newHP, 0);
+            RecalculateAmounts();
+            SyncHpInput();
+        }
+        private void RecalculateAmounts()
+        {
+            if (Amount <= 0 || MaxHP <= 0)
+            {
+                CurrentAmount = 0;
+                AmountDisplay = $"0/{Amount}";
+                return;
+            }
+
+            int hpPerUnit = MaxHP / Amount;
+
+            int remainingUnits = Math.Max(CurrentHP / hpPerUnit, 0);
+            if (CurrentHP % hpPerUnit != 0)
+                remainingUnits++;
+
+            CurrentAmount = remainingUnits;
+            AmountDisplay = $"{CurrentAmount}/{Amount}";
+        }
+        private void SyncHpInput()
+        {
+            _suppressHpInputProcessing = true;
+            CurrentHPInput = CurrentHP.ToString();
+            _suppressHpInputProcessing = false;
+        }
+        public void Update(int maxHpPerUnit, int quantity, int damageAlreadyDealt)
+        {
+            Amount = quantity;
+            MaxHP = maxHpPerUnit * quantity;
+
+            int newHP = Math.Max(MaxHP - damageAlreadyDealt, 0);
+            Debug.WriteLine($"maxHPPerUnit: {maxHpPerUnit}, quantity: {quantity}, damageAlreadyDealt: {damageAlreadyDealt}, newHP: {newHP}");
+
+            SetCurrentHP(newHP);
+        }
+
 
     }
 

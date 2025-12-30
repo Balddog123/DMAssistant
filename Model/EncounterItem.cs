@@ -16,8 +16,10 @@ namespace DMAssistant.Model
     [JsonDerivedType(typeof(EncounterEvent), "encounterEvent")]
     public partial class EncounterItem : ObservableObject
     {
+        public string id { get; } = Guid.NewGuid().ToString();
         [ObservableProperty] public string name = "";
         [ObservableProperty] public int roundNumber = 0;
+        [ObservableProperty] public int initialInitiative = 0;
 
         private FlowDocument description = new FlowDocument();
         [JsonConverter(typeof(FlowDocumentJsonConverter))]
@@ -26,8 +28,6 @@ namespace DMAssistant.Model
             get => description;
             set => SetProperty(ref description, value);
         }
-
-        [ObservableProperty] public bool isAlly = false;
 
         [JsonIgnore] public string QuantityDisplay => this is MonsterGroup mg ? mg.Quantity.ToString() : "-";
         [JsonIgnore] public string CR

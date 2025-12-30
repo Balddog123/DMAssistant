@@ -19,8 +19,8 @@ namespace DMAssistant.ViewModel
             set => SetProperty(_encounter.Name, value, _encounter, (e, v) => e.Name = v);
         }
 
-        public int TotalCR => EncounterItems.Where(i => !i.EncounterItem.IsAlly).Sum(vm => vm.TotalCR);
-        public int TotalXP => EncounterItems.Where(i => !i.EncounterItem.IsAlly).Sum(vm => vm.TotalXP);
+        public int TotalCR => EncounterItems.Where(i => i.EncounterItem is MonsterGroup mg && !mg.IsAlly).Sum(vm => vm.TotalCR);
+        public int TotalXP => EncounterItems.Where(i => i.EncounterItem is MonsterGroup mg && !mg.IsAlly).Sum(vm => vm.TotalXP);
         public int TotalXPAvailable
         {
             get
@@ -55,7 +55,7 @@ namespace DMAssistant.ViewModel
             get
             {
                 int count = EncounterItems
-                    .Where(i => i.EncounterItem is MonsterGroup mg && !i.EncounterItem.IsAlly)
+                    .Where(i => i.EncounterItem is MonsterGroup mg && !mg.IsAlly)
                     .Sum(i => ((MonsterGroup)i.EncounterItem).Quantity);
 
                 return count switch
@@ -159,7 +159,7 @@ namespace DMAssistant.ViewModel
         public ICommand AddEventCommand { get; }
         public ICommand RemoveItemCommand { get; }
         public ICommand RunEncounterCommand { get; }
-
+        public ICommand UpdateEncounterCommand { get; }
 
         public EncounterViewModel(Encounter encounter)
         {
@@ -179,6 +179,7 @@ namespace DMAssistant.ViewModel
             AddEventCommand = new RelayCommand(AddNewEvent);
             RemoveItemCommand = new RelayCommand<EncounterItemViewModel>(RemoveEncounterItem);
             RunEncounterCommand = new RelayCommand(RunEncounter);
+            UpdateEncounterCommand = new RelayCommand(UpdateEncounter);
 
             // Load combat
             if (encounter.CombatItems.Count > 0)
@@ -268,6 +269,12 @@ namespace DMAssistant.ViewModel
         {
             Encounter.CurrentRound = 0;
             CurrentCombat = new CombatTrackerViewModel(Encounter, null);
+        }
+
+        private void UpdateEncounter()
+        {
+
+            if (CurrentCombat != null && CurrentCombat.CombatItems != null) CurrentCombat.Update();
         }
     }
 }

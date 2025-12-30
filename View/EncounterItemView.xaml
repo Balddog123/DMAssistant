@@ -5,43 +5,59 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:h="clr-namespace:DMAssistant.Helpers"
              mc:Ignorable="d"
-             d:DesignHeight="200" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="300">
 
-    <StackPanel Orientation="Vertical" CanVerticallyScroll="True">
+    <StackPanel Orientation="Vertical" CanVerticallyScroll="True" Margin="2">
 
         <!-- Editable name -->
-        <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" Margin="0,0,0,5" />
+        <TextBox Text="{Binding Name, Mode=TwoWay}" FontSize="16" Margin="5"/>
 
         <!-- Round number -->
-        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
-                <TextBlock Text="Round: " VerticalAlignment="Center" />
-                <TextBox Text="{Binding RoundNumber, Mode=TwoWay}" Width="50" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
-                <TextBlock Text="Quantity: " VerticalAlignment="Center" />
-                <TextBox Text="{Binding Quantity, Mode=TwoWay}" Width="50" />
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <TextBlock Text="Round: " VerticalAlignment="Center" />
+                    <TextBox Text="{Binding RoundNumber, Mode=TwoWay}" Width="50" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <TextBlock Text="Initiative: " VerticalAlignment="Center" />
+                    <TextBox Text="{Binding EncounterItem.InitialInitiative, Mode=TwoWay}" Width="50" />
+                </StackPanel>                
             </StackPanel>
         </StackPanel>
+        
 
         <!-- Description -->
         <TextBlock Text="Encounter Details:"/>
         <RichTextBox h:RichTextBoxHelper.BoundDocument="{Binding Description, Mode=TwoWay}" AcceptsReturn="True" Margin="5" />
-        <ToggleButton Content="Is Ally" IsChecked="{Binding IsAlly, Mode=TwoWay}" Width="Auto" HorizontalAlignment="Left" Margin="5"/>
-        <Separator Height="30"/>
+        <Separator Height="20" Width="200"/>
 
         <!-- Monster-specific properties -->
         <StackPanel Visibility="{Binding MonsterGroupVisibility}">
-            <Button Content="Select Monster" Width="100" Command="{Binding OpenMonsterWindowCommand}"/>
+            <TextBlock Text="Monster Details" FontSize="18" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <TextBlock Text="Quantity: " VerticalAlignment="Center" />
+                    <TextBox Text="{Binding Quantity, Mode=TwoWay}" Width="50" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <TextBlock Text="# of Groups: " VerticalAlignment="Center" />
+                    <TextBox Text="{Binding NumberOfGroups, Mode=TwoWay}" Width="50" />
+                </StackPanel>
+                <ToggleButton Content="Is Ally" IsChecked="{Binding IsAlly, Mode=TwoWay}" Width="Auto" HorizontalAlignment="Left" Margin="5"/>
+
+            </StackPanel>
+            <Button Content="Select Monster" Width="100" Margin="5" Command="{Binding OpenMonsterWindowCommand}"/>
             <ContentControl Content="{Binding EncounterItemMonsterViewModel}"/>
+            
         </StackPanel>
 
 
-        <!-- Event-specific properties -->
+        <!-- Event-specific properties 
         <StackPanel Orientation="Horizontal" Visibility="{Binding EncounterEventVisibility}">
             <TextBlock Text="Initiative: " VerticalAlignment="Center" />
             <TextBox Text="{Binding Initiative, Mode=TwoWay}" Width="50" />
-        </StackPanel>
+        </StackPanel>-->
 
         
 

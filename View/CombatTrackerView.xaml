@@ -69,6 +69,7 @@
 
                     <!-- Max HP (read-only) -->
                     <GridViewColumn Header="Max HP" Width="60" DisplayMemberBinding="{Binding MaxHP}" />
+                    <GridViewColumn Header="#" Width="50" DisplayMemberBinding="{Binding AmountDisplay}" />
 
                     <!-- Armor Class (read-only) -->
                     <GridViewColumn Header="AC" Width="50" DisplayMemberBinding="{Binding ArmorClass}" />

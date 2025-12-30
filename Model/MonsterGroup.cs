@@ -11,6 +11,8 @@ namespace DMAssistant.Model
     {
         [ObservableProperty] public int quantity = 1;
         [ObservableProperty] public string monsterId = string.Empty;
+        [ObservableProperty] public int numberOfGroups = 1;
+        [ObservableProperty] public bool isAlly = false;
 
         partial void OnMonsterIdChanged(string value)
         {

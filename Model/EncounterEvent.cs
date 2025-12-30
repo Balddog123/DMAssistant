@@ -10,7 +10,6 @@ namespace DMAssistant.Model
     public partial class EncounterEvent : EncounterItem
     {
 
-        [ObservableProperty] public int initiative;
         public EncounterEvent()
         {
             name = "New Encounter Event";

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 
@@ -128,6 +129,24 @@ namespace DMAssistant.Model
             ImageUrl = other.ImageUrl;
         }
 
+        public static int GetHPAsInt(string hp)
+        {
+            int numberValue = 0;
+            if (int.TryParse(hp.Split(' ')[0], out int parsed))
+            {
+                numberValue = parsed;
+            }
+            return numberValue;
+        }
+        public static int GetACAsInt(string ac)
+        {
+            int numberValue = 0;
+            if (int.TryParse(ac.Split(' ')[0], out int parsed))
+            {
+                numberValue = parsed;
+            }
+            return numberValue;
+        }
     }
 }
 

@@ -28,7 +28,7 @@ namespace DMAssistant.ViewModel
                 if (e.PropertyName is nameof(MonsterGroup.Quantity) ||
                     e.PropertyName is nameof(MonsterGroup.MonsterId) ||
                     e.PropertyName is nameof(EncounterItem.CR) ||
-                    e.PropertyName is nameof(EncounterItem.IsAlly))
+                    e.PropertyName is nameof(MonsterGroup.IsAlly))
                 {
                     EncounterItemChanged?.Invoke();
                 }
@@ -89,20 +89,7 @@ namespace DMAssistant.ViewModel
 
         public string TypeName => EncounterItem?.TypeName ?? string.Empty;
 
-        public bool IsAlly
-        {
-            get => EncounterItem?.IsAlly ?? false;
-            set
-            {
-                if (EncounterItem.IsAlly != value)
-                {
-                    EncounterItem.IsAlly = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged(nameof(TotalXP));
-                    OnPropertyChanged(nameof(TotalCR));
-                }
-            }
-        }
+        
         public FlowDocument Description
         {
             get => EncounterItem.Description;
@@ -111,6 +98,18 @@ namespace DMAssistant.ViewModel
                 if (EncounterItem.Description != value)
                 {
                     EncounterItem.Description = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int Initiative
+        {
+            get => EncounterItem is EncounterEvent ev ? ev.InitialInitiative : 0;
+            set
+            {
+                if (EncounterItem is EncounterEvent ev && ev.InitialInitiative != value)
+                {
+                    ev.InitialInitiative = value;
                     OnPropertyChanged();
                 }
             }
@@ -150,6 +149,33 @@ namespace DMAssistant.ViewModel
                     mg.Quantity = value;
                     OnPropertyChanged();
                     EncounterItemChanged?.Invoke();
+                }
+            }
+        }
+        public int NumberOfGroups
+        {
+            get => EncounterItem is MonsterGroup mg ? mg.NumberOfGroups : 0;
+            set
+            {
+                if (EncounterItem is MonsterGroup mg && mg.NumberOfGroups != value)
+                {
+                    mg.NumberOfGroups = value;
+                    OnPropertyChanged();
+                    EncounterItemChanged?.Invoke();
+                }
+            }
+        }
+        public bool IsAlly
+        {
+            get => EncounterItem is MonsterGroup mg ? mg.IsAlly : false;
+            set
+            {
+                if (EncounterItem is MonsterGroup mg && mg.IsAlly != value)
+                {
+                    mg.IsAlly = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(TotalXP));
+                    OnPropertyChanged(nameof(TotalCR));
                 }
             }
         }
@@ -209,23 +235,6 @@ namespace DMAssistant.ViewModel
         {
             get => _encounterItemMonsterViewModel;
             set => SetProperty(ref _encounterItemMonsterViewModel, value);
-        }
-
-        // ----------------------------------------------------------------------
-        //  Event-specific properties
-        // ----------------------------------------------------------------------
-
-        public int Initiative
-        {
-            get => EncounterItem is EncounterEvent ev ? ev.Initiative : 0;
-            set
-            {
-                if (EncounterItem is EncounterEvent ev && ev.Initiative != value)
-                {
-                    ev.Initiative = value;
-                    OnPropertyChanged();
-                }
-            }
         }
 
         // ----------------------------------------------------------------------
