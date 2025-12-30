@@ -4,6 +4,8 @@ using DMAssistant.Model;
 using DMAssistant.ViewModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Windows.Input;
 
 namespace DMAssistant.ViewModel
@@ -145,7 +147,10 @@ namespace DMAssistant.ViewModel
         public EncounterItemViewModel SelectedItem
         {
             get => _selectedItem;
-            set => SetProperty(ref _selectedItem, value);
+            set
+            {
+                SetProperty(ref _selectedItem, value);                
+            }
         }
 
         private CombatTrackerViewModel _currentCombat;
@@ -185,6 +190,10 @@ namespace DMAssistant.ViewModel
             if (encounter.CombatItems.Count > 0)
             {
                 CurrentCombat = new CombatTrackerViewModel(Encounter, Encounter.CombatItems);
+            }
+            else
+            {
+                Debug.WriteLine("This encount doesn't have combat items. No combat tracker was loaded...");
             }
         }
 
@@ -273,7 +282,6 @@ namespace DMAssistant.ViewModel
 
         private void UpdateEncounter()
         {
-
             if (CurrentCombat != null && CurrentCombat.CombatItems != null) CurrentCombat.Update();
         }
     }

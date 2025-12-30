@@ -23,7 +23,12 @@ namespace DMAssistant.ViewModel
             get => _selectedEncounter;
             set
             {
-                if (SetProperty(ref _selectedEncounter, value)) SelectedEncounterViewModel = new EncounterViewModel(_selectedEncounter);
+                if (SelectedEncounterViewModel?.CurrentCombat != null) SelectedEncounter.CombatItems = SelectedEncounterViewModel.CurrentCombat.CombatItems;
+
+                if (SetProperty(ref _selectedEncounter, value))
+                {
+                    SelectedEncounterViewModel = new EncounterViewModel(_selectedEncounter);
+                }
             }
         }
 
