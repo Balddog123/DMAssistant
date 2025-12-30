@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
@@ -33,7 +34,17 @@ namespace DMAssistant.View
 
         private Map _map;
         private InkLayerData _activeLayer;
-        private InkCanvas _activeInkCanvas => _activeLayer != null ? _layerCanvases[_activeLayer] : null;
+        private InkCanvas _activeInkCanvas
+        {
+            get
+            {
+                if (_activeLayer != null && _layerCanvases.TryGetValue(_activeLayer, out var canvas))
+                {
+                    return canvas;
+                }
+                else return null;
+            }
+        }
 
         public static readonly RoutedCommand IncreaseStrokeSizeCommand = new();
         public static readonly RoutedCommand DecreaseStrokeSizeCommand = new();
@@ -71,8 +82,7 @@ namespace DMAssistant.View
                     CreateInkCanvasForLayer(layer);
                     CreateLayerRow(layer);
                 }
-            }                
-
+            }
             SetActiveLayer(_map.Layers[0]);
         }
         private void SaveMap(object sender, RoutedEventArgs e)
@@ -124,7 +134,7 @@ namespace DMAssistant.View
 
             _activeLayer = layer;
 
-            if (layer != null)
+            if (layer != null && _activeInkCanvas != null)
             {
                 _activeInkCanvas.DefaultDrawingAttributes.Color = color;
                 _activeInkCanvas.DefaultDrawingAttributes.Height = size;
@@ -251,7 +261,7 @@ namespace DMAssistant.View
                 Source = GetLayerThumbnail(layer)
             };
             Grid.SetColumn(thumb, 0);
-            row.Children.Add(thumb);
+            row.Children.Insert(0, thumb);
             _layerThumbnails[layer] = thumb;
 
             // 3b. Layer name
@@ -360,6 +370,7 @@ namespace DMAssistant.View
         private void MoveLayerUp(InkLayerData layer)
         {
             if (!_layerCanvases.TryGetValue(layer, out var ink)) return;
+            if (!_layerGrids.TryGetValue(layer, out var grid)) return;
 
             int index = LayerContainer.Children.IndexOf(ink);
             if (index < LayerContainer.Children.Count - 1)
@@ -367,10 +378,17 @@ namespace DMAssistant.View
                 LayerContainer.Children.RemoveAt(index);
                 LayerContainer.Children.Insert(index + 1, ink);
 
-                // Update model ordering
-                int modelIndex = _map.Layers.IndexOf(layer);
-                _map.Layers.RemoveAt(modelIndex);
-                _map.Layers.Insert(modelIndex + 1, layer);
+                // Update model ordering (first = back, last = front)
+                _map.Layers.RemoveAt(index);
+                _map.Layers.Insert(index + 1, layer);
+                Debug.WriteLine($"{layer.Name}: {index} => {_map.Layers.IndexOf(layer)}");
+            }
+
+            index = LayerListContainer.Children.IndexOf(grid);
+            if(index > 0)
+            {
+                LayerListContainer.Children.RemoveAt(index);
+                LayerListContainer.Children.Insert(index - 1, grid);
             }
         }
 
@@ -380,6 +398,7 @@ namespace DMAssistant.View
         private void MoveLayerDown(InkLayerData layer)
         {
             if (!_layerCanvases.TryGetValue(layer, out var ink)) return;
+            if (!_layerGrids.TryGetValue(layer, out var grid)) return;
 
             int index = LayerContainer.Children.IndexOf(ink);
             if (index > 0)
@@ -387,9 +406,17 @@ namespace DMAssistant.View
                 LayerContainer.Children.RemoveAt(index);
                 LayerContainer.Children.Insert(index - 1, ink);
 
-                int modelIndex = _map.Layers.IndexOf(layer);
-                _map.Layers.RemoveAt(modelIndex);
-                _map.Layers.Insert(modelIndex - 1, layer);
+                // Update model ordering (first = back, last = front)
+                _map.Layers.RemoveAt(index);
+                _map.Layers.Insert(index - 1, layer);
+                Debug.WriteLine($"{layer.Name}: {index} => {_map.Layers.IndexOf(layer)}");
+            }
+
+            index = LayerListContainer.Children.IndexOf(grid);
+            if (index < LayerListContainer.Children.Count - 1)
+            {
+                LayerListContainer.Children.RemoveAt(index);
+                LayerListContainer.Children.Insert(index + 1, grid);
             }
         }
 
@@ -644,8 +671,8 @@ namespace DMAssistant.View
         private void DecreaseStrokeSize_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (_activeInkCanvas == null) return;
-            _activeInkCanvas.DefaultDrawingAttributes.Height--;
-            _activeInkCanvas.DefaultDrawingAttributes.Width--;
+            _activeInkCanvas.DefaultDrawingAttributes.Height = Math.Max(_activeInkCanvas.DefaultDrawingAttributes.Height - 1, 1);
+            _activeInkCanvas.DefaultDrawingAttributes.Width = Math.Max(_activeInkCanvas.DefaultDrawingAttributes.Height - 1, 1);
             _activeInkCanvas.EraserShape = new RectangleStylusShape(_activeInkCanvas.DefaultDrawingAttributes.Height, _activeInkCanvas.DefaultDrawingAttributes.Height);
         }
         private void DrawNoteButton_Click(object sender, RoutedEventArgs e)

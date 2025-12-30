@@ -6,6 +6,7 @@ using System.Windows.Ink;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Linq;
+using System.Diagnostics;
 
 namespace DMAssistant.Model
 {
@@ -81,11 +82,13 @@ namespace DMAssistant.Model
 
                 // Draw all visible layers
                 dc.PushTransform(new ScaleTransform(scaleX, scaleY));
+
                 foreach (var layer in Layers)
                 {
                     if (!layer.IsVisible || layer.StrokeData == null || layer.StrokeData.Length == 0)
                         continue;
 
+                    Debug.WriteLine($"Rendering layer {layer.Name}");
                     var strokes = new StrokeCollection(new MemoryStream(layer.StrokeData));
                     strokes.Draw(dc);
                 }
