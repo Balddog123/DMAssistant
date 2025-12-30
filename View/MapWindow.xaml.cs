@@ -42,6 +42,7 @@ namespace DMAssistant.View
         // Dictionary mapping each InkLayerData to its InkCanvas instance
         private Dictionary<InkLayerData, InkCanvas> _layerCanvases = new();
         private Dictionary<InkLayerData, Grid> _layerGrids = new();
+        private Dictionary<InkLayerData, Image> _layerThumbnails = new();
 
         public MapWindow(Map map)
         {
@@ -93,6 +94,7 @@ namespace DMAssistant.View
 
                 _map.Layers.Add(layer); // add layer to map's list
             }
+            _map.NotifyThumbnailsChanged();
 
 
             // Save NoteBoxes
@@ -172,6 +174,10 @@ namespace DMAssistant.View
                 }
                 SaveLayerStrokes(layer, ink);
             };
+            ink.StrokeErased += (s, e) =>
+            {
+                SaveLayerStrokes(layer, ink);
+            };
 
             // Insert into container at correct Z-index (top = last)
             LayerContainer.Children.Add(ink);
@@ -185,7 +191,8 @@ namespace DMAssistant.View
         {
             using var ms = new MemoryStream();
             ink.Strokes.Save(ms);
-            layer.StrokeData = ms.ToArray();            
+            layer.StrokeData = ms.ToArray();
+            _layerThumbnails[layer].Source = GetLayerThumbnail(layer);
         }
 
         /// <summary>
@@ -245,6 +252,7 @@ namespace DMAssistant.View
             };
             Grid.SetColumn(thumb, 0);
             row.Children.Add(thumb);
+            _layerThumbnails[layer] = thumb;
 
             // 3b. Layer name
             var nameText = new TextBox

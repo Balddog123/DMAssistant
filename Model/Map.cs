@@ -15,7 +15,10 @@ namespace DMAssistant.Model
         public ObservableCollection<InkLayerData> Layers
         {
             get => _layers;
-            set => SetProperty(ref _layers, value);
+            set
+            {
+                SetProperty(ref _layers, value);
+            }
         }
 
         private ObservableCollection<NoteBoxData> _noteBoxes;
@@ -57,6 +60,7 @@ namespace DMAssistant.Model
                 var encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(rtb));
                 encoder.Save(ms);
+
                 return ms.ToArray();
             }
 
@@ -95,6 +99,12 @@ namespace DMAssistant.Model
             pngEncoder.Frames.Add(BitmapFrame.Create(rtbBitmap));
             pngEncoder.Save(output);
             return output.ToArray();
+        }
+
+        public void NotifyThumbnailsChanged()
+        {
+            OnPropertyChanged(nameof(ThumbnailData));
+            OnPropertyChanged(nameof(FullThumbnailData));
         }
     }
 
