@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace DMAssistant.View
 {
@@ -31,7 +32,7 @@ namespace DMAssistant.View
         private const double MaxZoom = 4.0;
 
         private Map _map;
-        private InkLayerData _activeLayer => _map.Layers[0]; // for now, last added layer
+        private InkLayerData _activeLayer;
         private InkCanvas _activeInkCanvas => _activeLayer != null ? _layerCanvases[_activeLayer] : null;
 
         public static readonly RoutedCommand IncreaseStrokeSizeCommand = new();
@@ -40,6 +41,7 @@ namespace DMAssistant.View
 
         // Dictionary mapping each InkLayerData to its InkCanvas instance
         private Dictionary<InkLayerData, InkCanvas> _layerCanvases = new();
+        private Dictionary<InkLayerData, Grid> _layerGrids = new();
 
         public MapWindow(Map map)
         {
@@ -59,15 +61,18 @@ namespace DMAssistant.View
         {
             if (_map.Layers.Count == 0)
             {
-                _map.Layers.Add(new InkLayerData());
+                AddNewLayer();
             }
-
-            foreach (var layer in _map.Layers)
+            else
             {
-                CreateInkCanvasForLayer(layer);
-            }
+                foreach (var layer in _map.Layers)
+                {
+                    CreateInkCanvasForLayer(layer);
+                    CreateLayerRow(layer);
+                }
+            }                
 
-            Debug.WriteLine(_activeLayer == null);
+            SetActiveLayer(_map.Layers[0]);
         }
         private void SaveMap(object sender, RoutedEventArgs e)
         {
@@ -109,6 +114,32 @@ namespace DMAssistant.View
             }
         }
 
+        private void SetActiveLayer(InkLayerData layer)
+        {
+            Color color = layer != null && _activeInkCanvas != null ? _activeInkCanvas.DefaultDrawingAttributes.Color : Colors.Black;
+            double size = layer != null && _activeInkCanvas != null ? _activeInkCanvas.DefaultDrawingAttributes.Height : 10;
+
+            _activeLayer = layer;
+
+            if (layer != null)
+            {
+                _activeInkCanvas.DefaultDrawingAttributes.Color = color;
+                _activeInkCanvas.DefaultDrawingAttributes.Height = size;
+                _activeInkCanvas.DefaultDrawingAttributes.Width = size;
+                UpdateActiveLayerCanvas();
+                UpdateLayerSelectionUI();
+            }
+
+        }
+        private void UpdateActiveLayerCanvas()
+        {
+            foreach (var kvp in _layerCanvases)
+            {
+                var layer = kvp.Key;
+                var canvas = kvp.Value;
+                canvas.IsHitTestVisible = layer == _activeLayer;
+            }
+        }
         /// <summary>
         /// Creates an InkCanvas for the given layer and adds it to the container
         /// </summary>
@@ -171,13 +202,124 @@ namespace DMAssistant.View
         /// <summary>
         /// Adds a new layer to the map and UI
         /// </summary>
-        private InkLayerData AddNewLayer(string name = "New Layer")
+        private InkLayerData AddNewLayer()
         {
+            string name = $"New Layer {_map.Layers.Count}";
+            // 1. Create the layer object
             var layer = new InkLayerData { Name = name };
             _map.Layers.Add(layer);
+
+            // 2. Create its InkCanvas
             CreateInkCanvasForLayer(layer);
+            CreateLayerRow(layer);
+
+            SetActiveLayer(layer);
+
             return layer;
         }
+
+        private void CreateLayerRow(InkLayerData layer)
+        {
+            // 3. Create UI row in the StackPanel
+            var row = new Grid
+            {
+                Margin = new Thickness(2),
+                Cursor = Cursors.Hand,
+                Tag = layer // store layer reference
+            };
+            row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) }); // Thumbnail
+            row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); // Name
+            _layerGrids[layer] = row;
+
+            // 3a. Thumbnail
+            var thumb = new Image
+            {
+                Width = 40,
+                Height = 40,
+                Margin = new Thickness(2),
+                Source = GetLayerThumbnail(layer)
+            };
+            Grid.SetColumn(thumb, 0);
+            row.Children.Add(thumb);
+
+            // 3b. Layer name
+            var nameText = new TextBox
+            {
+                Text = layer.Name,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(5, 0, 0, 0)
+            };
+            Grid.SetColumn(nameText, 1);
+            row.Children.Add(nameText);
+
+            // 4. Click handler to set active layer
+            row.MouseLeftButtonDown += (s, e) =>
+            {
+                SetActiveLayer(layer); // store active layer
+                UpdateLayerSelectionUI(); // optional: highlight selected row
+            };
+
+            LayerListContainer.Children.Add(row);
+        }
+
+        private void UpdateLayerSelectionUI()
+        {
+            foreach (var child in LayerListContainer.Children)
+            {
+                if (child is Grid row && row.Tag is InkLayerData layer)
+                {
+                    if (layer == _activeLayer)
+                    {
+                        // Highlight the active layer row
+                        row.Background = Brushes.CornflowerBlue;
+                    }
+                    else
+                    {
+                        // Reset background for non-active layers
+                        row.Background = Brushes.Transparent;
+                    }
+                }
+            }
+        }
+
+
+        private ImageSource GetLayerThumbnail(InkLayerData layer)
+        {
+            if (layer.StrokeData == null || layer.StrokeData.Length == 0)
+            {
+                // Placeholder thumbnail
+                var rtb = new RenderTargetBitmap(50, 50, 96, 96, PixelFormats.Pbgra32);
+                var dv = new DrawingVisual();
+                using (var dc = dv.RenderOpen())
+                {
+                    dc.DrawRectangle(Brushes.LightGray, null, new Rect(0, 0, 50, 50));
+                }
+                rtb.Render(dv);
+                return rtb;
+            }
+            else
+            {
+                using (var ms = new MemoryStream(layer.StrokeData))
+                {
+                    var strokes = new StrokeCollection(ms);
+                    var rtb = new RenderTargetBitmap(50, 50, 96, 96, PixelFormats.Pbgra32);
+                    var dv = new DrawingVisual();
+                    using (var dc = dv.RenderOpen())
+                    {
+                        dc.DrawRectangle(Brushes.LightGray, null, new Rect(0, 0, 50, 50));
+                        // Scale to fit
+                        double scaleX = 50 / 2000.0;
+                        double scaleY = 50 / 2000.0;
+                        dc.PushTransform(new ScaleTransform(scaleX, scaleY));
+                        strokes.Draw(dc);
+                        dc.Pop();
+                    }
+                    rtb.Render(dv);
+                    return rtb;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Removes a layer
@@ -189,7 +331,15 @@ namespace DMAssistant.View
                 LayerContainer.Children.Remove(ink);
                 _layerCanvases.Remove(layer);
             }
+            if (_layerGrids.TryGetValue(layer, out var grid))
+            {
+                LayerListContainer.Children.Remove(grid);
+                _layerGrids.Remove(layer);
+            }
+            if (_map.Layers.Count > 1) SetActiveLayer(_map.Layers[0]);
+            else SetActiveLayer(null);
             _map.Layers.Remove(layer);
+            
         }
 
         /// <summary>
@@ -265,6 +415,23 @@ namespace DMAssistant.View
             {
                 ink.Opacity = opacity;
             }
+        }
+
+        private void AddNewLayer_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewLayer();
+        }
+        private void MoveSelectedLayerUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (_activeLayer != null) MoveLayerUp(_activeLayer);
+        }
+        private void MoveSelectedLayerDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (_activeLayer != null) MoveLayerDown(_activeLayer);
+        }
+        private void DeleteSelectedLayer_Click(object sender, RoutedEventArgs e)
+        {
+            if (_activeLayer != null) RemoveLayer(_activeLayer);
         }
 
         #endregion
@@ -429,6 +596,7 @@ namespace DMAssistant.View
         {
             if (_activeInkCanvas == null) return;
             _activeInkCanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
+            Debug.WriteLine(_activeInkCanvas.EditingMode);
         }
 
         private void EnableGridSnapping_Click(object sender, RoutedEventArgs e)
@@ -447,7 +615,7 @@ namespace DMAssistant.View
 
         private void ToggleLayers_Click(object sender, RoutedEventArgs e)
         {
-            
+            LayerListPanel.Visibility = LayerListPanel.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void IncreaseStrokeSize_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -468,8 +636,16 @@ namespace DMAssistant.View
             _activeInkCanvas.EditingMode = InkCanvasEditingMode.None;
             _activeInkCanvas.MouseLeftButtonDown += InkCanvas_MouseDownForNote;
         }
-        
+
         #endregion
 
+        private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (_activeInkCanvas == null) return;
+
+            if (!e.NewValue.HasValue) return;
+
+            _activeInkCanvas.DefaultDrawingAttributes.Color = e.NewValue.Value;
+        }
     }
 }
