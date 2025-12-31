@@ -31,8 +31,11 @@ namespace DMAssistant.Model
                 EncounterItems.Add(newItem);
             }
 
-            EncounterItems = encounterToCopy.EncounterItems;
-            CombatItems = encounterToCopy.CombatItems;
+            foreach(CombatItem item in encounterToCopy.CombatItems)
+            {
+                CombatItem newItem = item.Clone();
+                CombatItems.Add(newItem);
+            }
 
             CurrentRound = encounterToCopy.CurrentRound;
         }

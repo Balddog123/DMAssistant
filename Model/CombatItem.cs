@@ -89,6 +89,28 @@ namespace DMAssistant.Model
             this.encounterItemId = encounterItemId;
         }
 
+        private CombatItem(CombatItem itemToCopy)
+        {
+            Name = itemToCopy.Name;
+            Initiative = itemToCopy.Initiative;
+            CurrentHP = itemToCopy.CurrentHP;
+            CurrentHPInput = itemToCopy.CurrentHP.ToString();
+            this.maxHP = itemToCopy.MaxHP;
+            this.combatItemType = itemToCopy.CombatItemType;
+            this.armorClass = itemToCopy.ArmorClass;
+            this.encounterItemName = itemToCopy.EncounterItemName;
+            this.amount = itemToCopy.Amount;
+            CurrentAmount = amount;
+
+            AmountDisplay = Amount + "/" + Amount;
+            this.encounterItemId = itemToCopy.EncounterItemId;
+
+        }
+        public CombatItem Clone()
+        {
+            return new CombatItem(this);
+        }
+
         private bool TryParseHP(string input, out int result)
         {
             result = CurrentHP;
