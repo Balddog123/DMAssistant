@@ -25,8 +25,15 @@ namespace DMAssistant.Model
         public Encounter(Encounter encounterToCopy)
         {
             Name = "Copy of " + encounterToCopy.Name;
+            foreach(EncounterItem item in encounterToCopy.EncounterItems)
+            {
+                EncounterItem newItem = item.Clone();
+                EncounterItems.Add(newItem);
+            }
+
             EncounterItems = encounterToCopy.EncounterItems;
             CombatItems = encounterToCopy.CombatItems;
+
             CurrentRound = encounterToCopy.CurrentRound;
         }
     }

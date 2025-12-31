@@ -27,7 +27,19 @@ namespace DMAssistant.Model
         {
             name = "New Monster Group";
         }
+        protected MonsterGroup(MonsterGroup other) : base(other)
+        {
+            Quantity = other.Quantity;
+            MonsterId = other.MonsterId;
+            NumberOfGroups = other.NumberOfGroups;
+            IsAlly = other.IsAlly;
+        }
 
-        
+        public override EncounterItem Clone()
+        {
+            return new MonsterGroup(this);
+        }
+
+
     }
 }

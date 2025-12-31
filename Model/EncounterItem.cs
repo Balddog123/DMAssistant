@@ -75,5 +75,22 @@ namespace DMAssistant.Model
             }
         }
 
+        public EncounterItem()
+        {
+
+        }
+
+        public EncounterItem(EncounterItem itemToCopy)
+        {
+            Name = itemToCopy.Name;
+            Description = itemToCopy.Description;
+            RoundNumber = itemToCopy.RoundNumber;
+            InitialInitiative = itemToCopy.InitialInitiative;
+            
+        }
+        public virtual EncounterItem Clone()
+        {
+            return new EncounterItem(this);
+        }
     }
 }
