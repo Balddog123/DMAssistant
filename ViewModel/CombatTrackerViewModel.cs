@@ -197,11 +197,13 @@ namespace DMAssistant.ViewModel
             Debug.WriteLine($"Attempting to update {EncounterItemCombatItemMap.Keys.Count} encounter items in this combat...");
             foreach (EncounterItem encounterItem in Encounter.EncounterItems)
             {
+                if (CurrentRound < encounterItem.RoundNumber) continue;
+
                 if (!EncounterItemCombatItemMap.TryGetValue(encounterItem, out List<CombatItem> list)) EncounterItemCombatItemMap[encounterItem] = new List<CombatItem>();
                 Debug.WriteLine($"Updating {encounterItem.Name}...");
                 MonsterGroup mg = encounterItem as MonsterGroup;
-
-                if (mg != null)
+                
+                if (mg != null )
                 {
                     Monster monster = App.CampaignStore.CurrentCampaign.Monsters.FirstOrDefault(monster => monster.ID == mg.monsterId);
                     int diff = mg.NumberOfGroups - EncounterItemCombatItemMap[encounterItem].Count;
@@ -226,8 +228,9 @@ namespace DMAssistant.ViewModel
                 int calculatedMaxQuantity = mg != null ? mg.Quantity : 1;
                 foreach (CombatItem combatItem in EncounterItemCombatItemMap[encounterItem])
                 {
-                    combatItem.EncounterItemName = encounterItem.Name;
 
+                    combatItem.EncounterItemName = encounterItem.Name;
+                    
                     if (mg != null)
                     {
                         Monster monster = App.CampaignStore.CurrentCampaign.Monsters.First(m => m.ID == mg.monsterId);
