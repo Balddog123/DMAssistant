@@ -15,6 +15,7 @@ using static DMAssistant.Model.NameRow;
 
 public class NPC : ObservableObject
 {
+    #region GenerativeLists
     private static float _monsterTypeRate = 0.5f;
     public static Dictionary<string, float> AvailableRaces = new Dictionary<string, float>
     {
@@ -333,7 +334,7 @@ public class NPC : ObservableObject
         "Religion",
         "History/Lore",
     };
-
+    #endregion
 
 
     private string _name;

@@ -14,7 +14,11 @@ namespace DMAssistant.Model
 {
     public class Session : ObservableObject
     {
-        public string Name { get; set; } = "New Session";
+        private string name = "New Session";
+        public string Name {
+            get => name;
+            set => SetProperty(ref name, value);
+        }
         public ObservableCollection<string> NPCIDs { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> ItemIDs { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<Encounter> Encounters { get; set; } = new ObservableCollection<Encounter>();
