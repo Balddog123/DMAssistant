@@ -30,8 +30,8 @@ public static class CampaignSerializer
 
     public static Campaign? LoadCampaign(string filePath)
     {
-        Debug.WriteLine($"----LoadCampaign(string filePath)----");
-        Debug.WriteLine($"Attempting to load file at filepath: {filePath}");
+        //Debug.WriteLine($"----LoadCampaign(string filePath)----");
+        //Debug.WriteLine($"Attempting to load file at filepath: {filePath}");
 
         try
         {
@@ -40,7 +40,7 @@ public static class CampaignSerializer
                 Debug.WriteLine($"File for campaign doesn't exist: {filePath}");
                 return null;
             }
-            Debug.WriteLine($"File exists...");
+            //Debug.WriteLine($"File exists...");
 
             string json = File.ReadAllText(filePath);
             if (string.IsNullOrWhiteSpace(json))

@@ -62,9 +62,6 @@
     <Compile Update="View\NPCView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\PopupContextWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\SelectItemWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -80,19 +77,7 @@
     <Compile Update="View\SessionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\ShopView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\SoundPanelView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\SoundView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\SpellsPanelView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\SpellView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\WorldMapView.xaml.cs">

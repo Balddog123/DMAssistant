@@ -38,7 +38,7 @@ namespace DMAssistant.Model
             get=> _color;
             set
             {
-                Debug.WriteLine($"Changing color of {Name} to {value}");
+                //Debug.WriteLine($"Changing color of {Name} to {value}");
                 SetProperty(ref _color, value);
             }
         }

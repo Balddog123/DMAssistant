@@ -191,10 +191,6 @@ namespace DMAssistant.ViewModel
             {
                 CurrentCombat = new CombatTrackerViewModel(Encounter, Encounter.CombatItems);
             }
-            else
-            {
-                Debug.WriteLine("This encount doesn't have combat items. No combat tracker was loaded...");
-            }
         }
 
 

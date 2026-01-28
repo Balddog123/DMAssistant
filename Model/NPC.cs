@@ -370,11 +370,25 @@ public class NPC : ObservableObject
         get => _goal;
         set => SetProperty(ref _goal, value);
     }
-    private Location? _home;
+    private string homeID = "";
     public Location? Home
     {
-        get => _home;
-        set => SetProperty(ref _home, value);
+        get 
+        {
+            if (App.CampaignStore.LocationIndex.TryGetValue(homeID, out Location foundLocation))
+            {
+                return foundLocation;
+            }
+            else return null;
+        }
+        set
+        {
+            if (value is Location location)
+            {
+                SetProperty(ref homeID, location.ID);
+            }
+            
+        }
     }
     public NPC() { }
     public NPC(NPC npcToCopy)

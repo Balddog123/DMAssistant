@@ -60,9 +60,14 @@ namespace DMAssistant.ViewModel
             LocationList = new ObservableCollection<Location>();
 
             // Hydrate real Location objects
+            Debug.WriteLine($"Number of locations in Campaign: {App.CampaignStore.CurrentCampaign.Locations.Count}");
             foreach (string id in locationIDs)
             {
                 if (App.CampaignStore.LocationIndex.TryGetValue(id, out var loc)) LocationList.Add(loc);
+                else
+                {
+                    Debug.WriteLine($"Could not get Location value: {id}");
+                }
             }
 
             if (LocationList.Any()) SelectedLocation = LocationList[0];
@@ -93,13 +98,15 @@ namespace DMAssistant.ViewModel
             var location = locationToCopy != null ? new Location(locationToCopy) : new Location();
             int index = App.CampaignStore.CurrentCampaign.Locations.IndexOf(locationToCopy) + 1;
 
-            Debug.WriteLine(locationToCopy);
+            Debug.WriteLine($"Location to copy: {locationToCopy}");
             LocationList.Insert(LocationList.IndexOf(locationToCopy) + 1, location);
             SelectedLocation = location;
 
             App.CampaignStore.CurrentCampaign.Locations.Insert(index, location);
             App.CampaignStore.LocationIndex[location.ID] = location;
 
+            Debug.WriteLine($"Location successfully added to LocationsList: {App.CampaignStore.CurrentCampaign.Locations[index]}");
+            Debug.WriteLine($"Location successfully added to index: {App.CampaignStore.LocationIndex[location.ID]}");
             // Add ID to session
             _sessionLocationIDs.Add(location.ID);
         }

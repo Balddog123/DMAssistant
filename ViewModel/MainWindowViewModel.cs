@@ -22,9 +22,9 @@ using System.Windows.Input;
 
 public class MainWindowViewModel : ObservableObject
 {
-    public CampaignViewModel CampaignVM { get; }
-    public SessionViewModel SessionVM { get; }
-    public SoundPanelViewModel SoundPanelVM { get; }
+    public CampaignViewModel CampaignVM { get; private set; }
+    public SessionViewModel SessionVM { get; private set; }
+    public SoundPanelViewModel SoundPanelVM { get; private set; }
     public object CurrentView
     {
         get => _currentView;
@@ -140,6 +140,10 @@ public class MainWindowViewModel : ObservableObject
                 {
                     App.CampaignStore.StoreCampaign(campaign);
                     OnPropertyChanged(nameof(CampaignName));
+
+                    CampaignVM = new CampaignViewModel();
+                    SessionVM = new SessionViewModel();
+                    CurrentView = CampaignVM;
                 }
                 else
                 {

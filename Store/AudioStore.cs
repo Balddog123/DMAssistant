@@ -11,7 +11,7 @@ namespace DMAssistant.Store
         public AudioStore()
         {
             AudioSettings settings = SettingsSerializer.LoadSettings(SettingsSerializer.SettingsType.Audio) as AudioSettings;
-            Debug.WriteLine($"Found {settings}");
+            //Debug.WriteLine($"Found {settings}");
             if (settings == null) AudioSettings = new AudioSettings();
             else AudioSettings = settings;
         }
