@@ -5,6 +5,7 @@ using DMAssistant.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace DMAssistant.ViewModel
 {
     public partial class ItemPanelViewModel : ObservableObject
     {
-        private readonly Session _session;
+        public Session _session { get; private set; }
 
         [ObservableProperty] public ObservableCollection<ItemViewModel> itemList;
 
@@ -41,6 +42,8 @@ namespace DMAssistant.ViewModel
             // Convert item IDs → viewmodels
             ItemList = new ObservableCollection<ItemViewModel>(ids.Select(id => CreateItemViewModel(App.CampaignStore.ItemIndex[id])));
 
+            if(session == null) App.CampaignStore.CurrentCampaign.Items.CollectionChanged += OnCampaignItemsChanged;
+
             if (ItemList.Any()) SelectedItem = ItemList[0];
 
             AddItemCommand = new RelayCommand(() => AddItem());
@@ -49,8 +52,58 @@ namespace DMAssistant.ViewModel
             DuplicateItem = new RelayCommand<ItemViewModel>(itemVM => { AddItem(itemVM.Item); });
 
             // Watch for per-item changes
-            foreach (ItemViewModel vm in ItemList)
-                HookItemEvents(vm);
+            foreach (ItemViewModel vm in ItemList) HookItemEvents(vm);
+
+            App.CampaignStore.ItemDeleted += OnItemDeleted;
+        }
+
+        private void OnCampaignItemsChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (Item item in e.NewItems!)
+                    {
+                        var vm = CreateItemViewModel(item);
+                        InsertSorted(vm);
+                        Debug.WriteLine($"Created {item.Name}!");
+                    }
+                    
+                    break;
+
+                //case NotifyCollectionChangedAction.Remove:
+                //    Debug.WriteLine("Removed-item callback from CampaignStore...");
+                //    foreach (Item item in e.OldItems!)
+                //    {
+                //        Debug.WriteLine($"Item to remove: {item.ID}");
+
+                //        foreach (ItemViewModel model in ItemList)
+                //        {
+                //            if (model.Item.ID == item.ID)
+                //            {
+                //                Debug.WriteLine($"ID matches. Removing from panel list.");
+
+                //                ItemList.Remove(model);
+                //                break;
+                //            }
+                //            else
+                //            {
+                //                Debug.WriteLine($"ID doesn't match: {model.Item.ID}");
+
+                //            }
+                //        }
+                //    }
+                //    break;
+
+                case NotifyCollectionChangedAction.Reset:
+                    ItemList.Clear();
+                    break;
+            }
+        }
+
+        public void Dispose()
+        {
+            if(_session == null) App.CampaignStore.CurrentCampaign.Items.CollectionChanged -= OnCampaignItemsChanged;
         }
 
         private ItemViewModel CreateItemViewModel(Item item)
@@ -151,7 +204,7 @@ namespace DMAssistant.ViewModel
                 return;
 
             // Delete from campaign
-            App.CampaignStore.DeleteItem(itemVM.Item, _session);
+            App.CampaignStore.DeleteItem(itemVM.Item, this);
 
             // Delete from UI
             ItemList.Remove(itemVM);
@@ -159,6 +212,21 @@ namespace DMAssistant.ViewModel
             // Select something new
             if (SelectedItem == itemVM)
                 SelectedItem = ItemList.FirstOrDefault();
+        }
+
+        private void OnItemDeleted(ItemPanelViewModel panel, Item item)
+        {
+            Debug.WriteLine($"---Calling OnItemDeleted event at {this}---");
+
+            ItemViewModel vm = ItemList.FirstOrDefault(x => x.Item.ID == item.ID);
+            if(vm != null)
+            {
+                Debug.WriteLine($"Found vm: {vm}, {vm.Item}, {vm.Item.Name}...");
+                ItemList.Remove(vm);
+
+                if (SelectedItem == vm) SelectedItem = ItemList.FirstOrDefault();
+            }
+            
         }
     }
 

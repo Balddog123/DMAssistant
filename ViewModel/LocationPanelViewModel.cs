@@ -46,10 +46,9 @@ namespace DMAssistant.ViewModel
         public IRelayCommand AddExistingLocationCommand { get; }
         public IRelayCommand DeleteLocation => new RelayCommand<Location>(locationToDelete =>
         {
-            if (MessageBox.Show($"Delete {locationToDelete.Name}?",
-                                "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Delete {locationToDelete.Name}?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                App.CampaignStore.DeleteLocation(locationToDelete, _session);
+                App.CampaignStore.DeleteLocation(locationToDelete, this);
             }
         });
         public RelayCommand<Location> DuplicateLocation { get; }
@@ -59,16 +58,16 @@ namespace DMAssistant.ViewModel
             _sessionLocationIDs = locationIDs;
             LocationList = new ObservableCollection<Location>();
 
-            // Hydrate real Location objects
-            Debug.WriteLine($"Number of locations in Campaign: {App.CampaignStore.CurrentCampaign.Locations.Count}");
-            foreach (string id in locationIDs)
+            if (session == null) LocationList = App.CampaignStore.CurrentCampaign.Locations;
+            else
             {
-                if (App.CampaignStore.LocationIndex.TryGetValue(id, out var loc)) LocationList.Add(loc);
-                else
+                // Hydrate real Location objects
+                foreach (string id in locationIDs)
                 {
-                    Debug.WriteLine($"Could not get Location value: {id}");
+                    if (App.CampaignStore.LocationIndex.TryGetValue(id, out var loc)) LocationList.Add(loc);
                 }
             }
+                
 
             if (LocationList.Any()) SelectedLocation = LocationList[0];
 
@@ -83,10 +82,14 @@ namespace DMAssistant.ViewModel
             _session = session;
         }
 
-        private void OnLocationDeleted(Location location)
+        private void OnLocationDeleted(LocationPanelViewModel model, Location location)
         {
-            if (LocationList.Contains(location))
+            if (model != null && model != this) return;
+
+            Debug.WriteLine("Calling OnLocationDeleted event...");
+            if (LocationList.Contains(location)) {
                 LocationList.Remove(location);
+            }
 
             if (SelectedLocation == location)
                 SelectedLocation = LocationList.FirstOrDefault();

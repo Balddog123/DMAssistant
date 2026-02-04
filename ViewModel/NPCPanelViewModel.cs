@@ -46,7 +46,7 @@ namespace DMAssistant.ViewModel
             if (MessageBox.Show($"Remove {npcToDelete.Name}?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 //NPCList.Remove(npcToDelete);
-                App.CampaignStore.DeleteNPC(npcToDelete, _session);
+                App.CampaignStore.DeleteNPC(npcToDelete, this);
             }
         });
 
@@ -57,12 +57,17 @@ namespace DMAssistant.ViewModel
             _sessionNPCIds = npcIds;
             NPCList = new ObservableCollection<NPC>();
 
-            // Hydrate real Monster objects
-            foreach (string id in npcIds)
+            if (session == null) NPCList = App.CampaignStore.CurrentCampaign.NPCs;
+            else
             {
-                if (App.CampaignStore.NPCIndex.TryGetValue(id, out var npc))
-                    NPCList.Add(npc);
+                // Hydrate real Monster objects
+                foreach (string id in npcIds)
+                {
+                    if (App.CampaignStore.NPCIndex.TryGetValue(id, out var npc))
+                        NPCList.Add(npc);
+                }
             }
+                
 
             if (NPCList.Any()) SelectedNPC = NPCList[0]; // default selection
             AddNPCCommand = new RelayCommand(() => AddNPC());
@@ -72,8 +77,11 @@ namespace DMAssistant.ViewModel
             App.CampaignStore.NPCDeleted += OnNPCDeleted;
             _session = session;
         }
-        private void OnNPCDeleted(NPC npc)
+        private void OnNPCDeleted(NPCPanelViewModel model, NPC npc)
         {
+            if (model != null && model != this) return;
+
+            Debug.WriteLine($"Deleting NPC {npc.Name}");
             if (NPCList.Contains(npc))
                 NPCList.Remove(npc);
 

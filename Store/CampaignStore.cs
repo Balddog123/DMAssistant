@@ -2,6 +2,7 @@
 using DMAssistant.Helpers;
 using DMAssistant.Model;
 using DMAssistant.Repository;
+using DMAssistant.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,11 +27,11 @@ namespace DMAssistant.Services
         public Dictionary<string, Monster> MonsterIndex { get; private set; } = new Dictionary<string, Monster>();
         public event Action<Monster> MonsterDeleted;
         public Dictionary<string, NPC> NPCIndex { get; private set; } = new Dictionary<string, NPC>();
-        public event Action<NPC> NPCDeleted;
+        public event Action<NPCPanelViewModel, NPC> NPCDeleted;
         public Dictionary<string, Item> ItemIndex { get; private set; } = new Dictionary<string, Item>();
-        public event Action<Item> ItemDeleted;
+        public event Action<ItemPanelViewModel, Item> ItemDeleted;
         public Dictionary<string, Location> LocationIndex { get; private set; } = new Dictionary<string, Location>();
-        public event Action<Location> LocationDeleted;
+        public event Action<LocationPanelViewModel, Location> LocationDeleted;
 
         public CampaignStore()
         {
@@ -58,16 +59,19 @@ namespace DMAssistant.Services
             CurrentCampaign = campaign;
         }
 
-        public void DeleteLocation(Location location, Session removeFromSession)
+        public void DeleteLocation(Location location, LocationPanelViewModel locationPanel)
         {
             if (location == null) return;
 
-            if (removeFromSession != null)
+            if (locationPanel._session != null)
             {
                 foreach (var session in CurrentCampaign.Sessions)
                 {
-                    if (removeFromSession == session && session.LocationIDs.Contains(location.ID)) session.LocationIDs.Remove(location.ID);
+                    if (locationPanel._session == session && session.LocationIDs.Contains(location.ID)) session.LocationIDs.Remove(location.ID);
                 }
+
+                LocationDeleted?.Invoke(locationPanel, location);
+
             }
             else
             {
@@ -90,21 +94,24 @@ namespace DMAssistant.Services
                 {
                     if (session.LocationIDs.Contains(location.ID)) session.LocationIDs.Remove(location.ID);
                 }
-            }            
 
-            LocationDeleted?.Invoke(location);
+                LocationDeleted?.Invoke(null, location);
+
+            }
+
         }
-        public void DeleteNPC(NPC npc, Session removeFromSession)
+        public void DeleteNPC(NPC npc, NPCPanelViewModel npcPanel)
         {
             if (npc == null) return;
 
-            if (removeFromSession != null)
+            if (npcPanel._session != null)
             {
                 //remove just the reference from a single session
                 foreach (var session in CurrentCampaign.Sessions)
                 {
-                    if (removeFromSession == session && session.NPCIDs.Contains(npc.ID)) session.NPCIDs.Remove(npc.ID);
+                    if (npcPanel._session == session && session.NPCIDs.Contains(npc.ID)) session.NPCIDs.Remove(npc.ID);
                 }
+                NPCDeleted?.Invoke(npcPanel, npc);
             }
             else
             {
@@ -131,26 +138,24 @@ namespace DMAssistant.Services
                 {
                     if (session.NPCIDs.Contains(npc.ID)) session.NPCIDs.Remove(npc.ID);
                 }
+                NPCDeleted?.Invoke(null, npc);
             }
-
-            NPCDeleted?.Invoke(npc);
+            
         }
-        public void DeleteItem(Item item, Session removeFromSession)
+        public void DeleteItem(Item item, ItemPanelViewModel itemPanel)
         {
             if (item == null) return;
 
-            if (removeFromSession != null)
+            if (itemPanel._session != null)
             {
                 //remove just the reference from a single session
                 foreach (var session in CurrentCampaign.Sessions)
                 {
-                    if (removeFromSession == session && session.ItemIDs.Contains(item.ID)) session.ItemIDs.Remove(item.ID);
+                    if (itemPanel._session == session && session.ItemIDs.Contains(item.ID)) session.ItemIDs.Remove(item.ID);
                 }
             }
             else
             {
-                //remove from EVERYTHING!
-
                 //campaign data
                 foreach (var _item in CurrentCampaign.Items)
                 {
@@ -172,9 +177,11 @@ namespace DMAssistant.Services
                 {
                     if (session.ItemIDs.Contains(item.ID)) session.ItemIDs.Remove(item.ID);
                 }
+
+                ItemDeleted?.Invoke(itemPanel, item);
+
             }
 
-            ItemDeleted?.Invoke(item);
         }
         public void DeleteMonster(Monster monster, Session removeFromSession)
         {
