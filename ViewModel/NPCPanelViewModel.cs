@@ -144,10 +144,14 @@ namespace DMAssistant.ViewModel
             int index = App.CampaignStore.CurrentCampaign.NPCs.IndexOf(npcToCopy) + 1;
             App.CampaignStore.CurrentCampaign.NPCs.Insert(index, newNpc);
             App.CampaignStore.NPCIndex[newNpc.ID] = newNpc;
-            // Add ID to session
-            _sessionNPCIds.Add(newNpc.ID);
-            //live object to panel
-            NPCList.Insert(NPCList.IndexOf(npcToCopy) + 1, newNpc);
+            if (_session != null)
+            {
+                // Add ID to session
+                _sessionNPCIds.Add(newNpc.ID);
+                //live object to panel
+                NPCList.Insert(NPCList.IndexOf(npcToCopy) + 1, newNpc);
+            }
+                
             SelectedNPC = newNpc;
         }
 
