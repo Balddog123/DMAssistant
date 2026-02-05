@@ -99,7 +99,7 @@ namespace DMAssistant.Helpers
                 //FlowDocument currentDoc = rtb.Document;
                 SetBoundDocument(rtb, currentDoc);
 
-                InlineDebugger.DebugPrintFlowDocument(currentDoc);
+                //InlineDebugger.DebugPrintFlowDocument(currentDoc);
             }
             finally
             {
@@ -115,7 +115,7 @@ namespace DMAssistant.Helpers
             if (rtb == null)
                 return;
 
-            TextPointer caret = rtb.CaretPosition;
+            TextPointer caret = rtb.CaretPosition.GetInsertionPosition(LogicalDirection.Forward);
             Paragraph? paragraph = caret.Paragraph;
             if (paragraph == null)
                 return;
@@ -209,23 +209,70 @@ namespace DMAssistant.Helpers
             link.TextDecorations = TextDecorations.Underline;
 
             range.Text = "";
-            // Insert at the exact token location
-            TextPointer insertPos = range.Start.GetInsertionPosition(LogicalDirection.Forward);
-            Paragraph para = insertPos.Paragraph!;
-            Inline? nextInline = insertPos.GetAdjacentElement(LogicalDirection.Forward) as Inline;
 
+            // Force a real boundary
+            Inline? after = SplitRunAtCaret(caret);
 
-            if (nextInline != null)
-                para.Inlines.InsertBefore(nextInline, link);
+            // Insert hyperlink
+            if (after != null)
+                paragraph.Inlines.InsertBefore(after, link);
             else
-                para.Inlines.Add(link);
+                paragraph.Inlines.Add(link);
 
             // Move caret after hyperlink
             rtb.CaretPosition = link.ElementEnd;
 
-            Debug.WriteLine("Created hyperlink for " + link.Tag);
-
+            InlineDebugger.DebugPrintFlowDocument(document);
         }
+
+        static Inline? SplitRunAtCaret(TextPointer caret)
+        {
+            if (caret.Parent is not Run run)
+                return caret.GetAdjacentElement(LogicalDirection.Forward) as Inline;
+
+            Paragraph para = run.Parent as Paragraph
+                ?? throw new InvalidOperationException("Run not inside Paragraph");
+
+            string text = run.Text;
+
+            // Calculate caret index inside the run
+            int splitIndex = new TextRange(run.ContentStart, caret).Text.Length;
+
+            string leftText = text.Substring(0, splitIndex);
+            string rightText = text.Substring(splitIndex);
+
+            Run leftRun = new Run(leftText);
+            Run rightRun = new Run(rightText);
+
+            // Preserve formatting
+            leftRun.Style = run.Style;
+            rightRun.Style = run.Style;
+
+            // Replace original run
+            para.Inlines.InsertBefore(run, leftRun);
+            para.Inlines.InsertAfter(run, rightRun);
+            para.Inlines.Remove(run);
+
+            return rightRun; // inline that follows the caret
+        }
+
+        private static void DebugCaretPosition(TextPointer caret)
+        {
+            TextPointer before = caret.GetPositionAtOffset(-1, LogicalDirection.Backward);
+            TextPointer after = caret.GetPositionAtOffset(1, LogicalDirection.Forward);
+
+            if (before != null)
+            {
+                string text = new TextRange(before, caret).Text;
+                Debug.WriteLine($"Char before caret: \"{text}\"");
+            }
+            if (after != null)
+            {
+                string text = new TextRange(caret, after).Text;
+                Debug.WriteLine($"Char after caret: \"{text}\"");
+            }
+        }
+
         private static TextPointer? GetTextPointerAtOffset(TextPointer start, int offset)
         {
             TextPointer? current = start;
