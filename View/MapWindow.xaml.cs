@@ -52,6 +52,7 @@ namespace DMAssistant.View
 
         // Dictionary mapping each InkLayerData to its InkCanvas instance
         private Dictionary<InkLayerData, InkCanvas> _layerCanvases = new();
+        private List<InkLayerData> inkLayerDatas = new List<InkLayerData>();
         private Dictionary<InkLayerData, Grid> _layerGrids = new();
         private Dictionary<InkLayerData, Image> _layerThumbnails = new();
 
@@ -71,27 +72,27 @@ namespace DMAssistant.View
         /// </summary>
         private void LoadLayers()
         {
-            if (_map.Layers.Count == 0)
+            if (inkLayerDatas.Count == 0)
             {
                 AddNewLayer();
             }
             else
             {
-                foreach (var layer in _map.Layers)
+                foreach (var layer in inkLayerDatas)
                 {
                     CreateInkCanvasForLayer(layer);
                     CreateLayerRow(layer);
                 }
             }
-            SetActiveLayer(_map.Layers[0]);
+            SetActiveLayer(inkLayerDatas[0]);
         }
         private void SaveMap(object sender, RoutedEventArgs e)
         {
-            if (_map.Layers == null) _map.Layers = new ObservableCollection<InkLayerData>();
+            if (inkLayerDatas == null) inkLayerDatas = new List<InkLayerData>();
 
             _map.Layers.Clear();
 
-            foreach (var layer in _layerCanvases.Keys)
+            foreach (var layer in inkLayerDatas)
             {
                 var canvas = _layerCanvases[layer];
 
@@ -104,6 +105,7 @@ namespace DMAssistant.View
 
                 _map.Layers.Add(layer); // add layer to map's list
             }
+
             _map.NotifyThumbnailsChanged();
 
 
@@ -225,10 +227,10 @@ namespace DMAssistant.View
         /// </summary>
         private InkLayerData AddNewLayer()
         {
-            string name = $"New Layer {_map.Layers.Count}";
+            string name = $"New Layer {inkLayerDatas.Count}";
             // 1. Create the layer object
             var layer = new InkLayerData { Name = name };
-            _map.Layers.Add(layer);
+            inkLayerDatas.Add(layer);
 
             // 2. Create its InkCanvas
             CreateInkCanvasForLayer(layer);
@@ -278,10 +280,10 @@ namespace DMAssistant.View
             row.MouseLeftButtonDown += (s, e) =>
             {
                 SetActiveLayer(layer); // store active layer
-                UpdateLayerSelectionUI(); // optional: highlight selected row
+                UpdateLayerSelectionUI(); // highlight selected row
             };
 
-            LayerListContainer.Children.Add(row);
+            LayerListContainer.Children.Insert(0, row);
         }
 
         private void UpdateLayerSelectionUI()
@@ -358,9 +360,9 @@ namespace DMAssistant.View
                 LayerListContainer.Children.Remove(grid);
                 _layerGrids.Remove(layer);
             }
-            if (_map.Layers.Count > 1) SetActiveLayer(_map.Layers[0]);
+            if (inkLayerDatas.Count > 1) SetActiveLayer(inkLayerDatas[0]);
             else SetActiveLayer(null);
-            _map.Layers.Remove(layer);
+            inkLayerDatas.Remove(layer);
             
         }
 
@@ -373,15 +375,32 @@ namespace DMAssistant.View
             if (!_layerGrids.TryGetValue(layer, out var grid)) return;
 
             int index = LayerContainer.Children.IndexOf(ink);
+            Debug.WriteLine($"Moving canvas at layer {index}...");
+            
             if (index < LayerContainer.Children.Count - 1)
             {
+                //moving the canvas
                 LayerContainer.Children.RemoveAt(index);
                 LayerContainer.Children.Insert(index + 1, ink);
 
+                Debug.WriteLine($"Layercontainer - Removed {index}. Inserted at {index + 1}.");
+
                 // Update model ordering (first = back, last = front)
-                _map.Layers.RemoveAt(index);
-                _map.Layers.Insert(index + 1, layer);
-                Debug.WriteLine($"{layer.Name}: {index} => {_map.Layers.IndexOf(layer)}");
+                Debug.WriteLine("Moving map layers...");
+                foreach (var l in inkLayerDatas)
+                {
+                    Debug.WriteLine($"...mapLayer: {l.Name}");
+                }
+                inkLayerDatas.RemoveAt(index);
+                inkLayerDatas.Insert(index + 1, layer);
+                Debug.WriteLine("Moved map layers...");
+                foreach (var l in inkLayerDatas)
+                {
+                    Debug.WriteLine($"...mapLayer: {l.Name}");
+                }
+                Debug.WriteLine($"inkLayerDatas - Removed {index}. Inserted at {index + 1}.");
+
+                Debug.WriteLine($"{layer.Name}: {index} => {inkLayerDatas.IndexOf(layer)}");
             }
 
             index = LayerListContainer.Children.IndexOf(grid);
@@ -389,6 +408,9 @@ namespace DMAssistant.View
             {
                 LayerListContainer.Children.RemoveAt(index);
                 LayerListContainer.Children.Insert(index - 1, grid);
+
+                Debug.WriteLine($"Grid item - Removed {index}. Inserted at {index - 1}.");
+
             }
         }
 
@@ -407,9 +429,9 @@ namespace DMAssistant.View
                 LayerContainer.Children.Insert(index - 1, ink);
 
                 // Update model ordering (first = back, last = front)
-                _map.Layers.RemoveAt(index);
-                _map.Layers.Insert(index - 1, layer);
-                Debug.WriteLine($"{layer.Name}: {index} => {_map.Layers.IndexOf(layer)}");
+                inkLayerDatas.RemoveAt(index);
+                inkLayerDatas.Insert(index - 1, layer);
+                Debug.WriteLine($"{layer.Name}: {index} => {inkLayerDatas.IndexOf(layer)}");
             }
 
             index = LayerListContainer.Children.IndexOf(grid);

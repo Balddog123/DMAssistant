@@ -78,7 +78,7 @@ namespace DMAssistant.ViewModel
         {
             get
             {
-                if(int.TryParse(Monster.STR, out int str))
+                if(Monster != null && int.TryParse(Monster.STR, out int str))
                 {
                     return "+" + ((str - 10) / 2).ToString();
                 }
@@ -102,7 +102,7 @@ namespace DMAssistant.ViewModel
         {
             get
             {
-                if (int.TryParse(Monster.DEX, out int num))
+                if (Monster != null && int.TryParse(Monster.DEX, out int num))
                 {
                     return Monster.GetMod(num).ToString();
                 }
@@ -125,7 +125,7 @@ namespace DMAssistant.ViewModel
         {
             get
             {
-                if (int.TryParse(Monster.CON, out int num))
+                if (Monster != null && int.TryParse(Monster.CON, out int num))
                 {
                     return "+" + ((num - 10) / 2).ToString();
                 }
@@ -148,7 +148,7 @@ namespace DMAssistant.ViewModel
         {
             get
             {
-                if (int.TryParse(Monster.INT, out int num))
+                if (Monster != null && int.TryParse(Monster.INT, out int num))
                 {
                     return "+" + ((num - 10) / 2).ToString();
                 }
@@ -171,7 +171,7 @@ namespace DMAssistant.ViewModel
         {
             get
             {
-                if (int.TryParse(Monster.WIS, out int num))
+                if (Monster != null && int.TryParse(Monster.WIS, out int num))
                 {
                     return "+" + ((num - 10) / 2).ToString();
                 }
@@ -194,7 +194,7 @@ namespace DMAssistant.ViewModel
         {
             get
             {
-                if (int.TryParse(Monster.CHA, out int num))
+                if (Monster != null && int.TryParse(Monster.CHA, out int num))
                 {
                     return "+" + ((num - 10) / 2).ToString();
                 }
@@ -206,7 +206,7 @@ namespace DMAssistant.ViewModel
         // Editable plain text versions of Traits, Actions, LegendaryActions
         public FlowDocument TraitsText
         {
-            get => Monster.Traits;
+            get => Monster != null ? Monster.Traits : new FlowDocument();
             set
             {
                 if (Monster.Traits != value)
@@ -218,7 +218,7 @@ namespace DMAssistant.ViewModel
         }
         public FlowDocument ActionsText
         {
-            get => Monster.Actions;
+            get => Monster != null ? Monster.Actions : new FlowDocument();
             set
             {
                 if (Monster.Actions != value){
@@ -229,7 +229,7 @@ namespace DMAssistant.ViewModel
         }
         public FlowDocument LegendaryText
         {
-            get => Monster.LegendaryActions;
+            get => Monster != null ? Monster.LegendaryActions : new FlowDocument();
             set
             {
                 if (Monster.LegendaryActions != value)

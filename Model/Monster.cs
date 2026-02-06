@@ -65,6 +65,7 @@ namespace DMAssistant.Model
         [JsonPropertyName("Damage Resistances")] public string DamageResistances { get; set; } = "";
         [JsonPropertyName("Damage Immunities")] public string DamageImmunities { get; set; } = "";
         [JsonPropertyName("Condition Immunities")] public string ConditionImmunities { get; set; } = "";
+        [JsonPropertyName("Damage Vulnerabilities")] public string DamageVulnerabilities { get; set; } = "";
         public string Senses { get; set; } = "";
         public string Languages { get; set; } = "";
         [JsonConverter(typeof(FlowDocumentJsonConverter))] public FlowDocument Traits { get; set; } = new FlowDocument();
@@ -120,6 +121,8 @@ namespace DMAssistant.Model
             DamageResistances = other.DamageResistances;
             DamageImmunities = other.DamageImmunities;
             ConditionImmunities = other.ConditionImmunities;
+            DamageVulnerabilities = other.DamageVulnerabilities;
+            Debug.WriteLine($"Monster: {Name}, Vulnerabilities: {DamageVulnerabilities}...");
             Senses = other.Senses;
             Languages = other.Languages;
             Traits = other.Traits;

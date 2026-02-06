@@ -95,7 +95,13 @@ namespace DMAssistant.ViewModel
         {
             AudioPlayerService.SetVolume(value);
         }
-        public string PositionDisplay => $"{TimeSpan.FromSeconds(Position):m\\:ss} / {TimeSpan.FromSeconds(Duration):m\\:ss}";
+        public string PositionDisplay {
+            get
+            {
+                if (TimeSpan.FromSeconds(Duration) < TimeSpan.FromMinutes(60)) return $"{TimeSpan.FromSeconds(Position):m\\:ss} / {TimeSpan.FromSeconds(Duration):m\\:ss}";
+                else return $"{TimeSpan.FromSeconds(Position):hh\\:mm\\:ss} / {TimeSpan.FromSeconds(Duration):hh\\:mm\\:ss}";
+            }
+        }
         public IRelayCommand PlayCommand { get; }
         public IRelayCommand PauseCommand { get; }
         public IRelayCommand StopCommand { get; }

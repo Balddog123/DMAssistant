@@ -77,8 +77,14 @@
         <TextBox Text="{Binding Monster.SavingThrows, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
         <TextBlock Text="Skills:" FontWeight="Bold"/>
         <TextBox Text="{Binding Monster.Skills, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <TextBlock Text="Senses:" FontWeight="Bold"/>
+        <TextBox Text="{Binding Monster.Senses, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
+        
         <Separator Margin="10" Width="500"/>
+        
 
+        <TextBlock Text="Damage Vulnerabilities:" FontWeight="Bold"/>
+        <TextBox Text="{Binding Monster.DamageVulnerabilities, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
         <TextBlock Text="Damage Resistances:" FontWeight="Bold"/>
         <TextBox Text="{Binding Monster.DamageResistances, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
         <TextBlock Text="Damage Immunities:" FontWeight="Bold"/>

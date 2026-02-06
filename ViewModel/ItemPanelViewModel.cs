@@ -137,8 +137,6 @@ namespace DMAssistant.ViewModel
             App.CampaignStore.CurrentCampaign.Items.Insert(index, item);
             App.CampaignStore.ItemIndex[item.ID] = item;
 
-            if(_session != null) _session.ItemIDs.Add(item.ID);
-
             if (itemToCopy == null)
             {
                 item.Name = Item.GetRandomName();
@@ -150,9 +148,14 @@ namespace DMAssistant.ViewModel
                 item.Appearance.Blocks.Add(new Paragraph(new Run(Item.GetRandomAppearance())));
             }
 
-            var vm = CreateItemViewModel(item);
-            InsertSorted(vm);
-            SelectedItem = vm;
+            if (_session != null)
+            {
+                _session.ItemIDs.Add(item.ID);
+
+                var vm = CreateItemViewModel(item);
+                InsertSorted(vm);
+                SelectedItem = vm;
+            }
         }
         private void InsertSorted(ItemViewModel vm)
         {

@@ -22,8 +22,7 @@ namespace DMAssistant.Repository
                 throw new FileNotFoundException("Monsters JSON not found:", path);
 
             var json = File.ReadAllText(path);
-            _monsterCache = JsonSerializer.Deserialize<List<Monster>>(json)
-                    ?? new List<Monster>();
+            _monsterCache = JsonSerializer.Deserialize<List<Monster>>(json) ?? new List<Monster>();
 
             return _monsterCache;
         }
