@@ -5,8 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DMAssistant.View"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.WPF.DragDrop"
+             xmlns:c="clr-namespace:DMAssistant.Helpers.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <c:PlusOneConverter x:Key="PlusOneConverter"/>
+    </UserControl.Resources>
+
     <ScrollViewer>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -48,13 +54,12 @@
                                 </Image>
                                 
                                 <!-- Number prefix -->
-                                <TextBlock Margin="0,0,4,0" Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0}. ">
-                                            <Binding RelativeSource="{RelativeSource AncestorType=ListBoxItem}" Path="(ItemsControl.AlternationIndex)" />
-                                        </MultiBinding>
+                                        <Binding RelativeSource="{RelativeSource AncestorType=ListBoxItem}" Path="(ItemsControl.AlternationIndex)" Converter="{StaticResource PlusOneConverter}" StringFormat="{}{0}. "/>
                                     </TextBlock.Text>
                                 </TextBlock>
+
 
                                 <!-- Editable text -->
                                 <TextBox Grid.Column="2" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="6,0,6,0" AcceptsReturn="True" TextWrapping="Wrap"/>
