@@ -15,48 +15,102 @@ namespace DMAssistant.Helpers
             Object objectForLink = null;
             if (type == LinkType.Spell)
             {
-                var spellDict = App.CampaignStore.CurrentCampaign.Spells.ToDictionary(s => s.Name.ToLower().Trim(), s => s);
-                if (spellDict.TryGetValue(key.ToLower().Trim(), out var spell))
+                try
                 {
-                    objectForLink = spell;
+                    var spellDict = App.CampaignStore.CurrentCampaign.Spells.ToDictionary(s => s.Name.ToLower().Trim(), s => s);
+                    if (spellDict.TryGetValue(key.ToLower().Trim(), out var spell))
+                    {
+                        objectForLink = spell;
+                    }
+                    else return null;
                 }
-                else return null;
+                catch(Exception e)
+                {
+                }                
             }
             else if (type == LinkType.Item)
             {
-                var itemDict = App.CampaignStore.CurrentCampaign.Items.ToDictionary(i => i.Name.ToLower().Trim(), i => i);
-                if (itemDict.TryGetValue(key.ToLower().Trim(), out var item))
+                try
                 {
-                    objectForLink = item;
+                    var itemDict = App.CampaignStore.CurrentCampaign.Items.ToDictionary(i => i.Name.ToLower().Trim(), i => i);
+                    if (itemDict.TryGetValue(key.ToLower().Trim(), out var item))
+                    {
+                        objectForLink = item;
+                    }
+                    else return null;
                 }
-                else return null;
+                catch(Exception e)
+                {
+
+                }
+                
             }
             else if (type == LinkType.Monster)
             {
-                var monsterDict = App.CampaignStore.CurrentCampaign.Monsters.ToDictionary(m => m.Name.ToLower().Trim(), m => m);
-                if (monsterDict.TryGetValue(key.ToLower().Trim(), out var monster))
+                try
                 {
-                    objectForLink = monster;
+                    var monsterDict = App.CampaignStore.CurrentCampaign.Monsters.ToDictionary(m => m.Name.ToLower().Trim(), m => m);
+                    if (monsterDict.TryGetValue(key.ToLower().Trim(), out var monster))
+                    {
+                        objectForLink = monster;
+                    }
+                    else return null;
                 }
-                else return null;
+                catch (Exception e)
+                {
+
+                }
+                
             }
             else if (type == LinkType.Location)
             {
-                var locationDict = App.CampaignStore.CurrentCampaign.Locations.ToDictionary(l => l.Name.ToLower().Trim(), l => l);
-                if (locationDict.TryGetValue(key.ToLower().Trim(), out var location))
+                try
                 {
-                    objectForLink = location;
+                    var locationDict = App.CampaignStore.CurrentCampaign.Locations.ToDictionary(l => l.Name.ToLower().Trim(), l => l);
+                    if (locationDict.TryGetValue(key.ToLower().Trim(), out var location))
+                    {
+                        objectForLink = location;
+                    }
+                    else return null;
                 }
-                else return null;
+                catch (Exception e)
+                {
+
+                }
+                
             }
             else if (type == LinkType.NPC)
             {
-                var dict = App.CampaignStore.CurrentCampaign.NPCs.ToDictionary(n => n.Name.ToLower().Trim(), n => n);
-                if (dict.TryGetValue(key.ToLower().Trim(), out var npc))
+                try
                 {
-                    objectForLink = npc;
+                    var dict = App.CampaignStore.CurrentCampaign.NPCs.ToDictionary(n => n.Name.ToLower().Trim(), n => n);
+                    if (dict.TryGetValue(key.ToLower().Trim(), out var npc))
+                    {
+                        objectForLink = npc;
+                    }
+                    else return null;
                 }
-                else return null;
+                catch(Exception e)
+                {
+                }
+                
+            }
+            else if (type == LinkType.Table)
+            {
+                try
+                {
+                    var dict = App.CampaignStore.CurrentCampaign.Tables.ToDictionary(n => n.Name.ToLower().Trim(), n => n);
+                    if (dict.TryGetValue(key.ToLower().Trim(), out var table))
+                    {
+                        objectForLink = table;
+                    }
+                    else return null;
+                }
+                catch(Exception e)
+                {
+
+                }
+                
             }
             else return null;
 

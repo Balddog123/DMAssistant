@@ -13,7 +13,8 @@ namespace DMAssistant.Model
         NPC,
         Item,
         Location,
-        Monster
+        Monster,
+        Table
     }
 
     public sealed class LinkRef

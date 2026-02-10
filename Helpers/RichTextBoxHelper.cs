@@ -124,7 +124,7 @@ namespace DMAssistant.Helpers
             int offset = new TextRange(paragraph.ContentStart, caret).Text.Length;
             string textBeforeCaret = paragraphText.Substring(0, offset);
 
-            var match = Regex.Match(textBeforeCaret, @"\{[simlc]:[^}]+\}$");
+            var match = Regex.Match(textBeforeCaret, @"\{[simlct]:[^}]+\}$");
             if (!match.Success) return;
 
             TextPointer start = paragraph.ContentStart;
@@ -143,60 +143,122 @@ namespace DMAssistant.Helpers
             string newText = "";
             LinkType linkType = LinkType.None;
 
+            Debug.WriteLine($"Detected token: {type}: {key}...");
             if (type == 's')
             {
-                linkType = LinkType.Spell;
-                var spellDict = App.CampaignStore.CurrentCampaign.Spells.ToDictionary(s => s.Name.ToLower().Trim(), s => s);
-                if (spellDict.TryGetValue(key.ToLower().Trim(), out var spell))
+                try
                 {
-                    objectForLink = spell;
-                    newText = spell.Name;
+                    linkType = LinkType.Spell;
+                    var spellDict = App.CampaignStore.CurrentCampaign.Spells.ToDictionary(s => s.Name.ToLower().Trim(), s => s);
+                    if (spellDict.TryGetValue(key.ToLower().Trim(), out var spell))
+                    {
+                        objectForLink = spell;
+                        newText = spell.Name;
+                    }
+                    else return;
                 }
-                else return;
+                catch (Exception)
+                {
+                    return;
+                }
             }
             else if (type == 'i')
             {
-                linkType = LinkType.Item;
-                var itemDict = App.CampaignStore.CurrentCampaign.Items.ToDictionary(i => i.Name.ToLower().Trim(), i => i);
-                if (itemDict.TryGetValue(key.ToLower().Trim(), out var item))
+                try
                 {
-                    objectForLink = item;
-                    newText = item.Name;
+                    linkType = LinkType.Item;
+                    var itemDict = App.CampaignStore.CurrentCampaign.Items.ToDictionary(i => i.Name.ToLower().Trim(), i => i);
+                    if (itemDict.TryGetValue(key.ToLower().Trim(), out var item))
+                    {
+                        objectForLink = item;
+                        newText = item.Name;
+                    }
+                    else return;
                 }
-                else return;
+                catch (Exception)
+                {
+                    return;
+                }
             }
             else if (type == 'm')
             {
-                linkType = LinkType.Monster;
-                var monsterDict = App.CampaignStore.CurrentCampaign.Monsters.ToDictionary(m => m.Name.ToLower().Trim(), m => m);
-                if (monsterDict.TryGetValue(key.ToLower().Trim(), out var monster))
+                try
                 {
-                    objectForLink = monster;
-                    newText = monster.Name;
+                    linkType = LinkType.Monster;
+                    var monsterDict = App.CampaignStore.CurrentCampaign.Monsters.ToDictionary(m => m.Name.ToLower().Trim(), m => m);
+                    if (monsterDict.TryGetValue(key.ToLower().Trim(), out var monster))
+                    {
+                        objectForLink = monster;
+                        newText = monster.Name;
+                    }
+                    else return;
                 }
-                else return;
+                catch (Exception)
+                {
+                    return;
+                }
             }
             else if (type == 'l')
             {
                 linkType = LinkType.Location;
-                var locationDict = App.CampaignStore.CurrentCampaign.Locations.ToDictionary(l => l.Name.ToLower().Trim(), l => l);
-                if (locationDict.TryGetValue(key.ToLower().Trim(), out var location))
+                try
                 {
-                    objectForLink = location;
-                    newText = location.Name;
+                    var locationDict = App.CampaignStore.CurrentCampaign.Locations.ToDictionary(l => l.Name.ToLower().Trim(), l => l);
+                    if (locationDict.TryGetValue(key.ToLower().Trim(), out var location))
+                    {
+                        objectForLink = location;
+                        newText = location.Name;
+                    }
+                    else return;
                 }
-                else return;
+                catch (Exception e)
+                {
+                    return;
+                }
+                
             }
             else if (type == 'c')
             {
-                linkType = LinkType.NPC;
-                var dict = App.CampaignStore.CurrentCampaign.NPCs.ToDictionary(n => n.Name.ToLower().Trim(), n => n);
-                if (dict.TryGetValue(key.ToLower().Trim(), out var npc))
+                try
                 {
-                    objectForLink = npc;
-                    newText = npc.Name;
+                    linkType = LinkType.NPC;
+                    var dict = App.CampaignStore.CurrentCampaign.NPCs.ToDictionary(n => n.Name.ToLower().Trim(), n => n);
+                    if (dict.TryGetValue(key.ToLower().Trim(), out var npc))
+                    {
+                        objectForLink = npc;
+                        newText = npc.Name;
+                    }
+                    else return;
                 }
-                else return;
+                catch (Exception)
+                {
+                    return;
+                }
+            }
+            else if (type == 't')
+            {
+                Debug.WriteLine("LinkType is t: Table.");
+                try
+                {
+                    linkType = LinkType.Table;
+                    var dict = App.CampaignStore.CurrentCampaign.Tables.ToDictionary(n => n.Name.ToLower().Trim(), n => n);
+                    if (dict.TryGetValue(key.ToLower().Trim(), out var table))
+                    {
+                        Debug.WriteLine("Found table item " + table.Name);
+                        objectForLink = table;
+                        newText = table.Name;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Could NOT find table item for key: " + key + "...");
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                    return;
+                }
             }
             else return;
 
@@ -493,6 +555,7 @@ namespace DMAssistant.Helpers
                 Monster m => new MonsterViewModel(m),
                 NPC n => new NPCViewModel(n),
                 Location l => new LocationViewModel(l),
+                DMAssistant.Model.Table t => new TableViewModel(t),
                 _ => throw new ArgumentException($"Unsupported type: {context.GetType()}")
             };
 
