@@ -55,12 +55,13 @@ namespace DMAssistant.ViewModel
 
         public LocationPanelViewModel(ObservableCollection<string> locationIDs, Session session)
         {
-            _sessionLocationIDs = locationIDs;
-            LocationList = new ObservableCollection<Location>();
+            _sessionLocationIDs = locationIDs;            
 
             if (session == null) LocationList = App.CampaignStore.CurrentCampaign.Locations;
             else
             {
+                LocationList = new ObservableCollection<Location>();
+
                 // Hydrate real Location objects
                 foreach (string id in locationIDs)
                 {
@@ -105,13 +106,17 @@ namespace DMAssistant.ViewModel
             LocationList.Insert(LocationList.IndexOf(locationToCopy) + 1, location);
             SelectedLocation = location;
 
-            App.CampaignStore.CurrentCampaign.Locations.Insert(index, location);
-            App.CampaignStore.LocationIndex[location.ID] = location;
+            if(_session != null)
+            {
+                App.CampaignStore.CurrentCampaign.Locations.Insert(index, location);
+                App.CampaignStore.LocationIndex[location.ID] = location;
 
-            Debug.WriteLine($"Location successfully added to LocationsList: {App.CampaignStore.CurrentCampaign.Locations[index]}");
-            Debug.WriteLine($"Location successfully added to index: {App.CampaignStore.LocationIndex[location.ID]}");
-            // Add ID to session
-            _sessionLocationIDs.Add(location.ID);
+                Debug.WriteLine($"Location successfully added to LocationsList: {App.CampaignStore.CurrentCampaign.Locations[index]}");
+                Debug.WriteLine($"Location successfully added to index: {App.CampaignStore.LocationIndex[location.ID]}");
+                // Add ID to session
+                _sessionLocationIDs.Add(location.ID);
+            }
+            
         }
 
         private void AddExistingLocation()
