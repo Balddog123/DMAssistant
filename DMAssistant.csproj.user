@@ -80,6 +80,12 @@
     <Compile Update="View\SoundPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\TablePanelView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\TableView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\WorldMapView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

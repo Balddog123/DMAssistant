@@ -21,6 +21,7 @@ namespace DMAssistant.ViewModel
         private MonsterPanelViewModel _monsterPanelViewModel;
         private LocationPanelViewModel _locationPanelViewModel;
         private SpellsPanelViewModel _spellPanelViewModel;
+        private TablePanelViewModel _tablePanelViewModel;
         private CampaignNotesViewModel _campaignNotesViewModel;
         private CampaignLoreViewModel _campaignLoreViewModel;
         private CampaignPCViewModel _campaignPCViewModel;
@@ -38,6 +39,7 @@ namespace DMAssistant.ViewModel
         public RelayCommand ShowItemsCommand { get; }
         public RelayCommand ShowMonstersCommand { get; }
         public RelayCommand ShowNotesCommand { get; }
+        public RelayCommand ShowTablesCommand { get; }
         public RelayCommand ShowLoreCommand { get; }
         public RelayCommand ShowPCsCommand { get; }
         public RelayCommand ShowFrontsCommand { get; }
@@ -62,6 +64,8 @@ namespace DMAssistant.ViewModel
             ShowSpellsCommand = new RelayCommand(() =>ShowModule(ref _spellPanelViewModel,() => new SpellsPanelViewModel()));
 
             ShowNotesCommand = new RelayCommand(() =>ShowModule(ref _campaignNotesViewModel,() => new CampaignNotesViewModel()));
+
+            ShowTablesCommand = new RelayCommand(() =>ShowModule(ref _tablePanelViewModel,() => new TablePanelViewModel()));
 
             ShowLoreCommand = new RelayCommand(() =>ShowModule(ref _campaignLoreViewModel,() => new CampaignLoreViewModel()));
 

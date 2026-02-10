@@ -120,6 +120,13 @@
                 <v:ShopView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:TablePanelViewModel}">
+                <v:TablePanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:TableViewModel}">
+                <v:TableView />
+            </DataTemplate>
+
             <!-- Converters -->
             <rc:NullToBoolConverter x:Key="NullToBoolConverter"/>
             <rc:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter" />

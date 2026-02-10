@@ -18,6 +18,7 @@ namespace DMAssistant.Model
         public ObservableCollection<Monster> Monsters { get; set; } = new();
         public ObservableCollection<PlayerCharacter> PCs { get; set; } = new();
         public ObservableCollection<Spell> Spells { get; set; } = new();
+        public ObservableCollection<Table> Tables { get; set; } = new();
 
         public string Notes { get; set; } = "";
         public ObservableCollection<string> Fronts { get; set; } = new();

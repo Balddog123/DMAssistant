@@ -51,24 +51,6 @@ namespace DMAssistant.ViewModel
         {
             // Default empty spell
             Spell = new Spell();
-            //Spell = new Spell(
-            //    castingTime: CastingTime.Action,
-            //    classes: new ObservableCollection<string>(),
-            //    components: new Components
-            //    {
-            //        material = false,
-            //        somatic = false,
-            //        verbal = false,
-            //        raw = new List<string>()
-            //    },
-            //    description: "",
-            //    duration: "",
-            //    level: "",
-            //    name: "",
-            //    range: "",
-            //    ritual: false,
-            //    school: Spell.SchoolOfMagic.Conjuration
-            //);
         }
 
         public SpellViewModel(Spell spell)
