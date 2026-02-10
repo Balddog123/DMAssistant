@@ -18,7 +18,10 @@
             <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="0,5"/>
 
             <StackPanel HorizontalAlignment="Center"  Grid.Row="1">
-                <Button Content="Add Table Item" Width="100" Margin="0,0,0,8" Command="{Binding AddTableItemCommand}" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Add Table Item" Width="100" Margin="8" Command="{Binding AddTableItemCommand}" />
+                    <Button Content="Roll" Width="100" Margin="8" Command="{Binding RollCommand}" />
+                </StackPanel>                
 
                 <ListBox ItemsSource="{Binding Table.Values}" Grid.Row="1" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" AlternationCount="999" >
                     <ListBox.ItemTemplate>
@@ -26,11 +29,26 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="24"/>
+                                    <ColumnDefinition Width="24"/>
                                     <ColumnDefinition Width="900"/>
                                     <ColumnDefinition Width="24"/>
                                 </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Source="/Resources/icon-arrowRight.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsRolled}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                
                                 <!-- Number prefix -->
-                                <TextBlock Margin="0,0,4,0" Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Margin="0,0,4,0" Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0}. ">
                                             <Binding RelativeSource="{RelativeSource AncestorType=ListBoxItem}" Path="(ItemsControl.AlternationIndex)" />
@@ -39,10 +57,10 @@
                                 </TextBlock>
 
                                 <!-- Editable text -->
-                                <TextBox Grid.Column="1" Text="{Binding Path=.}" Margin="6,0,6,0" AcceptsReturn="True" TextWrapping="Wrap"/>
+                                <TextBox Grid.Column="2" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="6,0,6,0" AcceptsReturn="True" TextWrapping="Wrap"/>
 
                                 <!-- Delete button -->
-                                <Button Grid.Column="2" Command="{Binding DataContext.RemoveTableItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Height="30">
+                                <Button Grid.Column="3" Command="{Binding DataContext.RemoveTableItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Height="30">
                                     <Image Source="/Resources/icon-delete.png" Height="16"/>
                                 </Button>
                             </Grid>

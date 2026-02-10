@@ -11,12 +11,7 @@ namespace DMAssistant.Model
     public partial class Table : ObservableObject
     {
         [ObservableProperty] public string name = "New Table";
-        private ObservableCollection<string> values = new ObservableCollection<string>();
-        public ObservableCollection<string> Values
-        {
-            get => values;
-            set => values = value;
-        }
+        [ObservableProperty] public ObservableCollection<TableItem> values = new();
         public Table()
         {
 

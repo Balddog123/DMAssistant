@@ -21,6 +21,7 @@
     <None Remove="Resources\icon-addtoplaylist.png" />
     <None Remove="Resources\icon-arrow.png" />
     <None Remove="Resources\icon-arrowDown.png" />
+    <None Remove="Resources\icon-arrowRight.png" />
     <None Remove="Resources\icon-arrowUp.png" />
     <None Remove="Resources\icon-book.png" />
     <None Remove="Resources\icon-close.png" />
@@ -64,6 +65,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\icon-arrowDown.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-arrowRight.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-arrowUp.png">

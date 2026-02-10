@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using DMAssistant.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,7 @@ namespace DMAssistant.ViewModel
 
         public ICommand AddTableItemCommand { get; }
         public ICommand RemoveTableItemCommand { get; }
+        public ICommand RollCommand { get; }
 
         public TableViewModel(Table table)
         {
@@ -42,10 +44,10 @@ namespace DMAssistant.ViewModel
             Debug.WriteLine($"Created a table view for {Table.Name}...");
             AddTableItemCommand = new RelayCommand(() =>
             {
-                Table.Values.Add("");
+                Table.Values.Add(new TableItem());
                 //OnPropertyChanged(nameof(Table));
             });
-            RemoveTableItemCommand = new RelayCommand<string>(deleteItem =>
+            RemoveTableItemCommand = new RelayCommand<TableItem>(deleteItem =>
             {
                 if (Table.Values.Contains(deleteItem))
                 {
@@ -53,6 +55,17 @@ namespace DMAssistant.ViewModel
                 }
 
             });
+            RollCommand = new RelayCommand(Roll);
+        }
+
+        private void Roll()
+        {
+            foreach (var item in Table.Values)
+            {
+                item.IsRolled = false;
+            }
+            int index = new Random().Next(0, Table.Values.Count);
+            Table.Values[index].IsRolled = true;
         }
     }
 }

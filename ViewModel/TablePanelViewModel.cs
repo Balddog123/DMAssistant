@@ -16,19 +16,20 @@ namespace DMAssistant.ViewModel
 {
     public partial class TablePanelViewModel : ObservableObject
     {
-        [ObservableProperty] ObservableCollection<TableViewModel> tableViewModels = new();
+        [ObservableProperty] ObservableCollection<Table> tables = new();
         public ICollectionView TablesView { get; }
 
-        private TableViewModel selectedTable;
-        public TableViewModel SelectedTable
+        private Table selectedTable;
+        public Table SelectedTable
         {
             get => selectedTable;
             set
             {
                 SetProperty(ref selectedTable, value);
-                Debug.WriteLine($"Selected table {selectedTable.Name}");
+                SelectedTableView = new TableViewModel(value);
             }
         }
+        [ObservableProperty] TableViewModel selectedTableView;
 
         private string _search = "";
         public string Search
@@ -44,32 +45,31 @@ namespace DMAssistant.ViewModel
         public IRelayCommand DeleteTableCommand { get; }
         public TablePanelViewModel()
         {
-            TableViewModels = new ObservableCollection<TableViewModel>(
-                App.CampaignStore.CurrentCampaign.Tables.Select(table => CreateTableViewModel(table))
-            );
+            Tables = App.CampaignStore.CurrentCampaign.Tables;
 
-            AddTableCommand = new RelayCommand(() => AddTable());
-            DeleteTableCommand = new RelayCommand<TableViewModel>(deleteTable =>
+            AddTableCommand = new RelayCommand(AddTable);
+            DeleteTableCommand = new RelayCommand<Table>(deleteTable =>
             {
                 if (MessageBox.Show($"Delete {deleteTable.Name}?",
                                 "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    TableViewModels.Remove(deleteTable);
+                    Tables.Remove(deleteTable);
                 }
 
             });
 
-            TablesView = CollectionViewSource.GetDefaultView(TableViewModels);
+            TablesView = CollectionViewSource.GetDefaultView(Tables);
             TablesView.Filter = FilterTable;
             ApplyFilters();
         }
         private void AddTable()
         {
-            TableViewModels.Add(CreateTableViewModel(new Table()));
+            Debug.WriteLine("adding table...");
+            Tables.Add(new Table());
         }
         private bool FilterTable(object obj)
         {
-            if (obj is not TableViewModel m) return false;
+            if (obj is not Table m) return false;
 
             if (!string.IsNullOrWhiteSpace(Search) &&
                 !m.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
@@ -99,7 +99,7 @@ namespace DMAssistant.ViewModel
                 if (args.PropertyName == nameof(TableViewModel.Name))
                 {
                     // Raise panel-level update (e.g., refresh list)
-                    OnPropertyChanged(nameof(TableViewModels));
+                    OnPropertyChanged(nameof(Tables));
                 }
             };
         }

@@ -33,19 +33,12 @@
                     FontWeight="Bold"
                     Margin="0,0,0,5"/>
 
-            <ListBox ItemsSource="{Binding TablesView}"
-                  Grid.Row="3"
-                 SelectedItem="{Binding SelectedTable}">
-
+            <ListBox ItemsSource="{Binding TablesView}" Grid.Row="3" SelectedItem="{Binding SelectedTable}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel>
-
                             <!-- Remove button -->
-                            <Button Command="{Binding DataContext.DeleteTableCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                     CommandParameter="{Binding}"
-                     Margin="0"
-                     DockPanel.Dock="Left">
+                            <Button Command="{Binding DataContext.DeleteTableCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Margin="0" DockPanel.Dock="Left">
                                 <Image Width="16" Height="16" Source="pack://application:,,,/Resources/icon-delete.png"/>
                             </Button>
 
@@ -59,7 +52,7 @@
         </Grid>
 
         <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="2" CornerRadius="5">
-            <ContentControl Content="{Binding SelectedTable}" />
+            <ContentControl Content="{Binding SelectedTableView}" />
         </Border>
 
 
