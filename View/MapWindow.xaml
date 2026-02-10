@@ -66,6 +66,9 @@
                 <Button Style="{StaticResource IconButtonStyle}" Click="DrawNoteButton_Click">
                     <Image Source="/Resources/icon-editnote.png"/>
                 </Button>
+                <Button Style="{StaticResource IconButtonStyle}" Click="CreateTextButton_Click">
+                    <Image Source="/Resources/icon-text.png"/>
+                </Button>
             </ToolBar>
         </ToolBarTray>
         <Grid x:Name="LayerListPanel" DockPanel.Dock="Left" Margin="5" Width="300" Height="Auto" Background="SaddleBrown">
@@ -111,6 +114,10 @@
 
                 <!-- Note boxes overlay -->
                 <Canvas x:Name="NoteBoxes" Width="2000" Height="2000"/>
+
+                <!-- Note boxes overlay -->
+                <Canvas x:Name="TextGroup" Width="2000" Height="2000"/>
+
             </Grid>
         </ScrollViewer>
 

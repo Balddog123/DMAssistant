@@ -50,6 +50,7 @@
     <None Remove="Resources\icon-square.cur" />
     <None Remove="Resources\icon-square.png" />
     <None Remove="Resources\icon-stop.png" />
+    <None Remove="Resources\icon-text.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -173,6 +174,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon-stop.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-text.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

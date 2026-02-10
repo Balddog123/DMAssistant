@@ -29,6 +29,13 @@ namespace DMAssistant.Model
             set => SetProperty(ref _noteBoxes, value);
         }
 
+        private ObservableCollection<NoteBoxData> _textBoxes;
+        public ObservableCollection<NoteBoxData> TextBoxes
+        {
+            get => _textBoxes;
+            set => SetProperty(ref _textBoxes, value);
+        }
+
         // Convenience properties: composite all visible layers into a thumbnail
         public byte[]? ThumbnailData => RenderThumbnail(100, 100);
 
