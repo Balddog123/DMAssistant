@@ -33,6 +33,14 @@ namespace DMAssistant.ViewModel
                 SetProperty(Table.Name, value, Table, (m, v) => m.Name = v);
             }
         }
+        public string Description
+        {
+            get => Table.Description;
+            set
+            {
+                SetProperty(Table.Description, value, Table, (m, v) => m.Description = v);
+            }
+        }
 
         public ICommand AddTableItemCommand { get; }
         public ICommand RemoveTableItemCommand { get; }
@@ -41,7 +49,7 @@ namespace DMAssistant.ViewModel
         public TableViewModel(Table table)
         {
             Table = table;
-            Debug.WriteLine($"Created a table view for {Table.Name}...");
+
             AddTableItemCommand = new RelayCommand(() =>
             {
                 Table.Values.Add(new TableItem());

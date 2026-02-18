@@ -17,19 +17,20 @@
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition MinHeight="50" Height="Auto"/>
+                <RowDefinition MinHeight="100" Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- NAME -->
             <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="0,5"/>
+            <TextBox Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="0,5"/>
 
-            <StackPanel HorizontalAlignment="Center"  Grid.Row="1">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Add Table Item" Width="100" Margin="8" Command="{Binding AddTableItemCommand}" />
+            <StackPanel HorizontalAlignment="Center"  Grid.Row="2">
+                <StackPanel Orientation="Horizontal">                    
                     <Button Content="Roll" Width="100" Margin="8" Command="{Binding RollCommand}" />
                 </StackPanel>                
 
-                <ListBox ItemsSource="{Binding Table.Values}" Grid.Row="1" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" AlternationCount="999" >
+                <ListBox ItemsSource="{Binding Table.Values}" Grid.Row="1" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" AlternationCount="999" MinHeight="10">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -73,6 +74,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <Button Content="Add Table Item" Width="100" Margin="8" Command="{Binding AddTableItemCommand}" />
             </StackPanel>
             
 
