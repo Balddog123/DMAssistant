@@ -12,6 +12,7 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace DMAssistant.View
 {
@@ -27,7 +28,7 @@ namespace DMAssistant.View
         private Point _dragStartPoint;
         private NoteBox _draggingNote;
 
-        private TextBox currentTextBox;
+        private MapTextBox draggingTextBox;
 
         // Zoom
         private double _zoom = 1.0;
@@ -126,18 +127,26 @@ namespace DMAssistant.View
             if (_map.TextBoxes == null) _map.TextBoxes = new();
             foreach (var textData in _map.TextBoxes)
             {
-                var text = CreateNewTextBox(textData.Text, textData.Width, textData.Height);
+                var textBox = new MapTextBox(textData.Width, textData.Height)
+                {
+                    Text = textData.Text
+                };
 
-                Canvas.SetLeft(text, textData.X);
-                Canvas.SetTop(text, textData.Y);
+                Canvas.SetLeft(textBox, textData.X);
+                Canvas.SetTop(textBox, textData.Y);
 
-                text.MouseLeftButtonDown += TextBox_MouseLeftButtonDown;
-                text.MouseMove += TextBox_MouseMove;
-                text.MouseLeftButtonUp += TextBox_MouseLeftButtonUp;
+                textBox.MouseLeftButtonDown += TextBox_MouseLeftButtonDown;
+                textBox.MouseMove += TextBox_MouseMove;
+                textBox.MouseLeftButtonUp += TextBox_MouseLeftButtonUp;
 
-                text.IsHitTestVisible = false;
+                textBox.RemoveRequested += (s, e) =>
+                {
+                    TextGroup.Children.Remove(textBox);
+                };
 
-                TextGroup.Children.Add(text);
+                textBox.IsHitTestVisible = false;
+
+                TextGroup.Children.Add(textBox);
             }
         }
         private void SaveMap(object sender, RoutedEventArgs e)
@@ -184,7 +193,7 @@ namespace DMAssistant.View
             _map.TextBoxes.Clear();
             foreach (var child in TextGroup.Children)
             {
-                if (child is TextBox text)
+                if (child is MapTextBox text)
                 {
                     _map.TextBoxes.Add(new NoteBoxData
                     {
@@ -607,7 +616,9 @@ namespace DMAssistant.View
             if (_activeInkCanvas == null) return;
             // Translate mouse position to NoteBoxes coordinates
             startPoint = e.GetPosition(TextGroup);
-            TextBox textBox = CreateNewTextBox();
+            MapTextBox textBox = new MapTextBox();
+            textBox.Width = 5;  // tiny initial size to be visible
+            textBox.Height = 5;
 
             //Capture note box move
             textBox.MouseLeftButtonDown += TextBox_MouseLeftButtonDown;
@@ -617,15 +628,14 @@ namespace DMAssistant.View
             // Position the NoteBox
             Canvas.SetLeft(textBox, startPoint.X);
             Canvas.SetTop(textBox, startPoint.Y);
-            Debug.WriteLine($"Creating text here: {startPoint.X},{startPoint.Y}... Text: {textBox.Text}...");
 
-            //textBox.RemoveRequested += (s, args) =>
-            //{
-            //    NoteBoxes.Children.Remove(textBox);
-            //};
+            textBox.RemoveRequested += (s, args) =>
+            {
+                TextGroup.Children.Remove(textBox);
+            };
 
             TextGroup.Children.Add(textBox);
-            currentTextBox = textBox;
+            draggingTextBox = textBox;
 
             // Capture mouse on NoteBoxes so we get all moves, even if cursor leaves
             TextGroup.CaptureMouse();
@@ -634,39 +644,23 @@ namespace DMAssistant.View
 
             e.Handled = true; // prevent InkCanvas from processing it
         }
-
-        private static TextBox CreateNewTextBox(string text = "New Text Here", double width = 200, double height = 30)
-        {
-            var textBox = new TextBox();
-            textBox.Width = width;
-            textBox.Height = height;
-            textBox.Text = text;
-            textBox.Background = Brushes.Transparent;
-            textBox.BorderBrush = Brushes.Gray;
-            textBox.BorderThickness = new Thickness(2);
-            textBox.HorizontalAlignment = HorizontalAlignment.Center;
-            textBox.TextAlignment = TextAlignment.Center;
-            textBox.VerticalContentAlignment = VerticalAlignment.Center;
-            textBox.FontSize = 30;
-            return textBox;
-        }
-
+        //dragging
         private void TextBoxes_MouseMoveForNote(object sender, MouseEventArgs e)
         {
             if (_activeInkCanvas == null) return;
-            if (currentTextBox == null || e.LeftButton != MouseButtonState.Pressed) return;
+            if (draggingTextBox == null || e.LeftButton != MouseButtonState.Pressed) return;
 
-            // Translate position to NoteBoxes coordinates
+            // Translate position
             Point pos = e.GetPosition(TextGroup);
 
             double width = Math.Max(5, Math.Abs(pos.X - startPoint.X));
             double height = Math.Max(5, Math.Abs(pos.Y - startPoint.Y));
 
-            currentTextBox.Width = width;
-            currentTextBox.Height = height;
+            draggingTextBox.Width = width;
+            draggingTextBox.Height = height;
 
-            Canvas.SetLeft(currentTextBox, Math.Min(pos.X, startPoint.X));
-            Canvas.SetTop(currentTextBox, Math.Min(pos.Y, startPoint.Y));
+            Canvas.SetLeft(draggingTextBox, Math.Min(pos.X, startPoint.X));
+            Canvas.SetTop(draggingTextBox, Math.Min(pos.Y, startPoint.Y));
         }
         private void TextBoxes_MouseUpForNote(object sender, MouseButtonEventArgs e)
         {
@@ -674,47 +668,48 @@ namespace DMAssistant.View
             TextGroup.MouseMove -= TextBoxes_MouseMoveForNote;
             TextGroup.MouseLeftButtonUp -= TextBoxes_MouseUpForNote;
             TextGroup.ReleaseMouseCapture();
+
             _activeInkCanvas.MouseLeftButtonDown -= InkCanvas_MouseDownForText;
-            currentTextBox = null;
+
+            draggingTextBox = null;
         }
         private void TextBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.Source is TextBox) return;
 
-            currentTextBox = sender as TextBox;
-            if (currentTextBox == null) return;
+            draggingTextBox = sender as MapTextBox;
+            if (draggingTextBox == null) return;
 
             _isDragging = true;
 
             // Record the offset between mouse and top-left corner of the NoteBox
             Point mousePos = e.GetPosition(TextGroup);
-            _dragStartPoint = new Point(
-                mousePos.X - Canvas.GetLeft(currentTextBox),
-                mousePos.Y - Canvas.GetTop(currentTextBox)
-            );
 
-            currentTextBox.CaptureMouse();
+            _dragStartPoint = new Point(mousePos.X - Canvas.GetLeft(draggingTextBox), mousePos.Y - Canvas.GetTop(draggingTextBox));
+
+            draggingTextBox.CaptureMouse();
             e.Handled = true;
         }
         private void TextBox_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!_isDragging || currentTextBox == null) return;
+            if (!_isDragging || draggingTextBox == null) return;
 
             Point pos = e.GetPosition(TextGroup);
 
-            // Move the NoteBox
-            Canvas.SetLeft(currentTextBox, pos.X - _dragStartPoint.X);
-            Canvas.SetTop(currentTextBox, pos.Y - _dragStartPoint.Y);
+            // Move the MapTextBox
+            Canvas.SetLeft(draggingTextBox, pos.X - _dragStartPoint.X);
+            Canvas.SetTop(draggingTextBox, pos.Y - _dragStartPoint.Y);
         }
         private void TextBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (!_isDragging || currentTextBox == null) return;
+            if (!_isDragging || draggingTextBox == null) return;
 
-            currentTextBox.ReleaseMouseCapture();
-            currentTextBox = null;
+            draggingTextBox.ReleaseMouseCapture();
+            draggingTextBox = null;
             _isDragging = false;
         }
         #endregion
+
         #region NoteBoxes
         private void InkCanvas_MouseDownForNote(object sender, MouseButtonEventArgs e)
         {
@@ -776,7 +771,7 @@ namespace DMAssistant.View
             _activeInkCanvas.MouseLeftButtonDown -= InkCanvas_MouseDownForNote;
             currentNoteBox = null;
         }
-
+        //drag move
         private void NoteBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.Source is TextBox) return;
@@ -788,6 +783,7 @@ namespace DMAssistant.View
 
             // Record the offset between mouse and top-left corner of the NoteBox
             Point mousePos = e.GetPosition(NoteBoxes);
+
             _dragStartPoint = new Point(
                 mousePos.X - Canvas.GetLeft(_draggingNote),
                 mousePos.Y - Canvas.GetTop(_draggingNote)
@@ -826,7 +822,7 @@ namespace DMAssistant.View
 
         private void SetTextBoxesActive(bool isActive)
         {
-            foreach (TextBox text in TextGroup.Children)
+            foreach (MapTextBox text in TextGroup.Children)
             {
                 //text.IsEnabled = false;
                 text.IsHitTestVisible = isActive;

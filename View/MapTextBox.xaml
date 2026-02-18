@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="DMAssistant.View.MapTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" BorderBrush="Black" BorderThickness="1">
+    <Grid Background="Transparent" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Viewbox Stretch="UniformToFill" Grid.Row="0">
+            <TextBox VerticalAlignment="Center" HorizontalAlignment="Center"
+         x:Name="MainTextBox" Text="New Text Box" 
+         BorderThickness="0" Background="Transparent" 
+         FontWeight="Bold" IsReadOnly="True" Focusable="False" 
+         Margin="0,0,15,0" 
+         MouseDoubleClick="TextBox_MouseDoubleClick" />
+        </Viewbox>
+        
+
+        <Button  HorizontalAlignment="Right" VerticalAlignment="Top" Width="16" Height="16" Background="Red" Foreground="White" Click="DeleteButton_Click">
+            <Image Source="/Resources/icon-close.png" />
+        </Button>
+
+        <Rectangle Grid.Row="1" Margin="0,0,-2,-2" x:Name="BottomRightHandle" 
+                   Width="10" Height="10" Fill="White" Stroke="Gray" 
+                   HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                   Cursor="SizeNWSE"/>
+    </Grid>
+</UserControl>
