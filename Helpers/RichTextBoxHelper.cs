@@ -264,7 +264,7 @@ namespace DMAssistant.Helpers
 
             Hyperlink link = new Hyperlink(new Run(newText))
             {
-                Name = Regex.Replace(newText, @"\s+", "")
+                Tag = Regex.Replace(newText, @"\s+", "")
             };
             HyperlinkMetadata.SetLinkType(link, linkType);
             HyperlinkMetadata.SetLinkKey(link, newText);
