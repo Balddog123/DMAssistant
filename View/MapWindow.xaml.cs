@@ -36,6 +36,9 @@ namespace DMAssistant.View
         private const double MinZoom = 0.25;
         private const double MaxZoom = 4.0;
 
+        //scaling
+        private double size = 5.0;
+
         private Map _map;
         private InkLayerData _activeLayer;
         private InkCanvas _activeInkCanvas
@@ -210,7 +213,6 @@ namespace DMAssistant.View
         private void SetActiveLayer(InkLayerData layer)
         {
             Color color = layer != null && _activeInkCanvas != null ? _activeInkCanvas.DefaultDrawingAttributes.Color : Colors.Black;
-            double size = layer != null && _activeInkCanvas != null ? _activeInkCanvas.DefaultDrawingAttributes.Height : 10;
             InkCanvasEditingMode mode = layer != null && _activeInkCanvas != null ? _activeInkCanvas.EditingMode : InkCanvasEditingMode.None;
 
             _activeLayer = layer;
@@ -223,12 +225,12 @@ namespace DMAssistant.View
                 _activeInkCanvas.EraserShape = new RectangleStylusShape(size, size);
                 _activeInkCanvas.EditingMode = mode;
 
-                UpdateActiveLayerCanvas();
+                SetActiveCanvasHitTestVisible();
                 UpdateLayerSelectionUI();
             }
 
         }
-        private void UpdateActiveLayerCanvas()
+        private void SetActiveCanvasHitTestVisible()
         {
             foreach (var kvp in _layerCanvases)
             {
@@ -867,10 +869,12 @@ namespace DMAssistant.View
             bool isShift = (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
             double scale = isShift ? 5.0 : 1.0;
 
-            _activeInkCanvas.DefaultDrawingAttributes.Height += scale;
-            _activeInkCanvas.DefaultDrawingAttributes.Width += scale;
+            size += scale;
 
-            _activeInkCanvas.EraserShape = new RectangleStylusShape(_activeInkCanvas.DefaultDrawingAttributes.Height, _activeInkCanvas.DefaultDrawingAttributes.Height);
+            _activeInkCanvas.DefaultDrawingAttributes.Height = size;
+            _activeInkCanvas.DefaultDrawingAttributes.Width = size;
+
+            _activeInkCanvas.EraserShape = new RectangleStylusShape(size, size);
             if (_activeInkCanvas.EditingMode == InkCanvasEditingMode.EraseByPoint)
             {
                 _activeInkCanvas.EditingMode = InkCanvasEditingMode.None;
@@ -884,10 +888,12 @@ namespace DMAssistant.View
             bool isShift = (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
             double scale = isShift ? 5.0 : 1.0;
 
-            _activeInkCanvas.DefaultDrawingAttributes.Height = Math.Max(_activeInkCanvas.DefaultDrawingAttributes.Height - scale, 1);
-            _activeInkCanvas.DefaultDrawingAttributes.Width = Math.Max(_activeInkCanvas.DefaultDrawingAttributes.Height - scale, 1);
+            size = Math.Max(size - scale, 1);
 
-            _activeInkCanvas.EraserShape = new RectangleStylusShape(_activeInkCanvas.DefaultDrawingAttributes.Height, _activeInkCanvas.DefaultDrawingAttributes.Height);
+            _activeInkCanvas.DefaultDrawingAttributes.Height = size;
+            _activeInkCanvas.DefaultDrawingAttributes.Width = size;
+
+            _activeInkCanvas.EraserShape = new RectangleStylusShape(size, size);
         }
         private void DrawNoteButton_Click(object sender, RoutedEventArgs e)
         {
