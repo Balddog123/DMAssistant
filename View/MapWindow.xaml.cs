@@ -354,6 +354,11 @@ namespace DMAssistant.View
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(5, 0, 0, 0)
             };
+
+            nameText.TextChanged += (s, e) => {
+                ChangeNameOfLayer(layer, nameText.Text);
+            };
+
             Grid.SetColumn(nameText, 1);
             row.Children.Add(nameText);
 
@@ -610,7 +615,6 @@ namespace DMAssistant.View
             e.Handled = true;
         }
 
-
         #endregion
         #region TextBoxes
         private void InkCanvas_MouseDownForText(object sender, MouseButtonEventArgs e)
@@ -711,7 +715,6 @@ namespace DMAssistant.View
             _isDragging = false;
         }
         #endregion
-
         #region NoteBoxes
         private void InkCanvas_MouseDownForNote(object sender, MouseButtonEventArgs e)
         {
@@ -921,6 +924,10 @@ namespace DMAssistant.View
             if (!e.NewValue.HasValue) return;
 
             _activeInkCanvas.DefaultDrawingAttributes.Color = e.NewValue.Value;
+        }
+        private void ChangeNameOfLayer(InkLayerData layer, string newValue)
+        {
+            layer.Name = newValue;
         }
     }
 }
