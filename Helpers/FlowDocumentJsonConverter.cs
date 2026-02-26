@@ -101,9 +101,23 @@ namespace DMAssistant.Helpers
             switch (inline)
             {
                 case Run run:
-                    sb.Append(System.Security.SecurityElement.Escape(run.Text));
-                    break;
+                    bool isBold = run.FontWeight == FontWeights.Bold;
+                    bool isItalic = run.FontStyle == FontStyles.Italic;
+                    bool isUnderline = run.TextDecorations.Contains(TextDecorations.Underline[0]);
 
+                    if (isBold) sb.Append("<b>");
+                    if (isItalic) sb.Append("<i>");
+                    if (isUnderline) sb.Append("<u>");
+
+                    sb.Append(System.Security.SecurityElement.Escape(run.Text));
+
+                    if (isUnderline) sb.Append("</u>");
+                    if (isItalic) sb.Append("</i>");
+                    if (isBold) sb.Append("</b>");
+                    break;
+                case LineBreak:
+                    sb.Append("<br/>");
+                    break;
                 case Bold bold:
                     sb.Append("<b>");
                     foreach (var child in bold.Inlines)
@@ -180,6 +194,9 @@ namespace DMAssistant.Helpers
 
                     switch (elem.Name.LocalName)
                     {
+                        case "br":
+                            inlines.Add(new LineBreak());
+                            break;
                         case "b":
                             Bold bold = new Bold();
                             foreach (var child in elem.Nodes())
