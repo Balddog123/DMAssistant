@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Documents;
+using System.Windows.Markup;
+using System.Xml;
 
 namespace DMAssistant.Model
 {
@@ -36,18 +41,34 @@ namespace DMAssistant.Model
             Monsters = monsters;
         }
 
-        public string GetAggregateSessionNotes()
+        public FlowDocument GetAggregateSessionNotes()
         {
-            string accumulated = "";
-            for(int i = 0; i < Sessions.Count; i++)
-            {
-                string sessionText = $"--------{i + 1} : {Sessions[i].Name}--------\n";
-                sessionText += Sessions[i].Notes;
-                sessionText += "\n\n\n";
+            FlowDocument result = new FlowDocument();
 
-                accumulated = sessionText + accumulated;
+            for (int i = 0; i < Sessions.Count; i++)
+            {
+                Debug.WriteLine($"Adding session {i}...");
+
+                foreach (Block block in Sessions[i].Notes.Blocks)
+                {
+                    Debug.WriteLine($"Cloning session {i} note: {block}");
+
+                    Block clonedBlock = CloneBlock(block);
+                    result.Blocks.Add(clonedBlock);
+                }
             }
-            return accumulated;
+
+            return result;
+        }
+        private Block CloneBlock(Block block)
+        {
+            string xaml = XamlWriter.Save(block);
+
+            using (StringReader stringReader = new StringReader(xaml))
+            using (XmlReader xmlReader = XmlReader.Create(stringReader))
+            {
+                return (Block)XamlReader.Load(xmlReader);
+            }
         }
     }
 

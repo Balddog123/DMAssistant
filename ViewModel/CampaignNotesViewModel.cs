@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace DMAssistant.ViewModel
 {
@@ -24,8 +25,8 @@ namespace DMAssistant.ViewModel
             }
         }
 
-        private string _sessionNotes;
-        public string SessionNotes
+        private FlowDocument _sessionNotes;
+        public FlowDocument SessionNotes
         {
             get => _sessionNotes;
             set => SetProperty(ref _sessionNotes, value);
