@@ -12,7 +12,7 @@ using System.Windows.Documents;
 
 namespace DMAssistant.Model
 {
-    public class Monster : ObservableObject
+    public partial class Monster : ObservableObject
     {
         public string ID { get; set; } = Guid.NewGuid().ToString();
         private string _name = "New Monster";
@@ -85,6 +85,8 @@ namespace DMAssistant.Model
         [JsonPropertyName("img_url")]
         public string ImageUrl { get; set; } = "";
 
+        [JsonIgnore, ObservableProperty] public bool isNew = false;
+
         public static int GetMod(int stat)
         {
             return (stat - 10) / 2;
@@ -130,6 +132,8 @@ namespace DMAssistant.Model
             Actions = other.Actions;
             LegendaryActions = other.LegendaryActions;
             ImageUrl = other.ImageUrl;
+
+            IsNew = true;
         }
 
         public static int GetHPAsInt(string hp)

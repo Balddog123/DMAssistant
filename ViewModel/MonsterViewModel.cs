@@ -14,7 +14,11 @@ namespace DMAssistant.ViewModel
         public string Name
         {
             get => Monster != null ? Monster.Name : string.Empty;
-            set => SetProperty(Monster.Name, value, Monster, (m, v) => m.Name = v);
+            set
+            {
+                if (IsNew) IsNew = false;
+                SetProperty(Monster.Name, value, Monster, (m, v) => m.Name = v);
+            }
         }
 
         public string Meta
@@ -200,6 +204,12 @@ namespace DMAssistant.ViewModel
                 }
                 else return string.Empty;
             }
+        }
+
+        public bool IsNew
+        {
+            get => Monster != null ? Monster.IsNew : false;
+            set => Monster.IsNew = value;
         }
 
 

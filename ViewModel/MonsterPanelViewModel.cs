@@ -30,7 +30,12 @@ namespace DMAssistant.ViewModel
             set
             {
                 if (SetProperty(ref _selectedMonster, value))
-                    SelectedMonsterViewModel = new MonsterViewModel(_selectedMonster);
+                {
+                    MonsterViewModel vm = new MonsterViewModel(_selectedMonster);
+                    HookItemEvents(vm);
+                    SelectedMonsterViewModel = vm;
+                }
+                    
             }
         }
 
@@ -95,6 +100,8 @@ namespace DMAssistant.ViewModel
             }
 
             MonsterView = CollectionViewSource.GetDefaultView(AllMonsters);
+            MonsterView.SortDescriptions.Add(new SortDescription(nameof(Monster.IsNew), ListSortDirection.Descending));
+            MonsterView.SortDescriptions.Add(new SortDescription(nameof(Monster.Name), ListSortDirection.Ascending));
             MonsterView.Filter = FilterMonster;
             ApplyFilters();
 
@@ -107,6 +114,20 @@ namespace DMAssistant.ViewModel
 
             App.CampaignStore.MonsterDeleted += OnMonsterDeleted;
             _session = session;
+        }
+
+        private void HookItemEvents(MonsterViewModel vm)
+        {
+            vm.PropertyChanged += (_, args) =>
+            {
+                // Example: react to name changes
+                if (args.PropertyName == nameof(MonsterViewModel.Name))
+                {
+                    // Raise panel-level update (e.g., refresh list)
+                    OnPropertyChanged(nameof(AllMonsters));
+                    ApplyFilters();
+                }
+            };
         }
 
         private void OnMonsterDeleted(Monster monster)
@@ -144,7 +165,7 @@ namespace DMAssistant.ViewModel
         {
             Monster newMonster;
 
-            if (monsterToCopy == null) newMonster = new Monster();
+            if (monsterToCopy == null) newMonster = new Monster() { IsNew = true };
             else newMonster = new Monster(monsterToCopy);
 
             // Monster belongs to global campaign list

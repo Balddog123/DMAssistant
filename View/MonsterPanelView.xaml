@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:h="clr-namespace:DMAssistant.Helpers.Converter"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <UserControl.Resources>
+        <h:BoolToAsteriskConverter x:Key="BoolToAsteriskConverter"/>
+    </UserControl.Resources>
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -68,8 +72,15 @@
                                    Height="16"
                                    Source="pack://application:,,,/Resources/icon-copy.png"/>
                         </Button>
-
-                        <TextBlock Text="{Binding Name}"  DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
+                        
+                        <TextBlock Margin="5" DockPanel.Dock="Right" VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}{1}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="IsNew" Converter="{StaticResource BoolToAsteriskConverter}"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </DockPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
