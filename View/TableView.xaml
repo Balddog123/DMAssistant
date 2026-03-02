@@ -16,16 +16,20 @@
     <ScrollViewer>
         <Grid Margin="10">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition MinHeight="50" Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition MinHeight="100" Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- NAME -->
-            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="0,5"/>
-            <TextBox Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="0,5"/>
+            <TextBlock Text="Name:"  Grid.Row="0" FontWeight="Bold"/>
+            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="0,5"/>
+            <TextBlock Text="Description:"  Grid.Row="2" FontWeight="Bold"/>
+            <TextBox Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Margin="0,5"/>
 
-            <StackPanel HorizontalAlignment="Center"  Grid.Row="2">
+            <StackPanel HorizontalAlignment="Center"  Grid.Row="4">
                 <StackPanel Orientation="Horizontal">                    
                     <Button Content="Roll" Width="100" Margin="8" Command="{Binding RollCommand}" />
                 </StackPanel>                

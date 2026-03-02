@@ -49,8 +49,7 @@
                 </TabItem>
 
                 <TabItem Header="Secrets">
-                    <StackPanel HorizontalAlignment="Center">
-                        <Button Content="Add Secret" Width="100" Margin="0,0,0,8" Command="{Binding AddSecretCommand}" />
+                    <StackPanel HorizontalAlignment="Center">                        
                         <ListBox ItemsSource="{Binding Secrets}"
                                  dd:DragDrop.IsDragSource="True"
                                  dd:DragDrop.IsDropTarget="True"
@@ -85,7 +84,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        
+                        <Button Content="Add Secret" Width="100" Margin="0,0,0,8" Command="{Binding AddSecretCommand}" />
                     </StackPanel>
                 </TabItem>
                 
