@@ -5,11 +5,13 @@ using DMAssistant.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Documents;
 
 namespace DMAssistant.ViewModel
@@ -19,7 +21,18 @@ namespace DMAssistant.ViewModel
         private readonly ObservableCollection<string> _sessionNPCIds;
         public Session _session { get; private set; }
         public ObservableCollection<NPC> NPCList { get; }
-        //get list of npcs from here: var campaign = App.CampaignStore.CurrentCampaign;
+
+        //FILTERING
+        public ICollectionView NPCsView { get; }
+        private string _search = "";
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                if (SetProperty(ref _search, value)) ApplyFilters();
+            }
+        }
 
         private NPC _selectedNPC;
         public NPC SelectedNPC
@@ -29,7 +42,9 @@ namespace DMAssistant.ViewModel
             {
                 if (SetProperty(ref _selectedNPC, value))
                 {
-                    SelectedNPCViewModel = new NPCViewModel(_selectedNPC);
+                    var vm = new NPCViewModel(_selectedNPC);
+                    HookItemEvents(vm);
+                    SelectedNPCViewModel = vm;
                 }
             }
         }
@@ -60,11 +75,9 @@ namespace DMAssistant.ViewModel
             if (session == null) NPCList = App.CampaignStore.CurrentCampaign.NPCs;
             else
             {
-                // Hydrate real Monster objects
                 foreach (string id in npcIds)
                 {
-                    if (App.CampaignStore.NPCIndex.TryGetValue(id, out var npc))
-                        NPCList.Add(npc);
+                    if (App.CampaignStore.NPCIndex.TryGetValue(id, out var npc)) NPCList.Add(npc);
                 }
             }
                 
@@ -76,7 +89,43 @@ namespace DMAssistant.ViewModel
 
             App.CampaignStore.NPCDeleted += OnNPCDeleted;
             _session = session;
+
+            NPCsView = CollectionViewSource.GetDefaultView(NPCList);
+            NPCsView.SortDescriptions.Add(new SortDescription(nameof(NPCViewModel.IsNew), ListSortDirection.Descending));
+            NPCsView.SortDescriptions.Add(new SortDescription(nameof(NPCViewModel.Name), ListSortDirection.Ascending));
+            NPCsView.Filter = FilterItems;
+            ApplyFilters();
         }
+
+        private bool FilterItems(object obj)
+        {
+            if (obj is not NPC m) return false;
+
+            if (!string.IsNullOrWhiteSpace(Search) &&
+                !m.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            return true;
+        }
+        private void ApplyFilters()
+        {
+            NPCsView.Refresh();
+        }
+
+        private void HookItemEvents(NPCViewModel vm)
+        {
+            vm.PropertyChanged += (_, args) =>
+            {
+                // Example: react to name changes
+                if (args.PropertyName == nameof(NPCViewModel.Name))
+                {
+                    // Raise panel-level update (e.g., refresh list)
+                    OnPropertyChanged(nameof(NPCList));
+                    ApplyFilters();
+                }
+            };
+        }
+
         private void OnNPCDeleted(NPCPanelViewModel model, NPC npc)
         {
             if (model != null && model != this) return;
@@ -132,12 +181,11 @@ namespace DMAssistant.ViewModel
                 newNpc.Description.Blocks.Add(new Paragraph(new Run(NPC.GetRandomDescription())));
                 //create goal
                 newNpc.Goal = new FlowDocument();
-                newNpc.Goal.Blocks.Add(new Paragraph(new Run(NPC.GetRandomGoal())));
+                newNpc.Goal.Blocks.Add(new Paragraph(new Run(NPC.GetRandomGoal())));                
             }
             else newNpc = new NPC(npcToCopy);
-            
-            
 
+            newNpc.IsNew = true;
             //first, we'll generate these PURELY random. Later, we will use influences from location, race, and religion to derive some of these values
 
             // NPC belongs to global campaign list

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DMAssistant.Model;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -13,6 +14,24 @@ namespace DMAssistant.ViewModel
     public class NPCViewModel : ObservableObject
     {
         public NPC NPC { get; private set; }
+
+        public string Name
+        {
+            get => NPC != null ? NPC.Name : string.Empty;
+            set
+            {
+                if (IsNew) IsNew = false;
+                SetProperty(NPC.Name, value, NPC, (m, v) => m.Name = v);
+                OnPropertyChanged();
+            }
+        }
+        private bool _isNew;
+        public bool IsNew
+        {
+            get => _isNew;
+            set => SetProperty(ref _isNew, value);
+        }
+
         public List<string> AvailableRaces { get; } = new List<string>();
 
         public List<Location> AvailableLocations { get; } = new List<Location>();

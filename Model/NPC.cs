@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Documents;
 using static DMAssistant.Model.NameRow;
 
-public class NPC : ObservableObject
+public partial class NPC : ObservableObject
 {
     #region GenerativeLists
     private static float _monsterTypeRate = 0.5f;
@@ -356,6 +356,9 @@ public class NPC : ObservableObject
         get => _race;
         set => SetProperty(ref _race, value);
     }
+
+    [JsonIgnore, ObservableProperty] public bool isNew = false;
+
     private FlowDocument _description = new FlowDocument();
     [JsonConverter(typeof(FlowDocumentJsonConverter))] 
     public FlowDocument Description
