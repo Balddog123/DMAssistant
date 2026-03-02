@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- NAME -->
-            <TextBox Text="{Binding Spell.Name, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5"/>
 
             <!-- CASTING TIME -->
@@ -51,7 +51,7 @@
 
             <!-- LEVEL -->
             <TextBlock Text="Level:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Spell.Level, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding Level, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      Grid.Row="4" Grid.Column="1" Margin="0,5"/>
 
             <!-- COMPONENTS -->

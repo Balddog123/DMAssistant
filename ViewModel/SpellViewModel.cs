@@ -9,26 +9,42 @@ namespace DMAssistant.ViewModel
 {
     public class SpellViewModel : ObservableObject
     {
-        // The Spell item being edited
         private Spell spell;
         public Spell Spell
         {
-            get => spell; set
+            get => spell; 
+            set
             {
                 SetProperty(ref spell, value);
-                OnPropertyChanged(nameof(Name));
-                OnPropertyChanged(nameof(Level));
             }
         }
 
 
         public string Name
         {
-            get => Spell.Name;
+            get => Spell != null ? Spell.Name : string.Empty;
+            set
+            {
+                if (IsNew && value != "New Spell") IsNew = false;
+                SetProperty(Spell.Name, value, Spell, (m, v) => m.Name = v);
+                OnPropertyChanged();
+            }
         }
         public string Level
         {
-            get => Spell.Level;
+            get => Spell != null ? Spell.Level : string.Empty;
+            set
+            {
+                SetProperty(Spell.Level, value, Spell, (m, v) => m.Level = v);
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isNew;
+        public bool IsNew
+        {
+            get => _isNew;
+            set => SetProperty(ref _isNew, value);
         }
 
 
