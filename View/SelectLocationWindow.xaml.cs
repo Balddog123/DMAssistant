@@ -30,6 +30,7 @@ namespace DMAssistant.View
             InitializeComponent();
             AvailableLocations = availableLocations;
             _locationsView = CollectionViewSource.GetDefaultView(AvailableLocations);
+            _locationsView.SortDescriptions.Add(new SortDescription(nameof(Location.Name), ListSortDirection.Ascending));
             _locationsView.Filter = FilterMonster;
             LocationListBox.ItemsSource = _locationsView;
         }

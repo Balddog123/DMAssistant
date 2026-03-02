@@ -31,6 +31,7 @@ namespace DMAssistant.View
             AvailableMonsters = availableMonsters;
 
             _monstersView = CollectionViewSource.GetDefaultView(AvailableMonsters);
+            _monstersView.SortDescriptions.Add(new SortDescription(nameof(Monster.Name), ListSortDirection.Ascending));
             _monstersView.Filter = FilterMonster;
             MonsterListBox.ItemsSource = _monstersView;
         }

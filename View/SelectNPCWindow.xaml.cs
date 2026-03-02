@@ -20,6 +20,7 @@ namespace DMAssistant.View
             AvailableNPCs = availableNPCs;
 
             _NPCView = CollectionViewSource.GetDefaultView(AvailableNPCs);
+            _NPCView.SortDescriptions.Add(new SortDescription(nameof(NPC.Name), ListSortDirection.Ascending));
             _NPCView.Filter = FilterNPC;
             NPCListBox.ItemsSource = _NPCView;
             Debug.WriteLine(NPCListBox.Items.Count);

@@ -30,6 +30,7 @@ namespace DMAssistant.View
             InitializeComponent();
             AvailableItems = availableItems;
             _itemsView = CollectionViewSource.GetDefaultView(AvailableItems);
+            _itemsView.SortDescriptions.Add(new SortDescription(nameof(Item.Name), ListSortDirection.Ascending));
             _itemsView.Filter = FilterMonster;
             ItemListBox.ItemsSource = _itemsView;
         }
