@@ -6,12 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Documents;
 
 namespace DMAssistant.ViewModel
@@ -28,6 +30,18 @@ namespace DMAssistant.ViewModel
         {
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value);
+        }
+
+        //FILTERING
+        public ICollectionView ItemsView { get; }
+        private string _search = "";
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                if (SetProperty(ref _search, value)) ApplyFilters();
+            }
         }
 
         public IRelayCommand AddItemCommand { get; }
@@ -55,18 +69,41 @@ namespace DMAssistant.ViewModel
             foreach (ItemViewModel vm in ItemList) HookItemEvents(vm);
 
             App.CampaignStore.ItemDeleted += OnItemDeleted;
+
+            ItemsView = CollectionViewSource.GetDefaultView(ItemList);
+            ItemsView.SortDescriptions.Add(new SortDescription(nameof(ItemViewModel.IsNew), ListSortDirection.Descending));
+            ItemsView.SortDescriptions.Add(new SortDescription(nameof(ItemViewModel.Name), ListSortDirection.Ascending));
+            ItemsView.Filter = FilterItems;
+            ApplyFilters();
+        }
+
+        private bool FilterItems(object obj)
+        {
+            if (obj is not ItemViewModel m) return false;
+
+            if (!string.IsNullOrWhiteSpace(Search) &&
+                !m.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            return true;
+        }
+        private void ApplyFilters()
+        {
+            ItemsView.Refresh();
         }
 
         private void OnCampaignItemsChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
+            Debug.WriteLine("CampaignItemsChanged..");
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     foreach (Item item in e.NewItems!)
                     {
+                        Debug.WriteLine("Adding new Item to list..");
+
                         var vm = CreateItemViewModel(item);
-                        InsertSorted(vm);
-                        Debug.WriteLine($"Created {item.Name}!");
+                        ItemList.Insert(0, vm);
                     }
                     
                     break;
@@ -109,10 +146,9 @@ namespace DMAssistant.ViewModel
         private ItemViewModel CreateItemViewModel(Item item)
         {
             var vm = new ItemViewModel(item);
-            
             // listen to whenever Name/Rank/etc. changes
             HookItemEvents(vm);
-
+            Debug.WriteLine(vm.IsNew);
             return vm;
         }
 
@@ -125,13 +161,14 @@ namespace DMAssistant.ViewModel
                 {
                     // Raise panel-level update (e.g., refresh list)
                     OnPropertyChanged(nameof(ItemList));
+                    ApplyFilters();
                 }
             };
         }
 
         private void AddItem(Item itemToCopy = null)
         {
-            var item = itemToCopy != null ? new Item(itemToCopy) : new Item();
+            var item = itemToCopy != null ? new Item(itemToCopy) : new Item() { IsNew = true };
             int index = App.CampaignStore.CurrentCampaign.Items.IndexOf(itemToCopy) + 1;
 
             App.CampaignStore.CurrentCampaign.Items.Insert(index, item);
@@ -153,26 +190,9 @@ namespace DMAssistant.ViewModel
                 _session.ItemIDs.Add(item.ID);
 
                 var vm = CreateItemViewModel(item);
-                InsertSorted(vm);
+                ItemList.Insert(0, vm);
                 SelectedItem = vm;
             }
-        }
-        private void InsertSorted(ItemViewModel vm)
-        {
-            if (ItemList.Count == 0)
-            {
-                ItemList.Add(vm);
-                return;
-            }
-
-            // Find the index where the item should go
-            int index = 0;
-            while (index < ItemList.Count && string.Compare(ItemList[index].Name, vm.Name, StringComparison.OrdinalIgnoreCase) < 0)
-            {
-                index++;
-            }
-
-            ItemList.Insert(index, vm);
         }
 
 
@@ -195,7 +215,7 @@ namespace DMAssistant.ViewModel
                 _session.ItemIDs.Add(item.ID);
 
                 var vm = CreateItemViewModel(item);
-                InsertSorted(vm);
+                ItemList.Insert(0, vm);
                 SelectedItem = vm;
             }
         }

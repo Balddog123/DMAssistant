@@ -23,6 +23,8 @@ namespace DMAssistant.ViewModel
             get => Item != null ? Item.Name : string.Empty;
             set
             {
+                if (IsNew) IsNew = false;
+
                 if (Item.Name != value)
                 {
                     Item.Name = value;
@@ -53,6 +55,13 @@ namespace DMAssistant.ViewModel
             get => Item != null ? Item.RequiresAttunement : false;
             set => Item.RequiresAttunement = value;
         }
+
+        public bool IsNew
+        {
+            get => Item != null ? Item.IsNew : false;
+            set => Item.IsNew = value;
+        }
+
         public string OriginText
         {
             get

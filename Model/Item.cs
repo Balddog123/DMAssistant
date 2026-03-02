@@ -318,6 +318,8 @@ namespace DMAssistant.Model
             _ => ""
         };
 
+        [JsonIgnore, ObservableProperty] public bool isNew = false;
+
 
         [JsonIgnore, ObservableProperty] public Visibility expandedVisibility = Visibility.Collapsed;
 
@@ -334,6 +336,7 @@ namespace DMAssistant.Model
             Function = itemToCopy.Function;
             Appearance = itemToCopy.Appearance;
             Origin = itemToCopy.Origin;
+            IsNew = true;
         }
 
         public static string GetRandomName()

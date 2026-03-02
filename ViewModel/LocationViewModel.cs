@@ -129,8 +129,15 @@ namespace DMAssistant.ViewModel
                 }
             }
             
-    }
-        
+        }
+
+        private bool _isNew;
+        public bool IsNew
+        {
+            get => _isNew;
+            set => SetProperty(ref _isNew, value);
+        }
+
 
     }
 }

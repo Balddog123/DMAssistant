@@ -88,14 +88,13 @@ namespace DMAssistant.ViewModel
         {
             vm.PropertyChanged += (_, args) =>
             {
-                Debug.WriteLine("Something was changed on spell...");
                 // Example: react to name changes
                 if (args.PropertyName == nameof(SpellViewModel.Name))
                 {
                     
                     // Raise panel-level update (e.g., refresh list)
                     OnPropertyChanged(nameof(SpellList));
-                    SpellsView.Refresh();
+                    ApplyFilters();
                 }
             };
         }
