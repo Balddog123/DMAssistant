@@ -6,6 +6,7 @@ using DMAssistant.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection.PortableExecutable;
@@ -13,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace DMAssistant.ViewModel
 {
@@ -22,6 +24,18 @@ namespace DMAssistant.ViewModel
         public Session _session { get; private set; }
         public ObservableCollection<Location> LocationList { get; }
 
+        //FILTERING
+        public ICollectionView LocationsView { get; }
+        private string _search = "";
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                if (SetProperty(ref _search, value)) ApplyFilters();
+            }
+        }
+
         private Location _selectedLocation;
         public Location SelectedLocation
         {
@@ -30,7 +44,9 @@ namespace DMAssistant.ViewModel
             {
                 if (SetProperty(ref _selectedLocation, value))
                 {
-                    SelectedLocationViewModel = new LocationViewModel(_selectedLocation, this);
+                    var vm = new LocationViewModel(_selectedLocation, this);
+                    HookItemEvents(vm);
+                    SelectedLocationViewModel = vm;
                 }
             }
         }
@@ -81,6 +97,41 @@ namespace DMAssistant.ViewModel
 
             App.CampaignStore.LocationDeleted += OnLocationDeleted;
             _session = session;
+
+            LocationsView = CollectionViewSource.GetDefaultView(LocationList);
+            LocationsView.SortDescriptions.Add(new SortDescription(nameof(Location.IsNew), ListSortDirection.Descending));
+            LocationsView.SortDescriptions.Add(new SortDescription(nameof(Location.Name), ListSortDirection.Ascending));
+            LocationsView.Filter = FilterItems;
+            ApplyFilters();
+        }
+
+        private bool FilterItems(object obj)
+        {
+            if (obj is not Location m) return false;
+
+            if (!string.IsNullOrWhiteSpace(Search) &&
+                !m.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            return true;
+        }
+        private void ApplyFilters()
+        {
+            LocationsView.Refresh();
+        }
+
+        private void HookItemEvents(LocationViewModel vm)
+        {
+            vm.PropertyChanged += (_, args) =>
+            {
+                // Example: react to name changes
+                if (args.PropertyName == nameof(LocationViewModel.Name))
+                {
+                    // Raise panel-level update (e.g., refresh list)
+                    OnPropertyChanged(nameof(LocationList));
+                    ApplyFilters();
+                }
+            };
         }
 
         private void OnLocationDeleted(LocationPanelViewModel model, Location location)
@@ -99,7 +150,7 @@ namespace DMAssistant.ViewModel
         private void AddLocation(Location locationToCopy = null)
         {
             
-            var location = locationToCopy != null ? new Location(locationToCopy) : new Location();
+            var location = locationToCopy != null ? new Location(locationToCopy) { IsNew = true} : new Location() { IsNew = true };
             int index = App.CampaignStore.CurrentCampaign.Locations.IndexOf(locationToCopy) + 1;
 
             Debug.WriteLine($"Location to copy: {locationToCopy}");

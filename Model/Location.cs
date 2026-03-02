@@ -11,7 +11,7 @@ using System.Windows.Documents;
 
 namespace DMAssistant.Model
 {
-    public class Location : ObservableObject
+    public partial class Location : ObservableObject
     {
         public string ID { get; set; } = Guid.NewGuid().ToString();
         private string _name = "New Location";
@@ -34,6 +34,8 @@ namespace DMAssistant.Model
 
         private ObservableCollection<Map> _maps;
         public ObservableCollection<Map> Maps { get => _maps; set => SetProperty(ref _maps, value); }
+
+        [JsonIgnore, ObservableProperty] public bool isNew = false;
 
         public Location()
         {

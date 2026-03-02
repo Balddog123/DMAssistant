@@ -63,6 +63,12 @@ namespace DMAssistant.ViewModel
             }
         });
 
+        public bool IsNew
+        {
+            get => _location != null ? _location.IsNew : false;
+            set => _location.IsNew = value;
+        }
+
         public LocationViewModel(Location location, LocationPanelViewModel panel = null)
         {
             _location = location;
@@ -75,11 +81,9 @@ namespace DMAssistant.ViewModel
             get => _location != null ? _location.Name : string.Empty;
             set
             {
-                if (_location.Name != value)
-                {
-                    _location.Name = value;
-                    OnPropertyChanged();
-                }
+                if (IsNew) IsNew = false;
+                SetProperty(_location.Name, value, _location, (m, v) => m.Name = v);
+                OnPropertyChanged();
             }
         }
 
@@ -129,13 +133,6 @@ namespace DMAssistant.ViewModel
                 }
             }
             
-        }
-
-        private bool _isNew;
-        public bool IsNew
-        {
-            get => _isNew;
-            set => SetProperty(ref _isNew, value);
         }
 
 
