@@ -89,8 +89,9 @@ namespace DMAssistant.Model
 
         public static int GetMod(int stat)
         {
-            return (stat - 10) / 2;
+            return (int)Math.Floor((stat - 10.0) / 2.0);
         }
+
 
         public Monster()
         {

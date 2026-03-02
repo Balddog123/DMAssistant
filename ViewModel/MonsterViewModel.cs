@@ -78,13 +78,21 @@ namespace DMAssistant.ViewModel
                 }
             }
         }
+        private string GetModFromStatInt(int stat)
+        {
+            int mod = Monster.GetMod(stat);
+            string prefix = "";
+            if (mod > 0) prefix = "+";
+            
+            return prefix + (mod).ToString();
+        }
         public string STR_Mod
         {
             get
             {
                 if(Monster != null && int.TryParse(Monster.STR, out int str))
                 {
-                    return "+" + ((str - 10) / 2).ToString();
+                    return GetModFromStatInt(str);
                 }
                 else return string.Empty;
             }
@@ -98,7 +106,6 @@ namespace DMAssistant.ViewModel
                 {
                     SetProperty(Monster.DEX, value, Monster, (m, v) => m.DEX = v);
                     OnPropertyChanged(nameof(DEX_Mod));
-                    Debug.WriteLine("Changed DEX...");
                 }
             }
         }
@@ -108,7 +115,7 @@ namespace DMAssistant.ViewModel
             {
                 if (Monster != null && int.TryParse(Monster.DEX, out int num))
                 {
-                    return Monster.GetMod(num).ToString();
+                    return GetModFromStatInt(num);
                 }
                 else return string.Empty;
             }
@@ -131,7 +138,7 @@ namespace DMAssistant.ViewModel
             {
                 if (Monster != null && int.TryParse(Monster.CON, out int num))
                 {
-                    return "+" + ((num - 10) / 2).ToString();
+                    return GetModFromStatInt(num);
                 }
                 else return string.Empty;
             }
@@ -154,7 +161,7 @@ namespace DMAssistant.ViewModel
             {
                 if (Monster != null && int.TryParse(Monster.INT, out int num))
                 {
-                    return "+" + ((num - 10) / 2).ToString();
+                    return GetModFromStatInt(num);
                 }
                 else return string.Empty;
             }
@@ -177,7 +184,7 @@ namespace DMAssistant.ViewModel
             {
                 if (Monster != null && int.TryParse(Monster.WIS, out int num))
                 {
-                    return "+" + ((num - 10) / 2).ToString();
+                    return GetModFromStatInt(num);
                 }
                 else return string.Empty;
             }
@@ -200,7 +207,7 @@ namespace DMAssistant.ViewModel
             {
                 if (Monster != null && int.TryParse(Monster.CHA, out int num))
                 {
-                    return "+" + ((num - 10) / 2).ToString();
+                    return GetModFromStatInt(num);
                 }
                 else return string.Empty;
             }
