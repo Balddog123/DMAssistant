@@ -28,6 +28,7 @@ namespace DMAssistant.ViewModel
         private CampaignFrontsViewModel _campaignFrontsViewModel;
         private WorldMapViewModel _worldMapViewModel;
         private ShopViewModel _shopViewModel;
+        private DiceRollCalculatorViewModel _diceRollCalculatorViewModel;
         private object _currentModuleView;
         public object CurrentModuleView
         {
@@ -48,6 +49,7 @@ namespace DMAssistant.ViewModel
         public RelayCommand ShowCampaignDetails { get; }
         public RelayCommand ShowSpellsCommand { get; }
         public RelayCommand ShowShopCommand { get; }
+        public RelayCommand ShowDiceRollCommand { get; }
         public CampaignViewModel()
         {
             AccumulateIds();
@@ -80,6 +82,7 @@ namespace DMAssistant.ViewModel
                 _shopViewModel = new ShopViewModel();
                 CurrentModuleView = _shopViewModel;
             });
+            ShowDiceRollCommand = new RelayCommand(() => ShowModule(ref _diceRollCalculatorViewModel, () => new DiceRollCalculatorViewModel()));
         }
 
         private void ShowModule<T>(ref T module, Func<T> factory) where T : class

@@ -127,6 +127,10 @@
                 <v:TableView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:DiceRollCalculatorViewModel}">
+                <v:DiceRollCalculator />
+            </DataTemplate>
+
             <!-- Converters -->
             <rc:NullToBoolConverter x:Key="NullToBoolConverter"/>
             <rc:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter" />

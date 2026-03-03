@@ -20,6 +20,9 @@
     <Compile Update="View\CombatTrackerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\DiceRollCalculator.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\EncounterItemView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
