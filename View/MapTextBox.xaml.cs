@@ -29,6 +29,16 @@ namespace DMAssistant.View
         private string _resizeDirection; // "TopLeft", "BottomRight", etc.
         private double _origWidth, _origHeight, _origLeft, _origTop;
 
+        public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(MapTextBox), new PropertyMetadata(false));
+        public bool IsSelected
+        {
+            get => (bool)GetValue(IsSelectedProperty);
+            set
+            {
+                SetValue(IsSelectedProperty, value);
+            }
+        }
+
         public MapTextBox(double origWidth = double.NaN, double origHeight = double.NaN)
         {
             _origWidth = origWidth;
@@ -36,16 +46,17 @@ namespace DMAssistant.View
 
             InitializeComponent();
 
-            if (_origHeight != double.NaN)
-            {
-                MainTextBox.Visibility = Visibility.Collapsed;
-                Height = Double.NaN;
-                BottomRightHandle.Visibility = Visibility.Collapsed;
-            }
-
             BottomRightHandle.MouseLeftButtonDown += Resize_MouseDown;
             BottomRightHandle.MouseMove += Resize_MouseMove;
             BottomRightHandle.MouseLeftButtonUp += Resize_MouseUp;
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            IsSelected = true;
+            e.Handled = true; // IMPORTANT
         }
 
         private void TextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)

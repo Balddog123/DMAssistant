@@ -100,23 +100,23 @@
             </StackPanel>
         </Grid>
         <!-- Scrollable Canvas / Layers -->
-        <ScrollViewer DockPanel.Dock="Bottom" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+        <ScrollViewer DockPanel.Dock="Bottom" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" >
             <Grid Width="2000" Height="2000" x:Name="ZoomRoot">
                 <Grid.LayoutTransform>
                     <ScaleTransform x:Name="ZoomTransform" ScaleX="1" ScaleY="1"/>
                 </Grid.LayoutTransform>
 
                 <!-- Dynamic layer container -->
-                <Grid x:Name="LayerContainer" Width="2000" Height="2000" Background="Transparent"/>
+                <Grid x:Name="LayerContainer" Width="2000" Height="2000" Background="Transparent" MouseLeftButtonDown="TextGroup_MouseLeftButtonDown"/>
 
                 <!-- Background grid -->
                 <Image Source="pack://application:,,,/DMAssistant;component/Resources/grid2000.png" IsHitTestVisible="False"/>
 
                 <!-- Note boxes overlay -->
-                <Canvas x:Name="NoteBoxes" Width="2000" Height="2000"/>
+                <Canvas x:Name="NoteBoxes" Width="2000" Height="2000" />
 
-                <!-- Note boxes overlay -->
-                <Canvas x:Name="TextGroup" Width="2000" Height="2000"/>
+                <!-- Text boxes overlay -->
+                <Canvas x:Name="TextGroup" Width="2000" Height="2000" MouseLeftButtonDown="TextGroup_MouseLeftButtonDown"/>
 
             </Grid>
         </ScrollViewer>

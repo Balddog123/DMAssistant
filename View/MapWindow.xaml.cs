@@ -620,6 +620,8 @@ namespace DMAssistant.View
         private void InkCanvas_MouseDownForText(object sender, MouseButtonEventArgs e)
         {
             if (_activeInkCanvas == null) return;
+            DeselectAll();
+
             // Translate mouse position to NoteBoxes coordinates
             startPoint = e.GetPosition(TextGroup);
             MapTextBox textBox = new MapTextBox();
@@ -642,6 +644,8 @@ namespace DMAssistant.View
 
             TextGroup.Children.Add(textBox);
             draggingTextBox = textBox;
+
+            textBox.IsSelected = true;
 
             // Capture mouse on NoteBoxes so we get all moves, even if cursor leaves
             TextGroup.CaptureMouse();
@@ -681,11 +685,18 @@ namespace DMAssistant.View
         }
         private void TextBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            Debug.WriteLine($"Clicked {e.Source}");
+
             if (e.Source is TextBox) return;
+
+            Debug.WriteLine($"Clicked textbox {_isDragging}");
 
             draggingTextBox = sender as MapTextBox;
             if (draggingTextBox == null) return;
 
+            Debug.WriteLine($"Starting drag {_isDragging}");
+            DeselectAll();
+            
             _isDragging = true;
 
             // Record the offset between mouse and top-left corner of the NoteBox
@@ -696,10 +707,22 @@ namespace DMAssistant.View
             draggingTextBox.CaptureMouse();
             e.Handled = true;
         }
+        private void DeselectAll()
+        {
+            foreach(var child in TextGroup.Children)
+            {
+                if(child is MapTextBox textBox)
+                {
+                    textBox.IsSelected = false;
+                }
+            }
+            Debug.WriteLine("Deselected all...");
+        }
         private void TextBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (!_isDragging || draggingTextBox == null) return;
 
+            Debug.WriteLine($"Dragging {_isDragging}");
             Point pos = e.GetPosition(TextGroup);
 
             // Move the MapTextBox
@@ -710,9 +733,14 @@ namespace DMAssistant.View
         {
             if (!_isDragging || draggingTextBox == null) return;
 
+            Debug.WriteLine($"Finished dragging {_isDragging}");
             draggingTextBox.ReleaseMouseCapture();
             draggingTextBox = null;
             _isDragging = false;
+        }
+        private void TextGroup_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if(!e.Handled) DeselectAll();
         }
         #endregion
         #region NoteBoxes
@@ -796,6 +824,8 @@ namespace DMAssistant.View
 
             _draggingNote.CaptureMouse();
             e.Handled = true;
+
+            
         }
         private void NoteBox_MouseMove(object sender, MouseEventArgs e)
         {
@@ -810,7 +840,6 @@ namespace DMAssistant.View
         private void NoteBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (!_isDragging || _draggingNote == null) return;
-
             _draggingNote.ReleaseMouseCapture();
             _draggingNote = null;
             _isDragging = false;
@@ -829,8 +858,8 @@ namespace DMAssistant.View
         {
             foreach (MapTextBox text in TextGroup.Children)
             {
-                //text.IsEnabled = false;
                 text.IsHitTestVisible = isActive;
+                text.IsSelected = false;
             }
         }
 
@@ -929,5 +958,7 @@ namespace DMAssistant.View
         {
             layer.Name = newValue;
         }
+
+        
     }
 }
