@@ -19,7 +19,9 @@ namespace DMAssistant.ViewModel
     public partial class SpellsPanelViewModel : ObservableObject
     {
         [ObservableProperty] public ObservableCollection<SpellViewModel> spellList = new ObservableCollection<SpellViewModel>();
+        public ObservableCollection<string> spellLevels = new ObservableCollection<string>();
         public ICollectionView SpellsView { get; }
+        public ICollectionView SpellLevelsView { get; }
 
         [ObservableProperty] public SpellViewModel selectedSpell;
 
@@ -32,14 +34,26 @@ namespace DMAssistant.ViewModel
                 if (SetProperty(ref _search, value)) ApplyFilters();
             }
         }
+        private string _selectedLevel = "All Levels";
+        public string SelectedLevel
+        {
+            get => _selectedLevel;
+            set
+            {
+                if (SetProperty(ref _selectedLevel, value)) ApplyFilters();
+            }
+        }
 
         public IRelayCommand AddSpellCommand { get; }
         public IRelayCommand DeleteSpellCommand { get; }
         public SpellsPanelViewModel()
         {
+            spellLevels.Add("All Levels");
             SpellList = new ObservableCollection<SpellViewModel>(
-                App.CampaignStore.CurrentCampaign.Spells.OrderBy(s => s.Name).Select(spell => CreateSpellViewModel(spell, false))
+                App.CampaignStore.CurrentCampaign.Spells.Select(spell => CreateSpellViewModel(spell, false))
             );
+            
+            FillSpellLevels();
 
             AddSpellCommand = new RelayCommand(()=> SpellList.Insert(0, CreateSpellViewModel(CreateDefaultSpell(), true)));
             DeleteSpellCommand = new RelayCommand<SpellViewModel>(deleteSpell =>
@@ -56,15 +70,36 @@ namespace DMAssistant.ViewModel
             SpellsView.SortDescriptions.Add(new SortDescription(nameof(SpellViewModel.IsNew), ListSortDirection.Descending));
             SpellsView.SortDescriptions.Add(new SortDescription(nameof(SpellViewModel.Name), ListSortDirection.Ascending));
             SpellsView.Filter = FilterSpell;
+            SpellLevelsView = CollectionViewSource.GetDefaultView(spellLevels);
+            if (SpellLevelsView is ListCollectionView listView)
+            {
+                listView.SortDescriptions.Clear();
+                listView.CustomSort = Comparer<string>.Create((a, b) =>
+                {
+                    if (a == "All Levels") return -1;
+                    if (b == "All Levels") return 1;
+                    return a.CompareTo(b);
+                });
+            }
             ApplyFilters();
         }
 
+        private void FillSpellLevels()
+        {
+            foreach (var spell in SpellList)
+            {
+                if(!spellLevels.Contains(spell.Level)) spellLevels.Add(spell.Level);
+            }
+        }
         private bool FilterSpell(object obj)
         {
             if (obj is not SpellViewModel m) return false;
 
             if (!string.IsNullOrWhiteSpace(Search) &&
                 !m.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            if (SelectedLevel != "All Levels" && m.Level != SelectedLevel)
                 return false;
 
             return true;
@@ -79,8 +114,6 @@ namespace DMAssistant.ViewModel
             vm.IsNew = isNew;
             // listen to whenever Name/Rank/etc. changes
             HookSpellEvents(vm);
-
-            Debug.WriteLine(vm.IsNew);
             return vm;
         }
 
@@ -90,10 +123,13 @@ namespace DMAssistant.ViewModel
             {
                 // Example: react to name changes
                 if (args.PropertyName == nameof(SpellViewModel.Name))
-                {
-                    
+                {                    
                     // Raise panel-level update (e.g., refresh list)
                     OnPropertyChanged(nameof(SpellList));
+                    ApplyFilters();
+                }else if (args.PropertyName == nameof(SpellViewModel.Level))
+                {
+                    FillSpellLevels();
                     ApplyFilters();
                 }
             };

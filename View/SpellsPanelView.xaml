@@ -3,8 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:h="clr-namespace:DMAssistant.Helpers.Converter"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <h:BoolToAsteriskConverter x:Key="BoolToAsteriskConverter"/>
+    </UserControl.Resources>
 
     <Grid Margin="10">
 
@@ -19,6 +24,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             
@@ -29,13 +35,15 @@
                     Command="{Binding AddSpellCommand}"
                     Margin="0,0,0,10"/>
 
+            <ComboBox Grid.Column="0" Grid.Row="2" ItemsSource="{Binding SpellLevelsView}" SelectedItem="{Binding SelectedLevel}" Margin="0,0,10,10"/>
+
             <TextBlock Text="Spells"
-                       Grid.Row="2"
+                       Grid.Row="3"
                        FontWeight="Bold"
                        Margin="0,0,0,5"/>
 
             <ListBox ItemsSource="{Binding SpellsView}"
-                     Grid.Row="3"
+                     Grid.Row="4"
                     SelectedItem="{Binding SelectedSpell}">
 
                 <ListBox.ItemTemplate>
@@ -54,9 +62,10 @@
                             <!-- Spell name + level -->
                             <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5">
                                 <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} (Level {1})">
+                                    <MultiBinding StringFormat="{}{0} ({1}){2}">
                                         <Binding Path="Name"/>
                                         <Binding Path="Level"/>
+                                        <Binding Path="IsNew" Converter="{StaticResource BoolToAsteriskConverter}"/>
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
