@@ -27,6 +27,7 @@ namespace DMAssistant.ViewModel
             {
                 SetProperty(ref selectedTable, value);
                 SelectedTableView = new TableViewModel(value);
+                HookItemEvents(SelectedTableView);
             }
         }
         [ObservableProperty] TableViewModel selectedTableView;
@@ -59,13 +60,28 @@ namespace DMAssistant.ViewModel
             });
 
             TablesView = CollectionViewSource.GetDefaultView(Tables);
+            TablesView.SortDescriptions.Add(new SortDescription(nameof(Table.IsNew), ListSortDirection.Descending));
+            TablesView.SortDescriptions.Add(new SortDescription(nameof(Table.Name), ListSortDirection.Ascending));
             TablesView.Filter = FilterTable;
             ApplyFilters();
+        }
+        private void HookItemEvents(TableViewModel vm)
+        {
+            vm.PropertyChanged += (_, args) =>
+            {
+                // Example: react to name changes
+                if (args.PropertyName == nameof(TableViewModel.Name))
+                {
+                    // Raise panel-level update (e.g., refresh list)
+                    OnPropertyChanged(nameof(Tables));
+                    ApplyFilters();
+                }
+            };
         }
         private void AddTable()
         {
             Debug.WriteLine("adding table...");
-            Tables.Add(new Table());
+            Tables.Add(new Table() { IsNew = true });
         }
         private bool FilterTable(object obj)
         {

@@ -30,6 +30,7 @@ namespace DMAssistant.ViewModel
             get => Table.Name;
             set
             {
+                if (Table.IsNew) Table.IsNew = false;
                 SetProperty(Table.Name, value, Table, (m, v) => m.Name = v);
             }
         }
