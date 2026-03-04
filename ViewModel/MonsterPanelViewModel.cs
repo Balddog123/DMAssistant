@@ -6,6 +6,7 @@ using DMAssistant.View;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -15,10 +16,12 @@ namespace DMAssistant.ViewModel
     public class MonsterPanelViewModel : ObservableObject
     {
         public ICollectionView MonsterView { get; }
+        public ICollectionView TypesView { get; }
+        public ICollectionView CRView { get; }
         public Session _session { get; private set; }
         public ObservableCollection<Monster> AllMonsters { get; private set; }
-        public ObservableCollection<Monster> AllCreatureTypes { get; private set; }
-        public ObservableCollection<Monster> AllCRs { get; private set; }
+        public ObservableCollection<string> AllCreatureTypes { get; private set; }
+        public ObservableCollection<string> AllCRs { get; private set; }
 
         // This is the list of IDs stored in the Session
         private readonly ObservableCollection<string> _sessionMonsterIds;
@@ -48,7 +51,7 @@ namespace DMAssistant.ViewModel
                 if (SetProperty(ref _search, value)) ApplyFilters(); 
             } 
         }
-        private string _typeFilter = "All";
+        private string _typeFilter = "All Types";
         public string TypeFilter
         {
             get => _typeFilter;
@@ -57,7 +60,7 @@ namespace DMAssistant.ViewModel
                 if (SetProperty(ref _typeFilter, value)) ApplyFilters();
             }
         }
-        private string _crFilter = "All";
+        private string _crFilter = "All CRs";
         public string CRFilter
         {
             get => _crFilter;
@@ -91,6 +94,10 @@ namespace DMAssistant.ViewModel
             _sessionMonsterIds = monsterIds;
 
             AllMonsters = new ObservableCollection<Monster>();
+            AllCreatureTypes = new ObservableCollection<string>();
+            AllCreatureTypes.Add("All Types");
+            AllCRs = new ObservableCollection<string>();
+            AllCRs.Add("All CRs");
 
             // Hydrate real Monster objects
             foreach (string id in monsterIds)
@@ -103,7 +110,33 @@ namespace DMAssistant.ViewModel
             MonsterView.SortDescriptions.Add(new SortDescription(nameof(Monster.IsNew), ListSortDirection.Descending));
             MonsterView.SortDescriptions.Add(new SortDescription(nameof(Monster.Name), ListSortDirection.Ascending));
             MonsterView.Filter = FilterMonster;
+            TypesView = CollectionViewSource.GetDefaultView(AllCreatureTypes);
+            if (TypesView is ListCollectionView typesListView)
+            {
+                typesListView.SortDescriptions.Clear();
+                typesListView.CustomSort = Comparer<string>.Create((a, b) =>
+                {
+                    if (a == "All Types") return -1;
+                    return a.CompareTo(b);
+                });
+            }
+            CRView = CollectionViewSource.GetDefaultView(AllCRs);
+            if(CRView is ListCollectionView listView)
+            {
+                listView.SortDescriptions.Clear();
+                listView.CustomSort = Comparer<string>.Create((a, b) =>
+                {
+                    if (a == "All CRs") return -1;
+                    double da = ParseNumericValue(a);
+                    double db = ParseNumericValue(b);
+
+                    return da.CompareTo(db);
+                });
+            }
             ApplyFilters();
+
+            FillCreatureTypes();
+            FillCRs();
 
             AddNewMonsterCommand = new RelayCommand(() => AddNewMonster());
             AddExistingMonsterCommand = new RelayCommand(AddExistingMonster);
@@ -126,8 +159,68 @@ namespace DMAssistant.ViewModel
                     // Raise panel-level update (e.g., refresh list)
                     OnPropertyChanged(nameof(AllMonsters));
                     ApplyFilters();
+                }else if (args.PropertyName == nameof(MonsterViewModel.Meta))
+                {
+                    FillCreatureTypes();
+                    OnPropertyChanged(nameof(AllCreatureTypes));
+                    ApplyFilters();
+                }
+                else if (args.PropertyName == nameof(MonsterViewModel.Challenge))
+                {
+                    FillCRs();
+                    OnPropertyChanged(nameof(AllCRs));
+                    ApplyFilters();
                 }
             };
+        }
+
+        double ParseNumericValue(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return 0;
+
+            // Handle fraction format like "1/4"
+            if (input.Contains("/"))
+            {
+                var parts = input.Split('/');
+
+                if (parts.Length == 2 &&
+                    double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double numerator) &&
+                    double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double denominator) &&
+                    denominator != 0)
+                {
+                    return numerator / denominator;
+                }
+            }
+
+            // Handle normal numbers like "2" or "0.5"
+            if (double.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out double value))
+                return value;
+
+            // Fallback for invalid values
+            return double.MinValue;
+        }
+        private void FillCreatureTypes()
+        {
+            foreach (var monster in AllMonsters)
+            {
+                string creatureType = ExtractType(monster.Meta);
+                if (!AllCreatureTypes.Contains(creatureType))
+                {
+                    AllCreatureTypes.Add(creatureType);
+                }
+            }
+        }
+        private void FillCRs()
+        {
+            foreach (var monster in AllMonsters)
+            {
+                string cr = ExtractCR(monster.Challenge);
+                if (!AllCRs.Contains(cr))
+                {
+                    AllCRs.Add(cr);
+                }
+            }
         }
 
         private void OnMonsterDeleted(Monster monster)
@@ -192,7 +285,9 @@ namespace DMAssistant.ViewModel
             if (parts.Length > 0)
             {
                 var words = parts[0].Trim().Split(' ');
-                return words.Last();
+                string extractedType = words.Last();
+                
+                return char.ToUpper(extractedType[0]) + extractedType.Substring(1);
             }
             return "Unknown";
         }
@@ -211,10 +306,10 @@ namespace DMAssistant.ViewModel
                 !m.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
                 return false;
 
-            if (TypeFilter != "All" && ExtractType(m.Meta) != TypeFilter)
+            if (TypeFilter != "All Types" && ExtractType(m.Meta) != TypeFilter)
                 return false;
 
-            if (CRFilter != "All" && ExtractCR(m.Challenge) != CRFilter)
+            if (CRFilter != "All CRs" && ExtractCR(m.Challenge) != CRFilter)
                 return false;
 
             return true;

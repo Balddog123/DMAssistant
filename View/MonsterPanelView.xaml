@@ -43,12 +43,12 @@
                 Margin="0,0,10,10"/>
 
         <ComboBox Grid.Column="0" Grid.Row="3"
-                  ItemsSource="{Binding AllCreatureTypes}"
+                  ItemsSource="{Binding TypesView}"
                   SelectedItem="{Binding TypeFilter}"
                   Margin="0,0,10,10"/>
 
         <ComboBox Grid.Column="0" Grid.Row="4"
-                  ItemsSource="{Binding AllCRs}"
+                  ItemsSource="{Binding CRView}"
                   SelectedItem="{Binding CRFilter}"
                   Margin="0,0,10,10"/>
 
